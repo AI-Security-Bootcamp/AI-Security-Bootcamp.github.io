@@ -16,7 +16,7 @@ const projects = [
   {
     name: "Diana & Leo",
     title: "Chasseur",
-    description: "Security monitoring system for AI coding agents using Wazuh to detect and prevent malicious behavior from LLM agents with command execution privileges.",
+    description: "Catching misbehaving coding agents red-handed through local deployment of EDR to detect and mitigate suspicious command execution attempts.",
     link: "https://github.com/le0kar0ub1/Chasseur",
   },
   {
