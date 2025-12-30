@@ -14,6 +14,12 @@ const projects = [
     link: "https://github.com/christopear/tarpoison",
   },
   {
+    name: "Diana & Leo",
+    title: "Chasseur",
+    description: "Security monitoring system for AI coding agents using Wazuh to detect and prevent malicious behavior from LLM agents with command execution privileges.",
+    link: "https://github.com/le0kar0ub1/Chasseur",
+  },
+  {
     name: "Ethan",
     title: "Breaking Taylor Unswift",
     description: "Demonstrates weight extraction from Taylor series-obfuscated neural networks, undermining model exfiltration protections.",
@@ -27,7 +33,7 @@ const projects = [
   },
   {
     name: "Jaeho",
-    title: "Singapore AI Governance",
+    title: "Autonomy caps for Agents governance",
     description: "Policy framework proposing autonomy caps for AI agents in government systems with practical usage guidelines.",
     link: "https://docs.google.com/document/d/1L7RSmU2k5PtQKI7dsozD8yD6rjHBcy1TCl1CEtKEw-4/edit?usp=sharing",
   },
