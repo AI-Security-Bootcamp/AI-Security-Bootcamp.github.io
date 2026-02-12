@@ -119,18 +119,11 @@ export default function SingaporeBootcamp3() {
             Back to Home
           </Link>
 
-          {/* Badge */}
-          <div className="flex justify-center mb-6">
-            <span className="inline-block bg-blue-600/20 text-blue-400 text-xs font-semibold tracking-widest uppercase px-4 py-1.5 rounded-full border border-blue-500/30">
-              GCR-Focused
-            </span>
-          </div>
-
           {/* Title */}
           <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-center mb-4 tracking-tight">
             AI Security Bootcamp{" "}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-400">
-              — Singapore
+              Singapore
             </span>
           </h1>
 

@@ -312,15 +312,10 @@ export default function SingaporeBootcamp() {
 
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
           <div className="max-w-3xl">
-            {/* Badge */}
-            <span className="inline-block bg-[#0f3460] border border-blue-400/30 text-blue-300 text-xs font-bold tracking-widest uppercase px-3 py-1 rounded mb-6">
-              GCR-Focused
-            </span>
-
             {/* Title */}
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-tight mb-4 tracking-tight">
               AI Security Bootcamp
-              <span className="block text-blue-300">&mdash; Singapore</span>
+              <span className="block text-blue-300">Singapore</span>
             </h1>
 
             {/* Subtitle */}

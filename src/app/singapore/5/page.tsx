@@ -111,22 +111,6 @@ export default function SingaporePage() {
         />
 
         <div className="relative z-10 max-w-5xl mx-auto px-6 py-24 sm:py-32 text-center">
-          {/* Badge */}
-          <div className="inline-block mb-8">
-            <span
-              className="px-4 py-1.5 text-xs font-bold tracking-widest uppercase rounded-full"
-              style={{
-                border: "1.5px solid transparent",
-                backgroundClip: "padding-box, border-box",
-                backgroundOrigin: "padding-box, border-box",
-                backgroundImage:
-                  "linear-gradient(#1e1b4b, #1e1b4b), linear-gradient(135deg, #8b5cf6, #3b82f6)",
-                color: "#c4b5fd",
-              }}
-            >
-              GCR-Focused
-            </span>
-          </div>
 
           <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight leading-tight mb-6">
             AI Security Bootcamp{" "}
@@ -137,7 +121,7 @@ export default function SingaporePage() {
                   "linear-gradient(90deg, #3b82f6, #8b5cf6)",
               }}
             >
-              &mdash; Singapore
+              Singapore
             </span>
           </h1>
 

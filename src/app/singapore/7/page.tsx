@@ -121,15 +121,9 @@ export default function SingaporeBootcampPage() {
       {/* ===================== HERO ===================== */}
       <section className="min-h-screen flex flex-col justify-center px-6 md:px-16 lg:px-24 relative">
         <div className="max-w-5xl">
-          <p className="text-[#ef4444] font-black text-sm tracking-[0.3em] uppercase mb-8">
-            GCR-FOCUSED
-          </p>
-
           <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black leading-[0.95] tracking-tight mb-8">
-            AI Security
+            AI Security Bootcamp
             <br />
-            Bootcamp{" "}
-            <span className="text-neutral-500">&mdash;</span>{" "}
             Singapore
           </h1>
 

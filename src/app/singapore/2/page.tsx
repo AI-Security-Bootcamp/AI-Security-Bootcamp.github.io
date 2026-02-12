@@ -132,13 +132,10 @@ export default function SingaporeCohort2() {
       {/* Hero */}
       <header className="relative bg-gradient-to-b from-gray-50 to-white">
         <div className="max-w-5xl mx-auto px-6 pt-20 pb-16 md:pt-28 md:pb-24 text-center">
-          <span className="inline-block text-xs font-semibold tracking-widest uppercase text-blue-600 bg-blue-50 border border-blue-200 rounded-full px-4 py-1.5 mb-6">
-            GCR-Focused
-          </span>
 
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-gray-900 mb-4">
             AI Security Bootcamp{" "}
-            <span className="text-blue-600">&mdash; Singapore</span>
+            <span className="text-blue-600">Singapore</span>
           </h1>
 
           <p className="text-lg md:text-xl text-gray-500 max-w-2xl mx-auto mb-8">
