@@ -344,10 +344,6 @@ export default function SingaporeBootcampPage() {
           </div>
         </div>
 
-        {/* Scroll indicator */}
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2">
-          <div className="w-px h-16 bg-neutral-300 dark:bg-neutral-700" />
-        </div>
       </section>
 
       {/* ===================== JUMP-TO NAV ===================== */}
@@ -379,33 +375,18 @@ export default function SingaporeBootcampPage() {
         </h2>
 
         <div className="max-w-3xl space-y-16">
-          {/* The Challenge */}
           <div>
-            <h3 className="text-[#ef4444] font-black text-sm uppercase tracking-widest mb-6">
-              The Challenge
-            </h3>
-            <p className="text-neutral-600 dark:text-neutral-300 text-base md:text-lg leading-relaxed">
-              As frontier AI systems are deployed in enterprise environments,
-              the stakes for security failures extend beyond individual
-              organizations. Experienced security practitioners&mdash;the people
-              best positioned to secure AI deployments&mdash;face few credible,
-              time-efficient pathways to upskill in AI-specific security.
-            </p>
-          </div>
-
-          {/* Our Approach */}
-          <div>
-            <h3 className="text-[#ef4444] font-black text-sm uppercase tracking-widest mb-6">
-              Our Approach
-            </h3>
             <div className="space-y-6 text-neutral-600 dark:text-neutral-300 text-base md:text-lg leading-relaxed">
               <p>
-                AISB Singapore is a curated, practitioner-focused 7-day
-                intensive designed to orient mid-to-late career InfoSec
-                professionals to AI security topics relevant to frontier AI
-                systems. The program prioritizes security failures with
-                large-scale or irreversible consequences&mdash;the threat
-                classes least served by conventional training.
+                This iteration of AI Security bootcamp explores the rapidly evolving threat landscape of frontier AI systems,
+                equipping security professionals with the knowledge and hands-on skills to secure against current and emerging risks.
+              </p>
+              <p>
+                As AI systems become more capable and integrated into critical infrastructure, new attack surfaces and
+                failure modes are emerging that traditional security training doesn&apos;t cover. This program is
+                designed to fill that gap, providing an intensive, practitioner-focused curriculum that prepares
+                participants to engage with the most pressing AI security challenges we see today, and grapple with
+                how the risks will evolve in the future.
               </p>
               <p>
                 Participants complete targeted pre-work to establish baseline AI
@@ -446,7 +427,7 @@ export default function SingaporeBootcampPage() {
           </h3>
           <ul className="space-y-5 max-w-3xl">
             {[
-              "Develop a threat model for frontier AI systems: from current enterprise deployments to the security challenges posed by increasingly capable systems",
+              "Develop a threat model for frontier AI systems: from current deployments to the security challenges posed by increasingly capable systems",
               "Build hands-on capability across the full attack surface: adversarial techniques, infrastructure exploitation, supply chain attacks, and model-level vulnerabilities",
               "Understand which defensive approaches scale with AI capability increases\u2014and which won\u2019t survive the next few years",
               "Engage with security challenges that frontier AI organizations are actively working on\u2014problems not yet covered in standard training curricula",
@@ -478,40 +459,18 @@ export default function SingaporeBootcampPage() {
           {/* Main description */}
           <div className="space-y-6 text-neutral-600 dark:text-neutral-300 text-base md:text-lg leading-relaxed">
             <p>
-              Senior security professionals ready to engage with frontier AI
-              systems on all sides: as targets worth protecting, as
-              infrastructure worth hardening, as a force multiplier for the
-              adversaries you&apos;re up against, and as systems whose
-              governance is itself an attack surface.
+              Security professionals ready to engage with frontier AI
+              systems at all stages - as user applications, as model APIs for users,
+              as infrastructure hosting the models, and as governance frameworks for
+              emerging threats.
             </p>
             <p>
-              This program isn&apos;t domain-specific&mdash;whether your
+              We want our cohort to span a wide range of expertise - whether your
               background is offensive security, incident response, threat
               intelligence, infrastructure, or application security, the
-              AI-specific threat models and techniques we cover will extend
+              AI-specific threat models and techniques we cover will push
               what you already know into new territory.
             </p>
-          </div>
-
-          {/* Background grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-0">
-            {[
-              "Offensive Security",
-              "Application Security",
-              "Infrastructure Security",
-              "Threat Intelligence",
-              "Incident Response",
-              "Detection & Response",
-            ].map((bg, i) => (
-              <div
-                key={i}
-                className={`border-2 border-black dark:border-white p-6 ${
-                  i % 2 !== 0 ? "sm:border-l-0" : ""
-                } ${i >= 2 ? "border-t-0" : ""}`}
-              >
-                <p className="font-black text-lg">{bg}</p>
-              </div>
-            ))}
           </div>
 
           {/* Prerequisites */}
@@ -521,12 +480,18 @@ export default function SingaporeBootcampPage() {
             </h3>
             <p className="text-neutral-600 dark:text-neutral-300 text-base md:text-lg leading-relaxed mb-4">
               5+ years of hands-on security experience. No prior AI or ML
-              background needed&mdash;we cover what&apos;s necessary.
+              background needed - the pre-work will cover what's necessary.
             </p>
-            <p className="text-neutral-600 dark:text-neutral-300 text-base md:text-lg leading-relaxed">
+            <p className="text-neutral-600 dark:text-neutral-300 text-base md:text-lg leading-relaxed mb-4">
               Selection prioritizes candidates interested in frontier AI risk,
               high-consequence failure modes, or work involving sophisticated
               threat actors.
+            </p>
+            <p className="text-neutral-600 dark:text-neutral-300 text-base md:text-lg leading-relaxed">
+              Experience with deep learning frameworks (e.g., PyTorch) is a plus but not required.
+              We want to make this accessible to security professionals from a variety of backgrounds,
+              so we provide comprehensive pre-work to get everyone up to speed on the AI fundamentals
+              needed to engage with the curriculum.
             </p>
           </div>
 
@@ -539,7 +504,7 @@ export default function SingaporeBootcampPage() {
               AISB Singapore runs April 20&ndash;26, overlapping with Black Hat
               Asia (April 21&ndash;24) and just before DEF CON (April
               28&ndash;30). If you&apos;re already planning to attend DEF CON,
-              this program fits naturally into the same trip&mdash;the bootcamp
+              this program fits naturally into the same trip: the bootcamp
               ends just before DEF CON opens.
             </p>
           </div>
@@ -550,11 +515,6 @@ export default function SingaporeBootcampPage() {
               Cost & Selection
             </h3>
             <div className="space-y-6 text-neutral-600 dark:text-neutral-300 text-base md:text-lg leading-relaxed">
-              <p>
-                The program is fully grant-funded. Serious institutions are
-                investing in building this field, and this cohort is part of
-                that effort.
-              </p>
               <p>
                 Accommodation included. Limited travel support
                 available&mdash;note this in your application.
