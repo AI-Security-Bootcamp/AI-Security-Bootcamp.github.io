@@ -605,7 +605,7 @@ export default function SingaporeBootcampPage() {
           </h2>
           <p className="text-neutral-500 dark:text-neutral-400 text-base md:text-lg leading-relaxed mb-4 max-w-xl">
             Applications close 15th March 2026. We review on a rolling
-            basis&mdash;early applications are encouraged.
+            basis&mdash;early applications are encouraged. Let us know in your application if you'd like a decision sooner.
           </p>
           <p className="text-neutral-500 dark:text-neutral-400 text-base md:text-lg leading-relaxed mb-10 max-w-xl">
             Reach out to express interest or ask questions about the program.
