@@ -1,785 +1,682 @@
 "use client";
 
-import { useState, useEffect } from 'react';
-import Link from 'next/link';
+import { useState, useEffect } from "react";
 
-const curriculum = [
+const curriculumDays = [
   {
-    day: 1,
+    day: "Day 1",
     title: "Introduction & Threat Modeling",
-    topics: [
-      "Threat models from current AI systems to catastrophic misuse and misalignment",
-      "STRIDE methodology applied to AI systems",
-      "Adversary capability modeling for AI-specific threats",
-      "Current threats: misuse, application security, infrastructure security",
-      "Future threats: misalignment, model theft, integrity attacks, governance violations",
+    items: [
+      "Current threat landscape: frameworks, misuse (e.g., to assist cyberattacks), application security, infrastructure security",
+      "Future threat models: misalignment, model theft and tampering, integrity attacks (backdoors, trojans), governance guarantees",
+      "Mapping threat models to attacks, defenses, and follow-up pathways",
+      "Threat modeling exercise against an AI deployment, which we will attack and defend in future days",
     ],
   },
   {
-    day: 2,
+    day: "Day 2",
     title: "Adversarial Attacks, Watermarking & Data Security",
-    topics: [
-      "Crafting adversarial examples against image classifiers",
-      "Watermarking techniques for model outputs",
-      "Trojans and backdoor attacks on ML models",
-      "Data poisoning and integrity attacks",
-      "Fine-tuning attacks on open source models",
-    ],
-  },
-  {
-    day: 3,
-    title: "LLM Security",
-    topics: [
-      "Constitutional classifiers and linear probes",
-      "Guardrails: input & output classifiers",
-      "Abliteration and model editing techniques",
-      "Jailbreaks and prompt injection",
-      "Tokenization vulnerabilities",
+    items: [
+      "Adversarial examples and attacks on image models",
+      "Trojans, backdoors, and fine-tuning attacks on open-source models",
       "Model weight extraction attacks",
+      "Watermarking techniques and detection",
+      "Data security: weight security, training data protection, inference-time data handling",
     ],
   },
   {
-    day: 4,
-    title: "Infrastructure Security",
-    topics: [
-      "NVIDIA Container Toolkit exploit case studies",
-      "GPU isolation techniques",
-      "Confidential computing for AI workloads",
-      "Sandbox design considerations",
-      "Container security and escape prevention",
-    ],
-  },
-  {
-    day: 5,
-    title: "Formal Methods & RAND Report Analysis",
-    topics: [
-      "Verification-oriented techniques for AI systems",
-      "Formal methods for output verification",
-      "Analysis of RAND report on AI security",
+    day: "Day 3",
+    title: "LLM Security",
+    items: [
+      "Jailbreaks, prompt injection, and RAG injection",
+      "Guardrails: Constitutional classifiers and linear probes for input and output monitoring",
+      "Abliteration and model editing techniques",
+      "Tokenization vulnerabilities",
       "MCP (Model Context Protocol) security",
-      "RAG injection attacks and defenses",
     ],
   },
   {
-    day: 6,
-    title: "Data Center Security & ML Stack Threat Modeling",
-    topics: [
-      "Data center infrastructure: power, cooling, networking, physical security",
-      "ML stack threat modeling",
-      "Hardware supply chain security",
-      "Weight security, data security, deployment security",
-      "Personnel security considerations",
-      "Potential data center site visit",
+    day: "Day 4",
+    title: "Infrastructure Security",
+    items: [
+      "NVIDIA Container Toolkit exploits and case studies",
+      "GPU isolation and confidential computing",
+      "Sandbox design: containment, escape vectors, and design considerations",
     ],
   },
   {
-    day: 7,
-    title: "AI Control & Hardware Governance",
-    topics: [
-      "AI control mechanisms and frameworks",
-      "Hardware governance for AI systems",
+    day: "Day 5",
+    title: "Weight security, Verification & Formal Methods",
+    items: [
+      "RAND report analysis and policy implications",
+      "Output verification using formal methods",
       "Detecting and defending against rogue deployments",
-      "Follow-up pathways: fellowships, organizations, research directions",
-      "Career pathways in AI security (MATS, Heron Fellowship, and more)",
+    ],
+  },
+  {
+    day: "Day 6",
+    title: "Data Center Security & ML Stack Threat Modeling",
+    items: [
+      "Data center infrastructure: power, networking, physical security",
+      "ML stack threat modeling end-to-end",
+      "Personnel security considerations for AI deployments",
+      "(Potential site visit - TBD) to a local data center for a behind-the-scenes look at real-world deployments",
+    ],
+  },
+  {
+    day: "Day 7",
+    title: "AI Control & Hardware Governance",
+    items: [
+      "AI control mechanisms and policy",
+      "Hardware supply chains and governance frameworks",
+      "Securing against treaty violations and governance guarantees",
     ],
   },
 ];
 
 const faqs = [
   {
-    question: "What is the time commitment?",
-    answer:
-      "The program runs for 7 full days from April 25 to May 1, 2026. This follows Black Hat Asia (April 21-24) and overlaps with DEFCON Singapore (April 28-30), creating natural travel synergies.",
+    q: "Who else will be in the room?",
+    a: "Senior security professionals from across the stack\u2014offensive and defensive, application and infrastructure, detection and response. Cohort size is intentionally small (10\u201312) so that peer learning is a meaningful part of the experience. We aim to bring security professionals and researchers working on frontier AI systems together.",
   },
   {
-    question: "Is the program free?",
-    answer:
-      "Yes. AISB Singapore is fully subsidized. Accommodation, flights (for those without employer-sponsored travel), and meals are covered.",
+    q: "What does \u201cfrontier AI security\u201d mean in practice?",
+    a: "It means engaging with the threat models that matter as AI systems become more capable\u2014not just today\u2019s enterprise LLM deployments, but the attack surfaces, control mechanisms, and governance challenges that become critical as systems grow more powerful.",
   },
   {
-    question: "Who should apply?",
-    answer:
-      "We're looking for 10\u201312 senior security professionals with backgrounds in red teaming, application security, infrastructure security, or threat intelligence. Ideal candidates are technical practitioners (not management/C-suite) with interest in frontier AI risk and high-consequence failure modes.",
+    q: "What does the full application process look like?",
+    a: "It\u2019s a 3-step process. First, you submit an application. The second stage is a short (30-60min) coding test. The last step is a 30-minute interview. We review submissions on a rolling basis, so please apply early!",
   },
   {
-    question: "What are the prerequisites?",
-    answer:
-      "Participants should be mid-to-late career InfoSec professionals with sufficient technical depth in security. Prior AI/ML experience is not required \u2014 the program is designed to orient experienced security practitioners to AI-specific threat models.",
+    q: "Does the program cover accommodation and travel?",
+    a: "Accommodation is included for all international participants. We have limited travel support available for those who need it\u2014indicate this in your application and we\u2019ll do our best to accommodate. Program costs are fully covered regardless.",
   },
   {
-    question: "How does this relate to the main AISB program?",
-    answer:
-      "AISB Singapore builds on the AI-specific security content from AISB Week 3, adapted for senior practitioners who can\u2019t commit to the full 4-week program. It\u2019s a compressed intensive focused on the AI security topics most relevant to high-stakes deployments.",
+    q: "What is the time commitment?",
+    a: "Full-time attendance for seven days (10am - 6pm), April 20 through 26. Pre-reading will be sent in advance (should take ~16-20 hours), and we'll have extra reading materials to familiarize yourself with the day's contents as well.",
   },
   {
-    question: "What happens after the program?",
-    answer:
-      "The program includes discussion of follow-up pathways including relevant organizations, fellowships (such as MATS and Heron Fellowship), applied research collaborations, and security roles focused on frontier AI systems.",
+    q: "What happens after the program?",
+    a: "Participants join a network of AISB alumni across cohorts. We\u2019ll share relevant opportunities in AI security research, fellowship programs, and organizations working on frontier AI security challenges.",
   },
   {
-    question: "I have more questions!",
-    answer: "Email us at pranav@aisb.dev \u2014 we\u2019re happy to chat.",
+    q: "I have more questions.",
+    a: "Email pranav@aisb.dev.",
   },
 ];
 
-const sections = ["overview", "curriculum", "instructors", "faqs"] as const;
+const SLOT_WORDS = ["Singapore", "2026"];
+const SLOT_INTERVAL = 3000;
+const SLOT_DURATION = 600;
 
-export default function Singapore() {
-  const [activeSection, setActiveSection] = useState<string>("overview");
-  const [expandedDays, setExpandedDays] = useState<Set<number>>(new Set());
-  const [expandedFaqs, setExpandedFaqs] = useState<Set<number>>(new Set());
+function SlotCarousel() {
+  const [index, setIndex] = useState(0);
+  const [phase, setPhase] = useState<"idle" | "animating">("idle");
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setActiveSection(entry.target.id);
-          }
-        });
-      },
-      { rootMargin: "-20% 0px -60% 0px" }
-    );
-
-    sections.forEach((section) => {
-      const el = document.getElementById(section);
-      if (el) observer.observe(el);
-    });
-
-    return () => observer.disconnect();
+    const timer = setInterval(() => {
+      setPhase("animating");
+      setTimeout(() => {
+        setIndex((i) => (i + 1) % SLOT_WORDS.length);
+        setPhase("idle");
+      }, SLOT_DURATION);
+    }, SLOT_INTERVAL);
+    return () => clearInterval(timer);
   }, []);
 
-  const toggleDay = (day: number) => {
-    setExpandedDays((prev) => {
-      const next = new Set(prev);
-      if (next.has(day)) next.delete(day);
-      else next.add(day);
-      return next;
-    });
-  };
+  const next = (index + 1) % SLOT_WORDS.length;
 
-  const toggleFaq = (index: number) => {
-    setExpandedFaqs((prev) => {
-      const next = new Set(prev);
-      if (next.has(index)) next.delete(index);
-      else next.add(index);
-      return next;
-    });
-  };
+  return (
+    <span className="relative inline-block overflow-hidden align-bottom h-[1.2em]">
+      {/* Hidden sizer: renders all words to reserve width of the longest */}
+      {SLOT_WORDS.map((word) => (
+        <span key={word} className="invisible block whitespace-nowrap h-0" aria-hidden="true">
+          {word}
+        </span>
+      ))}
+      {/* Current word */}
+      <span
+        className="absolute left-0 top-0 inline-block text-[#ef4444] whitespace-nowrap"
+        style={
+          phase === "animating"
+            ? {
+                animation: `slot-slide-out ${SLOT_DURATION}ms ease-out forwards`,
+              }
+            : undefined
+        }
+      >
+        {SLOT_WORDS[index]}
+      </span>
+      {/* Incoming word */}
+      {phase === "animating" && (
+        <span
+          className="absolute left-0 top-0 inline-block text-[#ef4444] whitespace-nowrap"
+          style={{
+            animation: `slot-slide-in ${SLOT_DURATION}ms ease-out forwards`,
+          }}
+        >
+          {SLOT_WORDS[next]}
+        </span>
+      )}
+    </span>
+  );
+}
 
-  const scrollToSection = (id: string) => {
+function useTheme() {
+  const [isDark, setIsDark] = useState(false);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    const saved = localStorage.getItem("theme");
+    if (saved === "dark" || saved === "light") {
+      setIsDark(saved === "dark");
+    } else {
+      setIsDark(window.matchMedia("(prefers-color-scheme: dark)").matches);
+    }
+    setMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (!mounted) return;
+    document.documentElement.classList.toggle("dark", isDark);
+    localStorage.setItem("theme", isDark ? "dark" : "light");
+  }, [isDark, mounted]);
+
+  const toggle = () => setIsDark((d) => !d);
+
+  return { isDark, toggle, mounted };
+}
+
+function ThemeToggle({ isDark, toggle }: { isDark: boolean; toggle: () => void }) {
+  return (
+    <button
+      onClick={toggle}
+      className="fixed top-6 right-6 z-50 flex items-center gap-2 px-3 py-2 text-xs font-bold uppercase tracking-widest rounded-full border-2 border-neutral-300 dark:border-neutral-600 bg-white/80 dark:bg-black/80 backdrop-blur text-neutral-700 dark:text-neutral-300 hover:border-[#ef4444] hover:text-[#ef4444] dark:hover:border-[#ef4444] dark:hover:text-[#ef4444] transition-colors"
+      aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
+    >
+      {isDark ? (
+        <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+          <path strokeLinecap="round" strokeLinejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+        </svg>
+      ) : (
+        <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+          <path strokeLinecap="round" strokeLinejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+        </svg>
+      )}
+      <span>{isDark ? "Light" : "Dark"}</span>
+    </button>
+  );
+}
+
+function AccordionItem({
+  day,
+  title,
+  items,
+}: {
+  day: string;
+  title: string;
+  items: string[];
+}) {
+  const [open, setOpen] = useState(false);
+
+  return (
+    <div className="border-b-2 border-black dark:border-white">
+      <button
+        onClick={() => setOpen(!open)}
+        className="w-full flex items-center justify-between py-6 px-0 text-left focus:outline-none group"
+      >
+        <div className="flex items-baseline gap-6">
+          <span className="text-[#ef4444] font-black text-sm uppercase tracking-widest">
+            {day}
+          </span>
+          <span className="text-black dark:text-white font-bold text-lg md:text-xl">
+            {title}
+          </span>
+        </div>
+        <span className="text-black dark:text-white text-3xl font-light leading-none select-none">
+          {open ? "\u2212" : "+"}
+        </span>
+      </button>
+      {open && (
+        <ul className="pb-6 pl-0 space-y-3">
+          {items.map((item, i) => (
+            <li
+              key={i}
+              className="flex items-start gap-4 text-neutral-600 dark:text-neutral-300"
+            >
+              <span className="text-[#ef4444] mt-1 text-xs">{"\u25A0"}</span>
+              <span className="text-base">{item}</span>
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
+  );
+}
+
+function FaqItem({ q, a }: { q: string; a: string }) {
+  const [open, setOpen] = useState(false);
+
+  return (
+    <div className="border-b-2 border-black dark:border-white">
+      <button
+        onClick={() => setOpen(!open)}
+        className="w-full flex items-center justify-between py-6 px-0 text-left focus:outline-none"
+      >
+        <span className="text-black dark:text-white font-bold text-base md:text-lg pr-8">
+          {q}
+        </span>
+        <span className="text-black dark:text-white text-3xl font-light leading-none select-none flex-shrink-0">
+          {open ? "\u2212" : "+"}
+        </span>
+      </button>
+      {open && (
+        <p className="pb-6 text-neutral-600 dark:text-neutral-300 text-base leading-relaxed">
+          {a}
+        </p>
+      )}
+    </div>
+  );
+}
+
+export default function SingaporeBootcampPage() {
+  const { isDark, toggle, mounted } = useTheme();
+
+  const scrollTo = (id: string) => {
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
   };
 
   return (
-    <div className="min-h-screen bg-slate-950 text-gray-100">
-      {/* Top bar */}
-      <nav className="border-b border-slate-800">
-        <div className="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
-          <Link
-            href="/"
-            className="text-gray-400 hover:text-white transition text-sm"
-          >
-            &larr; aisb.dev
-          </Link>
-          <a
-            href="mailto:pranav@aisb.dev"
-            className="bg-red-600 hover:bg-red-700 text-white px-5 py-2 rounded font-semibold text-sm transition"
-          >
-            Apply Now
-          </a>
-        </div>
-      </nav>
+    <div className="bg-white dark:bg-black text-black dark:text-white min-h-screen font-sans transition-colors">
+      {mounted && <ThemeToggle isDark={isDark} toggle={toggle} />}
 
-      {/* Hero Section */}
-      <header className="max-w-6xl mx-auto px-4 py-16 md:py-24">
-        <div className="max-w-4xl">
-          <div className="flex items-center gap-3 mb-6">
-            <span className="bg-red-600/20 text-red-400 px-3 py-1 rounded-full text-sm font-medium">
-              New Program
-            </span>
-            <span className="bg-slate-800 text-slate-300 px-3 py-1 rounded-full text-sm">
-              7-Day Intensive
-            </span>
-          </div>
-          <h1 className="text-4xl md:text-6xl font-bold mb-6 leading-tight">
-            AI Security Bootcamp
-            <span className="block text-red-500">Singapore</span>
+      {/* ===================== HERO ===================== */}
+      <section className="min-h-screen flex flex-col justify-center px-6 md:px-16 lg:px-24 relative">
+        <div className="max-w-5xl">
+          <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black leading-[0.95] tracking-tight mb-8">
+            AI Security
+            <br />
+            Bootcamp
+            <br />
+            <SlotCarousel />
           </h1>
-          <p className="text-xl md:text-2xl text-slate-400 mb-8 max-w-3xl">
-            A curated, practitioner-focused intensive designed to orient senior
-            security professionals to AI security topics relevant to advanced and
-            emerging AI systems.
+
+          <p className="text-lg md:text-xl text-neutral-500 dark:text-neutral-400 max-w-2xl mb-6 leading-relaxed">
+            A 7-day intensive program for senior security professionals shaping
+            how we secure emerging AI systems.
           </p>
-          <div className="flex flex-wrap gap-6 text-sm text-slate-400 mb-10">
-            <div className="flex items-center gap-2">
-              <svg
-                className="w-5 h-5 text-red-500"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
-                />
-              </svg>
-              April 25 – May 1, 2026
-            </div>
-            <div className="flex items-center gap-2">
-              <svg
-                className="w-5 h-5 text-red-500"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
-                />
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
-                />
-              </svg>
-              Singapore
-            </div>
-            <div className="flex items-center gap-2">
-              <svg
-                className="w-5 h-5 text-red-500"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"
-                />
-              </svg>
-              10–12 Participants
-            </div>
-            <div className="flex items-center gap-2">
-              <svg
-                className="w-5 h-5 text-red-500"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                />
-              </svg>
-              Fully Subsidized
-            </div>
+
+          <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-neutral-400 dark:text-neutral-500 font-bold uppercase tracking-widest mb-8">
+            <span>April 20&ndash;26, 2026</span>
+            <span className="text-[#ef4444]">|</span>
+            <span>Singapore</span>
+            <span className="text-[#ef4444]">|</span>
+            <span>10&ndash;12 Participants</span>
+            <span className="text-[#ef4444]">|</span>
+            <span>Competitive Selection</span>
+            <span className="text-[#ef4444]">|</span>
+            <span>In-Person</span>
+            <span className="text-[#ef4444]">|</span>
+            <span>Subsidized</span>
           </div>
-          <div className="flex flex-wrap gap-4">
+
+          <div className="flex flex-wrap gap-4 mb-10">
             <a
               href="mailto:pranav@aisb.dev"
-              className="bg-red-600 hover:bg-red-700 text-white px-8 py-3 rounded font-semibold transition text-lg"
+              className="inline-block bg-[#ef4444] text-white font-black text-sm uppercase tracking-widest px-8 py-4 hover:bg-red-600 transition-colors"
             >
               Apply Now
             </a>
             <button
-              onClick={() => scrollToSection("overview")}
-              className="border border-slate-700 hover:border-slate-500 text-slate-300 hover:text-white px-8 py-3 rounded font-semibold transition text-lg"
+              onClick={() => scrollTo("overview")}
+              className="inline-block border-2 border-black dark:border-white text-black dark:text-white font-black text-sm uppercase tracking-widest px-8 py-4 bg-transparent hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-colors"
             >
               Learn More
             </button>
           </div>
-        </div>
-      </header>
 
-      {/* Sticky Navigation */}
-      <nav className="sticky top-0 z-50 bg-slate-900/95 backdrop-blur border-b border-slate-800">
-        <div className="max-w-6xl mx-auto px-4 flex gap-1 overflow-x-auto">
-          {[
-            { id: "overview", label: "Overview" },
-            { id: "curriculum", label: "Curriculum" },
-            { id: "instructors", label: "Instructors" },
-            { id: "faqs", label: "FAQs" },
-          ].map(({ id, label }) => (
-            <button
-              key={id}
-              onClick={() => scrollToSection(id)}
-              className={`px-4 py-3 text-sm font-medium transition whitespace-nowrap border-b-2 ${
-                activeSection === id
-                  ? "border-red-500 text-white"
-                  : "border-transparent text-slate-400 hover:text-white"
-              }`}
-            >
-              {label}
-            </button>
-          ))}
+          <div className="flex flex-wrap gap-x-8 gap-y-2 text-sm text-neutral-400 dark:text-neutral-500">
+            <span>
+              Application Deadline:{" "}
+              <span className="text-black dark:text-white font-bold">
+                15th March 2026
+              </span>
+            </span>
+            <span>
+              Decisions:{" "}
+              <span className="text-black dark:text-white font-bold">
+                28th March 2026
+              </span>
+            </span>
+          </div>
         </div>
+
+        {/* Scroll indicator */}
+        <div className="absolute bottom-8 left-1/2 -translate-x-1/2">
+          <div className="w-px h-16 bg-neutral-300 dark:bg-neutral-700" />
+        </div>
+      </section>
+
+      {/* ===================== JUMP-TO NAV ===================== */}
+      <nav className="px-6 md:px-16 lg:px-24 py-6 border-t-2 border-black dark:border-white flex flex-wrap gap-8">
+        {[
+          "Overview",
+          "The Program",
+          "Who Should Attend",
+          "Team",
+          "FAQs",
+        ].map((item) => (
+          <button
+            key={item}
+            onClick={() => scrollTo(item.toLowerCase().replace(/\s+/g, "-"))}
+            className="text-sm font-black uppercase tracking-widest text-neutral-400 dark:text-neutral-500 hover:text-[#ef4444] transition-colors bg-transparent border-none cursor-pointer"
+          >
+            {item}
+          </button>
+        ))}
       </nav>
 
-      {/* Overview Section */}
-      <section id="overview" className="max-w-6xl mx-auto px-4 py-16 md:py-24">
-        <div className="grid md:grid-cols-3 gap-12">
-          <div className="md:col-span-2 space-y-12">
-            <div>
-              <h2 className="text-3xl font-bold mb-6">The Challenge</h2>
-              <p className="text-lg text-slate-400 leading-relaxed">
-                There is a growing shortage of AI security professionals who can
-                operate credibly at the intersection of cybersecurity and modern
-                AI systems. Experienced security practitioners — the people best
-                positioned to secure AI deployments — face few credible,
-                time-efficient pathways to upskill.
-              </p>
-              <p className="text-lg text-slate-400 leading-relaxed mt-4">
-                As frontier AI systems are deployed in enterprise environments,
-                the stakes for security failures extend beyond individual
-                organizations. AI-specific failure modes — model weight theft,
-                data compromise, deployment misuse, and attacks by highly
-                resourced or nation-state actors — are not well covered by
-                conventional security training, despite their potential for
-                large-scale harm.
-              </p>
-            </div>
+      {/* ===================== OVERVIEW ===================== */}
+      <section
+        id="overview"
+        className="px-6 md:px-16 lg:px-24 py-20 border-t-2 border-black dark:border-white"
+      >
+        <h2 className="text-4xl md:text-5xl lg:text-6xl font-black mb-16 tracking-tight">
+          Overview
+        </h2>
 
-            <div>
-              <h2 className="text-3xl font-bold mb-6">Our Approach</h2>
-              <p className="text-lg text-slate-400 leading-relaxed">
-                AISB Singapore is a curated, practitioner-focused 7-day
-                intensive designed to orient mid-to-late career InfoSec
-                professionals to AI security topics relevant to advanced and
-                emerging AI systems. Delivered in a{" "}
-                <strong className="text-white">T-shaped format</strong>: short
-                lectures to align on threat models and priorities, then hands-on
-                red/blue exercises that go deep on a smaller set of high-leverage
-                skills.
-              </p>
-            </div>
-
-            <div>
-              <h2 className="text-3xl font-bold mb-6">Learning Objectives</h2>
-              <div className="space-y-4">
-                {[
-                  "Understanding threat models from current AI systems to future catastrophic misuse and misalignment scenarios",
-                  "Mastering foundational attack vectors and defenses across the security stack that scale to advanced AI systems",
-                  "Gaining hands-on experience with security challenges that become critical as AI capabilities increase",
-                  "Evaluating defensive measures through a GCR lens: which approaches remain effective as systems become more capable?",
-                  "Pursuing high-impact careers in AI security through GCR-focused fellowships, organizations, and research directions",
-                ].map((objective, i) => (
-                  <div key={i} className="flex gap-4">
-                    <span className="flex-shrink-0 w-8 h-8 rounded-full bg-red-600/20 text-red-400 flex items-center justify-center text-sm font-bold">
-                      {i + 1}
-                    </span>
-                    <p className="text-slate-300 pt-1">{objective}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
+        <div className="max-w-3xl space-y-16">
+          {/* The Challenge */}
+          <div>
+            <h3 className="text-[#ef4444] font-black text-sm uppercase tracking-widest mb-6">
+              The Challenge
+            </h3>
+            <p className="text-neutral-600 dark:text-neutral-300 text-base md:text-lg leading-relaxed">
+              As frontier AI systems are deployed in enterprise environments,
+              the stakes for security failures extend beyond individual
+              organizations. Experienced security practitioners&mdash;the people
+              best positioned to secure AI deployments&mdash;face few credible,
+              time-efficient pathways to upskill in AI-specific security.
+            </p>
           </div>
 
-          {/* Sidebar */}
-          <div className="space-y-6">
-            <div className="bg-slate-900 border border-slate-800 rounded-lg p-6">
-              <h3 className="text-lg font-bold mb-4">Program Details</h3>
-              <dl className="space-y-4 text-sm">
-                <div>
-                  <dt className="text-slate-500 uppercase tracking-wider text-xs">
-                    Dates
-                  </dt>
-                  <dd className="text-white mt-1">April 25 – May 1, 2026</dd>
-                </div>
-                <div>
-                  <dt className="text-slate-500 uppercase tracking-wider text-xs">
-                    Duration
-                  </dt>
-                  <dd className="text-white mt-1">7 Days</dd>
-                </div>
-                <div>
-                  <dt className="text-slate-500 uppercase tracking-wider text-xs">
-                    Location
-                  </dt>
-                  <dd className="text-white mt-1">Singapore</dd>
-                </div>
-                <div>
-                  <dt className="text-slate-500 uppercase tracking-wider text-xs">
-                    Cohort Size
-                  </dt>
-                  <dd className="text-white mt-1">10–12 Participants</dd>
-                </div>
-                <div>
-                  <dt className="text-slate-500 uppercase tracking-wider text-xs">
-                    Skill Level
-                  </dt>
-                  <dd className="text-white mt-1">Senior / Advanced</dd>
-                </div>
-                <div>
-                  <dt className="text-slate-500 uppercase tracking-wider text-xs">
-                    Cost
-                  </dt>
-                  <dd className="text-white mt-1">Fully Subsidized</dd>
-                </div>
-                <div>
-                  <dt className="text-slate-500 uppercase tracking-wider text-xs">
-                    Format
-                  </dt>
-                  <dd className="text-white mt-1">In-Person, Full-Time</dd>
-                </div>
-              </dl>
-              <a
-                href="mailto:pranav@aisb.dev"
-                className="block w-full bg-red-600 hover:bg-red-700 text-white text-center px-6 py-3 rounded font-semibold transition mt-6"
-              >
-                Apply Now
-              </a>
-            </div>
-
-            <div className="bg-slate-900 border border-slate-800 rounded-lg p-6">
-              <h3 className="text-lg font-bold mb-3">Timing</h3>
-              <p className="text-sm text-slate-400">
-                Follows{" "}
-                <strong className="text-slate-200">Black Hat Asia</strong>{" "}
-                (April 21-24) and overlaps with{" "}
-                <strong className="text-slate-200">DEFCON Singapore</strong>{" "}
-                (April 28-30), creating natural travel synergies for
-                participants.
+          {/* Our Approach */}
+          <div>
+            <h3 className="text-[#ef4444] font-black text-sm uppercase tracking-widest mb-6">
+              Our Approach
+            </h3>
+            <div className="space-y-6 text-neutral-600 dark:text-neutral-300 text-base md:text-lg leading-relaxed">
+              <p>
+                AISB Singapore is a curated, practitioner-focused 7-day
+                intensive designed to orient mid-to-late career InfoSec
+                professionals to AI security topics relevant to frontier AI
+                systems. The program prioritizes security failures with
+                large-scale or irreversible consequences&mdash;the threat
+                classes least served by conventional training.
               </p>
-            </div>
-
-            <div className="bg-slate-900 border border-slate-800 rounded-lg p-6">
-              <h3 className="text-lg font-bold mb-3">Who Should Apply</h3>
-              <ul className="text-sm text-slate-400 space-y-2">
-                <li className="flex gap-2">
-                  <span className="text-red-500">&#8250;</span> Red team
-                  operators
-                </li>
-                <li className="flex gap-2">
-                  <span className="text-red-500">&#8250;</span> Application
-                  security engineers
-                </li>
-                <li className="flex gap-2">
-                  <span className="text-red-500">&#8250;</span> Infrastructure
-                  security specialists
-                </li>
-                <li className="flex gap-2">
-                  <span className="text-red-500">&#8250;</span> Threat
-                  intelligence analysts
-                </li>
-              </ul>
+              <p>
+                Participants complete targeted pre-work to establish baseline AI
+                fundamentals, followed by an immersive week delivered through
+                short lectures to align on threat models and priorities, then
+                hands-on red/blue exercises that go deep on high-leverage
+                skills.
+              </p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Curriculum Section */}
+      {/* ===================== THE PROGRAM ===================== */}
       <section
-        id="curriculum"
-        className="bg-slate-900/50 border-y border-slate-800"
+        id="the-program"
+        className="px-6 md:px-16 lg:px-24 py-20 border-t-2 border-black dark:border-white"
       >
-        <div className="max-w-6xl mx-auto px-4 py-16 md:py-24">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-center">
-            7-Day Curriculum
-          </h2>
-          <p className="text-slate-400 text-center mb-12 max-w-2xl mx-auto">
-            Technical content selected to give experienced security
-            practitioners exposure to AI-specific threat models they are unlikely
-            to encounter in standard enterprise security work.
-          </p>
+        <h2 className="text-4xl md:text-5xl lg:text-6xl font-black mb-16 tracking-tight">
+          The Program
+        </h2>
 
-          <div className="max-w-3xl mx-auto space-y-3">
-            {curriculum.map((day) => (
+        <div className="max-w-3xl border-t-2 border-black dark:border-white">
+          {curriculumDays.map((day) => (
+            <AccordionItem
+              key={day.day}
+              day={day.day}
+              title={day.title}
+              items={day.items}
+            />
+          ))}
+        </div>
+
+        {/* What You'll Learn */}
+        <div className="mt-20">
+          <h3 className="text-2xl md:text-3xl font-black mb-10 tracking-tight">
+            What You&apos;ll Learn
+          </h3>
+          <ul className="space-y-5 max-w-3xl">
+            {[
+              "Develop a threat model for frontier AI systems: from current enterprise deployments to the security challenges posed by increasingly capable systems",
+              "Build hands-on capability across the full attack surface: adversarial techniques, infrastructure exploitation, supply chain attacks, and model-level vulnerabilities",
+              "Understand which defensive approaches scale with AI capability increases\u2014and which won\u2019t survive the next few years",
+              "Engage with security challenges that frontier AI organizations are actively working on\u2014problems not yet covered in standard training curricula",
+              "Position yourself for high-impact roles at the frontier: AI labs, government programs, and research institutions shaping how the field develops",
+            ].map((item, i) => (
+              <li key={i} className="flex items-start gap-4">
+                <span className="text-[#ef4444] mt-1.5 text-xs font-black">
+                  {"\u25A0"}
+                </span>
+                <span className="text-neutral-600 dark:text-neutral-300 text-base md:text-lg leading-relaxed">
+                  {item}
+                </span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      {/* ===================== WHO SHOULD ATTEND ===================== */}
+      <section
+        id="who-should-attend"
+        className="px-6 md:px-16 lg:px-24 py-20 border-t-2 border-black dark:border-white"
+      >
+        <h2 className="text-4xl md:text-5xl lg:text-6xl font-black mb-16 tracking-tight">
+          Who Should Attend
+        </h2>
+
+        <div className="max-w-3xl space-y-16">
+          {/* Main description */}
+          <div className="space-y-6 text-neutral-600 dark:text-neutral-300 text-base md:text-lg leading-relaxed">
+            <p>
+              Senior security professionals ready to engage with frontier AI
+              systems on all sides: as targets worth protecting, as
+              infrastructure worth hardening, as a force multiplier for the
+              adversaries you&apos;re up against, and as systems whose
+              governance is itself an attack surface.
+            </p>
+            <p>
+              This program isn&apos;t domain-specific&mdash;whether your
+              background is offensive security, incident response, threat
+              intelligence, infrastructure, or application security, the
+              AI-specific threat models and techniques we cover will extend
+              what you already know into new territory.
+            </p>
+          </div>
+
+          {/* Background grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-0">
+            {[
+              "Offensive Security",
+              "Application Security",
+              "Infrastructure Security",
+              "Threat Intelligence",
+              "Incident Response",
+              "Detection & Response",
+            ].map((bg, i) => (
               <div
-                key={day.day}
-                className="bg-slate-900 border border-slate-800 rounded-lg overflow-hidden"
+                key={i}
+                className={`border-2 border-black dark:border-white p-6 ${
+                  i % 2 !== 0 ? "sm:border-l-0" : ""
+                } ${i >= 2 ? "border-t-0" : ""}`}
               >
-                <button
-                  onClick={() => toggleDay(day.day)}
-                  className="w-full px-6 py-4 flex items-center justify-between text-left hover:bg-slate-800/50 transition"
-                >
-                  <div className="flex items-center gap-4">
-                    <span className="text-red-500 font-bold text-sm w-14">
-                      DAY {day.day}
-                    </span>
-                    <span className="font-semibold">{day.title}</span>
-                  </div>
-                  <svg
-                    className={`w-5 h-5 text-slate-500 flex-shrink-0 transition-transform ${
-                      expandedDays.has(day.day) ? "rotate-180" : ""
-                    }`}
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M19 9l-7 7-7-7"
-                    />
-                  </svg>
-                </button>
-                {expandedDays.has(day.day) && (
-                  <div className="px-6 pb-4 border-t border-slate-800">
-                    <ul className="space-y-2 mt-4">
-                      {day.topics.map((topic, i) => (
-                        <li
-                          key={i}
-                          className="flex gap-3 text-slate-400 text-sm"
-                        >
-                          <span className="text-red-500/60 mt-0.5">&#9656;</span>
-                          {topic}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                )}
+                <p className="font-black text-lg">{bg}</p>
               </div>
             ))}
           </div>
 
-          {/* Topic Categories */}
-          <div className="mt-16 grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
-            <div>
-              <h3 className="text-lg font-bold mb-4 text-red-400">
-                Threat Models
-              </h3>
-              <ul className="space-y-2 text-sm text-slate-400">
-                <li className="flex gap-2">
-                  <span className="text-red-500/40">&#9656;</span> Misuse
-                  (cyberattacks, bio uplift)
-                </li>
-                <li className="flex gap-2">
-                  <span className="text-red-500/40">&#9656;</span> Application &
-                  infrastructure security
-                </li>
-                <li className="flex gap-2">
-                  <span className="text-red-500/40">&#9656;</span> Misalignment
-                  scenarios
-                </li>
-                <li className="flex gap-2">
-                  <span className="text-red-500/40">&#9656;</span> Model theft &
-                  integrity attacks
-                </li>
-                <li className="flex gap-2">
-                  <span className="text-red-500/40">&#9656;</span> Governance
-                  guarantee violations
-                </li>
-              </ul>
-            </div>
-            <div>
-              <h3 className="text-lg font-bold mb-4 text-red-400">Attacks</h3>
-              <ul className="space-y-2 text-sm text-slate-400">
-                <li className="flex gap-2">
-                  <span className="text-red-500/40">&#9656;</span> Jailbreaks &
-                  prompt injection
-                </li>
-                <li className="flex gap-2">
-                  <span className="text-red-500/40">&#9656;</span> Adversarial
-                  examples & trojans
-                </li>
-                <li className="flex gap-2">
-                  <span className="text-red-500/40">&#9656;</span> Weight
-                  extraction
-                </li>
-                <li className="flex gap-2">
-                  <span className="text-red-500/40">&#9656;</span> NVIDIA CTK
-                  exploits
-                </li>
-                <li className="flex gap-2">
-                  <span className="text-red-500/40">&#9656;</span> RAG injection
-                </li>
-                <li className="flex gap-2">
-                  <span className="text-red-500/40">&#9656;</span> Supply chain
-                  attacks
-                </li>
-              </ul>
-            </div>
-            <div>
-              <h3 className="text-lg font-bold mb-4 text-red-400">Defenses</h3>
-              <ul className="space-y-2 text-sm text-slate-400">
-                <li className="flex gap-2">
-                  <span className="text-red-500/40">&#9656;</span> Watermarking
-                </li>
-                <li className="flex gap-2">
-                  <span className="text-red-500/40">&#9656;</span>{" "}
-                  Constitutional classifiers
-                </li>
-                <li className="flex gap-2">
-                  <span className="text-red-500/40">&#9656;</span> Guardrails &
-                  classifiers
-                </li>
-                <li className="flex gap-2">
-                  <span className="text-red-500/40">&#9656;</span> GPU isolation
-                  & confidential computing
-                </li>
-                <li className="flex gap-2">
-                  <span className="text-red-500/40">&#9656;</span> Sandboxing &
-                  formal methods
-                </li>
-                <li className="flex gap-2">
-                  <span className="text-red-500/40">&#9656;</span> MCP security
-                </li>
-              </ul>
+          {/* Prerequisites */}
+          <div>
+            <h3 className="text-[#ef4444] font-black text-sm uppercase tracking-widest mb-6">
+              Prerequisites
+            </h3>
+            <p className="text-neutral-600 dark:text-neutral-300 text-base md:text-lg leading-relaxed mb-4">
+              5+ years of hands-on security experience. No prior AI or ML
+              background needed&mdash;we cover what&apos;s necessary.
+            </p>
+            <p className="text-neutral-600 dark:text-neutral-300 text-base md:text-lg leading-relaxed">
+              Selection prioritizes candidates interested in frontier AI risk,
+              high-consequence failure modes, or work involving sophisticated
+              threat actors.
+            </p>
+          </div>
+
+          {/* Timing */}
+          <div>
+            <h3 className="text-[#ef4444] font-black text-sm uppercase tracking-widest mb-6">
+              Timing
+            </h3>
+            <p className="text-neutral-600 dark:text-neutral-300 text-base md:text-lg leading-relaxed">
+              AISB Singapore runs April 20&ndash;26, overlapping with Black Hat
+              Asia (April 21&ndash;24) and just before DEF CON (April
+              28&ndash;30). If you&apos;re already planning to attend DEF CON,
+              this program fits naturally into the same trip&mdash;the bootcamp
+              ends just before DEF CON opens.
+            </p>
+          </div>
+
+          {/* Cost and Selection */}
+          <div>
+            <h3 className="text-[#ef4444] font-black text-sm uppercase tracking-widest mb-6">
+              Cost & Selection
+            </h3>
+            <div className="space-y-6 text-neutral-600 dark:text-neutral-300 text-base md:text-lg leading-relaxed">
+              <p>
+                The program is fully grant-funded. Serious institutions are
+                investing in building this field, and this cohort is part of
+                that effort.
+              </p>
+              <p>
+                Accommodation included. Limited travel support
+                available&mdash;note this in your application.
+              </p>
+              <p>
+                Selection is competitive&mdash;we accept 10 to 12
+                participants. The cost is your time: full attendance for seven
+                days and pre-reading completed before arrival.
+              </p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Instructors Section */}
+      {/* ===================== TEAM ===================== */}
       <section
-        id="instructors"
-        className="max-w-6xl mx-auto px-4 py-16 md:py-24"
+        id="team"
+        className="px-6 md:px-16 lg:px-24 py-20 border-t-2 border-black dark:border-white"
       >
-        <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center">
-          Instructors
+        <h2 className="text-4xl md:text-5xl lg:text-6xl font-black mb-16 tracking-tight">
+          Team
         </h2>
-        <div className="max-w-3xl mx-auto space-y-8">
-          <div className="flex items-start gap-6 bg-slate-900 border border-slate-800 rounded-lg p-6">
-            <img
-              src="/pranav.png"
-              alt="Pranav Gade"
-              className="w-20 h-20 rounded-full object-cover flex-shrink-0"
-            />
-            <div>
-              <h3 className="text-xl font-bold">Pranav Gade</h3>
-              <p className="text-red-400 text-sm mb-3">
-                Technical Director, AISB
-              </p>
-              <p className="text-slate-400">
-                Research engineer at Conjecture. Created AISB to bridge AI
-                safety and security. Leads curriculum design and program
-                direction across all AISB iterations.
-              </p>
-            </div>
+
+        <div className="max-w-3xl space-y-12">
+          <div className="border-2 border-black dark:border-white p-8">
+            <p className="text-[#ef4444] font-black text-sm uppercase tracking-widest mb-2">
+              Program Lead
+            </p>
+            <h3 className="text-2xl md:text-3xl font-black mb-4">
+              Pranav Gade
+            </h3>
+            <p className="text-neutral-600 dark:text-neutral-300 text-base md:text-lg leading-relaxed">
+              Research engineer at Conjecture. Created AISB to bridge AI safety
+              and security, leads curriculum design and program direction.
+            </p>
           </div>
 
-          <div className="flex items-start gap-6 bg-slate-900 border border-slate-800 rounded-lg p-6">
-            <img
-              src="/nitzan.png"
-              alt="Nitzan Shulman"
-              className="w-20 h-20 rounded-full object-cover flex-shrink-0"
-            />
-            <div>
-              <h3 className="text-xl font-bold">Nitzan Shulman</h3>
-              <p className="text-red-400 text-sm mb-3">
-                Technical Director, AISB
-              </p>
-              <p className="text-slate-400">
-                Head of Cyber Security at Heron AI Security Initiative. 6+ years
-                doing security research specializing in IOT, Robotics, Malware
-                and AI security. Co-designed and delivered prior AISB iterations.
-              </p>
-            </div>
+          <div className="border-2 border-black dark:border-white p-8">
+            <p className="text-[#ef4444] font-black text-sm uppercase tracking-widest mb-2">
+              Security Lead
+            </p>
+            <h3 className="text-2xl md:text-3xl font-black mb-4">
+              Nitzan Shulman
+            </h3>
+            <p className="text-neutral-600 dark:text-neutral-300 text-base md:text-lg leading-relaxed">
+              Head of Cyber Security at Heron AI Security Initiative. 6+ years
+              security research specializing in IoT, robotics, malware and AI
+              security.
+            </p>
           </div>
 
-          <div className="text-center mt-8">
-            <p className="text-slate-500 text-sm">
-              Local execution and institutional linkage supported by the{" "}
-              <strong className="text-slate-300">
-                Singapore AI Safety Hub (SASH)
-              </strong>
+          <div className="border-2 border-black dark:border-white p-8">
+            <p className="text-[#ef4444] font-black text-sm uppercase tracking-widest mb-2">
+              Bootcamp Partner
+            </p>
+            <h3 className="text-2xl md:text-3xl font-black mb-4">
+              Singapore AI Safety Hub (SASH)
+            </h3>
+            <p className="text-neutral-600 dark:text-neutral-300 text-base md:text-lg leading-relaxed">
+              Local execution and institutional linkage supported by the
+              Singapore AI Safety Hub.
             </p>
           </div>
         </div>
       </section>
 
-      {/* FAQs Section */}
-      <section id="faqs" className="bg-slate-900/50 border-y border-slate-800">
-        <div className="max-w-6xl mx-auto px-4 py-16 md:py-24">
-          <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center">
-            Frequently Asked Questions
-          </h2>
-          <div className="max-w-3xl mx-auto space-y-3">
-            {faqs.map((faq, i) => (
-              <div
-                key={i}
-                className="bg-slate-900 border border-slate-800 rounded-lg overflow-hidden"
-              >
-                <button
-                  onClick={() => toggleFaq(i)}
-                  className="w-full px-6 py-4 flex items-center justify-between text-left hover:bg-slate-800/50 transition"
-                >
-                  <span className="font-semibold pr-4">{faq.question}</span>
-                  <svg
-                    className={`w-5 h-5 text-slate-500 flex-shrink-0 transition-transform ${
-                      expandedFaqs.has(i) ? "rotate-180" : ""
-                    }`}
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M19 9l-7 7-7-7"
-                    />
-                  </svg>
-                </button>
-                {expandedFaqs.has(i) && (
-                  <div className="px-6 pb-4 border-t border-slate-800">
-                    <p className="text-slate-400 mt-4">{faq.answer}</p>
-                  </div>
-                )}
-              </div>
-            ))}
-          </div>
+      {/* ===================== FAQs ===================== */}
+      <section
+        id="faqs"
+        className="px-6 md:px-16 lg:px-24 py-20 border-t-2 border-black dark:border-white"
+      >
+        <h2 className="text-4xl md:text-5xl lg:text-6xl font-black mb-16 tracking-tight">
+          FAQs
+        </h2>
+
+        <div className="max-w-3xl border-t-2 border-black dark:border-white">
+          {faqs.map((faq, i) => (
+            <FaqItem key={i} q={faq.q} a={faq.a} />
+          ))}
         </div>
       </section>
 
-      {/* CTA Footer */}
-      <section className="max-w-6xl mx-auto px-4 py-16 md:py-24 text-center">
-        <h2 className="text-3xl md:text-4xl font-bold mb-6">
-          Ready to Apply?
-        </h2>
-        <p className="text-lg text-slate-400 mb-8 max-w-2xl mx-auto">
-          We&apos;re looking for senior security professionals who want to
-          operate at the frontier of AI security. Spaces are limited to 10–12
-          participants.
+      {/* ===================== CTA / FOOTER ===================== */}
+      <section className="px-6 md:px-16 lg:px-24 py-20 border-t-2 border-black dark:border-white">
+        <div className="max-w-3xl">
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-black mb-8 tracking-tight">
+            Ready to Apply?
+          </h2>
+          <p className="text-neutral-500 dark:text-neutral-400 text-base md:text-lg leading-relaxed mb-4 max-w-xl">
+            Applications close 15th March 2026. We review on a rolling
+            basis&mdash;early applications are encouraged.
+          </p>
+          <p className="text-neutral-500 dark:text-neutral-400 text-base md:text-lg leading-relaxed mb-10 max-w-xl">
+            Reach out to express interest or ask questions about the program.
+          </p>
+          <a
+            href="mailto:pranav@aisb.dev"
+            className="inline-block bg-[#ef4444] text-white font-black text-sm uppercase tracking-widest px-8 py-4 hover:bg-red-600 transition-colors"
+          >
+            Apply Now
+          </a>
+        </div>
+      </section>
+
+      {/* ===================== BOTTOM BAR ===================== */}
+      <footer className="px-6 md:px-16 lg:px-24 py-8 border-t-2 border-black dark:border-white flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+        <p className="text-neutral-400 dark:text-neutral-600 text-sm font-bold uppercase tracking-widest">
+          AI Security Bootcamp &mdash; Singapore 2026
         </p>
         <a
           href="mailto:pranav@aisb.dev"
-          className="inline-block bg-red-600 hover:bg-red-700 text-white px-10 py-4 rounded font-semibold transition text-lg"
+          className="text-neutral-400 dark:text-neutral-600 text-sm font-bold uppercase tracking-widest hover:text-[#ef4444] transition-colors"
         >
-          Apply Now
+          pranav@aisb.dev
         </a>
-        <p className="text-slate-600 text-sm mt-4">
-          Questions? Email{" "}
-          <a
-            href="mailto:pranav@aisb.dev"
-            className="text-slate-400 hover:text-white underline"
-          >
-            pranav@aisb.dev
-          </a>
-        </p>
-      </section>
-
-      {/* Footer */}
-      <footer className="border-t border-slate-800 py-8">
-        <div className="max-w-6xl mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-slate-600">
-          <p>AI Security Bootcamp</p>
-          <div className="flex gap-6">
-            <Link href="/" className="hover:text-slate-400 transition">
-              Home
-            </Link>
-            <Link href="/2025" className="hover:text-slate-400 transition">
-              2025 Cohort
-            </Link>
-            <a
-              href="https://github.com/pranavgade20/aisb"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-slate-400 transition"
-            >
-              GitHub
-            </a>
-          </div>
-        </div>
       </footer>
     </div>
   );
