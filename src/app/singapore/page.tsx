@@ -302,8 +302,7 @@ export default function SingaporeBootcampPage() {
           </h1>
 
           <p className="text-lg md:text-xl text-neutral-500 dark:text-neutral-400 max-w-2xl mb-6 leading-relaxed">
-            A 7-day intensive program for senior security professionals shaping
-            how we secure emerging AI systems.
+            A 7-day intensive program for security professionals shaping how we secure emerging AI systems.
           </p>
 
           <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-neutral-400 dark:text-neutral-500 font-bold uppercase tracking-widest mb-8">
@@ -311,18 +310,12 @@ export default function SingaporeBootcampPage() {
             <span className="text-[#ef4444]">|</span>
             <span>Singapore</span>
             <span className="text-[#ef4444]">|</span>
-            <span>10&ndash;12 Participants</span>
-            <span className="text-[#ef4444]">|</span>
-            <span>Competitive Selection</span>
-            <span className="text-[#ef4444]">|</span>
             <span>In-Person</span>
-            <span className="text-[#ef4444]">|</span>
-            <span>Subsidized</span>
           </div>
 
           <div className="flex flex-wrap gap-4 mb-10">
             <a
-              href="mailto:pranav@aisb.dev"
+              href="https://airtable.com/appDN6E2sHsMWkHWN/pagLyM1S6ZevGYUcB/form"
               className="inline-block bg-[#ef4444] text-white font-black text-sm uppercase tracking-widest px-8 py-4 hover:bg-red-600 transition-colors"
             >
               Apply Now
@@ -339,7 +332,7 @@ export default function SingaporeBootcampPage() {
             <span>
               Application Deadline:{" "}
               <span className="text-black dark:text-white font-bold">
-                15th March 2026
+                15th March 2026 (rolling)
               </span>
             </span>
             <span>
@@ -658,7 +651,7 @@ export default function SingaporeBootcampPage() {
             Reach out to express interest or ask questions about the program.
           </p>
           <a
-            href="mailto:pranav@aisb.dev"
+            href="https://airtable.com/appDN6E2sHsMWkHWN/pagLyM1S6ZevGYUcB/form"
             className="inline-block bg-[#ef4444] text-white font-black text-sm uppercase tracking-widest px-8 py-4 hover:bg-red-600 transition-colors"
           >
             Apply Now
