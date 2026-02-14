@@ -565,18 +565,32 @@ export default function SingaporeBootcampPage() {
             </p>
           </div>
 
-          <div className="border-2 border-black dark:border-white p-8">
-            <p className="text-[#ef4444] font-black text-sm uppercase tracking-widest mb-2">
+          <a
+            href="https://sash.org.sg"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="block border-2 border-black dark:border-white p-8 hover:border-[#ef4444] transition-colors"
+          >
+            <p className="text-[#ef4444] font-black text-sm uppercase tracking-widest mb-4">
               Bootcamp Partner
             </p>
-            <h3 className="text-2xl md:text-3xl font-black mb-4">
-              Singapore AI Safety Hub (SASH)
-            </h3>
-            <p className="text-neutral-600 dark:text-neutral-300 text-base md:text-lg leading-relaxed">
-              Local execution and institutional linkage supported by the
-              Singapore AI Safety Hub.
-            </p>
-          </div>
+            <div className="flex items-center gap-6">
+              <img
+                src="/sash.png"
+                alt="Singapore AI Safety Hub (SASH)"
+                className="max-h-24 w-auto flex-shrink-0"
+              />
+              <div>
+                <h3 className="text-2xl md:text-3xl font-black mb-4">
+                  Singapore AI Safety Hub (SASH)
+                </h3>
+                <p className="text-neutral-600 dark:text-neutral-300 text-base md:text-lg leading-relaxed">
+                  Local execution and institutional linkage supported by the
+                  Singapore AI Safety Hub.
+                </p>
+              </div>
+            </div>
+          </a>
         </div>
       </section>
 
@@ -604,10 +618,11 @@ export default function SingaporeBootcampPage() {
           </h2>
           <p className="text-neutral-500 dark:text-neutral-400 text-base md:text-lg leading-relaxed mb-4 max-w-xl">
             Applications close 15th March 2026. We review on a rolling
-            basis&mdash;early applications are encouraged. Let us know in your application if you'd like a decision sooner.
+            basis - early applications are encouraged. Let us know in
+            your application if you'd like a decision sooner.
           </p>
           <p className="text-neutral-500 dark:text-neutral-400 text-base md:text-lg leading-relaxed mb-10 max-w-xl">
-            Reach out to express interest or ask questions about the program.
+            Reach out to <a href="mailto:pranav@aisb.dev" className="underline hover:text-[#ef4444] transition-colors">pranav@aisb.dev</a> to express interest or ask questions about the program.
           </p>
           <a
             href="https://airtable.com/appDN6E2sHsMWkHWN/pagLyM1S6ZevGYUcB/form"
@@ -620,15 +635,31 @@ export default function SingaporeBootcampPage() {
 
       {/* ===================== BOTTOM BAR ===================== */}
       <footer className="px-6 md:px-16 lg:px-24 py-8 border-t-2 border-black dark:border-white flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-        <p className="text-neutral-400 dark:text-neutral-600 text-sm font-bold uppercase tracking-widest">
-          AI Security Bootcamp &mdash; Singapore 2026
+        <p className="text-neutral-400 dark:text-neutral-600 text-sm font-bold tracking-widest">
+          &copy; AI Security Bootcamp 2026
         </p>
-        <a
-          href="mailto:pranav@aisb.dev"
-          className="text-neutral-400 dark:text-neutral-600 text-sm font-bold uppercase tracking-widest hover:text-[#ef4444] transition-colors"
-        >
-          pranav@aisb.dev
-        </a>
+        <div className="flex flex-wrap gap-6">
+          <a
+            href="/"
+            className="text-neutral-400 dark:text-neutral-600 text-sm font-bold uppercase tracking-widest hover:text-[#ef4444] transition-colors"
+          >
+            Home
+          </a>
+          <a
+            href="/2025"
+            className="text-neutral-400 dark:text-neutral-600 text-sm font-bold uppercase tracking-widest hover:text-[#ef4444] transition-colors"
+          >
+            2025 Cohort
+          </a>
+          <a
+            href="https://github.com/pranavgade20/aisb"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-neutral-400 dark:text-neutral-600 text-sm font-bold uppercase tracking-widest hover:text-[#ef4444] transition-colors"
+          >
+            GitHub
+          </a>
+        </div>
       </footer>
     </div>
   );
