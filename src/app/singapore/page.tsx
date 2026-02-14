@@ -389,11 +389,10 @@ export default function SingaporeBootcampPage() {
                 how the risks will evolve in the future.
               </p>
               <p>
-                Participants complete targeted pre-work to establish baseline AI
-                fundamentals, followed by an immersive week delivered through
-                short lectures to align on threat models and priorities, then
-                hands-on red/blue exercises that go deep on high-leverage
-                skills.
+                Participants will complete pre-work before the program to establish
+                baseline ML fundamentals, followed by an immersive week delivered through
+                demos, lectures, guest speakers, and hands-on red/blue exercises that
+                build skills across the modern AI system stack.
               </p>
             </div>
           </div>
@@ -429,7 +428,7 @@ export default function SingaporeBootcampPage() {
             {[
               "Develop a threat model for frontier AI systems: from current deployments to the security challenges posed by increasingly capable systems",
               "Build hands-on capability across the full attack surface: adversarial techniques, infrastructure exploitation, supply chain attacks, and model-level vulnerabilities",
-              "Understand which defensive approaches scale with AI capability increases\u2014and which won\u2019t survive the next few years",
+              "Understand how attacks and defenses scale with AI capability increases",
               "Engage with security challenges that frontier AI organizations are actively working on\u2014problems not yet covered in standard training curricula",
               "Position yourself for high-impact roles at the frontier: AI labs, government programs, and research institutions shaping how the field develops",
             ].map((item, i) => (
@@ -459,9 +458,9 @@ export default function SingaporeBootcampPage() {
           {/* Main description */}
           <div className="space-y-6 text-neutral-600 dark:text-neutral-300 text-base md:text-lg leading-relaxed">
             <p>
-              Security professionals ready to engage with frontier AI
-              systems at all stages - as user applications, as model APIs for users,
-              as infrastructure hosting the models, and as governance frameworks for
+              Security professionals ready to secure frontier AI
+              systems at all stages - from user applications, to model APIs for developers;
+              and from infrastructure hosting the models, to governance frameworks for
               emerging threats.
             </p>
             <p>
