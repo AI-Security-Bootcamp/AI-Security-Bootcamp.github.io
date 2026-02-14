@@ -566,7 +566,7 @@ export default function SingaporeBootcampPage() {
           </div>
 
           <a
-            href="https://sash.org.sg"
+            href="https://www.aisafety.sg"
             target="_blank"
             rel="noopener noreferrer"
             className="block border-2 border-black dark:border-white p-8 hover:border-[#ef4444] transition-colors"
