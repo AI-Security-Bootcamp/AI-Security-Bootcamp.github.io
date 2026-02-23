@@ -1,6 +1,54 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
+
+function useCountdown(target: Date) {
+  const [now, setNow] = useState(() => new Date());
+  useEffect(() => {
+    const id = setInterval(() => setNow(new Date()), 1000);
+    return () => clearInterval(id);
+  }, []);
+  const diff = Math.max(0, target.getTime() - now.getTime());
+  const days = Math.floor(diff / 86_400_000);
+  const hours = Math.floor((diff % 86_400_000) / 3_600_000);
+  const minutes = Math.floor((diff % 3_600_000) / 60_000);
+  const seconds = Math.floor((diff % 60_000) / 1000);
+  return { days, hours, minutes, seconds, expired: diff === 0 };
+}
+
+function CountdownBanner() {
+  const deadline = useMemo(() => new Date("2026-03-15T23:59:59"), []);
+  const { days, hours, minutes, seconds, expired } = useCountdown(deadline);
+
+  if (expired) return null;
+
+  const units = [
+    { label: "Days", value: days },
+    { label: "Hours", value: hours },
+    { label: "Min", value: minutes },
+    { label: "Sec", value: seconds },
+  ];
+
+  return (
+    <div className="flex flex-col gap-2 mb-10">
+      <span className="text-xs uppercase tracking-widest text-neutral-500 dark:text-neutral-400 font-bold">
+        Applications close in
+      </span>
+      <div className="flex gap-5">
+        {units.map((u) => (
+          <div key={u.label} className="flex flex-col items-center">
+            <span className="text-2xl md:text-3xl font-black tabular-nums text-[#ef4444]">
+              {String(u.value).padStart(2, "0")}
+            </span>
+            <span className="text-[10px] uppercase tracking-widest text-neutral-500 dark:text-neutral-400">
+              {u.label}
+            </span>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
 
 const curriculumDays = [
   {
@@ -328,11 +376,13 @@ export default function SingaporeBootcampPage() {
             </button>
           </div>
 
+          <CountdownBanner />
+
           <div className="flex flex-wrap gap-x-8 gap-y-2 text-sm text-neutral-400 dark:text-neutral-500">
             <span>
               Application Deadline:{" "}
               <span className="text-black dark:text-white font-bold">
-                15th March 2026 (rolling)
+                15th March 2026
               </span>
             </span>
             <span>
