@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import { PHProvider } from "./providers";
 
 export const metadata: Metadata = {
   title: "AI Security Bootcamp",
-  description: "4-week intensive program to bring researchers and engineers up to speed on security fundamentals for AI systems",
+  description: "A 7-day intensive program for security professionals shaping how we secure emerging AI systems.",
   icons: {
     icon: '/robot.png',
     apple: '/robot.png',
@@ -17,9 +18,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="antialiased">
-        {children}
-      </body>
+      <PHProvider>
+        <body className="antialiased">
+          {children}
+        </body>
+      </PHProvider>
     </html>
   );
 }
