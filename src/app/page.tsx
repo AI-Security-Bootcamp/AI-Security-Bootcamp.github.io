@@ -373,7 +373,7 @@ export default function Home() {
           <div className="flex flex-wrap gap-4 mb-10">
             <a
               href="https://airtable.com/appDN6E2sHsMWkHWN/pagLyM1S6ZevGYUcB/form"
-              onClick={() => posthog.capture("clicked_apply_now", { location: "hero" })}
+              onClick={() => { posthog.capture("clicked_apply_now", { location: "hero" }); window.gtag?.("event", "clicked_apply_now", { location: "hero" }); }}
               className="inline-block bg-[#ef4444] text-white font-black text-sm uppercase tracking-widest px-8 py-4 hover:bg-red-600 transition-colors"
             >
               Apply Now
@@ -686,7 +686,7 @@ export default function Home() {
           </p>
           <a
             href="https://airtable.com/appDN6E2sHsMWkHWN/pagLyM1S6ZevGYUcB/form"
-            onClick={() => posthog.capture("clicked_apply_now", { location: "cta_section" })}
+            onClick={() => { posthog.capture("clicked_apply_now", { location: "cta_section" }); window.gtag?.("event", "clicked_apply_now", { location: "cta_section" }); }}
             className="inline-block bg-[#ef4444] text-white font-black text-sm uppercase tracking-widest px-8 py-4 hover:bg-red-600 transition-colors"
           >
             Apply Now
