@@ -40,3 +40,20 @@
     opacity: 0;
   }
 }
+
+@keyframes logo-scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.logo-carousel-track {
+  animation: logo-scroll 40s linear infinite;
+}
+
+.logo-carousel-track:hover {
+  animation-play-state: paused;
+}

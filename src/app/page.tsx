@@ -154,6 +154,58 @@ const faqs = [
   },
 ];
 
+const affiliationLogos = [
+  { src: "/logos/Amazon Web Services_idS5TK0MYh_0.svg", alt: "Amazon Web Services (AWS)" },
+  { src: "/logos/Apollo Research_id9k8Tjo3P_0.svg", alt: "Apollo Research" },
+  { src: "/logos/Apple_Logo_0.svg", alt: "Apple" },
+  { src: "/logos/CERN_idmu7jJEuK_2.svg", alt: "CERN" },
+  { src: "/logos/Epoch AI_id_yy1RAHp_1.svg", alt: "Epoch AI" },
+  { src: "/logos/FGV_id4G57V8yv_1.svg", alt: "Fundação Getulio Vargas (FGV)" },
+  { src: "/logos/Fraunhofer-Gesellschaft_idr7l_79Zp_1.svg", alt: "Fraunhofer-Gesellschaft" },
+  { src: "/logos/Georgia Tech_idm_h5bYQz_2.svg", alt: "Georgia Institute of Technology" },
+  { src: "/logos/Google_Logo_0.svg", alt: "Google" },
+  { src: "/logos/Helsinki_idgYlvoExA_2.svg", alt: "University of Helsinki" },
+  { src: "/logos/INSA Lyon_idrA1ZnHFE_2.svg", alt: "INSA Lyon" },
+  { src: "/logos/Jane Street_id3GLGPSzf_0.svg", alt: "Jane Street" },
+  { src: "/logos/King_s College London_idPXgHZWxe_2.svg", alt: "King's College London" },
+  { src: "/logos/Meta_idwdgcJw5c_4.svg", alt: "Meta" },
+  { src: "/logos/Microsoft_Logo_0.svg", alt: "Microsoft" },
+  { src: "/logos/OpenAI_Logo_0.svg", alt: "OpenAI" },
+  { src: "/logos/SaferAI_idJL4whjWU_1.svg", alt: "Safer AI" },
+  { src: "/logos/Santa Fe Institute_idLoL6oKVJ_2.svg", alt: "Santa Fe Institute" },
+  { src: "/logos/Stanford University_idJUIPPYM3_1.svg", alt: "Stanford University" },
+  { src: "/logos/UC San Diego_idxlKuXNo7_2.svg", alt: "University of California, San Diego" },
+  { src: "/logos/Unibo_idOu3rBjwY_1.svg", alt: "Alma Mater Studiorum — Università di Bologna" },
+  { src: "/logos/University of Oxford_Icon_1.svg", alt: "University of Oxford" },
+  { src: "/logos/University of Washington_id-HgUwUZo_1.svg", alt: "University of Washington" },
+];
+
+function LogoCarousel() {
+  return (
+    <div className="pt-10 pb-10 -mx-6 md:-mx-16 lg:-mx-24 overflow-hidden">
+      <div className="border-t-2 border-black dark:border-white" />
+      <p className="text-xs uppercase tracking-widest text-neutral-500 dark:text-neutral-400 font-bold text-center mt-4 mb-4">
+        Past participants have been affiliated with
+      </p>
+      <div className="relative">
+        <div className="absolute left-0 top-0 bottom-0 w-16 md:w-32 bg-gradient-to-r from-white dark:from-black to-transparent z-10 pointer-events-none" />
+        <div className="absolute right-0 top-0 bottom-0 w-16 md:w-32 bg-gradient-to-l from-white dark:from-black to-transparent z-10 pointer-events-none" />
+        <div className="logo-carousel-track flex items-center gap-12 md:gap-16 w-max">
+          {[...affiliationLogos, ...affiliationLogos].map((logo, i) => (
+            <img
+              key={i}
+              src={logo.src}
+              alt={logo.alt}
+              title={logo.alt}
+              className="h-8 md:h-10 w-auto object-contain opacity-60 hover:opacity-100 transition-opacity dark:invert dark:hue-rotate-180"
+            />
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
 const SLOT_WORDS = ["Singapore", "2026"];
 const SLOT_INTERVAL = 3000;
 const SLOT_DURATION = 600;
@@ -348,7 +400,7 @@ export default function Home() {
       </a>
 
       {/* ===================== HERO ===================== */}
-      <section className="min-h-screen flex flex-col justify-center px-6 md:px-16 lg:px-24 relative">
+      <section className="min-h-screen flex flex-col justify-center px-6 md:px-16 lg:px-24">
         <div className="max-w-5xl">
           <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black leading-[0.95] tracking-tight mb-8">
             AI Security
@@ -404,6 +456,8 @@ export default function Home() {
           </div>
         </div>
 
+        {/* ===================== AFFILIATIONS CAROUSEL ===================== */}
+        <LogoCarousel />
       </section>
 
       {/* ===================== JUMP-TO NAV ===================== */}
