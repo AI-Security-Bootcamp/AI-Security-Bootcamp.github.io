@@ -608,6 +608,16 @@ export default function Home() {
             </p>
           </div>
 
+          {/* Past Participants */}
+          <div>
+            <h3 className="text-[#ef4444] font-black text-sm uppercase tracking-widest mb-6">
+              Past Participants
+            </h3>
+            <p className="text-neutral-600 dark:text-neutral-300 text-base md:text-lg leading-relaxed">
+              Past participants have been affiliated with: OpenAI, Google, Meta, Apple, Microsoft, AWS, Jane Street, Stanford, Oxford, CERN and other leading institutions across research, government, and industry.
+            </p>
+          </div>
+
           {/* Timing */}
           <div>
             <h3 className="text-[#ef4444] font-black text-sm uppercase tracking-widest mb-6">
