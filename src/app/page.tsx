@@ -420,6 +420,8 @@ export default function Home() {
             <span>Singapore</span>
             <span className="text-[#ef4444]">|</span>
             <span>In-Person</span>
+            <span className="text-[#ef4444]">|</span>
+            <span>Fully Funded</span>
           </div>
 
           <div className="flex flex-wrap gap-4 mb-10">
