@@ -21,7 +21,15 @@ function CountdownBanner() {
   const deadline = useMemo(() => new Date("2026-03-15T23:59:59"), []);
   const { days, hours, minutes, seconds, expired } = useCountdown(deadline);
 
-  if (expired) return null;
+  if (expired) {
+    return (
+      <div className="flex flex-col gap-2 mb-10">
+        <span className="text-xs uppercase tracking-widest text-neutral-500 dark:text-neutral-400 font-bold">
+          Applications for this cohort are now closed
+        </span>
+      </div>
+    );
+  }
 
   const units = [
     { label: "Days", value: days },
@@ -432,6 +440,13 @@ export default function Home() {
             >
               Apply Now
             </a>
+            <a
+              href="/expression-of-interest"
+              onClick={() => { posthog.capture("clicked_expression_of_interest", { location: "hero" }); window.gtag?.("event", "clicked_expression_of_interest", { location: "hero" }); }}
+              className="inline-block border-2 border-black dark:border-white text-black dark:text-white font-black text-sm uppercase tracking-widest px-8 py-4 bg-transparent hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-colors"
+            >
+              Expression of Interest
+            </a>
             <button
               onClick={() => scrollTo("overview")}
               className="inline-block border-2 border-black dark:border-white text-black dark:text-white font-black text-sm uppercase tracking-widest px-8 py-4 bg-transparent hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-colors"
@@ -740,23 +755,31 @@ export default function Home() {
       <section className="px-6 md:px-16 lg:px-24 py-20 border-t-2 border-black dark:border-white">
         <div className="max-w-3xl">
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-black mb-8 tracking-tight">
-            Ready to Apply?
+            Interested?
           </h2>
           <p className="text-neutral-500 dark:text-neutral-400 text-base md:text-lg leading-relaxed mb-4 max-w-xl">
-            Applications close 15th March 2026. We review on a rolling
-            basis - early applications are encouraged. Let us know in
-            your application if you'd like a decision sooner.
+            Applications for the Singapore 2026 cohort are now closed. If you&apos;re interested in future
+            cohorts, submit an expression of interest and we&apos;ll keep you in the loop.
           </p>
           <p className="text-neutral-500 dark:text-neutral-400 text-base md:text-lg leading-relaxed mb-10 max-w-xl">
-            Reach out to <a href="mailto:pranav@aisb.dev" className="underline hover:text-[#ef4444] transition-colors">pranav@aisb.dev</a> to express interest or ask questions about the program.
+            Reach out to <a href="mailto:pranav@aisb.dev" className="underline hover:text-[#ef4444] transition-colors">pranav@aisb.dev</a> to ask questions about the program.
           </p>
-          <a
-            href="https://airtable.com/appDN6E2sHsMWkHWN/pagLyM1S6ZevGYUcB/form"
-            onClick={() => { posthog.capture("clicked_apply_now", { location: "cta_section" }); window.gtag?.("event", "clicked_apply_now", { location: "cta_section" }); }}
-            className="inline-block bg-[#ef4444] text-white font-black text-sm uppercase tracking-widest px-8 py-4 hover:bg-red-600 transition-colors"
-          >
-            Apply Now
-          </a>
+          <div className="flex flex-wrap gap-4">
+            <a
+              href="https://airtable.com/appDN6E2sHsMWkHWN/pagLyM1S6ZevGYUcB/form"
+              onClick={() => { posthog.capture("clicked_apply_now", { location: "cta_section" }); window.gtag?.("event", "clicked_apply_now", { location: "cta_section" }); }}
+              className="inline-block bg-[#ef4444] text-white font-black text-sm uppercase tracking-widest px-8 py-4 hover:bg-red-600 transition-colors"
+            >
+              Apply Now
+            </a>
+            <a
+              href="/expression-of-interest"
+              onClick={() => { posthog.capture("clicked_expression_of_interest", { location: "cta_section" }); window.gtag?.("event", "clicked_expression_of_interest", { location: "cta_section" }); }}
+              className="inline-block border-2 border-black dark:border-white text-black dark:text-white font-black text-sm uppercase tracking-widest px-8 py-4 bg-transparent hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-colors"
+            >
+              Expression of Interest
+            </a>
+          </div>
         </div>
       </section>
 
