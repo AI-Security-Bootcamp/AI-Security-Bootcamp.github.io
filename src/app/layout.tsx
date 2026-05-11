@@ -7,8 +7,8 @@ export const metadata: Metadata = {
   title: "AI Security Bootcamp",
   description: "A 7-day intensive program for security professionals shaping how we secure emerging AI systems.",
   icons: {
-    icon: '/robot.png',
-    apple: '/robot.png',
+    icon: '/favicon.svg',
+    apple: '/apple-icon.svg',
   },
 };
 

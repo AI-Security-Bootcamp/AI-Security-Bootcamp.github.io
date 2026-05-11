@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { getProgramme } from '../../lib/staff';
 
 const projects = [
   {
@@ -223,61 +224,29 @@ export default function Cohort2025() {
         <section>
           <h2 className="text-4xl font-bold mb-12 text-center">Team</h2>
           <div className="max-w-3xl mx-auto space-y-12">
-            <div className="flex items-center gap-6">
-              <img
-                src="/pranav.png"
-                alt="Pranav Gade"
-                className="w-24 h-24 rounded-full object-cover flex-shrink-0"
-              />
-              <div>
-                <h3 className="text-2xl font-bold mb-4">Pranav Gade</h3>
-                <p className="text-lg text-gray-700">
-                  Research engineer at Conjecture. Created AISB to bridge AI safety and security, and leads curriculum design and program direction.
-                </p>
+            {(getProgramme('2025')?.staff ?? []).map((member) => (
+              <div key={member.name} className="flex items-center gap-6">
+                {member.image ? (
+                  <img
+                    src={member.image}
+                    alt={member.name}
+                    className="w-24 h-24 rounded-full object-cover flex-shrink-0"
+                  />
+                ) : (
+                  <div className="w-24 h-24 rounded-full bg-gray-200 flex-shrink-0 flex items-center justify-center text-sm font-bold text-gray-500">
+                    {member.name.split(' ').map((n) => n[0]).join('').slice(0, 2)}
+                  </div>
+                )}
+                <div>
+                  <h3 className="text-2xl font-bold mb-4">{member.name}</h3>
+                  <div className="text-lg text-gray-700 space-y-2">
+                    {member.bio.split('\n\n').map((para, i) => (
+                      <p key={i}>{para}</p>
+                    ))}
+                  </div>
+                </div>
               </div>
-            </div>
-
-            <div className="flex items-center gap-6">
-              <img
-                src="/jan.png"
-                alt="Jan Michelfeit"
-                className="w-24 h-24 rounded-full object-cover flex-shrink-0"
-              />
-              <div>
-                <h3 className="text-2xl font-bold mb-4">Jan Michelfeit</h3>
-                <p className="text-lg text-gray-700">
-                  Security lead at Conjecture. Designs AISB&apos;s hands-on labs and capstone projects, drawing on 10+ years securing complex systems and ML infrastructure.
-                </p>
-              </div>
-            </div>
-
-            <div className="flex items-center gap-6">
-              <img
-                src="/nitzan.png"
-                alt="Nitzan Shulman"
-                className="w-24 h-24 rounded-full object-cover flex-shrink-0"
-              />
-              <div>
-                <h3 className="text-2xl font-bold mb-4">Nitzan Shulman</h3>
-                <p className="text-lg text-gray-700">
-                  Head of Cyber Security at Heron AI Security Initiative. 6+ years doing security research specializing in IOT, Robotics, Malware and AI security.
-                </p>
-              </div>
-            </div>
-
-            <div className="flex items-center gap-6">
-              <img
-                src="/jinglin.png"
-                alt="Jinglin Li"
-                className="w-24 h-24 rounded-full object-cover flex-shrink-0"
-              />
-              <div>
-                <h3 className="text-2xl font-bold mb-4">Jinglin Li</h3>
-                <p className="text-lg text-gray-700">
-                  Software engineer and educator. Keeps AISB running smoothly.
-                </p>
-              </div>
-            </div>
+            ))}
           </div>
         </section>
 
