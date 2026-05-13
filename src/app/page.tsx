@@ -81,7 +81,7 @@ const affiliationLogos = [
 
 function LogoCarousel() {
   return (
-    <div className="pt-10 pb-10 -mx-6 md:-mx-16 lg:-mx-24 overflow-hidden">
+    <div className="pb-10 -mx-6 md:-mx-16 lg:-mx-24 overflow-hidden">
       <div className="border-t-2 border-black dark:border-white" />
       <p className="text-xs uppercase tracking-widest text-neutral-500 dark:text-neutral-400 font-bold text-center mt-4 mb-4">
         Past participants have been affiliated with
@@ -300,7 +300,7 @@ export default function Home() {
       {mounted && <ThemeToggle isDark={isDark} toggle={toggle} />}
 
       {/* ===================== HERO ===================== */}
-      <section className="min-h-screen flex flex-col justify-center px-6 md:px-16 lg:px-24">
+      <section className="min-h-screen flex flex-col justify-center px-6 md:px-16 lg:px-24 pt-10">
         <div className="max-w-5xl">
           <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black leading-[0.95] tracking-tight mb-8">
             AI Security
