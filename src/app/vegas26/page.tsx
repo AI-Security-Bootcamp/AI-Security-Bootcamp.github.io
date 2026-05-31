@@ -126,7 +126,7 @@ const curriculumDays = [
 const faqs = [
   {
     q: "Who else will be in the room?",
-    a: "Mid- to senior security professionals from across the stack\u2014offensive and defensive, application and infrastructure, detection and response\u2014who have demonstrated interest in AI security. Cohort size is intentionally small (~16) so peer learning is a meaningful part of the experience.",
+    a: "Senior security professionals from across the stack\u2014offensive and defensive, application and infrastructure, detection and response\u2014who have demonstrated interest in AI security. Cohort size is intentionally small (~16) so peer learning is a meaningful part of the experience.",
   },
   {
     q: "What does \u201cfrontier AI security\u201d mean in practice?",
@@ -138,7 +138,7 @@ const faqs = [
   },
   {
     q: "Does the program cover accommodation and travel?",
-    a: "Yes. We book and pay for accommodation in Las Vegas for the full duration. Flights are reimbursed\u2014you book your own travel and we cover the cost. Program costs (meals during program hours, workspace, materials) are fully covered.",
+    a: "We will provide accommodation for you in Vegas for the full duration of the program. We have need-based travel support available.",
   },
   {
     q: "What is the time commitment?",
