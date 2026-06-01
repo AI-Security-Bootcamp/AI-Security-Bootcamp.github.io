@@ -95,7 +95,7 @@ const curriculumDays = [
   },
   {
     day: "Day 5",
-    title: "Weight security, Verification & Formal Methods",
+    title: "Weight Security, Verification & Formal Methods",
     items: [
       "RAND report analysis and policy implications",
       "Output verification using formal methods",
@@ -109,7 +109,7 @@ const curriculumDays = [
       "Data center infrastructure: power, networking, physical security",
       "ML stack threat modeling end-to-end",
       "Personnel security considerations for AI deployments",
-      "(Potential site visit - TBD) to a local data center for a behind-the-scenes look at real-world deployments",
+      "Potential site visit (TBD) to a local data center for a behind-the-scenes look at real-world deployments",
     ],
   },
   {
@@ -126,15 +126,15 @@ const curriculumDays = [
 const faqs = [
   {
     q: "Who else will be in the room?",
-    a: "Senior security professionals from across the stack\u2014offensive and defensive, application and infrastructure, detection and response\u2014who have demonstrated interest in AI security. Cohort size is intentionally small (~16) so peer learning is a meaningful part of the experience.",
+    a: "Senior security professionals from across the stack (offensive and defensive, application and infrastructure, detection and response) who have demonstrated interest in AI security. Cohort size is intentionally small (16\u201320) so peer learning is a meaningful part of the experience.",
   },
   {
-    q: "What does \u201cfrontier AI security\u201d mean in practice?",
-    a: "It means engaging with the threat models that matter as AI systems become more capable\u2014not just today\u2019s enterprise LLM deployments, but the attack surfaces, control mechanisms, and governance challenges that become critical as systems grow more powerful.",
+    q: "What does \"frontier AI security\" mean in practice?",
+    a: "It means engaging with the threat models that matter as AI systems become more capable, not just today's enterprise LLM deployments, but the attack surfaces, control mechanisms, and governance challenges that become critical as systems grow more powerful.",
   },
   {
     q: "What does the full application process look like?",
-    a: "It\u2019s a 3-stage process. Stage 1 is a short CV/application\u2014most of the signal here comes from your GitHub, past projects, and CV. Stage 2 is a technical assessment: a threat modeling exercise (the bulk of the assessment), a small PyTorch exercise, and a brief Python exercise. Stage 3 is a 30-minute interview covering your background, motivation, and short technical questions. We review applications on a rolling basis, so please apply early.",
+    a: "It's a 3-stage process. Stage 1 is a short CV/application: most of the signal here comes from your GitHub, past projects, and CV. Stage 2 is a technical assessment: a threat modeling exercise (the bulk of the assessment), a small PyTorch exercise, and a brief Python exercise. Stage 3 is a 30-minute interview covering your background, motivation, and short technical questions. We review applications on a rolling basis, so please apply early.",
   },
   {
     q: "Does the program cover accommodation and travel?",
@@ -142,15 +142,15 @@ const faqs = [
   },
   {
     q: "What is the time commitment?",
-    a: "Full-time attendance from Sunday Aug 2 through Saturday Aug 8. We expect you to arrive Saturday Aug 1 and depart Sunday Aug 9. Pre-reading is sent in advance (~16\u201320 hours) and we share extra reading throughout the week.",
+    a: "Full-time attendance from Sunday (Aug 2) through Saturday (Aug 8). We recommend you arrive Saturday Aug 1 and depart Sunday Aug 9. Pre-reading is sent in advance (~16\u201320 hours) and we share extra reading throughout the week.",
   },
   {
     q: "Do I need prior AI/ML experience?",
-    a: "No. We provide comprehensive pre-work covering the AI fundamentals you\u2019ll need. What matters more is your security experience and curiosity about frontier threat models. If you\u2019re comfortable with Python and have depth in any security domain, you\u2019ll be able to engage with the material.",
+    a: "No. We provide comprehensive pre-work covering the AI fundamentals you'll need. What matters more is your security experience and curiosity about frontier threat models. If you're comfortable with Python and have depth in any security domain, you'll be able to engage with the material.",
   },
   {
     q: "What happens after the program?",
-    a: "Participants join a growing network of AISB alumni across cohorts. We share relevant opportunities in AI security research, fellowship programs, and organizations working on frontier AI security challenges\u2014and make warm intros where they help.",
+    a: "Participants join a growing network of AISB alumni across cohorts. We share relevant opportunities in AI security research, fellowship programs, and organizations working on frontier AI security challenges, and make warm intros where they help.",
   },
   {
     q: "I have more questions.",
@@ -161,9 +161,15 @@ const faqs = [
 const testimonials = [
   {
     quote:
-      "I came with a different approach to the AI security problem left with understanding deeper ideas and opportunities in AI safety.",
+      "I came in with a different approach to the AI security problem and left with a deeper understanding of the ideas and opportunities in AI safety.",
     name: "Joshua Bahirvani",
-    attribution: "Principal AI Security Engineer @ Zoom, ex-Senior Security Researcher @ Microsoft",
+    attribution: "Principal AI Security Engineer @ Zoom, previously: Senior Security Researcher @ Microsoft",
+  },
+  {
+    quote:
+      "AISB was a unique opportunity to dedicate my full attention to AI Security. Having access to expert support while being surrounded by such highly capable peers made it an invaluable experience.",
+    name: "Nitzan Pomerantz",
+    attribution: "Previously: Chief Security Architect @ IDF",
   },
   {
     quote: "The AISB Singapore 2026 bootcamp was a great experience.",
@@ -175,9 +181,15 @@ const testimonials = [
   },
   {
     quote:
-      "The AI security bootcamp was hugely helpful in working out exactly what I want to work on in AI security / safety. Everyone was so friendly and knowledgeable \u2014 thank you so much for the amazing week!",
+      "The AI security bootcamp was hugely helpful in working out exactly what I want to work on in AI security / safety. Everyone was so friendly and knowledgeable. Thank you so much for the amazing week!",
     name: "Billy Gigurtsis",
     attribution: "Lead Security Engineer @ Intropic",
+  },
+  {
+    quote:
+      "I came into the bootcamp with a strong foundational background, but the highlight for me was the incredible networking and the caliber of people I met.",
+    name: "Uri Ariel Chen",
+    attribution: "CEO & Co-founder @ Collider",
   },
   {
     quote:
@@ -195,7 +207,7 @@ const testimonials = [
     quote:
       "I have learnt so much from both my peers and instructors. The diverse backgrounds and hands-on sessions are really useful for anyone that wishes to dive deep into the topic.",
     name: "Nanzheng Xie",
-    attribution: "Master\u2019s Student @ UC Berkeley, ex-Senior Cybersecurity Specialist @ PUB Singapore",
+    attribution: "Master's Student @ UC Berkeley, previously: Senior Cybersecurity Specialist @ PUB Singapore",
   },
 ];
 
@@ -221,7 +233,7 @@ const affiliationLogos = [
   { src: "/logos/Samsung.svg", alt: "Samsung" },
   { src: "/logos/SaferAI_idJL4whjWU_1.svg", alt: "Safer AI" },
   { src: "/logos/Stanford University_idJUIPPYM3_1.svg", alt: "Stanford University" },
-  { src: "/logos/Technion.svg", alt: "Technion — Israel Institute of Technology" },
+  { src: "/logos/Technion.svg", alt: "Technion: Israel Institute of Technology" },
   { src: "/logos/University of Oxford_Icon_1.svg", alt: "University of Oxford" },
   // { src: "/logos/Zoom.svg", alt: "Zoom" },
   { src: "/logos/Cambridge.png", alt: "University of Cambridge" },
@@ -232,7 +244,7 @@ const affiliationLogos = [
   { src: "/logos/MATS.svg", alt: "ML Alignment & Theory Scholars (MATS)" },
   { src: "/logos/Center for AI Safety.svg", alt: "Center for AI Safety" },
   { src: "/logos/Darktrace.svg", alt: "Darktrace" },
-  // Disabled — kept for easy re-enable
+  // Disabled (kept for easy re-enable)
   // { src: "/logos/FGV_id4G57V8yv_1.svg", alt: "Fundação Getulio Vargas (FGV)" },
   // { src: "/logos/Fraunhofer-Gesellschaft_idr7l_79Zp_1.svg", alt: "Fraunhofer-Gesellschaft" },
   // { src: "/logos/Helsinki_idgYlvoExA_2.svg", alt: "University of Helsinki" },
@@ -240,7 +252,7 @@ const affiliationLogos = [
   // { src: "/logos/King_s College London_idPXgHZWxe_2.svg", alt: "King's College London" },
   // { src: "/logos/Santa Fe Institute_idLoL6oKVJ_2.svg", alt: "Santa Fe Institute" },
   // { src: "/logos/UC San Diego_idxlKuXNo7_2.svg", alt: "University of California, San Diego" },
-  // { src: "/logos/Unibo_idOu3rBjwY_1.svg", alt: "Alma Mater Studiorum — Università di Bologna" },
+  // { src: "/logos/Unibo_idOu3rBjwY_1.svg", alt: "Alma Mater Studiorum: Università di Bologna" },
   // { src: "/logos/University of Washington_id-HgUwUZo_1.svg", alt: "University of Washington" },
   // { src: "/logos/University of Edinburgh.svg", alt: "University of Edinburgh" },
   // { src: "/logos/University of Toronto.svg", alt: "University of Toronto" },
@@ -253,7 +265,7 @@ const affiliationLogos = [
   // { src: "/logos/Netcraft.svg", alt: "Netcraft" },
   // { src: "/logos/Ping Identity.svg", alt: "Ping Identity" },
   // { src: "/logos/MAS.svg", alt: "Monetary Authority of Singapore" },
-  // { src: "/logos/PUB.svg", alt: "PUB, Singapore\u2019s National Water Agency" },
+  // { src: "/logos/PUB.svg", alt: "PUB, Singapore's National Water Agency" },
   // { src: "/logos/NHS.svg", alt: "NHS" },
   // { src: "/logos/Turkish Aerospace Industries.svg", alt: "Turkish Aerospace Industries" },
 ];
@@ -474,7 +486,7 @@ function TestimonialCard({ t }: { t: Testimonial }) {
   return (
     <blockquote className="border-2 border-black dark:border-white p-8 flex flex-col gap-6">
       <p className="text-neutral-600 dark:text-neutral-300 text-base md:text-lg leading-relaxed">
-        &ldquo;{t.quote}
+        "{t.quote}
         {hasCollapsible && (
           <>
             {" "}
@@ -493,7 +505,7 @@ function TestimonialCard({ t }: { t: Testimonial }) {
             {t.quoteEnd}
           </>
         )}
-        &rdquo;
+        "
       </p>
       <footer className="mt-auto">
         <p className="font-black text-base md:text-lg">{t.name}</p>
@@ -577,7 +589,7 @@ export default function Home() {
             <span>
               Application Deadline:{" "}
               <span className="text-black dark:text-white font-bold">
-                21st June 2026 (rolling)
+                June 21, 2026 (rolling)
               </span>
             </span>
           </div>
@@ -619,7 +631,7 @@ export default function Home() {
           <div>
             <div className="space-y-6 text-neutral-600 dark:text-neutral-300 text-base md:text-lg leading-relaxed">
               <p>
-                This iteration of AI Security bootcamp explores the rapidly evolving threat landscape of frontier AI
+                This iteration of AI Security Bootcamp explores the rapidly evolving threat landscape of frontier AI
                 systems, equipping security professionals with the knowledge and hands-on skills to secure against
                 current and emerging risks.
               </p>
@@ -670,7 +682,7 @@ export default function Home() {
               "Develop a threat model for frontier AI systems: from current deployments to the security challenges posed by increasingly capable systems",
               "Build hands-on capability across the full attack surface: adversarial techniques, infrastructure exploitation, supply chain attacks, and model-level vulnerabilities",
               "Understand how attacks and defenses scale with AI capability increases",
-              "Engage with security challenges that frontier AI organizations are actively working on\u2014problems not yet covered in standard training curricula",
+              "Engage with security challenges that frontier AI organizations are actively working on: problems not yet covered in standard training curricula",
               "Position yourself for high-impact roles at the frontier: AI labs, government programs, and research institutions shaping how the field develops",
             ].map((item, i) => (
               <li key={i} className="flex items-start gap-4">
@@ -699,14 +711,14 @@ export default function Home() {
           {/* Main description */}
           <div className="space-y-6 text-neutral-600 dark:text-neutral-300 text-base md:text-lg leading-relaxed">
             <p>
-              Security professionals ready to secure frontier AI systems at all stages - from user applications, to
+              Security professionals ready to secure frontier AI systems at all stages: from user applications, to
               model APIs for developers; and from infrastructure hosting the models, to governance frameworks for
               emerging threats.
             </p>
             <p>
-              We want our cohort to span a wide range of expertise &mdash; whether your background is offensive
-              security, incident response, threat intelligence, infrastructure, or application security, the
-              AI-specific threat models and techniques we cover will push what you already know into new territory.
+              We want our cohort to span a wide range of expertise. Whether your background is offensive security,
+              incident response, threat intelligence, infrastructure, or application security, the AI-specific threat
+              models and techniques we cover will push what you already know into new territory.
             </p>
           </div>
 
@@ -717,7 +729,7 @@ export default function Home() {
             </h3>
             <p className="text-neutral-600 dark:text-neutral-300 text-base md:text-lg leading-relaxed mb-4">
               5+ years of hands-on security experience. No prior AI or ML
-              background needed &mdash; the pre-work covers what&apos;s necessary.
+              background needed. The pre-work covers what&apos;s necessary.
             </p>
             <p className="text-neutral-600 dark:text-neutral-300 text-base md:text-lg leading-relaxed mb-4">
               Selection prioritizes candidates interested in frontier AI risk, high-consequence failure modes, or work
@@ -748,12 +760,11 @@ export default function Home() {
               Timing
             </h3>
             <p className="text-neutral-600 dark:text-neutral-300 text-base md:text-lg leading-relaxed mb-4">
-              AISB Vegas runs Sunday Aug 2 through Saturday Aug 8, 2026. You should expect to arrive Saturday Aug 1
-              and depart Sunday Aug 9.
+              AISB Vegas runs from Sunday (Aug 2) through Saturday (Aug 8), 2026.
             </p>
             <p className="text-neutral-600 dark:text-neutral-300 text-base md:text-lg leading-relaxed">
-              The week overlaps with the broader Las Vegas summer security calendar &mdash; a strong networking
-              opportunity for participants to connect with practitioners and researchers from across the field.
+              The week overlaps with the broader Las Vegas summer security calendar: a strong networking opportunity
+              for participants to connect with practitioners and researchers from across the field.
             </p>
           </div>
 
@@ -765,7 +776,7 @@ export default function Home() {
             <div className="space-y-6 text-neutral-600 dark:text-neutral-300 text-base md:text-lg leading-relaxed">
               <p>Accommodation included. Travel support available.</p>
               <p>
-                Selection is competitive &mdash; we will accept 16-20 participants. The cost is your time: full
+                Selection is competitive. We will accept 16&ndash;20 participants. The cost is your time: full
                 attendance for the seven days and pre-reading completed before arrival.
               </p>
             </div>
@@ -812,8 +823,8 @@ export default function Home() {
             Ready to Apply?
           </h2>
           <p className="text-neutral-500 dark:text-neutral-400 text-base md:text-lg leading-relaxed mb-4 max-w-xl">
-            Applications close 21st June 2026. We review on a rolling basis and will prioritize applications we receive
-            before the deadline &mdash; early applications are encouraged.
+            Applications close June 21, 2026. We review on a rolling basis and will prioritize applications we receive
+            before the deadline. Early applications are encouraged.
           </p>
           <p className="text-neutral-500 dark:text-neutral-400 text-base md:text-lg leading-relaxed mb-10 max-w-xl">
             Reach out to <a href="mailto:pranav@aisb.dev" className="underline hover:text-[#ef4444] transition-colors">pranav@aisb.dev</a> with questions about the program.
@@ -869,7 +880,7 @@ export default function Home() {
             Staff
           </a>
           <a
-            href="https://github.com/pranavgade20/aisb"
+            href="https://github.com/AI-Security-Bootcamp/aisb-sg/"
             target="_blank"
             rel="noopener noreferrer"
             className="text-neutral-400 dark:text-neutral-600 text-sm font-bold uppercase tracking-widest hover:text-[#ef4444] transition-colors"
