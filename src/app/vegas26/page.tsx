@@ -31,7 +31,7 @@ function CountdownBanner() {
   ];
 
   return (
-    <div className="flex flex-col gap-2 mb-10">
+    <div className="flex flex-col gap-2 mb-4">
       <span className="text-xs uppercase tracking-widest text-neutral-500 dark:text-neutral-400 font-bold">
         Applications close in
       </span>
@@ -164,51 +164,60 @@ const testimonials = [
       "I came in with a different approach to the AI security problem and left with a deeper understanding of the ideas and opportunities in AI safety.",
     name: "Joshua Bahirvani",
     attribution: "Principal AI Security Engineer @ Zoom, previously: Senior Security Researcher @ Microsoft",
+    linkedin: "https://www.linkedin.com/in/jbahirvani15/",
   },
   {
     quote:
       "AISB was a unique opportunity to dedicate my full attention to AI Security. Having access to expert support while being surrounded by such highly capable peers made it an invaluable experience.",
     name: "Nitzan Pomerantz",
     attribution: "Previously: Chief Security Architect @ IDF",
-  },
-  {
-    quote: "The AISB Singapore 2026 bootcamp was a great experience.",
-    quoteCollapsibleMiddle:
-      "Really loved the in-depth knowledge of instructors as well as exercises that were focused on the practical aspects of understanding the various attacks and defenses for the novel attacks in the AI pipeline, which made the learning feel very real and relevant. It was a good mix of theory and doing.",
-    quoteEnd: "Definitely recommend it to anyone interested in AI safety and security.",
-    name: "Bakul Gupta",
-    attribution: "Product Security Engineer @ LinkedIn",
-  },
-  {
-    quote:
-      "The AI security bootcamp was hugely helpful in working out exactly what I want to work on in AI security / safety. Everyone was so friendly and knowledgeable. Thank you so much for the amazing week!",
-    name: "Billy Gigurtsis",
-    attribution: "Lead Security Engineer @ Intropic",
-  },
-  {
-    quote:
-      "I came into the bootcamp with a strong foundational background, but the highlight for me was the incredible networking and the caliber of people I met.",
-    name: "Uri Ariel Chen",
-    attribution: "CEO & Co-founder @ Collider",
-  },
-  {
-    quote:
-      "AISB gave me the fundamentals and the direction I was missing to pursue AI security head on.",
-    name: "Fernando Smith",
-    attribution: "Cofounder & CTO @ Skip",
+    linkedin: "https://www.linkedin.com/in/nitzan-pomerantz/",
   },
   {
     quote:
       "This program helped to bridge the gap between traditional cyber security and AI security.",
     name: "Ahmad Hatziq",
     attribution: "Software Engineer @ Monetary Authority of Singapore",
+    linkedin: "https://www.linkedin.com/in/ahmad-hatziq-74a938171/",
   },
   {
     quote:
-      "I have learnt so much from both my peers and instructors. The diverse backgrounds and hands-on sessions are really useful for anyone that wishes to dive deep into the topic.",
-    name: "Nanzheng Xie",
-    attribution: "Master's Student @ UC Berkeley, previously: Senior Cybersecurity Specialist @ PUB Singapore",
+      "I came into the bootcamp with a strong foundational background, but the highlight for me was the incredible networking and the caliber of people I met.",
+    name: "Uri Ariel Chen",
+    attribution: "CEO & Co-founder @ Collider",
+    linkedin: "https://www.linkedin.com/in/uri-chen/",
   },
+  // Disabled — kept for easy re-enable
+  // {
+  //   quote: "The AISB Singapore 2026 bootcamp was a great experience.",
+  //   quoteCollapsibleMiddle:
+  //     "Really loved the in-depth knowledge of instructors as well as exercises that were focused on the practical aspects of understanding the various attacks and defenses for the novel attacks in the AI pipeline, which made the learning feel very real and relevant. It was a good mix of theory and doing.",
+  //   quoteEnd: "Definitely recommend it to anyone interested in AI safety and security.",
+  //   name: "Bakul Gupta",
+  //   attribution: "Product Security Engineer @ LinkedIn",
+  //   linkedin: "https://www.linkedin.com/in/bullhacks3/",
+  // },
+  // {
+  //   quote:
+  //     "The AI security bootcamp was hugely helpful in working out exactly what I want to work on in AI security / safety. Everyone was so friendly and knowledgeable. Thank you so much for the amazing week!",
+  //   name: "Billy Gigurtsis",
+  //   attribution: "Lead Security Engineer @ Intropic",
+  //   linkedin: "https://www.linkedin.com/in/bgigurtsis/",
+  // },
+  // {
+  //   quote:
+  //     "AISB gave me the fundamentals and the direction I was missing to pursue AI security head on.",
+  //   name: "Fernando Smith",
+  //   attribution: "Cofounder & CTO @ Skip",
+  //   linkedin: "https://www.linkedin.com/in/fernando-smith/",
+  // },
+  // {
+  //   quote:
+  //     "I have learnt so much from both my peers and instructors. The diverse backgrounds and hands-on sessions are really useful for anyone that wishes to dive deep into the topic.",
+  //   name: "Nanzheng Xie",
+  //   attribution: "Master's Student @ UC Berkeley, previously: Senior Cybersecurity Specialist @ PUB Singapore",
+  //   linkedin: "https://www.linkedin.com/in/nanzheng-xie/",
+  // },
 ];
 
 const affiliationLogos = [
@@ -326,7 +335,7 @@ function SlotCarousel() {
 
 function LogoCarousel() {
   return (
-    <div className="pt-10 pb-10 -mx-6 md:-mx-16 lg:-mx-24 overflow-hidden">
+    <div className="pt-6 pb-10 -mx-6 md:-mx-16 lg:-mx-24 overflow-hidden">
       <div className="border-t-2 border-black dark:border-white" />
       <p className="text-xs uppercase tracking-widest text-neutral-500 dark:text-neutral-400 font-bold text-center mt-4 mb-4">
         Past participants have been affiliated with
@@ -477,6 +486,7 @@ type Testimonial = {
   quoteEnd?: string;
   name: string;
   attribution: string;
+  linkedin: string;
 };
 
 function TestimonialCard({ t }: { t: Testimonial }) {
@@ -508,7 +518,16 @@ function TestimonialCard({ t }: { t: Testimonial }) {
         "
       </p>
       <footer className="mt-auto">
-        <p className="font-black text-base md:text-lg">{t.name}</p>
+        <p className="font-black text-base md:text-lg">
+          <a
+            href={t.linkedin}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover:text-[#ef4444] transition-colors"
+          >
+            {t.name}
+          </a>
+        </p>
         <p className="text-[#ef4444] font-black text-xs uppercase tracking-widest mt-1">
           {t.attribution}
         </p>
@@ -517,35 +536,31 @@ function TestimonialCard({ t }: { t: Testimonial }) {
   );
 }
 
-// TODO: replace with the Vegas 2026 application form URL once it's ready.
-const APPLICATION_URL = "https://airtable.com/appDN6E2sHsMWkHWN/pagLyM1S6ZevGYUcB/form";
+const APPLICATION_URL = "https://airtable.com/appyq1bBRnK6s7AkM/paglvXzxYAiJclCZX/form";
 
 export default function Home() {
   const { isDark, toggle, mounted } = useTheme();
 
   const scrollTo = (id: string) => {
-    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+    const el = document.getElementById(id);
+    if (!el) return;
+    const nav = document.querySelector("nav");
+    const offset = nav instanceof HTMLElement ? nav.offsetHeight : 0;
+    const y = el.getBoundingClientRect().top + window.scrollY - offset;
+    window.scrollTo({ top: y, behavior: "smooth" });
   };
 
   return (
     <div className="bg-white dark:bg-black text-black dark:text-white min-h-screen font-sans transition-colors">
       {mounted && <ThemeToggle isDark={isDark} toggle={toggle} />}
 
-      {/* ===================== PAST PROGRAMMES BANNER ===================== */}
-      <a
-        href="/"
-        className="block w-full bg-neutral-100 dark:bg-neutral-900 border-b border-neutral-200 dark:border-neutral-800 px-6 py-3 text-center text-sm text-neutral-500 dark:text-neutral-400 hover:text-[#ef4444] dark:hover:text-[#ef4444] transition-colors"
-      >
-        Looking for past programmes? <span className="inline-block">&rarr;</span>
-      </a>
-
       {/* ===================== HERO ===================== */}
-      <section className="min-h-screen flex flex-col justify-center px-6 md:px-16 lg:px-24">
+      <section className="min-h-screen flex flex-col justify-center px-6 md:px-16 lg:px-24 pt-4 md:pt-6">
         <div className="max-w-5xl">
-          <p className="text-[#ef4444] font-black text-sm uppercase tracking-widest mb-4">
+          <p className="text-[#ef4444] font-black text-sm uppercase tracking-widest mb-3">
             Applications open
           </p>
-          <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black leading-[0.95] tracking-tight mb-8">
+          <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black leading-[0.95] tracking-tight mb-6">
             AI Security
             <br />
             Bootcamp
@@ -553,11 +568,11 @@ export default function Home() {
             <SlotCarousel />
           </h1>
 
-          <p className="text-lg md:text-xl text-neutral-500 dark:text-neutral-400 max-w-2xl mb-6 leading-relaxed">
+          <p className="text-base md:text-lg text-neutral-500 dark:text-neutral-400 max-w-2xl mb-4 leading-relaxed">
             A 7-day intensive program for security professionals shaping how we secure emerging AI systems.
           </p>
 
-          <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-neutral-400 dark:text-neutral-500 font-bold uppercase tracking-widest mb-8">
+          <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-neutral-400 dark:text-neutral-500 font-bold uppercase tracking-widest mb-5">
             <span>August 2&ndash;8, 2026</span>
             <span className="text-[#ef4444]">|</span>
             <span>Las Vegas</span>
@@ -567,7 +582,7 @@ export default function Home() {
             <span>Fully Funded</span>
           </div>
 
-          <div className="flex flex-wrap gap-4 mb-10">
+          <div className="flex flex-wrap gap-4 mb-6">
             <a
               href={APPLICATION_URL}
               onClick={() => { posthog.capture("clicked_apply_now", { location: "vegas26_hero" }); window.gtag?.("event", "clicked_apply_now", { location: "vegas26_hero" }); }}
@@ -600,7 +615,7 @@ export default function Home() {
       </section>
 
       {/* ===================== JUMP-TO NAV ===================== */}
-      <nav className="px-6 md:px-16 lg:px-24 py-6 border-t-2 border-black dark:border-white flex flex-wrap gap-8">
+      <nav className="sticky top-0 z-30 bg-white dark:bg-black px-6 md:px-16 lg:px-24 py-6 border-t-2 border-black dark:border-white flex flex-wrap gap-8">
         {[
           "Overview",
           "The Program",
@@ -644,7 +659,7 @@ export default function Home() {
               </p>
               <p>
                 Participants complete pre-work before the program to establish baseline ML fundamentals, followed by an
-                immersive week delivered through demos, lectures, guest speakers, and hands-on red/blue exercises that
+                immersive week delivered through demos, lectures, guest speakers, and hands-on red/blue team exercises that
                 build skills across the modern AI system stack.
               </p>
             </div>
@@ -680,7 +695,7 @@ export default function Home() {
           <ul className="space-y-5 max-w-3xl">
             {[
               "Develop a threat model for frontier AI systems: from current deployments to the security challenges posed by increasingly capable systems",
-              "Build hands-on capability across the full attack surface: adversarial techniques, infrastructure exploitation, supply chain attacks, and model-level vulnerabilities",
+              "Build hands-on capability across the full attack surface: adversarial techniques, infrastructure exploitation, supply chain attacks, agent security, and model-level vulnerabilities",
               "Understand how attacks and defenses scale with AI capability increases",
               "Engage with security challenges that frontier AI organizations are actively working on: problems not yet covered in standard training curricula",
               "Position yourself for high-impact roles at the frontier: AI labs, government programs, and research institutions shaping how the field develops",

@@ -48,15 +48,15 @@ const toStrikethrough = (s: string) => [...s].map((c) => c + "̶").join("");
 // ============================================================================
 
 const SAMPLE = `𝗔𝗽𝗽𝗹𝗶𝗰𝗮𝘁𝗶𝗼𝗻𝘀 𝗳𝗼𝗿 𝗔𝗜𝗦𝗕 𝗩𝗲𝗴𝗮𝘀 𝗮𝗿𝗲 𝗻𝗼𝘄 𝗼𝗽𝗲𝗻!
-AI Security Bootcamp is a fully funded, 7-day intensive program for security professionals focused on securing frontier AI systems against emerging threats.
+AI Security Bootcamp is a fully funded, 7-day intensive program for security professionals focused on securing frontier AI systems from emerging threats.
 
-The program covers threat modeling, adversarial attacks, LLM security, infrastructure controls, weight security, formal verification, data center security, and AI control and hardware governance.
+Participants learn to threat-model, attack, and defend frontier AI systems, and leave with the skills and network to step into roles at the labs, agencies, and research orgs shaping the field.
 
 We are looking for security professionals with 5+ years of hands-on experience. No AI or ML background required.
 
 Past participants have been affiliated with Google, Meta, Apple, Microsoft, AWS, Stanford, MIT, Oxford, Cambridge, and national security agencies. This is our third iteration after London and Singapore.
 
-We accept a small cohort and selection is competitive. The program runs August 2-8 in Las Vegas, alongside the Vegas AI Security Forum. Program costs are covered and travel support is available.
+We accept a small cohort and selection is competitive. Program costs are covered and travel support is available.
 
 Applications close June 21. We review on a rolling basis and encourage you to apply as early as possible.
 

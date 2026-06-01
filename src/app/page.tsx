@@ -322,11 +322,11 @@ export default function Home() {
 
           <div className="flex flex-col items-start gap-4 mb-12">
             <a
-              href="/eoi"
-              onClick={() => { posthog.capture("clicked_expression_of_interest", { location: "hero" }); window.gtag?.("event", "clicked_expression_of_interest", { location: "hero" }); }}
+              href="/vegas26"
+              onClick={() => { posthog.capture("clicked_edition", { edition: "vegas_2026", location: "hero" }); window.gtag?.("event", "clicked_edition", { edition: "vegas_2026", location: "hero" }); }}
               className="inline-block bg-[#ef4444] text-white font-black text-sm uppercase tracking-widest px-8 py-4 hover:bg-red-600 transition-colors"
             >
-              Expression of Interest
+              AISB Vegas 2026
             </a>
             <a
               href="/2025"
@@ -411,11 +411,11 @@ export default function Home() {
         <CohortsCarousel items={editions} />
 
         <p className="text-neutral-500 dark:text-neutral-400 text-base md:text-lg leading-relaxed mt-12 max-w-3xl">
-          Submit an{" "}
-          <a href="/eoi" className="underline hover:text-[#ef4444] transition-colors">
-            expression of interest
+          Applications for{" "}
+          <a href="/vegas26" className="underline hover:text-[#ef4444] transition-colors">
+            AISB Vegas 2026
           </a>{" "}
-          to stay up to date with future cohorts.
+          are now open.
         </p>
       </section>
 
@@ -502,11 +502,11 @@ export default function Home() {
           </p>
           <div className="flex flex-wrap gap-4">
             <a
-              href="/eoi"
-              onClick={() => { posthog.capture("clicked_expression_of_interest", { location: "cta_section" }); window.gtag?.("event", "clicked_expression_of_interest", { location: "cta_section" }); }}
+              href="/vegas26"
+              onClick={() => { posthog.capture("clicked_edition", { edition: "vegas_2026", location: "cta_section" }); window.gtag?.("event", "clicked_edition", { edition: "vegas_2026", location: "cta_section" }); }}
               className="inline-block bg-[#ef4444] text-white font-black text-sm uppercase tracking-widest px-8 py-4 hover:bg-red-600 transition-colors"
             >
-              Expression of Interest
+              AISB Vegas 2026
             </a>
             <a
               href="/staff"
