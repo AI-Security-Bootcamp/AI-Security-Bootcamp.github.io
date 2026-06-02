@@ -266,13 +266,13 @@ const teamFeatured = [
     name: "Pranav Gade",
     role: "Program Lead",
     image: "/pranav.png",
-    bio: "Research engineer at Conjecture. Created AISB to bridge AI safety and security; leads curriculum design and program direction.",
+    bio: "Created AISB to bridge AI safety and security; previously research engineer at Conjecture. Leads curriculum design and program direction.",
   },
   {
     name: "Jan Michelfeit",
     role: "Security Lead",
     image: "/jan.png",
-    bio: "Security lead at Conjecture. Designs AISB\u2019s hands-on labs and capstone projects, drawing on 10+ years securing complex systems and ML infrastructure.",
+    bio: "Research engineer at the UK AI Security Institute. Advises AISB and designs the content, drawing on 10+ years securing complex systems and ML infrastructure.",
   },
   {
     name: "David Williams-King",
@@ -282,9 +282,21 @@ const teamFeatured = [
   },
   {
     name: "Nitzan Shulman",
-    role: "Security Lead, Singapore 2026",
+    role: "Advisor",
     image: "/nitzan.png",
     bio: "Head of Cyber Security at Heron AI Security Initiative. 6+ years of security research specialising in IoT, robotics, malware, and AI security.",
+  },
+  {
+    name: "Dewi Erwan",
+    role: "Advisor",
+    image: "/dewi.png",
+    bio: "CEO of BlueDot Impact, building the workforce to protect humanity from frontier AI risks.",
+  },
+  {
+    name: "Shay Yahal",
+    role: "Advisor",
+    image: "/shay.png",
+    bio: "Co-founder at a stealth startup; previously led AI & Data Engineering at Grip Security. Advises AISB drawing on 5 years of security research at the IDF.",
   },
 ];
 
@@ -326,7 +338,7 @@ export default function Home() {
               onClick={() => { posthog.capture("clicked_edition", { edition: "vegas_2026", location: "hero" }); window.gtag?.("event", "clicked_edition", { edition: "vegas_2026", location: "hero" }); }}
               className="inline-block bg-[#ef4444] text-white font-black text-sm uppercase tracking-widest px-8 py-4 hover:bg-red-600 transition-colors"
             >
-              AISB Vegas 2026
+              Apply now: AISB Vegas
             </a>
             <a
               href="/2025"
@@ -454,6 +466,9 @@ export default function Home() {
                 </div>
               )}
               <div>
+                <p className="text-[#ef4444] font-black text-xs uppercase tracking-widest mb-2">
+                  {member.role}
+                </p>
                 <h3 className="text-xl md:text-2xl font-black mb-3">{member.name}</h3>
                 <p className="text-neutral-600 dark:text-neutral-300 text-base leading-relaxed">
                   {member.bio}
@@ -506,7 +521,7 @@ export default function Home() {
               onClick={() => { posthog.capture("clicked_edition", { edition: "vegas_2026", location: "cta_section" }); window.gtag?.("event", "clicked_edition", { edition: "vegas_2026", location: "cta_section" }); }}
               className="inline-block bg-[#ef4444] text-white font-black text-sm uppercase tracking-widest px-8 py-4 hover:bg-red-600 transition-colors"
             >
-              AISB Vegas 2026
+              Apply now: AISB Vegas
             </a>
             <a
               href="/staff"

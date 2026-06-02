@@ -142,7 +142,7 @@ const faqs = [
   },
   {
     q: "What is the time commitment?",
-    a: "Full-time attendance from Sunday (Aug 2) through Saturday (Aug 8). We recommend you arrive Saturday Aug 1 and depart Sunday Aug 9. Pre-reading is sent in advance (~16\u201320 hours) and we share extra reading throughout the week.",
+    a: "Full-time attendance from Sunday (Aug 2) through Saturday (Aug 8). We recommend you arrive Saturday Aug 1 and depart Sunday Aug 9. Pre-reading is sent in advance (2 weeks before the bootcamp) and we share extra reading throughout the week.",
   },
   {
     q: "Do I need prior AI/ML experience?",
@@ -789,10 +789,14 @@ export default function Home() {
               Cost & Selection
             </h3>
             <div className="space-y-6 text-neutral-600 dark:text-neutral-300 text-base md:text-lg leading-relaxed">
-              <p>Accommodation included. Travel support available.</p>
               <p>
-                Selection is competitive. We will accept 16&ndash;20 participants. The cost is your time: full
-                attendance for the seven days and pre-reading completed before arrival.
+                <span className="font-bold text-black dark:text-white">The program is free to attend.</span>{" "}
+                Tuition, meals during program hours, materials, and accommodation in Las Vegas are fully covered for
+                accepted participants. Need-based travel support is available.
+              </p>
+              <p>
+                Selection is competitive. We will accept 16&ndash;20 participants. What we ask in return is your time:
+                full attendance for the seven days, plus pre-reading completed before arrival.
               </p>
             </div>
           </div>
