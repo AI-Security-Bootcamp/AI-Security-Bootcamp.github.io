@@ -67,6 +67,13 @@ const raymund: StaffAppearance = {
   image: "/raymund.png",
 };
 
+const bary: StaffAppearance = {
+  name: "Bary Levy",
+  role: "Content",
+  bio: "Independent researcher across ML and security, applying security mindset to AI alignment. Previously co-founder of an AI Security research startup, and found major vulnerabilities in ML stack including JupyterLab and vLLM.",
+  image: "/bary.png",
+};
+
 // Programmes — listed in reverse chronological order. Each programme owns its own staff list;
 // duplicates across programmes are intentional (people who staffed multiple cohorts).
 export const programmes: Programme[] = [
@@ -78,7 +85,7 @@ export const programmes: Programme[] = [
   {
     name: "Singapore 2026",
     slug: "singapore",
-    staff: [pranav, jan, david, nitzan, valerie, raymund],
+    staff: [pranav, jan, david, nitzan, valerie, raymund, bary],
   },
   {
     name: "London 2025",
