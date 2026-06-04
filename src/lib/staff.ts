@@ -78,11 +78,6 @@ const bary: StaffAppearance = {
 // duplicates across programmes are intentional (people who staffed multiple cohorts).
 export const programmes: Programme[] = [
   {
-    name: "Vegas 2026",
-    slug: "vegas26",
-    staff: [pranav],
-  },
-  {
     name: "Singapore 2026",
     slug: "singapore",
     staff: [pranav, jan, david, nitzan, valerie, raymund, bary],

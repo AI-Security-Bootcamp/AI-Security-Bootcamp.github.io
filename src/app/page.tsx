@@ -341,18 +341,18 @@ export default function Home() {
               Apply now: AISB Vegas
             </a>
             <a
-              href="/2025"
-              onClick={() => { posthog.capture("clicked_edition", { edition: "london_2025", location: "hero" }); window.gtag?.("event", "clicked_edition", { edition: "london_2025", location: "hero" }); }}
-              className="inline-block border-2 border-black dark:border-white text-black dark:text-white font-black text-sm uppercase tracking-widest px-8 py-4 bg-transparent hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-colors"
-            >
-              AISB London 2025
-            </a>
-            <a
               href="/singapore"
               onClick={() => { posthog.capture("clicked_edition", { edition: "singapore_2026", location: "hero" }); window.gtag?.("event", "clicked_edition", { edition: "singapore_2026", location: "hero" }); }}
               className="inline-block border-2 border-black dark:border-white text-black dark:text-white font-black text-sm uppercase tracking-widest px-8 py-4 bg-transparent hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-colors"
             >
               AISB Singapore 2026
+            </a>
+            <a
+              href="/2025"
+              onClick={() => { posthog.capture("clicked_edition", { edition: "london_2025", location: "hero" }); window.gtag?.("event", "clicked_edition", { edition: "london_2025", location: "hero" }); }}
+              className="inline-block border-2 border-black dark:border-white text-black dark:text-white font-black text-sm uppercase tracking-widest px-8 py-4 bg-transparent hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-colors"
+            >
+              AISB London 2025
             </a>
           </div>
         </div>
