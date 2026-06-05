@@ -282,8 +282,21 @@ export default function Cohort2025() {
         </section>
       </main>
 
-      {/* Footer spacing */}
-      <div className="h-16"></div>
+      {/* Footer */}
+      <footer className="max-w-4xl mx-auto mt-20 pt-8 border-t border-gray-300">
+        <p className="text-sm text-gray-500 text-center pb-16">
+          AI Security Bootcamp is fiscally sponsored by{" "}
+          <a
+            href="https://bluedot.org"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-blue-600 hover:underline"
+          >
+            BlueDot Impact
+          </a>
+          .
+        </p>
+      </footer>
     </div>
   );
 }

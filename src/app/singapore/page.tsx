@@ -201,7 +201,7 @@ function ThemeToggle({ isDark, toggle }: { isDark: boolean; toggle: () => void }
           <path strokeLinecap="round" strokeLinejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
         </svg>
       )}
-      <span>{isDark ? "Light" : "Dark"}</span>
+      <span className="hidden sm:inline">{isDark ? "Light" : "Dark"}</span>
     </button>
   );
 }
@@ -297,8 +297,8 @@ export default function Home() {
       </a>
 
       {/* ===================== HERO ===================== */}
-      <section className="min-h-screen flex flex-col justify-center px-6 md:px-16 lg:px-24">
-        <div className="max-w-5xl">
+      <section className="min-h-screen flex flex-col px-6 md:px-16 lg:px-24">
+        <div className="flex-1 flex flex-col justify-center w-full max-w-5xl">
           <p className="text-[#ef4444] font-black text-sm uppercase tracking-widest mb-4">
             Cohort completed &middot; April 2026
           </p>
@@ -653,7 +653,16 @@ export default function Home() {
       {/* ===================== BOTTOM BAR ===================== */}
       <footer className="px-6 md:px-16 lg:px-24 py-8 border-t-2 border-black dark:border-white flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <p className="text-neutral-400 dark:text-neutral-600 text-sm font-bold tracking-widest">
-          &copy; AI Security Bootcamp
+          AI Security Bootcamp is fiscally sponsored by{" "}
+          <a
+            href="https://bluedot.org"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="underline hover:text-[#ef4444] transition-colors"
+          >
+            BlueDot Impact
+          </a>
+          .
         </p>
         <div className="flex flex-wrap gap-6">
           <a

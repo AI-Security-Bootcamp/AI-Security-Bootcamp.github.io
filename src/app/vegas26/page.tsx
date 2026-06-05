@@ -404,7 +404,7 @@ function ThemeToggle({ isDark, toggle }: { isDark: boolean; toggle: () => void }
           <path strokeLinecap="round" strokeLinejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
         </svg>
       )}
-      <span>{isDark ? "Light" : "Dark"}</span>
+      <span className="hidden sm:inline">{isDark ? "Light" : "Dark"}</span>
     </button>
   );
 }
@@ -555,8 +555,8 @@ export default function Home() {
       {mounted && <ThemeToggle isDark={isDark} toggle={toggle} />}
 
       {/* ===================== HERO ===================== */}
-      <section className="min-h-screen flex flex-col justify-center px-6 md:px-16 lg:px-24 pt-4 md:pt-6">
-        <div className="max-w-5xl">
+      <section className="min-h-screen flex flex-col px-6 md:px-16 lg:px-24 pt-4 md:pt-6">
+        <div className="flex-1 flex flex-col justify-center w-full max-w-5xl">
           <p className="text-[#ef4444] font-black text-sm uppercase tracking-widest mb-3">
             Applications open
           </p>
