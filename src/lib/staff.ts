@@ -3,6 +3,7 @@ export type StaffAppearance = {
   role: string;
   bio: string;
   image: string | null;
+  linkedin?: string;
 };
 
 export type Programme = {
@@ -16,6 +17,7 @@ const pranav: StaffAppearance = {
   role: "Program Lead",
   bio: "Research engineer at Conjecture. Created AISB to bridge AI safety and security; leads curriculum design and program direction across all editions.",
   image: "/pranav.png",
+  linkedin: "https://www.linkedin.com/in/pranav-gade/",
 };
 
 const jan: StaffAppearance = {
@@ -23,6 +25,7 @@ const jan: StaffAppearance = {
   role: "Security Lead",
   bio: "Security lead at Conjecture. Designs AISB\u2019s hands-on labs and capstone projects, drawing on 10+ years securing complex systems and ML infrastructure.",
   image: "/jan.png",
+  linkedin: "https://www.linkedin.com/in/jmichelfeit/",
 };
 
 const david: StaffAppearance = {
@@ -30,6 +33,7 @@ const david: StaffAppearance = {
   role: "Curriculum",
   bio: "Research Manager at ERA, upskilling fellows in technical AI safety research. PhD from Columbia in systems and security; previously CTO and cofounder of cybersecurity insurance startup Elpha Secure.",
   image: "/david.png",
+  linkedin: "https://www.linkedin.com/in/david-williams-king/",
 };
 
 const nitzan: StaffAppearance = {
@@ -37,6 +41,7 @@ const nitzan: StaffAppearance = {
   role: "Security Lead",
   bio: "Head of Cyber Security at Heron AI Security Initiative. 6+ years of security research specialising in IoT, robotics, malware, and AI security.",
   image: "/nitzan.png",
+  linkedin: "https://www.linkedin.com/in/nitzan-shulman-14857b1a5/",
 };
 
 const jinglin: StaffAppearance = {
@@ -51,6 +56,7 @@ const frantisek: StaffAppearance = {
   role: "Operations",
   bio: "Builds bridges between communities, perspectives, and worldviews to foster collaboration on meaningful projects. Helped run operations for AISB London 2025.",
   image: "/frantisek.png",
+  linkedin: "https://www.linkedin.com/in/frantisek-drahota/",
 };
 
 const valerie: StaffAppearance = {
@@ -58,6 +64,7 @@ const valerie: StaffAppearance = {
   role: "Operations",
   bio: "Program Manager at Singapore AI Safety Hub. Helped run operations for AISB Singapore 2026.",
   image: "/valerie.png",
+  linkedin: "https://www.linkedin.com/in/valeriepang/",
 };
 
 const raymund: StaffAppearance = {
@@ -65,6 +72,7 @@ const raymund: StaffAppearance = {
   role: "Project Manager",
   bio: "Finds, vets, and orchestrates world-class teams to tackle major AI risks. Affiliated with Singapore AI Safety Hub. Project manager for AISB Singapore 2026.",
   image: "/raymund.png",
+  linkedin: "https://www.linkedin.com/in/raymund-ed-dominic-bermejo-53113834/",
 };
 
 const bary: StaffAppearance = {
@@ -72,6 +80,7 @@ const bary: StaffAppearance = {
   role: "Content",
   bio: "Independent researcher across ML and security, applying security mindset to AI alignment. Previously co-founder of an AI Security research startup, and found major vulnerabilities in ML stack including JupyterLab and vLLM.",
   image: "/bary.png",
+  linkedin: "https://www.linkedin.com/in/bary-levy/",
 };
 
 // Programmes — listed in reverse chronological order. Each programme owns its own staff list;

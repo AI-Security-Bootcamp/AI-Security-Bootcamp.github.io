@@ -224,21 +224,48 @@ export default function Cohort2025() {
         <section>
           <h2 className="text-4xl font-bold mb-12 text-center">Team</h2>
           <div className="max-w-3xl mx-auto space-y-12">
-            {(getProgramme('2025')?.staff ?? []).map((member) => (
+            {(getProgramme('2025')?.staff ?? []).map((member) => {
+              const avatar = member.image ? (
+                <img
+                  src={member.image}
+                  alt={member.name}
+                  className="w-24 h-24 rounded-full object-cover flex-shrink-0"
+                />
+              ) : (
+                <div className="w-24 h-24 rounded-full bg-gray-200 flex-shrink-0 flex items-center justify-center text-sm font-bold text-gray-500">
+                  {member.name.split(' ').map((n) => n[0]).join('').slice(0, 2)}
+                </div>
+              );
+              return (
               <div key={member.name} className="flex items-center gap-6">
-                {member.image ? (
-                  <img
-                    src={member.image}
-                    alt={member.name}
-                    className="w-24 h-24 rounded-full object-cover flex-shrink-0"
-                  />
+                {member.linkedin ? (
+                  <a
+                    href={member.linkedin}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex-shrink-0 hover:opacity-80 transition-opacity"
+                    aria-label={`${member.name} on LinkedIn`}
+                  >
+                    {avatar}
+                  </a>
                 ) : (
-                  <div className="w-24 h-24 rounded-full bg-gray-200 flex-shrink-0 flex items-center justify-center text-sm font-bold text-gray-500">
-                    {member.name.split(' ').map((n) => n[0]).join('').slice(0, 2)}
-                  </div>
+                  avatar
                 )}
                 <div>
-                  <h3 className="text-2xl font-bold mb-4">{member.name}</h3>
+                  <h3 className="text-2xl font-bold mb-4">
+                    {member.linkedin ? (
+                      <a
+                        href={member.linkedin}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="hover:text-blue-600 transition-colors"
+                      >
+                        {member.name}
+                      </a>
+                    ) : (
+                      member.name
+                    )}
+                  </h3>
                   <div className="text-lg text-gray-700 space-y-2">
                     {member.bio.split('\n\n').map((para, i) => (
                       <p key={i}>{para}</p>
@@ -246,7 +273,8 @@ export default function Cohort2025() {
                   </div>
                 </div>
               </div>
-            ))}
+              );
+            })}
           </div>
         </section>
 

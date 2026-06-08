@@ -267,36 +267,42 @@ const teamFeatured = [
     role: "Program Lead",
     image: "/pranav.png",
     bio: "Created AISB to bridge AI safety and security; previously research engineer at Conjecture. Leads curriculum design and program direction.",
+    linkedin: "https://www.linkedin.com/in/pranav-gade/",
   },
   {
     name: "Jan Michelfeit",
     role: "Security Lead",
     image: "/jan.png",
     bio: "Research engineer at the UK AI Security Institute. Advises AISB and designs the content, drawing on 10+ years securing complex systems and ML infrastructure.",
+    linkedin: "https://www.linkedin.com/in/jmichelfeit/",
   },
   {
     name: "David Williams-King",
     role: "Curriculum",
     image: "/david.png",
     bio: "Research Manager at ERA, upskilling fellows in technical AI safety research. PhD from Columbia in systems and security; previously CTO and cofounder of cybersecurity insurance startup Elpha Secure.",
+    linkedin: "https://www.linkedin.com/in/david-williams-king/",
   },
   {
     name: "Nitzan Shulman",
     role: "Advisor",
     image: "/nitzan.png",
     bio: "Head of Cyber Security at Heron AI Security Initiative. 6+ years of security research specialising in IoT, robotics, malware, and AI security.",
+    linkedin: "https://www.linkedin.com/in/nitzan-shulman-14857b1a5/",
   },
   {
     name: "Dewi Erwan",
     role: "Advisor",
     image: "/dewi.png",
     bio: "CEO of BlueDot Impact, building the workforce to protect humanity from frontier AI risks.",
+    linkedin: "https://www.linkedin.com/in/dewierwan/",
   },
   {
     name: "Shay Yahal",
     role: "Advisor",
     image: "/shay.png",
     bio: "Co-founder at a stealth startup; previously led AI & Data Engineering at Grip Security. Advises AISB drawing on 5 years of security research at the IDF.",
+    linkedin: "https://www.linkedin.com/in/shay-yahal/",
   },
 ];
 
@@ -449,33 +455,61 @@ export default function Home() {
         </p>
 
         <div className="grid gap-6 md:grid-cols-2 max-w-5xl">
-          {teamFeatured.map((member) => (
+          {teamFeatured.map((member) => {
+            const avatar = member.image ? (
+              <img
+                src={member.image}
+                alt={member.name}
+                className="w-20 h-20 rounded-full object-cover flex-shrink-0"
+              />
+            ) : (
+              <div className="w-20 h-20 rounded-full bg-neutral-200 dark:bg-neutral-800 flex-shrink-0 flex items-center justify-center text-xs font-black tracking-widest text-neutral-400 dark:text-neutral-500">
+                {member.name.split(" ").map((n) => n[0]).join("").slice(0, 2)}
+              </div>
+            );
+            return (
             <div
               key={member.name}
               className="border-2 border-black dark:border-white p-8 flex items-start gap-6"
             >
-              {member.image ? (
-                <img
-                  src={member.image}
-                  alt={member.name}
-                  className="w-20 h-20 rounded-full object-cover flex-shrink-0"
-                />
+              {member.linkedin ? (
+                <a
+                  href={member.linkedin}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex-shrink-0 hover:opacity-80 transition-opacity"
+                  aria-label={`${member.name} on LinkedIn`}
+                >
+                  {avatar}
+                </a>
               ) : (
-                <div className="w-20 h-20 rounded-full bg-neutral-200 dark:bg-neutral-800 flex-shrink-0 flex items-center justify-center text-xs font-black tracking-widest text-neutral-400 dark:text-neutral-500">
-                  {member.name.split(" ").map((n) => n[0]).join("").slice(0, 2)}
-                </div>
+                avatar
               )}
               <div>
                 <p className="text-[#ef4444] font-black text-xs uppercase tracking-widest mb-2">
                   {member.role}
                 </p>
-                <h3 className="text-xl md:text-2xl font-black mb-3">{member.name}</h3>
+                <h3 className="text-xl md:text-2xl font-black mb-3">
+                  {member.linkedin ? (
+                    <a
+                      href={member.linkedin}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="hover:text-[#ef4444] transition-colors"
+                    >
+                      {member.name}
+                    </a>
+                  ) : (
+                    member.name
+                  )}
+                </h3>
                 <p className="text-neutral-600 dark:text-neutral-300 text-base leading-relaxed">
                   {member.bio}
                 </p>
               </div>
             </div>
-          ))}
+            );
+          })}
         </div>
 
         <a
@@ -565,6 +599,12 @@ export default function Home() {
             className="text-neutral-400 dark:text-neutral-600 text-sm font-bold uppercase tracking-widest hover:text-[#ef4444] transition-colors"
           >
             Staff
+          </a>
+          <a
+            href="/brand"
+            className="text-neutral-400 dark:text-neutral-600 text-sm font-bold uppercase tracking-widest hover:text-[#ef4444] transition-colors"
+          >
+            Brand
           </a>
           <a
             href="https://github.com/pranavgade20/aisb"

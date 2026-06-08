@@ -50,21 +50,47 @@ function ThemeToggle({ isDark, toggle }: { isDark: boolean; toggle: () => void }
 }
 
 function StaffCard({ member }: { member: StaffAppearance }) {
+  const avatar = member.image ? (
+    <img
+      src={member.image}
+      alt={member.name}
+      className="w-20 h-20 rounded-full object-cover flex-shrink-0"
+    />
+  ) : (
+    <div className="w-20 h-20 rounded-full bg-neutral-200 dark:bg-neutral-800 flex-shrink-0 flex items-center justify-center text-xs font-black tracking-widest text-neutral-400 dark:text-neutral-500">
+      {member.name.split(" ").map((n) => n[0]).join("").slice(0, 2)}
+    </div>
+  );
   return (
     <div className="border-2 border-black dark:border-white p-8 flex items-start gap-6">
-      {member.image ? (
-        <img
-          src={member.image}
-          alt={member.name}
-          className="w-20 h-20 rounded-full object-cover flex-shrink-0"
-        />
+      {member.linkedin ? (
+        <a
+          href={member.linkedin}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex-shrink-0 hover:opacity-80 transition-opacity"
+          aria-label={`${member.name} on LinkedIn`}
+        >
+          {avatar}
+        </a>
       ) : (
-        <div className="w-20 h-20 rounded-full bg-neutral-200 dark:bg-neutral-800 flex-shrink-0 flex items-center justify-center text-xs font-black tracking-widest text-neutral-400 dark:text-neutral-500">
-          {member.name.split(" ").map((n) => n[0]).join("").slice(0, 2)}
-        </div>
+        avatar
       )}
       <div className="flex-1 min-w-0">
-        <h3 className="text-xl md:text-2xl font-black mb-3">{member.name}</h3>
+        <h3 className="text-xl md:text-2xl font-black mb-3">
+          {member.linkedin ? (
+            <a
+              href={member.linkedin}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-[#ef4444] transition-colors"
+            >
+              {member.name}
+            </a>
+          ) : (
+            member.name
+          )}
+        </h3>
         <div className="text-neutral-600 dark:text-neutral-300 text-base leading-relaxed space-y-3">
           {member.bio.split("\n\n").map((para, i) => (
             <p key={i}>{para}</p>
@@ -151,6 +177,12 @@ export default function StaffPage() {
             className="text-neutral-400 dark:text-neutral-600 text-sm font-bold uppercase tracking-widest hover:text-[#ef4444] transition-colors"
           >
             Singapore 2026
+          </a>
+          <a
+            href="/brand"
+            className="text-neutral-400 dark:text-neutral-600 text-sm font-bold uppercase tracking-widest hover:text-[#ef4444] transition-colors"
+          >
+            Brand
           </a>
         </div>
       </footer>
