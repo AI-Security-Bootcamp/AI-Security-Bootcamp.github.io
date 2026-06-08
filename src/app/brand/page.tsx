@@ -94,7 +94,7 @@ function AssetCard({ asset }: { asset: Asset }) {
   return (
     <div className="border-2 border-black dark:border-white flex flex-col">
       <div
-        className={`flex items-center justify-center p-12 ${
+        className={`flex items-center justify-center p-8 ${
           asset.bg === "dark" ? "bg-neutral-900" : "bg-neutral-100"
         }`}
       >
@@ -102,7 +102,7 @@ function AssetCard({ asset }: { asset: Asset }) {
         <img
           src={`/brand/${asset.file}.svg`}
           alt={`${asset.title} (${asset.subtitle})`}
-          className="max-h-32 w-auto object-contain"
+          className="max-h-56 w-auto object-contain"
         />
       </div>
       <div className="border-t-2 border-black dark:border-white p-6">
