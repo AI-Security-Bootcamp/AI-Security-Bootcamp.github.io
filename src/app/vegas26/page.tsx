@@ -585,7 +585,7 @@ export default function Home() {
           <div className="flex flex-wrap gap-4 mb-6">
             <a
               href={APPLICATION_URL}
-              onClick={() => { posthog.capture("clicked_apply_now", { location: "vegas26_hero" }); window.gtag?.("event", "clicked_apply_now", { location: "vegas26_hero" }); }}
+              onClick={() => { posthog.capture("clicked_apply_now", { location: "vegas26_hero" }); }}
               className="inline-block bg-[#ef4444] text-white font-black text-sm uppercase tracking-widest px-8 py-4 hover:bg-red-600 transition-colors"
             >
               Apply Now
@@ -850,7 +850,7 @@ export default function Home() {
           </p>
           <a
             href={APPLICATION_URL}
-            onClick={() => { posthog.capture("clicked_apply_now", { location: "vegas26_cta" }); window.gtag?.("event", "clicked_apply_now", { location: "vegas26_cta" }); }}
+            onClick={() => { posthog.capture("clicked_apply_now", { location: "vegas26_cta" }); }}
             className="inline-block bg-[#ef4444] text-white font-black text-sm uppercase tracking-widest px-8 py-4 hover:bg-red-600 transition-colors"
           >
             Apply Now

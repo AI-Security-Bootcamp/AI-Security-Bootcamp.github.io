@@ -328,7 +328,7 @@ export default function Home() {
           <div className="flex flex-wrap gap-4 mb-10">
             <a
               href="/eoi"
-              onClick={() => { posthog.capture("clicked_expression_of_interest", { location: "singapore_hero" }); window.gtag?.("event", "clicked_expression_of_interest", { location: "singapore_hero" }); }}
+              onClick={() => { posthog.capture("clicked_expression_of_interest", { location: "singapore_hero" }); }}
               className="inline-block bg-[#ef4444] text-white font-black text-sm uppercase tracking-widest px-8 py-4 hover:bg-red-600 transition-colors"
             >
               Express interest in future cohorts
@@ -663,7 +663,7 @@ export default function Home() {
           <div className="flex flex-wrap gap-4">
             <a
               href="/eoi"
-              onClick={() => { posthog.capture("clicked_expression_of_interest", { location: "singapore_cta" }); window.gtag?.("event", "clicked_expression_of_interest", { location: "singapore_cta" }); }}
+              onClick={() => { posthog.capture("clicked_expression_of_interest", { location: "singapore_cta" }); }}
               className="inline-block bg-[#ef4444] text-white font-black text-sm uppercase tracking-widest px-8 py-4 hover:bg-red-600 transition-colors"
             >
               Expression of Interest

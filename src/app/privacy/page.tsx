@@ -93,9 +93,8 @@ export default function PrivacyPolicy() {
         <div className="max-w-3xl">
           <Section title="Who we are">
             <p>
-              The AI Security Bootcamp (&ldquo;AISB&rdquo;, &ldquo;we&rdquo;, &ldquo;us&rdquo;) is an
-              intensive training program for security professionals working at the frontier of AI.
-              AISB is fiscally sponsored by{" "}
+              The AI Security Bootcamp (&ldquo;AISB&rdquo;, &ldquo;we&rdquo;, &ldquo;us&rdquo;) is a
+              program fiscally sponsored by{" "}
               <a href="https://bluedot.org" target="_blank" rel="noopener noreferrer" className={linkClass}>
                 BlueDot Impact
               </a>
@@ -104,13 +103,12 @@ export default function PrivacyPolicy() {
               with.
             </p>
             <p>
-              Because AISB operates under BlueDot Impact&apos;s fiscal sponsorship, we share personal
+              Because AISB operates under BlueDot Impact&apos;s fiscal sponsorship, we might share your
               information with BlueDot Impact, and BlueDot Impact&apos;s{" "}
               <a href="https://bluedot.org/privacy-policy" target="_blank" rel="noopener noreferrer" className={linkClass}>
                 Privacy Policy
               </a>{" "}
-              also applies to its processing of your information. Where the two policies differ in
-              respect of BlueDot Impact&apos;s processing, BlueDot Impact&apos;s Privacy Policy governs.
+              also applies to its processing of your information.
             </p>
           </Section>
 
@@ -133,7 +131,7 @@ export default function PrivacyPolicy() {
                 <span className="font-bold text-black dark:text-white">Information we collect
                 automatically.</span>{" "}
                 Technical and usage information about your device and how you interact with our website,
-                collected through cookies and similar technologies.
+                collected through our privacy-friendly, cookieless analytics.
               </li>
             </ul>
           </Section>
@@ -147,6 +145,33 @@ export default function PrivacyPolicy() {
               <li>understand and improve our website, programs, and communications;</li>
               <li>keep our community and events safe; and</li>
               <li>comply with our legal and regulatory obligations.</li>
+            </ul>
+          </Section>
+
+          <Section title="Our lawful bases for processing">
+            <p>
+              Where the UK or EU GDPR applies, we rely on one or more of the following lawful bases when
+              we process your personal information:
+            </p>
+            <ul className="list-disc pl-6 space-y-2">
+              <li>
+                <span className="font-bold text-black dark:text-white">Consent</span> &mdash; for
+                example, for optional communications, non-essential cookies, and publishing certain
+                information about you;
+              </li>
+              <li>
+                <span className="font-bold text-black dark:text-white">Performance of a contract</span>{" "}
+                &mdash; to assess your application and to deliver the program to participants;
+              </li>
+              <li>
+                <span className="font-bold text-black dark:text-white">Legitimate interests</span>{" "}
+                &mdash; to operate, secure, promote, and improve AISB and to communicate with our
+                community, balanced against your rights and interests; and
+              </li>
+              <li>
+                <span className="font-bold text-black dark:text-white">Legal obligation</span> &mdash;
+                to comply with applicable laws and regulatory requirements.
+              </li>
             </ul>
           </Section>
 
@@ -172,6 +197,13 @@ export default function PrivacyPolicy() {
                 information for their own purposes.
               </li>
               <li>
+                <span className="font-bold text-black dark:text-white">Publicity.</span>{" "}
+                We may publish information about our staff and participants &mdash; such as names,
+                photos, professional affiliations, and testimonials &mdash; and photos or recordings
+                from our events, on our website and social media. Where required, we ask for your consent
+                first.
+              </li>
+              <li>
                 <span className="font-bold text-black dark:text-white">Legal and safety.</span>{" "}
                 We may share information where we believe it is necessary to comply with the law, enforce
                 our terms, or protect the rights, property, or safety of AISB, our participants, or
@@ -188,9 +220,11 @@ export default function PrivacyPolicy() {
 
           <Section title="Cookies and analytics">
             <p>
-              We use cookies and similar technologies, including analytics tools, to understand how our
-              website is used and to improve it. You can control cookies through your browser settings;
-              disabling some cookies may affect how the site works.
+              We use privacy-friendly analytics (PostHog) to understand how our website is used and to
+              improve it. We run it in a cookieless mode, so it does not store cookies on your device or
+              track you across other websites. We also use your browser&apos;s local storage for
+              essential features, such as remembering your light or dark theme preference. We do not use
+              advertising cookies.
             </p>
           </Section>
 
@@ -209,7 +243,9 @@ export default function PrivacyPolicy() {
               the right to access, correct, delete, or restrict the processing of your information, to
               object to certain processing, and to data portability. Applicable data protection law,
               including the UK and EU GDPR, may apply to BlueDot Impact&apos;s processing of your
-              information. To exercise any of these rights, contact us using the details below.
+              information. To exercise any of these rights, contact us using the details below. If you
+              are in the UK or EEA, you also have the right to lodge a complaint with your local data
+              protection authority (in the UK, the Information Commissioner&apos;s Office).
             </p>
           </Section>
 

@@ -341,21 +341,21 @@ export default function Home() {
           <div className="flex flex-col items-start gap-4 mb-12">
             <a
               href="/vegas26"
-              onClick={() => { posthog.capture("clicked_edition", { edition: "vegas_2026", location: "hero" }); window.gtag?.("event", "clicked_edition", { edition: "vegas_2026", location: "hero" }); }}
+              onClick={() => { posthog.capture("clicked_edition", { edition: "vegas_2026", location: "hero" }); }}
               className="inline-block bg-[#ef4444] text-white font-black text-sm uppercase tracking-widest px-8 py-4 hover:bg-red-600 transition-colors"
             >
               Apply now: AISB Vegas
             </a>
             <a
               href="/singapore"
-              onClick={() => { posthog.capture("clicked_edition", { edition: "singapore_2026", location: "hero" }); window.gtag?.("event", "clicked_edition", { edition: "singapore_2026", location: "hero" }); }}
+              onClick={() => { posthog.capture("clicked_edition", { edition: "singapore_2026", location: "hero" }); }}
               className="inline-block border-2 border-black dark:border-white text-black dark:text-white font-black text-sm uppercase tracking-widest px-8 py-4 bg-transparent hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-colors"
             >
               AISB Singapore 2026
             </a>
             <a
               href="/2025"
-              onClick={() => { posthog.capture("clicked_edition", { edition: "london_2025", location: "hero" }); window.gtag?.("event", "clicked_edition", { edition: "london_2025", location: "hero" }); }}
+              onClick={() => { posthog.capture("clicked_edition", { edition: "london_2025", location: "hero" }); }}
               className="inline-block border-2 border-black dark:border-white text-black dark:text-white font-black text-sm uppercase tracking-widest px-8 py-4 bg-transparent hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-colors"
             >
               AISB London 2025
@@ -552,7 +552,7 @@ export default function Home() {
           <div className="flex flex-wrap gap-4">
             <a
               href="/vegas26"
-              onClick={() => { posthog.capture("clicked_edition", { edition: "vegas_2026", location: "cta_section" }); window.gtag?.("event", "clicked_edition", { edition: "vegas_2026", location: "cta_section" }); }}
+              onClick={() => { posthog.capture("clicked_edition", { edition: "vegas_2026", location: "cta_section" }); }}
               className="inline-block bg-[#ef4444] text-white font-black text-sm uppercase tracking-widest px-8 py-4 hover:bg-red-600 transition-colors"
             >
               Apply now: AISB Vegas
