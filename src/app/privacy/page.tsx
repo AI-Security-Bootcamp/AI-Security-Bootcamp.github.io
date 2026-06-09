@@ -230,10 +230,12 @@ export default function PrivacyPolicy() {
 
           <Section title="How long we keep your information">
             <p>
-              We keep personal information only for as long as necessary for the purposes described in
-              this policy &mdash; for example, to process your application, deliver the program, maintain
-              our alumni community, and meet legal and record-keeping obligations &mdash; after which we
-              delete or anonymise it.
+              We keep personal information only for as long as necessary for the purposes in this policy
+              &mdash; for example, to maintain our alumni community and records, inform you of future
+              programmes, and meet legal and record-keeping obligations (such as keeping financial
+              records for the period required by law). We delete or anonymise information when we no
+              longer need it, and you can ask us to delete your information at any time using the details
+              below.
             </p>
           </Section>
 
@@ -283,8 +285,8 @@ export default function PrivacyPolicy() {
             <p>
               If you have any questions about this policy or how we handle your personal information,
               contact us at{" "}
-              <a href="mailto:pranav@aisb.dev" className={linkClass}>
-                pranav@aisb.dev
+              <a href="mailto:privacy@aisb.dev" className={linkClass}>
+                privacy@aisb.dev
               </a>
               .
             </p>

@@ -103,8 +103,7 @@ export default function TermsOfUse() {
           <Section title="Who we are">
             <p>
               The AI Security Bootcamp (&ldquo;AISB&rdquo;, &ldquo;we&rdquo;, &ldquo;us&rdquo;) is a
-              training program for security professionals working at the frontier of AI. AISB is
-              fiscally sponsored by{" "}
+              program fiscally sponsored by{" "}
               <a href="https://bluedot.org" target="_blank" rel="noopener noreferrer" className={linkClass}>
                 BlueDot Impact
               </a>
@@ -136,7 +135,7 @@ export default function TermsOfUse() {
           <Section title="Intellectual property">
             <p>
               Unless stated otherwise, the content on this Site &mdash; including text, design, logos,
-              and brand assets &mdash; belongs to AISB or BlueDot Impact, or is used with permission.
+              and brand assets &mdash; belongs to AISB, or is used with permission.
               Our brand assets are made available on our{" "}
               <a href="/brand" className={linkClass}>
                 brand page
