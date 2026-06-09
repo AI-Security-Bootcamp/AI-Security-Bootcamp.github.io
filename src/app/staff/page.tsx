@@ -184,6 +184,18 @@ export default function StaffPage() {
           >
             Brand
           </a>
+          <a
+            href="/privacy"
+            className="text-neutral-400 dark:text-neutral-600 text-sm font-bold uppercase tracking-widest hover:text-[#ef4444] transition-colors"
+          >
+            Privacy
+          </a>
+          <a
+            href="/terms"
+            className="text-neutral-400 dark:text-neutral-600 text-sm font-bold uppercase tracking-widest hover:text-[#ef4444] transition-colors"
+          >
+            Terms
+          </a>
         </div>
       </footer>
     </div>
