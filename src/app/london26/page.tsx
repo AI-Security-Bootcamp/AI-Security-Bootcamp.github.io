@@ -573,7 +573,7 @@ export default function Home() {
           </p>
 
           <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-neutral-400 dark:text-neutral-500 font-bold uppercase tracking-widest mb-5">
-            <span>August 30 &ndash; September 5, 2026</span>
+            <span>30 Aug &ndash; 5 Sept</span>
             <span className="text-[#ef4444]">|</span>
             <span>London</span>
             <span className="text-[#ef4444]">|</span>
