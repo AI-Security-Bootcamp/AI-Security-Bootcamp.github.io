@@ -66,7 +66,7 @@ export function LinkedinSquare({ dark = false, id }: LinkedinSquareProps) {
         <br />
         Bootcamp
         <br />
-        <span style={{ color: COLOR }}>Vegas</span>
+        <span style={{ color: COLOR }}>London</span>
       </h1>
 
       {/* Curriculum themes tagline */}
@@ -106,9 +106,9 @@ export function LinkedinSquare({ dark = false, id }: LinkedinSquareProps) {
             lineHeight: 1.1,
           }}
         >
-          Aug 2&ndash;8, 2026
+          Aug 30 &ndash; Sep 5, 2026
           <span style={{ color: COLOR, margin: "0 14px" }}>·</span>
-          Las Vegas
+          London
         </p>
         <p
           style={{
@@ -126,7 +126,7 @@ export function LinkedinSquare({ dark = false, id }: LinkedinSquareProps) {
           <span style={{ color: COLOR, margin: "0 6px" }}>·</span>
           Fully Funded
           <span style={{ color: COLOR, margin: "0 6px" }}>·</span>
-          16 Senior Security Professionals
+          20 Senior Security Professionals
         </p>
       </div>
 
@@ -164,7 +164,7 @@ export function LinkedinSquare({ dark = false, id }: LinkedinSquareProps) {
               letterSpacing: "-0.01em",
             }}
           >
-            June 21, 2026
+            July 15, 2026
           </p>
         </div>
         <p
@@ -176,7 +176,7 @@ export function LinkedinSquare({ dark = false, id }: LinkedinSquareProps) {
             letterSpacing: "-0.01em",
           }}
         >
-          aisb.dev/<span style={{ color: COLOR }}>vegas26</span>
+          aisb.dev/<span style={{ color: COLOR }}>london26</span>
         </p>
       </div>
     </div>

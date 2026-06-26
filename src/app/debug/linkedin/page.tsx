@@ -47,21 +47,21 @@ const toStrikethrough = (s: string) => [...s].map((c) => c + "̶").join("");
 // Sample / formats / snippets
 // ============================================================================
 
-const SAMPLE = `𝗔𝗽𝗽𝗹𝗶𝗰𝗮𝘁𝗶𝗼𝗻𝘀 𝗳𝗼𝗿 𝗔𝗜𝗦𝗕 𝗩𝗲𝗴𝗮𝘀 𝗮𝗿𝗲 𝗻𝗼𝘄 𝗼𝗽𝗲𝗻!
-AI Security Bootcamp is a fully funded, 7-day intensive program for security professionals focused on securing frontier AI systems from emerging threats.
+const SAMPLE = `𝗔𝗽𝗽𝗹𝗶𝗰𝗮𝘁𝗶𝗼𝗻𝘀 𝗳𝗼𝗿 𝗔𝗜𝗦𝗕 𝗟𝗼𝗻𝗱𝗼𝗻 𝗮𝗿𝗲 𝗻𝗼𝘄 𝗼𝗽𝗲𝗻!
+AI Security Bootcamp is a fully funded, 7-day intensive program for security professionals focused on securing frontier AI systems from emerging threats. This cohort runs in London from August 30 to September 5, 2026.
 
 Participants learn to threat-model, attack, and defend frontier AI systems, and leave with the skills and network to step into roles at the labs, agencies, and research orgs shaping the field.
 
 We are looking for security professionals with 5+ years of hands-on experience. No AI or ML background required.
 
-Past participants have been affiliated with Google, Meta, Apple, Microsoft, AWS, Stanford, MIT, Oxford, Cambridge, and national security agencies. This is our third iteration after London and Singapore.
+Past participants have been affiliated with Google, Meta, Apple, Microsoft, AWS, Stanford, MIT, Oxford, Cambridge, and national security agencies. This is our fourth iteration after London, Singapore, and Vegas.
 
 We accept a small cohort and selection is competitive. Program costs are covered and travel support is available.
 
-Applications close June 21. We review on a rolling basis and encourage you to apply as early as possible.
+Applications close July 15. We review on a rolling basis and encourage you to apply as early as possible.
 
 Apply here: [APPLICATION LINK]
-Learn more: https://aisb.dev/vegas26
+Learn more: https://aisb.dev/london26
 
 Know someone who would be a great fit? Tag them in the comments or share this post with them.`;
 

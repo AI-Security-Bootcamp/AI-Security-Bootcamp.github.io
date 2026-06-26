@@ -142,7 +142,7 @@ const faqs = [
   },
   {
     q: "What is the time commitment?",
-    a: "Full-time attendance for the duration of the program (August 30 – April 5, 2026). Pre-reading is sent in advance (2 weeks before the bootcamp) and we share extra reading throughout the week.",
+    a: "Full-time attendance from Sunday (Aug 30) through Saturday (Sep 5). We recommend you arrive Saturday Aug 29 and depart Sunday Sep 6. Pre-reading is sent in advance (2 weeks before the bootcamp) and we share extra reading throughout the week.",
   },
   {
     q: "Do I need prior AI/ML experience?",
@@ -573,7 +573,7 @@ export default function Home() {
           </p>
 
           <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-neutral-400 dark:text-neutral-500 font-bold uppercase tracking-widest mb-5">
-            <span>August 30 &ndash; April 5, 2026</span>
+            <span>August 30 &ndash; September 5, 2026</span>
             <span className="text-[#ef4444]">|</span>
             <span>London</span>
             <span className="text-[#ef4444]">|</span>
@@ -775,7 +775,7 @@ export default function Home() {
               Timing
             </h3>
             <p className="text-neutral-600 dark:text-neutral-300 text-base md:text-lg leading-relaxed mb-4">
-              AISB London runs from August 30 through April 5, 2026.
+              AISB London runs from Sunday (Aug 30) through Saturday (Sep 5), 2026.
             </p>
             <p className="text-neutral-600 dark:text-neutral-300 text-base md:text-lg leading-relaxed">
               The week overlaps with the broader London security calendar: a strong networking opportunity
