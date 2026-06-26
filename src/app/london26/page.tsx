@@ -18,7 +18,7 @@ function useCountdown(target: Date) {
 }
 
 function CountdownBanner() {
-  const deadline = useMemo(() => new Date("2026-06-21T23:59:59"), []);
+  const deadline = useMemo(() => new Date("2026-07-15T23:59:59"), []);
   const { days, hours, minutes, seconds, expired } = useCountdown(deadline);
 
   if (expired) return null;
@@ -126,7 +126,7 @@ const curriculumDays = [
 const faqs = [
   {
     q: "Who else will be in the room?",
-    a: "Senior security professionals from across the stack (offensive and defensive, application and infrastructure, detection and response) who have demonstrated interest in AI security. Cohort size is intentionally small (20) so peer learning is a meaningful part of the experience.",
+    a: "Senior security professionals from across the stack (offensive and defensive, application and infrastructure, detection and response) who have demonstrated interest in AI security. Cohort size is intentionally small (16–20) so peer learning is a meaningful part of the experience.",
   },
   {
     q: "What does \"frontier AI security\" mean in practice?",
@@ -138,11 +138,11 @@ const faqs = [
   },
   {
     q: "Does the program cover accommodation and travel?",
-    a: "We will provide accommodation for you in Vegas for the full duration of the program. We have need-based travel support available.",
+    a: "We will provide accommodation for you in London for the full duration of the program. We have need-based travel support available.",
   },
   {
     q: "What is the time commitment?",
-    a: "Full-time attendance from Sunday (Aug 2) through Saturday (Aug 8). We recommend you arrive Saturday Aug 1 and depart Sunday Aug 9. Pre-reading is sent in advance (2 weeks before the bootcamp) and we share extra reading throughout the week.",
+    a: "Full-time attendance for the duration of the program (August 30 – April 5, 2026). Pre-reading is sent in advance (2 weeks before the bootcamp) and we share extra reading throughout the week.",
   },
   {
     q: "Do I need prior AI/ML experience?",
@@ -279,7 +279,7 @@ const affiliationLogos = [
   // { src: "/logos/Turkish Aerospace Industries.svg", alt: "Turkish Aerospace Industries" },
 ];
 
-const SLOT_WORDS = ["Vegas", "2026"];
+const SLOT_WORDS = ["London", "2026"];
 const SLOT_INTERVAL = 3000;
 const SLOT_DURATION = 600;
 
@@ -435,7 +435,7 @@ function AccordionItem({
           </span>
         </div>
         <span className="text-black dark:text-white text-3xl font-light leading-none select-none">
-          {open ? "\u2212" : "+"}
+          {open ? "−" : "+"}
         </span>
       </button>
       {open && (
@@ -445,7 +445,7 @@ function AccordionItem({
               key={i}
               className="flex items-start gap-4 text-neutral-600 dark:text-neutral-300"
             >
-              <span className="text-[#ef4444] mt-1 text-xs">{"\u25A0"}</span>
+              <span className="text-[#ef4444] mt-1 text-xs">{"■"}</span>
               <span className="text-base">{item}</span>
             </li>
           ))}
@@ -468,7 +468,7 @@ function FaqItem({ q, a }: { q: string; a: string }) {
           {q}
         </span>
         <span className="text-black dark:text-white text-3xl font-light leading-none select-none flex-shrink-0">
-          {open ? "\u2212" : "+"}
+          {open ? "−" : "+"}
         </span>
       </button>
       {open && (
@@ -558,7 +558,7 @@ export default function Home() {
       <section className="min-h-screen flex flex-col px-6 md:px-16 lg:px-24 pt-4 md:pt-6">
         <div className="flex-1 flex flex-col justify-center w-full max-w-5xl">
           <p className="text-[#ef4444] font-black text-sm uppercase tracking-widest mb-3">
-            Applications Closed
+            Applications open
           </p>
           <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black leading-[0.95] tracking-tight mb-6">
             AI Security
@@ -573,9 +573,9 @@ export default function Home() {
           </p>
 
           <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-neutral-400 dark:text-neutral-500 font-bold uppercase tracking-widest mb-5">
-            <span>August 2&ndash;8, 2026</span>
+            <span>August 30 &ndash; April 5, 2026</span>
             <span className="text-[#ef4444]">|</span>
-            <span>Las Vegas</span>
+            <span>London</span>
             <span className="text-[#ef4444]">|</span>
             <span>In-Person</span>
             <span className="text-[#ef4444]">|</span>
@@ -585,7 +585,7 @@ export default function Home() {
           <div className="flex flex-wrap gap-4 mb-6">
             <a
               href={APPLICATION_URL}
-              onClick={() => { posthog.capture("clicked_apply_now", { location: "vegas26_hero" }); }}
+              onClick={() => { posthog.capture("clicked_apply_now", { location: "london26_hero" }); }}
               className="inline-block bg-[#ef4444] text-white font-black text-sm uppercase tracking-widest px-8 py-4 hover:bg-red-600 transition-colors"
             >
               Apply Now
@@ -604,7 +604,7 @@ export default function Home() {
             <span>
               Application Deadline:{" "}
               <span className="text-black dark:text-white font-bold">
-                June 21, 2026
+                July 15, 2026
               </span>
             </span>
           </div>
@@ -702,7 +702,7 @@ export default function Home() {
             ].map((item, i) => (
               <li key={i} className="flex items-start gap-4">
                 <span className="text-[#ef4444] mt-1.5 text-xs font-black">
-                  {"\u25A0"}
+                  {"■"}
                 </span>
                 <span className="text-neutral-600 dark:text-neutral-300 text-base md:text-lg leading-relaxed">
                   {item}
@@ -775,10 +775,10 @@ export default function Home() {
               Timing
             </h3>
             <p className="text-neutral-600 dark:text-neutral-300 text-base md:text-lg leading-relaxed mb-4">
-              AISB Vegas runs from Sunday (Aug 2) through Saturday (Aug 8), 2026.
+              AISB London runs from August 30 through April 5, 2026.
             </p>
             <p className="text-neutral-600 dark:text-neutral-300 text-base md:text-lg leading-relaxed">
-              The week overlaps with the broader Las Vegas summer security calendar: a strong networking opportunity
+              The week overlaps with the broader London security calendar: a strong networking opportunity
               for participants to connect with practitioners and researchers from across the field.
             </p>
           </div>
@@ -791,11 +791,11 @@ export default function Home() {
             <div className="space-y-6 text-neutral-600 dark:text-neutral-300 text-base md:text-lg leading-relaxed">
               <p>
                 <span className="font-bold text-black dark:text-white">The program is free to attend.</span>{" "}
-                Tuition, meals during program hours, materials, and accommodation in Las Vegas are fully covered for
+                Tuition, meals during program hours, materials, and accommodation in London are fully covered for
                 accepted participants. Need-based travel support is available.
               </p>
               <p>
-                Selection is competitive. We will accept 20 participants. What we ask in return is your time:
+                Selection is competitive. We will accept 16&ndash;20 participants. What we ask in return is your time:
                 full attendance for the seven days, plus pre-reading completed before arrival.
               </p>
             </div>
@@ -842,7 +842,7 @@ export default function Home() {
             Ready to Apply?
           </h2>
           <p className="text-neutral-500 dark:text-neutral-400 text-base md:text-lg leading-relaxed mb-4 max-w-xl">
-            Applications close June 21, 2026. We review on a rolling basis and will prioritize applications we receive
+            Applications close July 15, 2026. We review on a rolling basis and will prioritize applications we receive
             before the deadline. Early applications are encouraged.
           </p>
           <p className="text-neutral-500 dark:text-neutral-400 text-base md:text-lg leading-relaxed mb-10 max-w-xl">
@@ -850,7 +850,7 @@ export default function Home() {
           </p>
           <a
             href={APPLICATION_URL}
-            onClick={() => { posthog.capture("clicked_apply_now", { location: "vegas26_cta" }); }}
+            onClick={() => { posthog.capture("clicked_apply_now", { location: "london26_cta" }); }}
             className="inline-block bg-[#ef4444] text-white font-black text-sm uppercase tracking-widest px-8 py-4 hover:bg-red-600 transition-colors"
           >
             Apply Now
@@ -879,6 +879,12 @@ export default function Home() {
             className="text-neutral-400 dark:text-neutral-600 text-sm font-bold uppercase tracking-widest hover:text-[#ef4444] transition-colors"
           >
             Home
+          </a>
+          <a
+            href="/vegas26"
+            className="text-neutral-400 dark:text-neutral-600 text-sm font-bold uppercase tracking-widest hover:text-[#ef4444] transition-colors"
+          >
+            Vegas 2026
           </a>
           <a
             href="/singapore"

@@ -5,6 +5,14 @@ import posthog from "posthog-js";
 
 const editions = [
   {
+    name: "AISB Vegas",
+    year: "2026",
+    href: "/vegas26",
+    detail: "7-day intensive · 20 participants · August 2026",
+    description:
+      "A frontier AI security cohort during the Las Vegas summer security calendar. Threat modelling, adversarial attacks, LLM and infrastructure security.",
+  },
+  {
     name: "AISB Singapore",
     year: "2026",
     href: "/singapore",
@@ -306,16 +314,71 @@ const teamFeatured = [
   },
 ];
 
+const pastPrograms = [
+  { href: "/vegas26", label: "AISB Vegas 2026", edition: "vegas_2026" },
+  { href: "/singapore", label: "AISB Singapore 2026", edition: "singapore_2026" },
+  { href: "/2025", label: "AISB London 2025", edition: "london_2025" },
+];
+
 export default function Home() {
   const { isDark, toggle, mounted } = useTheme();
+  const [pastOpen, setPastOpen] = useState(false);
 
   const scrollTo = (id: string) => {
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
   };
 
+  useEffect(() => {
+    if (!pastOpen) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setPastOpen(false);
+    };
+    document.addEventListener("keydown", onKey);
+    return () => document.removeEventListener("keydown", onKey);
+  }, [pastOpen]);
+
   return (
     <div className="bg-white dark:bg-black text-black dark:text-white min-h-screen font-sans transition-colors">
       {mounted && <ThemeToggle isDark={isDark} toggle={toggle} />}
+
+      {/* ===================== PAST PROGRAMS MODAL ===================== */}
+      {pastOpen && (
+        <div
+          className="fixed inset-0 z-[60] flex items-center justify-center p-6 bg-black/60 backdrop-blur-sm"
+          onClick={() => setPastOpen(false)}
+          role="dialog"
+          aria-modal="true"
+          aria-label="Past programs"
+        >
+          <div
+            className="relative w-full max-w-md bg-white dark:bg-black border-2 border-black dark:border-white p-8"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button
+              onClick={() => setPastOpen(false)}
+              className="absolute top-4 right-4 text-black dark:text-white text-3xl font-light leading-none select-none hover:text-[#ef4444] transition-colors"
+              aria-label="Close"
+            >
+              {"×"}
+            </button>
+            <h2 className="text-2xl md:text-3xl font-black tracking-tight mb-6">
+              Past Programs
+            </h2>
+            <div className="flex flex-col gap-4">
+              {pastPrograms.map((p) => (
+                <a
+                  key={p.href}
+                  href={p.href}
+                  onClick={() => { posthog.capture("clicked_edition", { edition: p.edition, location: "past_programs_modal" }); }}
+                  className="inline-block border-2 border-black dark:border-white text-black dark:text-white font-black text-sm uppercase tracking-widest px-6 py-4 bg-transparent hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-colors"
+                >
+                  {p.label}
+                </a>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* ===================== HERO ===================== */}
       <section className="min-h-screen flex flex-col px-6 md:px-16 lg:px-24 pt-10">
@@ -338,28 +401,20 @@ export default function Home() {
             <span>Infrastructure &amp; Governance</span>
           </div>
 
-          <div className="flex flex-col items-start gap-4 mb-12">
+          <div className="flex flex-wrap items-start gap-4 mb-12">
             <a
-              href="/vegas26"
-              onClick={() => { posthog.capture("clicked_edition", { edition: "vegas_2026", location: "hero" }); }}
+              href="/london26"
+              onClick={() => { posthog.capture("clicked_edition", { edition: "london_2026", location: "hero" }); }}
               className="inline-block bg-[#ef4444] text-white font-black text-sm uppercase tracking-widest px-8 py-4 hover:bg-red-600 transition-colors"
             >
-              Apply now: AISB Vegas
+              Apply Now
             </a>
-            <a
-              href="/singapore"
-              onClick={() => { posthog.capture("clicked_edition", { edition: "singapore_2026", location: "hero" }); }}
-              className="inline-block border-2 border-black dark:border-white text-black dark:text-white font-black text-sm uppercase tracking-widest px-8 py-4 bg-transparent hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-colors"
+            <button
+              onClick={() => { setPastOpen(true); posthog.capture("clicked_past_programs", { location: "hero" }); }}
+              className="inline-block border-2 border-black dark:border-white text-black dark:text-white font-black text-sm uppercase tracking-widest px-8 py-4 bg-transparent hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-colors cursor-pointer"
             >
-              AISB Singapore 2026
-            </a>
-            <a
-              href="/2025"
-              onClick={() => { posthog.capture("clicked_edition", { edition: "london_2025", location: "hero" }); }}
-              className="inline-block border-2 border-black dark:border-white text-black dark:text-white font-black text-sm uppercase tracking-widest px-8 py-4 bg-transparent hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-colors"
-            >
-              AISB London 2025
-            </a>
+              Past Programs
+            </button>
           </div>
         </div>
 
@@ -430,8 +485,8 @@ export default function Home() {
 
         <p className="text-neutral-500 dark:text-neutral-400 text-base md:text-lg leading-relaxed mt-12 max-w-3xl">
           Applications for{" "}
-          <a href="/vegas26" className="underline hover:text-[#ef4444] transition-colors">
-            AISB Vegas 2026
+          <a href="/london26" className="underline hover:text-[#ef4444] transition-colors">
+            AISB London 2026
           </a>{" "}
           are now open.
         </p>
@@ -551,11 +606,11 @@ export default function Home() {
           </p>
           <div className="flex flex-wrap gap-4">
             <a
-              href="/vegas26"
-              onClick={() => { posthog.capture("clicked_edition", { edition: "vegas_2026", location: "cta_section" }); }}
+              href="/london26"
+              onClick={() => { posthog.capture("clicked_edition", { edition: "london_2026", location: "cta_section" }); }}
               className="inline-block bg-[#ef4444] text-white font-black text-sm uppercase tracking-widest px-8 py-4 hover:bg-red-600 transition-colors"
             >
-              Apply now: AISB Vegas
+              Apply now: AISB London
             </a>
             <a
               href="/staff"
@@ -568,32 +623,14 @@ export default function Home() {
       </section>
 
       {/* ===================== BOTTOM BAR ===================== */}
-      <footer className="px-6 md:px-16 lg:px-24 py-8 border-t-2 border-black dark:border-white flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-        <p className="text-neutral-400 dark:text-neutral-600 text-sm font-bold tracking-widest">
-          AI Security Bootcamp is fiscally sponsored by{" "}
-          <a
-            href="https://bluedot.org"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="underline hover:text-[#ef4444] transition-colors"
-          >
-            BlueDot Impact
-          </a>
-          .
-        </p>
+      <footer className="px-6 md:px-16 lg:px-24 py-8 border-t-2 border-black dark:border-white flex flex-col items-start gap-4">
         <div className="flex flex-wrap gap-6">
-          <a
-            href="/2025"
-            className="text-neutral-400 dark:text-neutral-600 text-sm font-bold uppercase tracking-widest hover:text-[#ef4444] transition-colors"
+          <button
+            onClick={() => { setPastOpen(true); posthog.capture("clicked_past_programs", { location: "footer" }); }}
+            className="text-neutral-400 dark:text-neutral-600 text-sm font-bold uppercase tracking-widest hover:text-[#ef4444] transition-colors bg-transparent border-none cursor-pointer p-0"
           >
-            London 2025
-          </a>
-          <a
-            href="/singapore"
-            className="text-neutral-400 dark:text-neutral-600 text-sm font-bold uppercase tracking-widest hover:text-[#ef4444] transition-colors"
-          >
-            Singapore 2026
-          </a>
+            Past Programs
+          </button>
           <a
             href="/staff"
             className="text-neutral-400 dark:text-neutral-600 text-sm font-bold uppercase tracking-widest hover:text-[#ef4444] transition-colors"
@@ -627,6 +664,18 @@ export default function Home() {
             GitHub
           </a>
         </div>
+        <p className="text-neutral-400 dark:text-neutral-600 text-sm font-bold tracking-widest">
+          AI Security Bootcamp is fiscally sponsored by{" "}
+          <a
+            href="https://bluedot.org"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="underline hover:text-[#ef4444] transition-colors"
+          >
+            BlueDot Impact
+          </a>
+          .
+        </p>
       </footer>
     </div>
   );
