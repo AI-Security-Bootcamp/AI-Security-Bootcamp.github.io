@@ -966,7 +966,7 @@ const svgAisbLogo = (x, y, width, height, letters, accent) =>
   `<svg x="${x}" y="${y}" width="${width}" height="${height}" viewBox="0 0 2312.5 728" preserveAspectRatio="xMidYMid meet">
     ${wordmarkMatch[0]
       .replace('fill="#000000"', `fill="${letters}"`)
-      .replace('fill="#ef4444"', `fill="${accent}"`)}
+      .replace('stroke="#ef4444"', `stroke="${accent}"`)}
   </svg>`;
 
 const preview = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" width="800" height="1160">
