@@ -23,7 +23,6 @@ Text Notes 650 1050 0    60   ~ 12
 J3 power must be off before attaching/removing the probe. Update, deep-sleep the panel, then remove 3V3.
 Text Notes 650 1200 0    60   ~ 12
 Current V1.1 panel table calls pin 4 NC; C15 is retained only as a DNP prototype option.
-
 Text Notes 700 1375 0    79   ~ 16
 RAW WAVESHARE 3.52-INCH PANEL / 24-PIN 0.5 MM FLEX
 $Comp
@@ -134,7 +133,6 @@ Wire Wire Line
 	1350 3750 1900 3750
 Text Notes 700 3975 0    50   ~ 10
 Pins 1, 6 and 7 are not used. Pin 8 / BS is strapped to DGND through R13 for 4-wire SPI.
-
 Text Notes 7900 1375 0    79   ~ 16
 EXTERNAL CONTROLLER CONTACTS
 $Comp
@@ -191,7 +189,6 @@ Text Notes 7900 2550 0    50   ~ 10
 Physical pins: 1/10=3V3, 2/9=DGND, 3=MOSI, 4=CLK, 5=CS_N, 6=DC, 7=RST_N, 8=BUSY_N.
 Text Notes 7900 2675 0    50   ~ 10
 Contact pads have no solder paste. TC2050 cable is a reusable probe, not a populated badge part.
-
 $Comp
 L Connector_Generic:Conn_01x08 J4
 U 1 1 20000003
@@ -238,7 +235,6 @@ Text Notes 7900 3825 0    50   ~ 10
 J4: 1=3V3, 2=DGND, 3=BUSY_N, 4=RST_N, 5=DC, 6=CS_N, 7=MOSI, 8=SCLK. Never connect 5V.
 Text Notes 7900 3950 0    50   ~ 10
 Optional USB-powered Waveshare V3 uses a split female ribbon; its own 24-pin FPC stays empty. One controller only.
-
 Text Notes 3300 1375 0    79   ~ 16
 SPI CONDITIONING
 $Comp
@@ -403,7 +399,6 @@ Wire Wire Line
 	5250 3150 5550 3150
 Wire Wire Line
 	5850 3150 6150 3150
-
 Text Notes 3150 4100 0    79   ~ 16
 PANEL BOOST / CHARGE-PUMP SUPPORT
 $Comp
@@ -572,7 +567,6 @@ Wire Wire Line
 	10100 4300 10100 4450
 Wire Wire Line
 	10100 4750 10100 4900
-
 Text Notes 700 5300 0    79   ~ 16
 PANEL RAIL CAPACITORS / ENTRY DECOUPLING
 $Comp
@@ -791,7 +785,6 @@ Wire Wire Line
 	10800 5250 10800 5400
 Wire Wire Line
 	10800 5700 10800 5850
-
 Text Notes 700 6550 0    79   ~ 16
 PASSIVE ELECTROMAGNETIC PICKUP / AUDIO OUTPUT
 $Comp
@@ -877,7 +870,6 @@ Text Notes 5050 7100 0    50   ~ 10
 C1 blocks microphone bias and extends low-frequency response; R1 is a nominal CTIA microphone load.
 Text Notes 5050 7300 0    50   ~ 10
 AUDIO_GND is isolated from DGND. Never probe exposed mains conductors or energized equipment interiors.
-
 Text Notes 700 7900 0    50   ~ 10
 PROTOTYPE GATE: buy and physically/electrically verify one exact V1.1 panel, J1 insertion, and pin 1 before release.
 $EndSCHEMATC
