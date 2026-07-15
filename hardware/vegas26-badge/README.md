@@ -145,6 +145,8 @@ magnets or steel clips; they would disturb the passive magnetic pickup.
 - `docs/board-preview.svg` - visual placement preview.
 - `docs/renders/` - front, back, and three-quarter SVG renders.
 - `docs/manufacturing.md` - factory/manual split, prototype gates, and costs.
+- `docs/jlcpcb-prototype-order.md` - JLCPCB engineering-order settings, export
+  procedure, and CAM/placement acceptance checklist.
 - `docs/pinout.md` - programmer, raw-panel, audio, and update connections.
 - `docs/pickup-design.md` - pickup geometry, calculations, use, and test plan.
 - `cad/vegas26-badge.scad` - parametric visualization model.
