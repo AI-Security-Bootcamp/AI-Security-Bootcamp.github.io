@@ -22,7 +22,7 @@ controls fitted by default. Instead:
   ribbon harness to a removable Waveshare ESP32 Driver Board V3; the module is
   powered only through its own USB-C connector, its onboard FPC stays empty,
   and the carrier provides only passive slots and a nonconductive spacer/retainer;
-  and
+- a standard-polarity rear-silkscreen QR links to `https://aisb.dev/badge0`; and
 - a two-layer PCB pickup coil remains available as a passive electromagnetic
   audio sensor.
 
@@ -72,7 +72,7 @@ physical, electrical, and repeated-refresh gates.
 
 ## Open the design in KiCad
 
-1. Install KiCad 8 or newer.
+1. Install KiCad 10 or newer. The rear QR uses KiCad's native barcode object.
 2. In KiCad's main window choose **File > Open Existing Project**.
 3. Select `vegas26-badge.kicad_pro` in this directory.
 4. Double-click **PCB Editor** to inspect the board. The circuit reference is
@@ -109,7 +109,7 @@ front, 100 x 145 mm
 
 front: centred panel plus short-flex ZIF beneath the left service spine
 back:  passive e-paper support parts, audio pads, a connector-free
-       Tag-Connect target, optional DNP 1 x 8 J4, and passive module mounting
+       Tag-Connect target, rear QR, optional DNP 1 x 8 J4, and passive module mounting
 ```
 
 The panel is centred at `(50.00, 94.205)` mm, so its 84.70 mm landscape width
@@ -142,6 +142,8 @@ magnets or steel clips; they would disturb the passive magnetic pickup.
 - `vegas26-badge.sch` - legacy KiCad schematic, importable by current KiCad.
 - `assets/aisb-wordmark.svg` - font-independent official AISB vector master.
 - `scripts/generate-board.mjs` - deterministic PCB/preview generator.
+- `scripts/badge-qr-geometry.mjs` - fixed, self-checking Version 2-M QR matrix.
+- `scripts/validate-artwork.mjs` - validates the enlarged logo and rear QR.
 - `docs/board-preview.svg` - visual placement preview.
 - `docs/renders/` - front, back, and three-quarter SVG renders.
 - `docs/manufacturing.md` - factory/manual split, prototype gates, and costs.
@@ -162,6 +164,7 @@ the website. Regenerate and check the board with:
 ```bash
 node hardware/vegas26-badge/scripts/generate-board.mjs
 node hardware/vegas26-badge/scripts/validate-generated.mjs
+node hardware/vegas26-badge/scripts/validate-artwork.mjs
 ```
 
 The generator is the source of truth and rewrites the `.kicad_pcb` file. Close

@@ -2,13 +2,32 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { AISB_SILK_POLYGONS } from "./aisb-logo-geometry.mjs";
+import { BADGE_QR } from "./badge-qr-geometry.mjs";
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(here, "..");
+const outputRoot = process.env.BADGE_OUTPUT_ROOT
+  ? path.resolve(process.env.BADGE_OUTPUT_ROOT)
+  : root;
 
 const W = 100;
 const H = 145;
 const LANYARD_HOLE = Object.freeze({ x: 50, y: 8, diameter: 6 });
+const AISB_LOGO = Object.freeze({
+  x: 50,
+  y: 38,
+  scale: 1.25,
+  previewWidth: 37,
+  previewHeight: 11.648,
+  goldAccentX: 66.906,
+  goldAccentY: 42.15,
+  goldAccentSize: 2.9,
+});
+const REAR_BADGE_QR = Object.freeze({
+  x: 21,
+  y: 79.2,
+  labelY: 94.5,
+});
 const PANEL = Object.freeze({
   centerX: 50,
   centerY: 94.205,
@@ -58,6 +77,21 @@ const uidState = { value: 1 };
 const uid = () =>
   `00000000-0000-0000-0000-${String(uidState.value++).padStart(12, "0")}`;
 const n = (value) => Number(value.toFixed(3));
+const n4 = (value) => Number(value.toFixed(4));
+
+const scaledLogoPoint = ([x, y]) => [
+  n4(x * AISB_LOGO.scale),
+  n4(y * AISB_LOGO.scale),
+];
+const scaledGoldAccent = Object.freeze({
+  x: n4(
+    AISB_LOGO.x + (AISB_LOGO.goldAccentX - AISB_LOGO.x) * AISB_LOGO.scale
+  ),
+  y: n4(
+    AISB_LOGO.y + (AISB_LOGO.goldAccentY - AISB_LOGO.y) * AISB_LOGO.scale
+  ),
+  size: n4(AISB_LOGO.goldAccentSize * AISB_LOGO.scale),
+});
 
 // The badge exposes only the controller-side SPI signals.  The raw panel's
 // high-voltage support nodes remain local to the badge.
@@ -406,14 +440,35 @@ ${fpText("value", "30T_X2_CHAMFERED_SEARCH_COIL", 0, 12.2, "F.Fab", 0.6)}
 function aisbLogoFootprint() {
   const polygons = AISB_SILK_POLYGONS.map(
     (polygon) => `    (fp_poly
-      (pts ${polygon.map(([x, y]) => `(xy ${x} ${y})`).join(" ")})
+      (pts ${polygon
+        .map(scaledLogoPoint)
+        .map(([x, y]) => `(xy ${x} ${y})`)
+        .join(" ")})
       (stroke (width 0.01) (type default)) (fill solid) (layer "F.SilkS") (tstamp ${uid()}))`
   ).join("\n");
   return `  (footprint "Badge:AISB_Logo_Vector" (layer "F.Cu") (tstamp ${uid()})
-    (at 50 38)
-${fpText("reference", "LOGO1", 0, -7.2, "F.Fab", 0.7)}
-${fpText("value", "AISB OFFICIAL WORDMARK", 0, 7.2, "F.Fab", 0.7)}
+    (at ${AISB_LOGO.x} ${AISB_LOGO.y})
+${fpText("reference", "LOGO1", 0, n4(-7.2 * AISB_LOGO.scale), "F.Fab", 0.7)}
+${fpText("value", "AISB OFFICIAL WORDMARK", 0, n4(7.2 * AISB_LOGO.scale), "F.Fab", 0.7)}
 ${polygons}
+  )`;
+}
+
+function rearBadgeQrBarcode() {
+  const quietMargin = n4(BADGE_QR.quietModules * BADGE_QR.moduleMm);
+
+  return `  (barcode
+    (at ${REAR_BADGE_QR.x} ${REAR_BADGE_QR.y} 0)
+    (layer "B.SilkS")
+    (size ${BADGE_QR.symbolMm} ${BADGE_QR.symbolMm})
+    (text "${BADGE_QR.payload}")
+    (text_height 1)
+    (type qr)
+    (ecc_level ${BADGE_QR.ecc})
+    (hide yes)
+    (knockout yes)
+    (margins ${quietMargin} ${quietMargin})
+    (tstamp ${uid()})
   )`;
 }
 
@@ -881,10 +936,12 @@ ${grText("REV 2 · VERIFY PANEL/J1 + ESP CRADLE", 72, 67.2, "B.SilkS", 0.7, 0.15
 ${grText("J3 · TC2050", 90, 132.2, "B.SilkS", 0.65, 0.15, "mirror")}
 ${grText("ONE CONTROLLER · 3V3 ONLY", 68, 139.5, "B.SilkS", 0.62, 0.13, "mirror")}
 ${grText("J1 · FRONT ZIF · 3.65 mm FLEX · NO SLOT", 6.2, 103.1, "F.SilkS", 0.45, 0.08)}
+${rearBadgeQrBarcode()}
+${grText("aisb.dev/badge0", REAR_BADGE_QR.x, REAR_BADGE_QR.labelY, "B.SilkS", 1, 0.15, "mirror")}
 
   (footprint "Badge:Gold_Brand_Accent" (layer "F.Cu") (tstamp ${uid()})
-    (at 66.906 42.15)
-    (pad "" smd roundrect (at 0 0) (size 2.9 2.9) (layers "F.Cu" "F.Mask") (roundrect_rratio 0.02) (tstamp ${uid()}))
+    (at ${scaledGoldAccent.x} ${scaledGoldAccent.y})
+    (pad "" smd roundrect (at 0 0) (size ${scaledGoldAccent.size} ${scaledGoldAccent.size}) (layers "F.Cu" "F.Mask") (roundrect_rratio 0.02) (tstamp ${uid()}))
   )
 
 ${fpcBreakout}
@@ -919,7 +976,14 @@ const preview = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}"
   }" fill="#f3f4f6"/>
   ${svgCoil(coilBottom, "#8d7435", 0.45)}
   ${svgCoil(coilTop, "#d8bd68", 0.95)}
-  ${svgAisbLogo(31.5, 32.176, 37, 11.648, "#ffffff", "#d8bd68")}
+  ${svgAisbLogo(
+    n4(AISB_LOGO.x - (AISB_LOGO.previewWidth * AISB_LOGO.scale) / 2),
+    n4(AISB_LOGO.y - (AISB_LOGO.previewHeight * AISB_LOGO.scale) / 2),
+    n4(AISB_LOGO.previewWidth * AISB_LOGO.scale),
+    n4(AISB_LOGO.previewHeight * AISB_LOGO.scale),
+    "#ffffff",
+    "#d8bd68"
+  )}
   <text x="50" y="47" text-anchor="middle" fill="#ffffff" font-family="Arial,sans-serif" font-size="1.65" font-weight="700">AI SECURITY BOOTCAMP · LAS VEGAS 2026</text>
   <rect x="0.5" y="65.2" width="94" height="58" rx="1.2" fill="#d7d9da" opacity="0.38" stroke="#b9c0c5" stroke-width="0.25"/>
   <rect x="7.65" y="67" width="84.7" height="54.41" rx="0.45" fill="#d9d6cc" stroke="#6b6b68" stroke-width="0.35"/>
@@ -937,10 +1001,12 @@ const preview = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}"
   <text x="50" y="127.5" text-anchor="middle" fill="#ffffff" font-family="Arial,sans-serif" font-size="2.4" font-weight="700">3.52in E-PAPER NAME BADGE</text>
   <text x="50" y="132" text-anchor="middle" fill="#9ca3af" font-family="Arial,sans-serif" font-size="1.75">PROGRAM ON REAR · IMAGE STAYS WITHOUT POWER</text>
   <text x="50" y="136" text-anchor="middle" fill="#737b84" font-family="Arial,sans-serif" font-size="1.1">COIL PATH EMPHASIZED FOR CLARITY · PRODUCTION TURNS ARE MASK-COVERED</text>
-</svg>`;
+</svg>
+`;
 
-fs.writeFileSync(path.join(root, "vegas26-badge.kicad_pcb"), board);
-fs.writeFileSync(path.join(root, "docs", "board-preview.svg"), preview);
+fs.mkdirSync(path.join(outputRoot, "docs"), { recursive: true });
+fs.writeFileSync(path.join(outputRoot, "vegas26-badge.kicad_pcb"), board);
+fs.writeFileSync(path.join(outputRoot, "docs", "board-preview.svg"), preview);
 
 const balance = [...board].reduce(
   (count, char) => count + (char === "(" ? 1 : char === ")" ? -1 : 0),
@@ -963,5 +1029,9 @@ if (board.includes("FLEX SLOT") || board.includes("FH12-24S") || board.includes(
 }
 if (board.includes("XIAO") || board.includes("TOUCH_")) throw new Error("Legacy controller/touch feature remains");
 
-console.log(`wrote ${path.relative(process.cwd(), path.join(root, "vegas26-badge.kicad_pcb"))}`);
-console.log(`wrote ${path.relative(process.cwd(), path.join(root, "docs", "board-preview.svg"))}`);
+console.log(
+  `wrote ${path.relative(process.cwd(), path.join(outputRoot, "vegas26-badge.kicad_pcb"))}`
+);
+console.log(
+  `wrote ${path.relative(process.cwd(), path.join(outputRoot, "docs", "board-preview.svg"))}`
+);
