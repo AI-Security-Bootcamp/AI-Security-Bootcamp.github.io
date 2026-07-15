@@ -3,6 +3,7 @@
   <desc>One-to-one millimetre template. Enable only the desired fabrication group. Verify against a physical Waveshare 3.52-inch panel and FH34 connector before cutting production parts.</desc>
   <style>
     .cut { fill: none; stroke-width: .10; vector-effect: non-scaling-stroke; }
+    .adhesive { fill: #ff8a00; fill-opacity: .12; stroke: #ff8a00; stroke-width: .10; vector-effect: non-scaling-stroke; }
     .guide { fill: none; stroke: #737b84; stroke-width: .10; stroke-dasharray: .7 .5; }
     .note { font-family: sans-serif; font-size: 1.35px; fill: #222; }
   </style>
@@ -16,6 +17,29 @@
     <path class="cut" stroke="#ff00aa" fill-rule="evenodd"
       d="M7.5 5.2H92.5A1.5 1.5 0 0 1 94 6.7V61.7A1.5 1.5 0 0 1 92.5 63.2H7.5A1.5 1.5 0 0 1 6 61.7V6.7A1.5 1.5 0 0 1 7.5 5.2Z
          M7.70 6.50H92.30A.55 .55 0 0 1 92.85 7.05V61.36A.55 .55 0 0 1 92.30 61.91H7.70A.55 .55 0 0 1 7.15 61.36V7.05A.55 .55 0 0 1 7.70 6.50Z"/>
+  </g>
+
+  <g id="adhesive-frame-prototype"
+     aria-label="PROTOTYPE CUT: 0.05 to 0.10 mm transfer adhesive or qualified thin foam; one-piece perimeter frame with FPC notch">
+    <!-- Prototype geometry only: 0.25 mm nominal inset from the glass edge,
+         1.50 mm rails, and a 13.50 mm open notch around the 12.50 mm FPC.
+         The notch opens through the left rail so adhesive cannot cross the
+         straight tail, J1 mouth, or latch-service path. -->
+    <path class="adhesive"
+      d="M7.90 27.455
+         L7.90 7.50Q7.90 7.25 8.15 7.25
+         H91.85Q92.10 7.25 92.10 7.50
+         V60.91Q92.10 61.16 91.85 61.16
+         H8.15Q7.90 61.16 7.90 60.91
+         V40.955H9.40
+         V59.46Q9.40 59.66 9.60 59.66
+         H90.40Q90.60 59.66 90.60 59.46
+         V8.95Q90.60 8.75 90.40 8.75
+         H9.60Q9.40 8.75 9.40 8.95
+         V27.455Z"/>
+    <text class="note" x="50" y="3.6" text-anchor="middle" fill="#a84d00">
+      ORANGE PROTOTYPE: 1.50 mm rail / 13.50 mm FPC notch — CUT AND DRY-FIT ONE SAMPLE
+    </text>
   </g>
 
   <g id="underside-black-print" aria-label="PRINT: black on underside of clear lens">
@@ -34,7 +58,8 @@
   </g>
 
   <g id="notes">
-    <text class="note" x="1" y="66">Blue: lens cut · Magenta: spacer cut · Black: underside print · Grey/orange: fit guides only</text>
-    <text class="note" x="1" y="68">1:1 mm · physical dry-fit required · service-spine STL comes from vegas26-badge.scad</text>
+    <text class="note" x="1" y="65.2">Blue: lens · Magenta: spacer · Black: underside print · Orange: prototype adhesive frame · Grey/orange translucent: guides</text>
+    <text class="note" x="1" y="67.1">Adhesive outline is not production-qualified: confirm panel lot, cutter kerf, squeeze-out, thickness, J1 latch access, and FPC clearance.</text>
+    <text class="note" x="1" y="69">1:1 mm · hide unused groups · physical dry-fit required · service-spine STL comes from vegas26-badge.scad</text>
   </g>
 </svg>

@@ -1,5 +1,10 @@
 # Manufacturing split and cost model
 
+> **NOT PRODUCTION RELEASED:** The optional passive `J4` harness and removable
+> Waveshare V3 mount have not passed electrical, mechanical, USB, drop, or RF
+> qualification. Leave the 1 x 8 header DNP unless the pilot procedure in this
+> document is completed and signed off.
+
 ## What the PCB/PCBA supplier can deliver
 
 A normal PCB/assembly supplier can:
@@ -15,13 +20,13 @@ A normal PCB/assembly supplier can:
   balancing, thieving, pour, metal label, or closed conductive loop within its
   `x=8..92`, `y=13..65` keepout on either copper layer;
 - assemble the low-profile 24-pin ZIF on the front immediately left of the
-  glass envelope, plus the MOSFET, inductor, Schottky diodes, resistors, and
-  capacitors on the rear;
+  glass envelope plus the raw-panel support parts on the rear;
 - leave the `J3` Tag-Connect target as exposed ENIG pads with no solder paste
   or loaded part, and keep its alignment holes open;
-- preserve the rear `MOD1` dashed `29.46 x 48.25 mm` optional ESP32 bay and its
-  two-layer antenna-area copper-pour keep-out; it is a padless mechanical
-  reservation and receives no part during normal PCBA; and
+- preserve the rear `MOD1` dashed `29.46 x 48.25 mm` optional ESP32 bay, its
+  reviewed passive mounting slots, optional 1 x 8 `J4` plated holes, and the
+  two-layer antenna-area copper-pour keep-out; leave the J4 header DNP for the
+  default assembly variant; and
 - perform optical inspection and basic continuity/short testing.
 
 Use the connector manufacturer's `0.10 mm` stencil recommendation for `J1`.
@@ -30,11 +35,16 @@ separate reduced `0.25 x 0.65 mm` paste apertures for its 24 signal contacts;
 do not expand those apertures back to copper size during CAM cleanup.
 
 Request Gerber/drill, assembly drawing, BOM, centroid/position data, and a
-panelization plan only after the KiCad source passes review. Call out the 6 mm
-lanyard hole as a non-plated internal cutout and confirm that there is no
-internal display-flex cutout. Ask the assembler to confirm the front-side `J1`
-position, 270-degree/right-facing orientation, and exact MPN in writing; a
-reversed FPC connector can destroy the panel.
+panelization plan only after the imported schematic passes KiCad ERC, the
+generated board passes KiCad DRC, and an independent reviewer has reconciled
+the two. Do **not** use Update PCB from Schematic: the legacy schematic is an
+electrical reference, not the generated board's netlist source. Plot fresh
+Gerbers and Excellon drill/route files and inspect them in a second viewer
+before transmitting a release ZIP. Call out the 6 mm lanyard hole as a
+non-plated internal cutout and confirm that there is no internal display-flex
+cutout. Ask the assembler to confirm the front-side `J1` position,
+270-degree/right-facing orientation, and exact MPN in writing; a reversed FPC
+connector can destroy the panel.
 
 ## What remains a box-build/manual operation
 
@@ -60,21 +70,29 @@ For each badge:
 8. Verify the retained image and passive audio pickup. Mark the traveler
    `CUSTOM-PASS` or `HAT-ONLY`.
 
-An optional ESP32 module is a participant/manual add-on after the base badge
-passes. Dry-fit the exact USB-C V3 board in `MOD1` with its connector protruding
-below the lower edge. Its two stock underside male-header rows prevent a flat
-foam mount: use a measured all-plastic cradle/standoff that clears every pin,
-or have a qualified assembler remove the headers. The module has no mounting
-holes and the badge intentionally adds none. Do not ask the PCBA vendor to
-populate, socket, or permanently glue it without a separately approved fixture.
+An optional ESP32 module is a participant/manual add-on only after the base
+badge, passive harness, and removable mount pass. Fit a breakaway 1 x 8 male
+header at badge `J4`, or solder the eight wires directly into its plated holes.
+Use a short female-female 2.54 mm Dupont ribbon with the module end split into
+individual labelled sockets. Continuity-test the exact map in
+[`pinout.md`](pinout.md), mark badge pin 1, and provide strain relief.
+
+Slide the V3 into the reviewed passive carrier slots and fit the nonconductive
+spacer/retainer with USB-C accessible below the badge edge and the antenna end
+clear. Do not remove its stock headers and do not use them as the mechanical
+mount. The module's own 24-pin FPC connector remains empty; the raw panel stays
+connected only to badge front `J1`. Set USB-to-UART switch 2 **ON** for CH343
+programming. Power the module only through its USB-C connector. Keep the J3
+Tag-Connect probe detached whenever the harness is installed or USB is powered.
 
 Until the custom circuit passes its first-article rail and refresh tests, keep
 the `J1` latch accessible beneath the removable left service spine and use
 removable Kapton rather than permanent potting. If the custom circuit fails,
 the panel can remain mechanically mounted while its flex is removed from the
 fully unpowered badge and written directly with the official Waveshare Driver
-HAT. `J3` cannot serve as a HAT bypass; see `hat-fallback.md` for the power-off
-and flex-service sequence.
+HAT. `J3` cannot serve as a HAT bypass; see
+[`hat-fallback.md`](hat-fallback.md) for the power-off and flex-service
+sequence.
 
 Populate the full custom circuit on the production PCBAs, but reserve the first
 five identical boards as engineering units. Do not apply display power to the
@@ -137,19 +155,62 @@ has copper-pour keep-outs on both layers to reduce antenna loading, but existing
 display traces remain beneath that area, so WiFi/Bluetooth range must be tested
 on a populated first article. The USB-C edge is flush with the badge bottom and
 nominally accessible while worn. Keep the lower `12-14 mm` around its centre
-unobstructed and dry-fit a real USB-C plug/overmold; the cradle must not wrap
-that edge. Size the cradle from a physical sample with clearance, because the
-published `29.46 x 48.25 mm` outline has no stated production tolerance.
+unobstructed and dry-fit the largest intended USB-C plug/overmold. Size every
+retainer from a physical sample with clearance, because the published
+`29.46 x 48.25 mm` outline has no stated production tolerance.
+
+The mount is entirely passive: reviewed carrier slots locate a removable
+nonconductive PETG/nylon spacer or retainer around the module edges. It must not
+load the USB-C connector, headers, components, or antenna, and it must be
+removable without flexing the module. Measure at least three delivered Rev 3
+boards for outline, component height, USB-C overhang, and dimensional spread,
+then fit-test the spacer and a real cable before repeating it.
+
+The electrical path is also intentionally simple:
+
+```text
+module USB-C -> module VDD3V3 output -> passive J4-1 -> badge 3V3
+module GPIO/GND headers -> passive 8-wire harness -> badge J4-2..8
+```
+
+Badge `J4` is one row of eight 2.54 mm through-holes, ordered
+`3V3, GND, BUSY, RST, DC, CS, MOSI, SCLK`. Its male header is optional/DNP and
+direct-soldered wires are also allowed. A short 8-way female-female Dupont
+ribbon may stay grouped at the badge and split into individual female sockets
+at the module. The module-side map is:
+
+| Badge J4 | Waveshare V3 header |
+|---:|---|
+| 1 | J3-1 `VDD3V3` |
+| 2 | J3-14 `GND` |
+| 3 | J3-9 / GPIO25 `BUSY` |
+| 4 | J3-10 / GPIO26 `RST` |
+| 5 | J3-11 / GPIO27 `DC` |
+| 6 | J4-16 / GPIO15 `CS` |
+| 7 | J3-12 / GPIO14 `MOSI` |
+| 8 | J3-15 / GPIO13 `SCLK` |
+
+There is no current limiter, reverse-current block, power mux, logic buffer, or
+controller arbitration. Module USB-C is its only power input; do not power its
+`VDD3V3` pin from the badge. Remove the J3 Tag-Connect probe before installing
+the harness, connect or disconnect only while every source is off, and never
+attach or power two controllers. Continuity-test and label every harness.
+
+Waveshare's published Rev 3 schematic marks GPIO4 link `R35` NC/DNP, and badge
+J4 does not carry GPIO4. The module firmware target leaves GPIO4 untouched and
+cannot turn off USB or badge 3V3. `OK SLEEP USB_POWERED` means the panel is in
+deep sleep while the module and badge remain powered; unplug USB-C before
+removing the harness. The module's onboard 24-pin FPC connector stays empty.
 
 The antenna zone is a **pour keep-out, not an RF copper keep-out**. Front display
 fanout traces cross beneath it. Do not promise WiFi/Bluetooth range; test it on
 the actual stacked badge both idle and during a refresh.
 
-The bay is not an electrical footprint. Use the ESP32 board's supplied adapter
-and FFC only with the panel disconnected from badge `J1`. A bare GPIO-to-`J3`
-harness is not released; it needs a separate reviewed, keyed, load-switched,
-back-power-protected adapter. Verify cable reach around the outside left edge;
-do not add an unreviewed flex slot, drill, or raw-panel splitter at CAM time.
+Treat the module as service-removable, not frequently swappable. Mark USB-C
+orientation and both harness ends, run retainer insertion/removal, harness
+strain, USB side-load, shake, and worn-badge drop tests. Use only all-plastic or
+removable polymer retention below the antenna. Do not add a magnet, steel clip,
+unreviewed slot, drill, or panel splitter at CAM time.
 
 ## Prototype release gates
 
@@ -158,18 +219,36 @@ application-circuit drawing that is not pin-for-pin identical. This design uses
 the current 24-pin table plus the UC8253/reference boost topology; current pin 4
 is left open and `C15` is DNP.
 
-Before any production build:
+Before any production build, treat every item below as a release gate rather
+than an advisory check. Do not send manufacturing files until the KiCad and
+CAM gates pass; do not populate or rely on optional J4 until all physical
+harness/mount/FPC/electrical/RF gates pass:
 
+- import/open the legacy schematic in KiCad, save a converted review copy, run
+  ERC, and resolve every error; independently reconcile it to the generated
+  board without using Update PCB from Schematic;
+- refill all zones, run KiCad board DRC, and resolve every error;
+- plot fresh Gerber and Excellon files, inspect copper, mask, paste, silkscreen,
+  outline, the single lanyard hole, and drill/route output in a second viewer,
+  then record the reviewed fabrication-ZIP checksum;
 - continuity-map the physical flex and verify pin 1/contact side;
 - verify `J1` mating/contact direction, its exact land pattern, and the
   straight-tail reach with the panel and board at full-size;
 - scope 3V3, GDR, RESE, VGH, VGL, VCOM, and BUSY during a full refresh;
 - validate deep sleep and retained image with the programmer disconnected;
 - cycle at least one panel through repeated insertions and updates;
-- dry-fit one exact USB-C ESP32 driver-board sample in `MOD1` and, if that
-  optional path will be offered, prove its cable/harness, mode switch, antenna
-  range, power isolation, and repeated 3.52-inch refreshes; and
-- run KiCad DRC plus an independent electrical/manufacturing review.
+- measure three exact USB-C Rev 3 modules and pass the passive slot,
+  spacer/retainer, cable-clearance, and harness-strain fit checks;
+- with the module FPC connector empty and every source off, continuity-check
+  the exact eight-wire map and shorts between adjacent conductors; then verify
+  CH343 upload, module-USB-derived badge 3V3, all six logic signals, deep sleep,
+  BUSY-timeout recovery, and complete depowering by USB-C removal;
+- complete at least 20 module-driven refresh/sleep cycles, then USB cable
+  side-load, insertion/removal, shake/drop, and worn-badge WiFi/Bluetooth range
+  tests both idle and during a refresh; and
+- obtain independent electrical/manufacturing sign-off on the ERC, DRC, CAM,
+  physical FPC/harness/mount, single-controller power procedure, refresh, and
+  RF evidence.
 
 ## Pickup-coil acceptance
 
@@ -187,7 +266,8 @@ with its two layers series-aiding through `R2`. Before panel installation:
 
 `AUDIO_GND` must remain isolated from `DGND`. Do not refresh the display during
 an audio test; the panel boost converter is deliberately easy for the search
-coil to hear. See `pickup-design.md` for the calculation and fixture guidance.
+coil to hear. See [`pickup-design.md`](pickup-design.md) for the calculation
+and fixture guidance.
 
 ## Brand accent colour
 
@@ -207,21 +287,35 @@ All other figures are broad planning ranges, not quotes.
 
 | Quantity | Bare art PCB | raw panel | components + mechanical | assembly/box-build | estimated unit total* |
 |---:|---:|---:|---:|---:|---:|
-| 5 | $12-25 | about $11 | $5-10 | self-assemble | $28-46 |
-| 25 | $6-12 | about $11 | $4-8 | $3-8 | $24-39 |
-| 100 | $3-8 | about $10.31 | $3-6 | $2-6 | $18-30 |
+| 5 | $12-25 | about $11 | $4-8 | self-assemble | $27-44 |
+| 25 | $6-12 | about $11 | $3-7 | $3-8 | $23-38 |
+| 100 | $3-8 | about $10.31 | $2.50-5 | $2-6 | $18-29 |
 
 \*Before tax/duty, expedited shipping, failed panels, prototype re-spins,
-test-fixture labour, and design review.
+test-fixture labour, design review, and the optional controller kit.
+
+The optional V3 kit adds no controller ICs or power-protection parts to routine
+PCBAs. Its per-equipped-badge extras are one removable module, an inexpensive
+1 x 8 header or eight direct wires, a short passive harness, and a printed
+spacer/retainer. The Waveshare V3 module was US$14.99 at quantity one on
+2026-07-15; allow a broad **US$1-7** more for the commodity connector, harness,
+labels, and low-volume printed mount before labour, freight, and tax. These are
+dated planning observations, not quotations, and optional J4 remains DNP on
+routine badges.
 
 The reusable programmers are separate tooling, not a cost on every badge. Two
-Universal Driver HATs plus one optional ESP32 board list for about US$34.97 on
-2026-07-15 before shipping, tax, and HAT hosts. For the full redundant
+Universal Driver HATs at US$9.99 plus three optional ESP32 boards at the
+US$14.39 three-unit break list for about **US$63.15** on 2026-07-15 before
+shipping, tax, HAT hosts, passive harnesses, and printed retainers. For the full redundant
 dual-track set in `bom-tooling.csv`, budget roughly $200-600 for two
-TC2050/XIAO custom stations, two Universal Driver HAT/host stations, the ESP32
-sample, power, cabling, a simple alignment fixture, and one or two complete HAT references.
-Existing Raspberry Pi hosts put the total near the low end; confirm live prices
-before purchase.
+TC2050/Seeed XIAO ESP32-S3 custom stations, two Universal Driver HAT/host backup
+stations, three ESP32 validation/removable-controller units, three labelled
+harnesses and retainers, power, cabling, a simple alignment fixture, and one or two complete
+HAT references. Existing Raspberry Pi hosts put the total near the low end;
+confirm live prices and physically allocated stock before purchase. The Seeed
+XIAO ESP32-S3 is the primary Tag-Connect station; the repository also builds
+the optional USB-powered Waveshare V3 harness target. Other controllers require
+their own firmware, wiring, power, and first-article qualification.
 
 Budget another $300-800 for two prototype spins, spare displays, review, and
 international shipping. The raw panel saves the on-badge controller/module
@@ -234,7 +328,9 @@ cost, but it moves more validation responsibility into this PCB and fixture.
 - Waveshare 3.52-inch manual and examples: <https://www.waveshare.com/wiki/3.52inch_e-Paper_HAT_Manual>
 - Waveshare Universal Driver HAT: <https://www.waveshare.com/e-paper-driver-hat.htm>
 - Waveshare ESP32 Driver Board and revision/pin documentation: <https://www.waveshare.com/e-paper-esp32-driver-board.htm> and <https://www.waveshare.com/wiki/E-Paper_ESP32_Driver_Board>
+- Waveshare ESP32 Driver Board V3 schematic: <https://files.waveshare.com/wiki/E-Paper-ESP32-Driver-Board/E-Paper_ESP32_Driver_Board_V3.pdf>
 - Hirose FH34SRJ connector/stencil catalog: <https://www.hirose.com/en/product/document?clcode=&documentid=en_FH34_CAT&documenttype=Catalog&lang=en&productname=&series=FH34SRJ>
 - UC8253 controller datasheet: <https://files.waveshare.com/wiki/3.52inch%20e-Paper%20HAT/UC8253c.pdf>
 - Tag-Connect no-legs probe: <https://www.tag-connect.com/product/tc2050-idc-nl-10-pin-no-legs-cable-with-ribbon-connector>
 - Tag-Connect target-footprint drawing: <https://www.tag-connect.com/wp-content/uploads/bsk-pdf-manager/TC2050-IDC-NL_Datasheet_8.pdf>
+- Seeed XIAO ESP32-S3: <https://www.seeedstudio.com/XIAO-ESP32S3-p-5627.html>

@@ -1,8 +1,9 @@
 Reference,Quantity,Description,Suggested part/package,Populate,Notes
 EPD1,1,3.52-inch 360x240 black/white raw e-paper panel,Waveshare SKU 22609 / 3.52inch e-Paper,Manual,"Raw glass with 24-contact 0.5mm FPC protruding 3.65+/-0.30mm; drawing's separate 10mm feature is a removable adhesive-tape pull-tab; confirm exact revision"
 J1,1,24-position 0.5mm-pitch dual-contact low-profile FPC ZIF,"Candidate Hirose FH34SRJ-24S-0.5SH(50) or (99)",Yes,"Front side immediately left of glass; rotate 270deg/right-facing: mouth x~5.50 body x~1.70..5.50 signal-pad row x~5.00 retention row x~1.70; inserted tail tip x~4.00 gives 1.50mm nominal insertion; custom pads are numbered by Waveshare panel contact and mirror the Hirose terminal sequence; 1.0mm high for 0.3mm FPC; physically dry-fit and continuity-map contact side pin 1 and straight-tail reach; panel drawing's 2mm LUS67-35024-3100 is unavailable"
-J3,1,10-pad no-legs programming target,Tag-Connect TC2050-IDC-NL footprint,PCB feature,"Do not populate; cable and programmer are reusable tooling"
-MOD1,0-1,Optional wireless raw-panel driver board,Waveshare SKU 15823 / e-Paper ESP32 Driver Board,Optional,"Rear padless 29.46x48.25mm header-clear cradle bay only; stock underside male headers prevent a flat mount; USB-C down; module is not electrically connected by the PCB"
+J3,1,10-pad no-legs programming target,Tag-Connect TC2050-IDC-NL footprint,PCB feature,"Do not populate; cable and XIAO programmer are reusable tooling; pins 1/10 are the same badge 3V3 rail; attach only while every other controller and power source is disconnected"
+J4,1,8-position 2.54mm through-hole SPI header footprint,"1x8 breakaway male header, 2.54mm pitch",No,"Optional/DNP participant interface; bare plated holes also accept direct-soldered wires; pin order 1=3V3 2=GND 3=BUSY 4=RST 5=DC 6=CS 7=MOSI 8=SCLK; no onboard protection or controller arbitration"
+MOD1,1 per optional controller,Removable e-paper ESP32 Driver Board V3,Waveshare SKU 15823,Manual,"Not soldered or socketed to the badge; power only through module USB-C; connect through the passive J4 harness; onboard 24-pin FPC stays empty; only one controller may be attached/powered; official source https://www.waveshare.com/e-paper-esp32-driver-board.htm"
 Q1,1,N-channel MOSFET,BSS138 SOT-23,Yes,E-paper boost switch
 L2,1,68uH shielded inductor,"1210/3225; >=150mA saturation",Yes,E-paper boost inductor
 D1-D3,3,30V Schottky diode,MBR0530 SOD-123,Yes,E-paper charge pump
@@ -17,8 +18,8 @@ C2-C3,2,4.7uF 50V X7R capacitor,1206,Yes,"3V3 input reservoir and boost flying c
 C4,1,1uF 25V X5R/X7R capacitor,0805,Yes,VDHR reservoir
 C5,1,1uF 10V X5R/X7R capacitor,0805,Yes,VDDD reservoir
 C6-C11,6,1uF 25V X5R/X7R capacitor,0805,Yes,"VPP VSH VGH VSL VGL and VCOM reservoirs"
-C12,1,10uF 10V X5R/X7R capacitor,0805,Yes,Programmer power entrance bulk capacitor
-C13,1,100nF 10V X7R capacitor,0603,Yes,Programmer power entrance bypass
+C12,1,10uF 10V X5R/X7R capacitor,0805,Yes,Badge 3V3 interface bulk capacitor
+C13,1,100nF 10V X7R capacitor,0603,Yes,Badge 3V3 interface bypass capacitor
 C14,1,1uF 10V X5R/X7R capacitor,0805,Yes,Panel VDD/VDDIO decoupling
 C15,1,1uF 25V capacitor,0805,No,"DNP legacy pin-4 option; current V1.1 pin table marks pin 4 NC"
 L1,1,Two-layer 30-turn-per-layer chamfered rectangular pickup coil,"PCB feature; 0.30mm trace / 0.20mm space",No,"Fabricated copper with a padless PCB reference marker; no assembly part; no pour/thieving in x=8..92mm y=13..65mm"
@@ -31,10 +32,12 @@ BEZEL,1,Black PETG instrument-viewport spacer/bezel,Custom cut,Manual,"Perimeter
 SERVICE-SPINE,1,Opaque removable black left service spine,3D-printed PETG part,Manual,"All-plastic spine keyed to bezel; covers front-side J1 and straight FPC while preserving latch access; must not pinch flex; no magnets or steel"
 ADHESIVE,1,0.05-0.10mm transfer adhesive perimeter frame,3M 467MP/468MP or qualified equivalent,Manual,"Keep adhesive out of active area straight-FPC path J1 latch and service-spine joint"
 KAPTON,1,Removable polyimide tape,Generic,Manual,"Prototype retention or insulation only; do not cover J1 latch or bend the FPC"
-ESP-MOUNT,0-1,Removable nonmagnetic header-clear module mount,"Measured all-plastic cradle/standoff",Manual,"Optional MOD1 only; size from physical V3 header projection or have qualified assembler remove headers; avoid magnets/steel and keep USB-C clear"
 LANYARD,1,Single-hook lanyard or cord loop,Generic,Manual,Board includes one centred 6mm circular lanyard hole
-TOOL-CABLE,1 per programming station,10-pin no-legs spring-pin ribbon cable,Tag-Connect TC2050-IDC-NL,Tooling,"Reusable; not part of each badge BOM"
-TOOL-MCU,1 per programming station,3.3V-capable SPI controller with USB,ESP32/RP2040/STM32 development board or custom fixture,Tooling,"Must implement UC8253/3.52inch waveform and safe power sequence"
-TOOL-HAT,2 per build,Universal e-Paper Raw Panel Driver HAT,Waveshare SKU 13512 / e-Paper Driver HAT,Tooling,"Independent fallback station; connects to raw panel flex through its adapter, not to badge J3"
-TOOL-ESP32,1 per build,Universal e-Paper Raw Panel Driver Board with WiFi/Bluetooth,Waveshare SKU 15823 / e-Paper ESP32 Driver Board V3,Tooling,"Prototype the optional rear bay and 3.52-inch compatibility; current product support table omits 3.52 even though the panel page recommends this board"
-TOOL-REF-HAT,1-2 per build,Complete 3.52-inch e-Paper HAT,Waveshare SKU 22698 / 3.52inch e-Paper HAT,Tooling,"Known-working reference or emergency complete display; not a thin drop-in badge module"
+ESP-HARNESS,1 per optional controller,8-way female-female 2.54mm Dupont ribbon,"Short 1x8 female ribbon, split into individual female sockets at module end",Manual,"Badge end mates with optional J4 male header; module end maps J4-1..8 to Waveshare J3-1 J3-14 J3-9 J3-10 J3-11 J4-16 J3-12 J3-15; keep short and label both connector families and pin 1"
+ESP-MOUNT,1 per optional controller,Nonconductive removable spacer/retainer,Custom PETG/nylon part,Manual,"Uses only the reviewed passive mounting slots; supports the removable Waveshare V3 board with USB-C accessible and antenna clear; no electrical sockets magnets or steel"
+TOOL-CABLE,2 per build,10-pin no-legs spring-pin ribbon cable,Tag-Connect TC2050-IDC-NL,Tooling,"One per XIAO station; reusable; official source https://www.tag-connect.com/product/tc2050-idc-nl-10-pin-no-legs-cable-with-ribbon-connector"
+TOOL-MCU,2 per build,Reusable custom-programmer MCU,Seeed XIAO ESP32-S3,Tooling,"Primary registration-station controller; any ESP32/RP2040/STM32 or other controller requires separate firmware wiring power-sequence and first-article qualification; official source https://www.seeedstudio.com/XIAO-ESP32S3-p-5627.html"
+TOOL-HAT,2 per build,Universal e-Paper Raw Panel Driver HAT,Waveshare SKU 13512 / e-Paper Driver HAT,Tooling,"Two independent backup stations; each connects to raw panel flex through its adapter not badge J3; official source https://www.waveshare.com/e-paper-driver-hat.htm"
+TOOL-ESP32,3 per build,Universal e-Paper Raw Panel Driver Board with WiFi/Bluetooth,Waveshare SKU 15823 / e-Paper ESP32 Driver Board V3,Tooling,"Three exact V3 validation/removable-controller units; power only through each board's USB-C and connect to badge J4 through the passive 8-wire harness; onboard 24-pin FPC remains empty; official source https://www.waveshare.com/e-paper-esp32-driver-board.htm"
+TOOL-ESP-HARNESS,3 per build,Passive 8-wire ESP32-to-badge harness,"Female-female 2.54mm Dupont ribbon plus labels",Tooling,"One working assembly one mechanically stressed test assembly and one spare; split the module end to the exact Waveshare J3/J4 pins; continuity-test every conductor before use"
+TOOL-REF-HAT,1-2 per build,Complete 3.52-inch e-Paper HAT,Waveshare SKU 22698 / 3.52inch e-Paper HAT,Tooling,"Known-working reference or emergency complete display; not a thin drop-in badge module; official source https://www.waveshare.com/3.52inch-e-paper-hat.htm"

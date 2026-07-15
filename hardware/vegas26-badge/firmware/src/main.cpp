@@ -1,6 +1,8 @@
 #include <Arduino.h>
+#if !defined(WAVESHARE_ESP32_DRIVER_V3)
 #include <USB.h>
 #include <USBCDC.h>
+#endif
 
 #include <array>
 #include <cstdio>
@@ -10,6 +12,23 @@
 
 namespace {
 
+#if defined(WAVESHARE_ESP32_DRIVER_V3)
+// Fixed by the Waveshare e-Paper ESP32 Driver Board V3 schematic. On published
+// Rev 3 hardware R35 is DNP, so GPIO4 does NOT switch the module's own EPD rail.
+// The passive badge harness does not carry GPIO4. The module is powered only by
+// USB-C, and its onboard FPC connector must remain empty.
+constexpr int kEpdCs = 15;
+constexpr int kEpdMosi = 14;
+constexpr int kEpdSclk = 13;
+constexpr int kEpdDc = 27;
+constexpr int kEpdReset = 26;
+constexpr int kEpdBusyN = 25;
+constexpr const char *kControllerName = "waveshare-esp32-driver-v3";
+constexpr const char *kPowerMode = "usb-continuous";
+constexpr const char *kSuccessStatus = "OK SLEEP USB_POWERED";
+constexpr const char *kBusyTimeoutStatus = "ERR BUSY_TIMEOUT USB_POWERED";
+HardwareSerial &ProgrammerSerial = Serial;
+#else
 constexpr int kEpdCs = D5;
 constexpr int kEpdMosi = D6;
 constexpr int kEpdSclk = D7;
@@ -17,13 +36,18 @@ constexpr int kEpdDc = D8;
 constexpr int kEpdReset = D9;
 constexpr int kEpdBusyN = D10;
 constexpr int kTargetPowerEnable = D4;
+constexpr const char *kControllerName = "xiao-esp32s3";
+constexpr const char *kPowerMode = "switched-target";
+constexpr const char *kSuccessStatus = "OK SLEEP POWER_OFF";
+constexpr const char *kBusyTimeoutStatus = "ERR BUSY_TIMEOUT POWER_OFF";
+USBCDC ProgrammerSerial;
+#endif
 
 constexpr uint32_t kFrameReceiveTimeoutMs = 15000;
 constexpr uint32_t kDeepSleepSettleMs = 2000;
 constexpr uint32_t kPowerOffSettleMs = 2000;
 constexpr size_t kCommandCapacity = 64;
 
-USBCDC ProgrammerSerial;
 Epd3in52 display(SPI, kEpdMosi, kEpdSclk, kEpdCs, kEpdDc, kEpdReset,
                  kEpdBusyN);
 std::array<uint8_t, Epd3in52::kFrameBytes> frameBuffer{};
@@ -36,36 +60,57 @@ bool receivingFrame = false;
 
 void printInfo() {
   ProgrammerSerial.printf(
-      "INFO waveshare=3.52in width=%u height=%u bytes=%u spi_hz=%lu "
-      "busy=active-low\r\n",
+      "INFO controller=%s waveshare=3.52in width=%u height=%u bytes=%u spi_hz=%lu "
+      "busy=active-low power=%s\r\n",
+      kControllerName,
       static_cast<unsigned>(Epd3in52::kWidth),
       static_cast<unsigned>(Epd3in52::kHeight),
       static_cast<unsigned>(Epd3in52::kFrameBytes),
-      static_cast<unsigned long>(Epd3in52::kSpiFrequency));
+      static_cast<unsigned long>(Epd3in52::kSpiFrequency), kPowerMode);
+}
+
+void configureTargetPower() {
+#if !defined(WAVESHARE_ESP32_DRIVER_V3)
+  pinMode(kTargetPowerEnable, OUTPUT);
+  digitalWrite(kTargetPowerEnable, LOW);
+#endif
+}
+
+void setTargetPower(bool enabled) {
+#if defined(WAVESHARE_ESP32_DRIVER_V3)
+  // Deliberate no-op: the passive harness has no power-enable conductor and
+  // GPIO4 must remain untouched. USB-C continuously powers module and badge.
+  (void)enabled;
+#else
+  digitalWrite(kTargetPowerEnable, enabled ? HIGH : LOW);
+#endif
 }
 
 void programBufferedFrame() {
   ProgrammerSerial.println("PROGRAMMING");
 
-  // D4 controls the load-switch enable on the shared programmer adapter. A
-  // direct 3V3 prototype still works; D4 is simply left unconnected there.
-  digitalWrite(kTargetPowerEnable, HIGH);
+  // XIAO D4 controls the shared adapter's target rail. This call is a no-op on
+  // the USB-powered Waveshare target, whose passive harness omits GPIO4.
+  setTargetPower(true);
   delay(20);
   display.begin();
   const bool refreshed = display.programFrame(frameBuffer.data());
   // Waveshare's reference waits two seconds after the 0x07/A5 deep-sleep
-  // command.  Let the panel finish that transition before removing its rail.
+  // command. Let the panel finish that transition before the XIAO removes its
+  // target rail or the continuously USB-powered target reports completion.
   if (refreshed) delay(kDeepSleepSettleMs);
   display.end();
-  digitalWrite(kTargetPowerEnable, LOW);
-  // Do not announce safe probe removal until the switched supply has been off
-  // long enough to settle.  On a timeout, cut power first and then wait too.
+  setTargetPower(false);
+#if !defined(WAVESHARE_ESP32_DRIVER_V3)
+  // Do not announce safe probe removal until the switched XIAO supply has been
+  // off long enough to settle. On a timeout, cut power first and then wait too.
   delay(kPowerOffSettleMs);
+#endif
 
   if (refreshed) {
-    ProgrammerSerial.println("OK SLEEP POWER_OFF");
+    ProgrammerSerial.println(kSuccessStatus);
   } else {
-    ProgrammerSerial.println("ERR BUSY_TIMEOUT POWER_OFF");
+    ProgrammerSerial.println(kBusyTimeoutStatus);
   }
 }
 
@@ -166,16 +211,17 @@ void receiveCommands() {
 }  // namespace
 
 void setup() {
-  pinMode(kTargetPowerEnable, OUTPUT);
-  digitalWrite(kTargetPowerEnable, LOW);
+  configureTargetPower();
 
   ProgrammerSerial.begin(115200);
+#if !defined(WAVESHARE_ESP32_DRIVER_V3)
   USB.manufacturerName("AISB");
   USB.productName("3.52in e-Paper Programmer");
   USB.usbPower(100);
   USB.begin();
+#endif
 
-  ProgrammerSerial.println("READY AISB-EPD-PROGRAMMER 2");
+  ProgrammerSerial.println("READY AISB-EPD-PROGRAMMER 3");
   printInfo();
 }
 

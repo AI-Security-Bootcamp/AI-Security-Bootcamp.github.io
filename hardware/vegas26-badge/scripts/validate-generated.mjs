@@ -84,11 +84,11 @@ requireText(
 );
 requireText('(at 5 94.205 270)', "right-facing screen-adjacent front J1 placement");
 requireText(
-  '(pad "1" smd rect (at 5.75 0)',
+  '(pad "1" smd rect (at -5.75 0 270)',
   "display-numbered J1 pin 1 at the top of the landscape tail"
 );
 requireText(
-  '(pad "24" smd rect (at -5.75 0)',
+  '(pad "24" smd rect (at 5.75 0 270)',
   "display-numbered J1 pin 24 at the bottom of the landscape tail"
 );
 requireText(
@@ -98,17 +98,18 @@ requireText(
 requireText('Badge:Waveshare_3.52in_Raw_Panel', "3.52-inch raw-panel envelope");
 requireText('Badge:AISB_Logo_Vector', "font-independent AISB wordmark");
 requireText(
-  '(gr_text "REV 1 · PANEL/J1 FIT MUST BE VERIFIED"',
-  "panel-and-connector prototype marking"
+  '(gr_text "REV 2 · VERIFY PANEL/J1 + ESP CRADLE"',
+  "panel, connector, and cradle prototype marking"
 );
 requireText(
   '(footprint "Badge:Waveshare_ESP32_Driver_Board_V3_Header_Clear_Cradle_Bay" (layer "B.Cu")',
-  "rear optional Waveshare ESP32 driver-board bay"
+  "rear header-clear Waveshare ESP32 driver-board cradle bay"
 );
 requireText('(at 20.23 120.875)', "bottom-left ESP32 bay placement");
-requireText('(fp_text user "USB-C DOWN"', "ESP32 USB-C orientation marking");
-requireText('(fp_text user "HEADER-CLEAR CRADLE"', "ESP32 header-clearance warning");
-requireText('(gr_text "ONE 3V3 SOURCE ONLY"', "single-source power warning");
+requireText('(fp_text user "HEADER-CLEAR SPACER"', "ESP32 header-clear cradle marking");
+requireText('(fp_text user "NO PIN HOLES"', "ESP32 no-pin-hole cradle marking");
+requireText('(fp_text user "USB-C DOWN · USE J4"', "ESP32 USB-C/J4 orientation marking");
+requireText('(gr_text "ONE CONTROLLER · 3V3 ONLY"', "one-controller 3V3-only warning");
 requireText('(49 "F.Fab" user)', "standard KiCad technical layers");
 requireText(
   '(gr_text "J1 · FRONT ZIF · 3.65 mm FLEX · NO SLOT"',
@@ -126,8 +127,8 @@ requireText(
 );
 requireText('(net_name "DGND") (layer "B.Cu")', "rear digital-ground zone");
 requireText(
-  '(keepout (tracks not_allowed) (vias not_allowed) (pads allowed) (copperpour not_allowed)',
-  "TC2050 inter-row copper keepout"
+  '(keepout (tracks allowed) (vias not_allowed) (pads allowed) (copperpour not_allowed)',
+  "TC2050 inter-row pour keepout with intentional ground bridge"
 );
 requireText(
   '(gr_text "PASSIVE EM PICKUP · 30T/LAYER"',
@@ -155,6 +156,110 @@ if (espAntennaKeepoutPolygons !== 2) {
     `ESP32 antenna pour keepout count is ${espAntennaKeepoutPolygons}, expected 2`
   );
 }
+const espAntennaKeepoutBlocks = (
+  board.match(
+    /\(keepout \(tracks allowed\) \(vias allowed\) \(pads allowed\) \(copperpour not_allowed\) \(footprints allowed\)\)\n    \(polygon \(pts \(xy 5\.5 96\.75\)/g
+  ) || []
+).length;
+if (espAntennaKeepoutBlocks !== 2) {
+  failures.push(
+    `ESP32 antenna track-permitted/pour-blocked keepout count is ${espAntennaKeepoutBlocks}, expected 2`
+  );
+}
+
+const footprintStarts = [...board.matchAll(/^  \(footprint /gm)].map((match) => match.index);
+const footprintBlockForRef = (ref) => {
+  for (let index = 0; index < footprintStarts.length; index += 1) {
+    const start = footprintStarts[index];
+    const end = footprintStarts[index + 1] ?? board.length;
+    const block = board.slice(start, end);
+    if (block.includes(`(fp_text reference "${ref}"`)) return block;
+  }
+  return "";
+};
+const j3Block = footprintBlockForRef("J3");
+if (!j3Block.includes("Tag-Connect_TC2050-IDC-NL") || !j3Block.includes("(at 90 137)")) {
+  failures.push("J3 TC2050 footprint/placement mismatch");
+}
+const j3NumberedPads = (j3Block.match(/\(pad "(?:[1-9]|10)" smd circle /g) || []).length;
+if (j3NumberedPads !== 10) {
+  failures.push(`J3 contact-pad count is ${j3NumberedPads}, expected 10`);
+}
+if (j3Block.includes('"B.Paste"')) failures.push("J3 probe contacts unexpectedly use paste");
+for (const [pin, localAt, net, name] of [
+  [1, "2.54 0.635", 2, "3V3"],
+  [2, "1.27 0.635", 1, "DGND"],
+  [3, "0 0.635", 21, "EXT_MOSI"],
+  [4, "-1.27 0.635", 22, "EXT_CLK"],
+  [5, "-2.54 0.635", 23, "EXT_CS"],
+  [6, "-2.54 -0.635", 24, "EXT_DC"],
+  [7, "-1.27 -0.635", 25, "EXT_RST"],
+  [8, "0 -0.635", 26, "EXT_BUSY"],
+  [9, "1.27 -0.635", 1, "DGND"],
+  [10, "2.54 -0.635", 2, "3V3"],
+]) {
+  const expected = `(pad "${pin}" smd circle (at ${localAt}) (size 0.787 0.787) (layers "B.Cu" "B.Mask") (net ${net} "${name}")`;
+  if (!j3Block.includes(expected)) failures.push(`J3.${pin} mapping/geometry mismatch for ${name}`);
+}
+
+const j4Block = footprintBlockForRef("J4");
+if (!j4Block.includes('Badge:ESP_Ribbon_1x08_P2.54mm') ||
+    !j4Block.includes("(at 60 140.5)")) {
+  failures.push("J4 passive ribbon footprint/placement mismatch");
+}
+const j4NumberedPads = (j4Block.match(/\(pad "[1-8]" thru_hole /g) || []).length;
+if (j4NumberedPads !== 8) {
+  failures.push(`J4 through-hole pad count is ${j4NumberedPads}, expected exactly 8`);
+}
+if (j4Block.includes('"B.Paste"') || j4Block.includes('"F.Paste"')) {
+  failures.push("J4 through-hole ribbon header unexpectedly uses paste");
+}
+const interfaceNetMap = [
+  [1, 2, "3V3"],
+  [2, 1, "DGND"],
+  [3, 26, "EXT_BUSY"],
+  [4, 25, "EXT_RST"],
+  [5, 24, "EXT_DC"],
+  [6, 23, "EXT_CS"],
+  [7, 21, "EXT_MOSI"],
+  [8, 22, "EXT_CLK"],
+];
+for (const [pin, net, name] of interfaceNetMap) {
+  const localX = Number(((pin - 1) * 2.54).toFixed(2));
+  const globalX = Number((60 + localX).toFixed(2));
+  const shape = pin === 1 ? "rect" : "circle";
+  const expected = `(pad "${pin}" thru_hole ${shape} (at ${localX} 0) (size 2 2) (drill 1) (layers "*.Cu" "*.Mask") (net ${net} "${name}")`;
+  if (!j4Block.includes(expected)) {
+    failures.push(`J4.${pin} is not ${name} at global ${globalX},140.5`);
+  }
+}
+
+const cradleSlotsBlock = footprintBlockForRef("MH1");
+if (!cradleSlotsBlock.includes('Badge:ESP32_Cradle_Strap_Slots') ||
+    !cradleSlotsBlock.includes("(at 0 0)")) {
+  failures.push("cradle strap-slot footprint/placement mismatch");
+}
+const cradleSlots = cradleSlotsBlock.match(/\(pad "" np_thru_hole oval /g) || [];
+if (cradleSlots.length !== 4) {
+  failures.push(`cradle NPTH oval-slot count is ${cradleSlots.length}, expected exactly 4`);
+}
+for (const [x, y] of [[3.5, 131.5], [37, 131.5], [3.5, 139.5], [37, 139.5]]) {
+  const expected = `(pad "" np_thru_hole oval (at ${x} ${y}) (size 2.2 6) (drill oval 2.2 6) (layers "*.Cu" "*.Mask")`;
+  if (!cradleSlotsBlock.includes(expected)) failures.push(`missing 2.2x6 mm cradle slot at ${x},${y}`);
+}
+
+const q1Block = footprintBlockForRef("Q1");
+if (!q1Block.includes('(pad "1" smd roundrect (at -1 0.95)')) {
+  failures.push("Q1 Y-reflected pin-1 land mismatch");
+}
+if (!q1Block.includes('(fp_text user "P1 / ROT180"') ||
+    !q1Block.includes('(layer "B.SilkS")') ||
+    !q1Block.includes('(layer "B.Fab")')) {
+  failures.push("Q1 rear ROT180/pin-1 assembly marking missing");
+}
+if (board.includes('(fp_text reference "U6"') || board.includes("DISABLE_MODULE_ROUTES")) {
+  failures.push("obsolete module-routing or U6 debug artifact remains");
+}
 
 const fpcStart = board.indexOf(
   '(footprint "Badge:Hirose_FH34SRJ-24S-0.5SH_24P_P0.50mm_Horizontal"'
@@ -163,7 +268,7 @@ const fpcEnd = board.indexOf("\n  (footprint ", fpcStart + 1);
 const fpcBlock = fpcStart >= 0 ? board.slice(fpcStart, fpcEnd) : "";
 const fpcPasteApertures = (
   fpcBlock.match(
-    /\(pad "" smd rect \(at [-\d.]+ 0\) \(size 0\.25 0\.65\) \(layers "F\.Paste"\)/g
+    /\(pad "" smd rect \(at [-\d.]+ 0 270\) \(size 0\.25 0\.65\) \(layers "F\.Paste"\)/g
   ) || []
 ).length;
 if (fpcPasteApertures !== 24) {
@@ -171,11 +276,19 @@ if (fpcPasteApertures !== 24) {
 }
 const fpcCopperPads = (
   fpcBlock.match(
-    /\(pad "(?:[1-9]|1\d|2[0-4])" smd rect \(at [-\d.]+ 0\) \(size 0\.3 0\.8\) \(layers "F\.Cu" "F\.Mask"\)/g
+    /\(pad "(?:[1-9]|1\d|2[0-4])" smd rect \(at [-\d.]+ 0 270\) \(size 0\.3 0\.8\) \(layers "F\.Cu" "F\.Mask"\)/g
   ) || []
 ).length;
 if (fpcCopperPads !== 24) {
   failures.push(`J1 signal copper-pad count is ${fpcCopperPads}, expected 24`);
+}
+const fpcMountPads = (
+  fpcBlock.match(
+    /\(pad "MP" smd rect \(at (?:-6\.75|6\.75) -3\.3 270\) \(size 0\.8 0\.8\)/g
+  ) || []
+).length;
+if (fpcMountPads !== 2) {
+  failures.push(`J1 rotated mounting-pad count is ${fpcMountPads}, expected 2`);
 }
 if (
   fpcBlock
@@ -188,8 +301,11 @@ if (
   failures.push("J1 numbered copper pads still use unreduced F.Paste apertures");
 }
 requireText('(pad "24" smd rect', "FPC pin 24");
-requireText('(pad "" np_thru_hole circle (at 3.81 1.016)', "TC2050 keyed alignment hole");
-requireText('(layers "B.Cu" "B.Mask") (net 2 "3V3")', "paste-free TC2050 contact pad");
+requireText('(pad "" np_thru_hole circle (at -3.81 1.016)', "TC2050 keyed alignment hole");
+requireText(
+  '(layers "B.Cu" "B.Mask") (net 2 "3V3")',
+  "direct-3V3 paste-free TC2050 supply contact"
+);
 for (const ref of [
   "Q1",
   "L2",
@@ -205,6 +321,9 @@ for (const ref of [
   "L1",
   "J1",
   "J3",
+  "J4",
+  "MH1",
+  "MOD1",
   "EPD1",
 ]) {
   requireText(`(fp_text reference "${ref}"`, `${ref} footprint`);
@@ -222,6 +341,20 @@ for (const legacy of [
   "EDGE-WRAP",
 ]) {
   if (board.includes(legacy)) failures.push(`legacy feature remains: ${legacy}`);
+}
+for (const ref of ["U2", "U3", "U4", "U5", "Q2", "J5"]) {
+  if (footprintBlockForRef(ref)) failures.push(`stale onboard-controller footprint remains: ${ref}`);
+}
+for (const stale of [
+  "SSM-119",
+  "PROG_3V3",
+  "MOD_",
+  "BUF_",
+  "PMUX",
+  "TPS2116",
+  "SN74LVC541",
+]) {
+  if (board.includes(stale)) failures.push(`stale onboard-controller board feature remains: ${stale}`);
 }
 if (edgeArcs.length !== 4) {
   failures.push(`Edge.Cuts arc count is ${edgeArcs.length}, expected only 4 outer-corner arcs`);
@@ -243,12 +376,65 @@ for (const [text, description] of [
   ['F 1 "1uF_25V_DNP"', "schematic pin-4 DNP option"],
   ['F 1 "4.7uF"', "schematic pickup coupling capacitor"],
   ['F 1 "PCB_SPIRAL_30T_X2"', "schematic optimized pickup winding"],
-  ["No MCU, battery, MIDI, or touch circuitry on the badge", "controller-free schematic note"],
+  ['L Connector_Generic:Conn_01x08 J4', "schematic J4 1x8 ribbon connector"],
+  ['F 1 "ESP_RIBBON_1x08_P2.54_DNP"', "schematic optional ribbon value"],
+  ['F 2 "Badge:ESP_Ribbon_1x08_P2.54mm"', "schematic J4 PCB footprint"],
+  ["J4: 1=3V3, 2=DGND, 3=BUSY_N, 4=RST_N, 5=DC, 6=CS_N, 7=MOSI, 8=SCLK. Never connect 5V.", "schematic J4 pinout/warning note"],
+  ["No MCU, battery, MIDI, or touch circuitry on the badge; external controllers only", "controller-free schematic note"],
 ]) {
   if (!schematic.includes(text)) failures.push(`missing ${description}`);
 }
+for (const [pin, y, net] of [
+  [1, 2950, "3V3"],
+  [2, 3050, "DGND"],
+  [3, 3150, "EXT_BUSY"],
+  [4, 3250, "EXT_RST"],
+  [5, 3350, "EXT_DC"],
+  [6, 3450, "EXT_CS"],
+  [7, 3550, "EXT_MOSI"],
+  [8, 3650, "EXT_CLK"],
+]) {
+  if (!schematic.includes(`Text Label 9400 ${y} 2    50   ~ 0\n${net}\n`) ||
+      !schematic.includes(`Wire Wire Line\n\t9400 ${y} 10000 ${y}\n`)) {
+    failures.push(`schematic J4.${pin} mapping mismatch for ${net}`);
+  }
+}
+for (const [pin, y, net] of [
+  [1, 1450, "3V3"],
+  [2, 1550, "DGND"],
+  [3, 1650, "EXT_MOSI"],
+  [4, 1750, "EXT_CLK"],
+  [5, 1850, "EXT_CS"],
+  [6, 1950, "EXT_DC"],
+  [7, 2050, "EXT_RST"],
+  [8, 2150, "EXT_BUSY"],
+  [9, 2250, "DGND"],
+  [10, 2350, "3V3"],
+]) {
+  if (!schematic.includes(`Text Label 9400 ${y} 2    50   ~ 0\n${net}\n`) ||
+      !schematic.includes(`Wire Wire Line\n\t9400 ${y} 10000 ${y}\n`)) {
+    failures.push(`schematic J3.${pin} mapping mismatch for ${net}`);
+  }
+}
 for (const legacy of ["XIAO_ESP32", "TOUCH_1", "WAVESHARE_EPD", "FH12-24S"]) {
   if (schematic.includes(legacy)) failures.push(`legacy schematic feature remains: ${legacy}`);
+}
+for (const stale of [
+  "SSM-119",
+  "PROG_3V3",
+  "MOD_",
+  "BUF_",
+  "PMUX",
+  "TPS2116",
+  "SN74LVC541",
+]) {
+  if (schematic.includes(stale)) {
+    failures.push(`stale onboard-controller schematic feature remains: ${stale}`);
+  }
+}
+for (const ref of ["U2", "U3", "U4", "U5", "Q2", "J5"]) {
+  const pattern = new RegExp(`^L [^\\n]+ ${ref}$`, "m");
+  if (pattern.test(schematic)) failures.push(`stale onboard-controller schematic reference remains: ${ref}`);
 }
 
 const segments = [...board.matchAll(
@@ -263,13 +449,20 @@ const segments = [...board.matchAll(
 }));
 
 const vias = [...board.matchAll(
-  /\(via \(at ([-\d.]+) ([-\d.]+)\) \(size ([-\d.]+)\).*?\(net (\d+)\)/g
+  /\(via \(at ([-\d.]+) ([-\d.]+)\) \(size ([-\d.]+)\) \(drill ([-\d.]+)\).*?\(net (\d+)\)/g
 )].map((match, index) => ({
   index,
   point: [Number(match[1]), Number(match[2])],
   size: Number(match[3]),
-  net: Number(match[4]),
+  drill: Number(match[4]),
+  net: Number(match[5]),
 }));
+for (const track of segments) {
+  if (track.width < 0.2 - 1e-8) failures.push(`track ${track.index} is below 0.20 mm`);
+}
+for (const transition of vias) {
+  if (transition.drill < 0.3 - 1e-8) failures.push(`via ${transition.index} drill is below 0.30 mm`);
+}
 
 const offAngleSegments = segments.filter((track) => {
   const dx = Math.abs(track.b[0] - track.a[0]);
@@ -342,6 +535,34 @@ for (const transition of vias) {
     nodeKey(transition.net, "B.Cu", transition.point)
   );
 }
+// A branch or via can intentionally land in the middle of an existing track.
+// Add those intermediate copper nodes so connectivity checks understand a
+// physical T-junction instead of requiring every generated segment to split.
+const nodesByNetLayer = new Map();
+const rememberCopperNode = (net, layer, point) => {
+  const key = `${net}|${layer}`;
+  if (!nodesByNetLayer.has(key)) nodesByNetLayer.set(key, new Map());
+  nodesByNetLayer.get(key).set(coordinateKey(point), point);
+};
+for (const track of segments) {
+  rememberCopperNode(track.net, track.layer, track.a);
+  rememberCopperNode(track.net, track.layer, track.b);
+}
+for (const transition of vias) {
+  rememberCopperNode(transition.net, "F.Cu", transition.point);
+  rememberCopperNode(transition.net, "B.Cu", transition.point);
+}
+for (const track of segments) {
+  const points = [...(nodesByNetLayer.get(`${track.net}|${track.layer}`)?.values() || [])]
+    .filter((point) => pointSegmentDistance(point, track.a, track.b) < 1e-8)
+    .sort((first, second) => pointDistance(track.a, first) - pointDistance(track.a, second));
+  for (let index = 0; index + 1 < points.length; index += 1) {
+    addGraphEdge(
+      nodeKey(track.net, track.layer, points[index]),
+      nodeKey(track.net, track.layer, points[index + 1])
+    );
+  }
+}
 const hasCopperPath = (net, startLayer, start, endLayer, end) => {
   const source = nodeKey(net, startLayer, start);
   const target = nodeKey(net, endLayer, end);
@@ -360,6 +581,26 @@ const hasCopperPath = (net, startLayer, start, endLayer, end) => {
   }
   return false;
 };
+for (const [net, startLayer, start, endLayer, end, description] of [
+  [2, "B.Cu", [60, 140.5], "B.Cu", [92.54, 137.635], "J4.1 direct 3V3 to J3.1"],
+  [2, "B.Cu", [60, 140.5], "B.Cu", [92.54, 136.365], "J4.1 direct 3V3 to J3.10"],
+  [26, "B.Cu", [65.08, 140.5], "B.Cu", [90, 136.365], "J4.3 BUSY to J3.8"],
+  [25, "B.Cu", [67.62, 140.5], "B.Cu", [88.73, 136.365], "J4.4 RST to J3.7"],
+  [24, "B.Cu", [70.16, 140.5], "B.Cu", [87.46, 136.365], "J4.5 DC to J3.6"],
+  [23, "B.Cu", [72.7, 140.5], "B.Cu", [87.46, 137.635], "J4.6 CS to J3.5"],
+  [21, "B.Cu", [75.24, 140.5], "B.Cu", [90, 137.635], "J4.7 MOSI to J3.3"],
+  [22, "B.Cu", [77.78, 140.5], "B.Cu", [88.73, 137.635], "J4.8 CLK to J3.4"],
+  [26, "B.Cu", [65.08, 140.5], "B.Cu", [61.8, 89.8], "J4.3 BUSY to R10 output"],
+  [25, "B.Cu", [67.62, 140.5], "B.Cu", [61.8, 92.4], "J4.4 RST to R9 output"],
+  [24, "B.Cu", [70.16, 140.5], "B.Cu", [61.8, 95], "J4.5 DC to R8 output"],
+  [23, "B.Cu", [72.7, 140.5], "B.Cu", [61.8, 97.6], "J4.6 CS to R7 output"],
+  [21, "B.Cu", [75.24, 140.5], "B.Cu", [61.8, 102.8], "J4.7 MOSI to R5 output"],
+  [22, "B.Cu", [77.78, 140.5], "B.Cu", [61.8, 100.2], "J4.8 CLK to R6 output"],
+]) {
+  if (!hasCopperPath(net, startLayer, start, endLayer, end)) {
+    failures.push(`passive controller connectivity: ${description}`);
+  }
+}
 for (const [net, startLayer, start, endLayer, end, description] of [
   [30, "B.Cu", [8.5, 17], "F.Cu", [11.5, 15], "C1 pad 2 to front-coil outer end"],
   [30, "B.Cu", [30, 34], "F.Cu", [26.5, 30], "R2 pad 1 to front-coil inner end"],
@@ -606,6 +847,50 @@ for (let i = 0; i < pickupPads.length; i += 1) {
     if (pickupPads[i].net === pickupPads[j].net) continue;
     if (padPadGap(pickupPads[i], pickupPads[j]) < clearance - 1e-8) {
       failures.push(`pickup pad/pad clearance: ${pickupPads[i].ref}/${pickupPads[j].ref}`);
+    }
+  }
+}
+
+// Pad-aware audit for the two passive controller interfaces. KiCad DRC is
+// still mandatory, but this catches a route clipping an adjacent TC2050 or
+// ribbon-header land before the file is opened.
+const interfacePads = [];
+const addRectPad = (ref, net, x, y, width, height, layers = ["B.Cu"]) =>
+  interfacePads.push({ ref, net, center: [x, y], size: [width, height], shape: "rect", layers });
+const addCirclePad = (ref, net, x, y, diameter, layers = ["B.Cu"]) =>
+  interfacePads.push({ ref, net, center: [x, y], size: [diameter, diameter], shape: "circle", layers });
+for (const [pin, x, y, net] of [
+  [1, 92.54, 137.635, 2], [2, 91.27, 137.635, 1], [3, 90, 137.635, 21],
+  [4, 88.73, 137.635, 22], [5, 87.46, 137.635, 23], [6, 87.46, 136.365, 24],
+  [7, 88.73, 136.365, 25], [8, 90, 136.365, 26], [9, 91.27, 136.365, 1],
+  [10, 92.54, 136.365, 2],
+]) addCirclePad(`J3.${pin}`, net, x, y, 0.787);
+for (const [pin, net, name] of interfaceNetMap) {
+  const x = Number((60 + (pin - 1) * 2.54).toFixed(2));
+  const layers = ["F.Cu", "B.Cu"];
+  if (pin === 1) addRectPad(`J4.${pin}/${name}`, net, x, 140.5, 2, 2, layers);
+  else addCirclePad(`J4.${pin}/${name}`, net, x, 140.5, 2, layers);
+}
+
+for (const pad of interfacePads) {
+  for (const track of segments) {
+    if (!pad.layers.includes(track.layer) || track.net === pad.net) continue;
+    if (padTrackGap(pad, track) < clearance - 1e-8) {
+      failures.push(`controller pad/track clearance: ${pad.ref}, segment ${track.index}`);
+    }
+  }
+  for (const transition of vias) {
+    if (transition.net === pad.net) continue;
+    if (padPointGap(pad, transition.point, transition.size / 2) < clearance - 1e-8) {
+      failures.push(`controller pad/via clearance: ${pad.ref}, via ${transition.index}`);
+    }
+  }
+}
+for (let first = 0; first < interfacePads.length; first += 1) {
+  for (let second = first + 1; second < interfacePads.length; second += 1) {
+    if (interfacePads[first].net === interfacePads[second].net) continue;
+    if (padPadGap(interfacePads[first], interfacePads[second]) < clearance - 1e-8) {
+      failures.push(`controller pad/pad clearance: ${interfacePads[first].ref}/${interfacePads[second].ref}`);
     }
   }
 }

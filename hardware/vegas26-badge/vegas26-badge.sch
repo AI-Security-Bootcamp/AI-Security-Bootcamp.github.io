@@ -8,12 +8,12 @@ EELAYER END
 $Descr A4 11693 8268
 Sheet 1 1
 Title "AISB Vegas 2026 Raw E-Paper Badge"
-Date "2026-07-14"
-Rev "1"
+Date "2026-07-15"
+Rev "2"
 Comp "AI Security Bootcamp"
 Comment1 "Prototype only - verify panel revision, J1 fit, and mirrored terminal order"
-Comment2 "Raw 3.52in panel; passive support circuit; removable 3V3 SPI programmer"
-Comment3 "No MCU, battery, MIDI, or touch circuitry on the badge"
+Comment2 "Raw 3.52in panel; passive support circuit; J3 probe plus optional J4 ribbon"
+Comment3 "No MCU, battery, MIDI, or touch circuitry on the badge; external controllers only"
 $EndDescr
 Text Notes 650 650 0    118  ~ 24
 REVISION 1 ARCHITECTURE
@@ -136,7 +136,7 @@ Text Notes 700 3975 0    50   ~ 10
 Pins 1, 6 and 7 are not used. Pin 8 / BS is strapped to DGND through R13 for 4-wire SPI.
 
 Text Notes 7900 1375 0    79   ~ 16
-TEMPORARY PROGRAMMER CONTACTS
+EXTERNAL CONTROLLER CONTACTS
 $Comp
 L Connector_Generic:Conn_01x10 J3
 U 1 1 20000002
@@ -191,6 +191,53 @@ Text Notes 7900 2550 0    50   ~ 10
 Physical pins: 1/10=3V3, 2/9=DGND, 3=MOSI, 4=CLK, 5=CS_N, 6=DC, 7=RST_N, 8=BUSY_N.
 Text Notes 7900 2675 0    50   ~ 10
 Contact pads have no solder paste. TC2050 cable is a reusable probe, not a populated badge part.
+
+$Comp
+L Connector_Generic:Conn_01x08 J4
+U 1 1 20000003
+P 10200 3300
+F 0 "J4" H 10280 3292 50  0000 L CNN
+F 1 "ESP_RIBBON_1x08_P2.54_DNP" H 10280 3201 50  0000 L CNN
+F 2 "Badge:ESP_Ribbon_1x08_P2.54mm" H 10200 3300 50  0001 C CNN
+	1    10200 3300
+	1    0    0    -1
+$EndComp
+Text Label 9400 2950 2    50   ~ 0
+3V3
+Text Label 9400 3050 2    50   ~ 0
+DGND
+Text Label 9400 3150 2    50   ~ 0
+EXT_BUSY
+Text Label 9400 3250 2    50   ~ 0
+EXT_RST
+Text Label 9400 3350 2    50   ~ 0
+EXT_DC
+Text Label 9400 3450 2    50   ~ 0
+EXT_CS
+Text Label 9400 3550 2    50   ~ 0
+EXT_MOSI
+Text Label 9400 3650 2    50   ~ 0
+EXT_CLK
+Wire Wire Line
+	9400 2950 10000 2950
+Wire Wire Line
+	9400 3050 10000 3050
+Wire Wire Line
+	9400 3150 10000 3150
+Wire Wire Line
+	9400 3250 10000 3250
+Wire Wire Line
+	9400 3350 10000 3350
+Wire Wire Line
+	9400 3450 10000 3450
+Wire Wire Line
+	9400 3550 10000 3550
+Wire Wire Line
+	9400 3650 10000 3650
+Text Notes 7900 3825 0    50   ~ 10
+J4: 1=3V3, 2=DGND, 3=BUSY_N, 4=RST_N, 5=DC, 6=CS_N, 7=MOSI, 8=SCLK. Never connect 5V.
+Text Notes 7900 3950 0    50   ~ 10
+Optional USB-powered Waveshare V3 uses a split female ribbon; its own 24-pin FPC stays empty. One controller only.
 
 Text Notes 3300 1375 0    79   ~ 16
 SPI CONDITIONING

@@ -17,7 +17,8 @@ badge_handle = "@handle / participant";
 show_pickup_coil = true;
 show_front_labels = true;
 show_protector = true;
-show_esp32_driver = false;
+show_optional_waveshare = true;
+show_j4_header = false;
 exploded_step = 10;              // [4:1:25]
 curve_resolution = 36;           // [16:4:96]
 
@@ -42,6 +43,9 @@ panel_outline = [84.70, 54.41];
 panel_t = 1.18;
 panel_corner_r = 0.35;
 panel_adhesive_t = 0.10;
+panel_adhesive_edge_inset = 0.25; // prototype; confirm cutter/adhesive lot
+panel_adhesive_rail = 1.50;
+panel_adhesive_notch_clearance = 0.50;
 
 active_center = [52.725, 94.205];
 active_area = [74.51, 49.67];
@@ -49,7 +53,10 @@ active_corner_r = 0.20;
 
 fpc_center_y = 94.205;
 fpc_width = 12.50;
-fpc_t = 0.10;
+// Bare flex is 0.10 +0.03 mm; the connector-contact stiffener is
+// 0.30 +/-0.03 mm.  Use the backed thickness for the short service run so the
+// preview does not understate the J1/spine cavity requirement.
+fpc_t = 0.30;
 fpc_front_z = board_t / 2 + panel_adhesive_t + fpc_t / 2;
 
 // No-hole instrument viewport: a printed black spacer/bezel, a clear 0.5 mm
@@ -87,9 +94,10 @@ tc2050_holes = [
     [-3.81, 0], [3.81, 1.016], [3.81, -1.016]
 ];
 
-// Optional rear Waveshare e-Paper ESP32 Driver Board V3 cradle bay. Stock
-// boards have two long underside 1x19 header rows and no mounting holes, so a
-// flat foam mount is not valid; USB-C faces the lower badge edge.
+// Optional rear Waveshare e-Paper ESP32 Driver Board V3 cradle bay.  The stock
+// underside 1x19 headers remain on the removable module but do not enter this
+// carrier.  Insulating edge rails keep those pins clear and four routed slots
+// retain the cradle/strap assembly.  USB-C faces the lower badge edge.
 esp32_bay_center = [20.23, 120.875];
 esp32_board_outline = [29.46, 48.25];
 esp32_board_t = 1.60;
@@ -97,8 +105,29 @@ esp32_header_pitch = 2.54;
 esp32_header_count = 19;
 esp32_header_row_dx = 11.325;
 esp32_header_first_y = 98.015;
-esp32_header_projection = 10.0;  // conservative preview; measure purchased V3
-esp32_cradle_clearance = 1.0;
+esp32_header_pin = 0.635;          // nominal .025-inch square post
+esp32_header_insulator = [2.54, 48.26];
+esp32_header_insulator_h = 2.54;  // nominal; measure purchased V3
+esp32_header_free_pin = 6.00;     // preview only; measure purchased V3
+esp32_cradle_gap = 9.40;          // preview; trim rail/foam stack after measurement
+esp32_cradle_rail_x = [6.40, 34.06];
+esp32_cradle_rail_y = 127.5;
+esp32_cradle_rail_size = [1.80, 29.0];
+esp32_cradle_foam_t = 0.40;
+esp32_mount_slot_size = [2.2, 6.0];
+esp32_mount_slots = [
+    [3.5, 131.5], [37, 131.5],
+    [3.5, 139.5], [37, 139.5]
+];
+
+// Optional 3.3 V SPI ribbon/header.  This is the carrier's only direct
+// electrical interface to the removable module; never bring module 5 V here.
+j4_pin1 = [60, 140.5];
+j4_pitch = 2.54;
+j4_count = 8;
+j4_pad_d = 2.0;
+j4_drill_d = 1.0;
+j4_body = [20.15, 2.70];
 
 // ---------- Visual material palette ----------
 
@@ -116,6 +145,9 @@ protector_clear = [0.72, 0.88, 0.92, 0.28];
 chip_black = [0.025, 0.025, 0.028];
 metal = [0.64, 0.68, 0.70];
 module_green = [0.04, 0.24, 0.18];
+cradle_plastic = [0.72, 0.78, 0.72, 0.72];
+cradle_foam = [0.12, 0.13, 0.14, 0.88];
+strap_black = [0.04, 0.045, 0.05, 0.92];
 
 // Map KiCad board coordinates (origin at top-left) into model coordinates.
 function bx(x) = x - board_w / 2;
@@ -135,6 +167,18 @@ module rounded_slab(s = [10, 10], r = 1, h = 1, z = 0) {
     translate([0, 0, z])
         linear_extrude(height = h)
             rounded_rect_2d(s, r);
+}
+
+// Overall X/Y dimensions, with semicircular ends along the longer axis.
+module oval_2d(s = [6, 2.2]) {
+    if (s[0] >= s[1])
+        hull()
+            for (x = [-(s[0] - s[1]) / 2, (s[0] - s[1]) / 2])
+                translate([x, 0]) circle(d = s[1]);
+    else
+        hull()
+            for (y = [-(s[1] - s[0]) / 2, (s[1] - s[0]) / 2])
+                translate([0, y]) circle(d = s[0]);
 }
 
 module trace_2d(a, b, width = 0.25) {
@@ -179,6 +223,19 @@ module bare_pcb() {
                     // Passive-pickup audio pigtail holes are retained.
                     for (y = [22, 27])
                         translate([bx(4.5), by(y)]) circle(d = 1.2);
+
+                    // Four vertical 2.2 x 6.0 mm NPTH slots retain the
+                    // removable, electrically insulating ESP32 cradle.
+                    for (p = esp32_mount_slots)
+                        translate([bx(p[0]), by(p[1])])
+                            oval_2d(esp32_mount_slot_size);
+
+                    // Optional J4 1x8 ribbon/header drills, pin 1 at x=60.
+                    for (i = [0 : j4_count - 1])
+                        translate([
+                            bx(j4_pin1[0] + i * j4_pitch),
+                            by(j4_pin1[1])
+                        ]) circle(d = j4_drill_d);
                 }
 }
 
@@ -315,7 +372,7 @@ module tc2050_target() {
 }
 
 module esp32_bay_marking() {
-    // Rear-silkscreen fit envelope; this is a padless PCB feature.
+    // Rear-silkscreen fit envelope for the removable module and cradle.
     line = 0.22;
     color(silkscreen)
         translate([
@@ -336,30 +393,95 @@ module esp32_bay_marking() {
                 }
 }
 
+module j4_ribbon_header(gap = 0) {
+    copper_t = 0.035;
+
+    // Eight plated through-hole annuli: 3V3, GND, BUSY, RST, DC, CS, MOSI,
+    // CLK.  The footprint is useful unpopulated; the black body/pins are
+    // optional so the default preview remains a thin passive carrier.
+    color(enig_gold)
+        for (z = [board_t / 2, -board_t / 2 - copper_t])
+            for (i = [0 : j4_count - 1])
+                translate([
+                    bx(j4_pin1[0] + i * j4_pitch),
+                    by(j4_pin1[1]),
+                    z
+                ])
+                    linear_extrude(height = copper_t)
+                        difference() {
+                            if (i == 0)
+                                square([j4_pad_d, j4_pad_d], center = true);
+                            else
+                                circle(d = j4_pad_d);
+                            circle(d = j4_drill_d);
+                        }
+
+    if (show_j4_header) {
+        color(chip_black)
+            back_slab_at(
+                j4_pin1[0] + (j4_count - 1) * j4_pitch / 2,
+                j4_pin1[1],
+                j4_body,
+                0.25,
+                2.54,
+                gap
+            );
+        color(metal)
+            for (i = [0 : j4_count - 1])
+                back_slab_at(
+                    j4_pin1[0] + i * j4_pitch,
+                    j4_pin1[1],
+                    [0.64, 0.64],
+                    0.05,
+                    6.0,
+                    gap + 1.2
+                );
+    }
+}
+
 module pcb_artwork() {
     if (show_pickup_coil) pickup_coil();
     brand_accent();
     audio_front_pads();
     tc2050_target();
     esp32_bay_marking();
+    j4_ribbon_header();
     if (show_front_labels) front_silkscreen();
 }
 
 // ---------- Front-mounted raw e-paper assembly ----------
 
 module panel_adhesive(lift = 0) {
-    // Thin, even acrylic transfer adhesive around the glass perimeter.
+    // Prototype transfer-adhesive frame matching viewport-cut-template.svg.
+    // The open left notch keeps adhesive out of the straight FPC/J1 service
+    // path. Cutter kerf, squeeze-out, and the delivered panel lot still need
+    // a one-piece physical dry-fit before these dimensions are released.
+    outer = [
+        panel_outline[0] - 2 * panel_adhesive_edge_inset,
+        panel_outline[1] - 2 * panel_adhesive_edge_inset
+    ];
+    inner = [
+        outer[0] - 2 * panel_adhesive_rail,
+        outer[1] - 2 * panel_adhesive_rail
+    ];
+    outer_left = panel_center[0] - outer[0] / 2;
+    notch_h = fpc_width + 2 * panel_adhesive_notch_clearance;
+
     color([0.10, 0.10, 0.10, 0.75])
         translate([0, 0, board_t / 2 + lift])
             linear_extrude(height = panel_adhesive_t)
                 difference() {
                     translate([bx(panel_center[0]), by(panel_center[1])])
-                        rounded_rect_2d(panel_outline, panel_corner_r);
+                        rounded_rect_2d(outer, panel_corner_r);
                     translate([bx(panel_center[0]), by(panel_center[1])])
-                        rounded_rect_2d(
-                            [panel_outline[0] - 3, panel_outline[1] - 3],
-                            panel_corner_r
-                        );
+                        rounded_rect_2d(inner, 0.20);
+                    translate([
+                        bx(outer_left + panel_adhesive_rail / 2),
+                        by(fpc_center_y)
+                    ]) square([
+                        panel_adhesive_rail + 0.50,
+                        notch_h
+                    ], center = true);
                 }
 }
 
@@ -490,7 +612,7 @@ module panel_service_spine(lift = 0) {
     }
 }
 
-// ---------- Front panel interconnect and driver passives ----------
+// ---------- Front panel interconnect and rear raw-panel parts ----------
 
 module display_zif() {
     // Approximate low-profile, dual-contact Hirose FH34SRJ-24S-0.5SH body.
@@ -555,7 +677,7 @@ module rear_two_terminal(
             back_slab_at(x, y, body, 0.16, height, gap + pad_t);
 }
 
-module driver_components(gap = 0) {
+module raw_panel_components(gap = 0) {
     // Simplified bodies at the implemented rear-footprint coordinates.  The
     // generated KiCad board remains authoritative for pads and exact heights.
 
@@ -599,6 +721,7 @@ module driver_components(gap = 0) {
         );
     rear_two_terminal(47, 126.5, gap = gap);
     rear_two_terminal(47, 130, [2.2, 1.4], 1.0, [1.1, 1.4], 0.65, gap);
+
 }
 
 module rear_passive(gap = 0) {
@@ -611,25 +734,60 @@ module rear_passive(gap = 0) {
     rear_two_terminal(31, 34, [2.2, 1.4], 1.0, [1.1, 1.4], 0.55, gap);
 }
 
-module optional_esp32_driver(gap = 0) {
-    // Approximate envelope for fit/orbit visualization only. The supplied FFC,
-    // raw-panel adapter and any future keyed J3 adapter are not modelled.
-    mount_gap = gap + esp32_header_projection + esp32_cradle_clearance;
+module insulating_esp32_cradle(gap = 0) {
+    rail_h = esp32_cradle_gap - esp32_cradle_foam_t;
+    guard_h = esp32_cradle_gap + esp32_board_t + 2.7;
 
-    // Two adhesive/clip rails outside the header rows support a stock module
-    // without letting its pins touch or puncture the carrier PCB.
-    color([0.08, 0.08, 0.075])
-        for (dx = [-13.4, 13.4])
+    // Narrow longitudinal rails contact only the module's PCB edge strips;
+    // the stock header rows and populated centre remain over open air.
+    color(cradle_plastic)
+        for (x = esp32_cradle_rail_x)
             back_slab_at(
-                esp32_bay_center[0] + dx,
-                esp32_bay_center[1] + 1,
-                [1.5, 42],
-                0.35,
-                esp32_header_projection + esp32_cradle_clearance,
+                x,
+                esp32_cradle_rail_y,
+                esp32_cradle_rail_size,
+                0.32,
+                rail_h,
                 gap
             );
+    color(cradle_foam)
+        for (x = esp32_cradle_rail_x)
+            back_slab_at(
+                x,
+                esp32_cradle_rail_y,
+                esp32_cradle_rail_size,
+                0.32,
+                esp32_cradle_foam_t,
+                gap + rail_h
+            );
 
-    color(module_green)
+    // Four outside shoulders align with the routed slots.  Two removable
+    // non-metallic straps pass through the slot pairs and over the shoulders,
+    // clear of the header pins and carrier copper.
+    color(cradle_plastic)
+        for (y = [131.5, 139.5])
+            for (x = [5.05, 35.41])
+                back_slab_at(x, y, [1.10, 4.8], 0.28, guard_h, gap);
+    color(strap_black)
+        for (y = [131.5, 139.5])
+            back_slab_at(
+                20.25,
+                y,
+                [35.70, 1.65],
+                0.55,
+                0.45,
+                gap + guard_h
+            );
+}
+
+module optional_waveshare_module(gap = 0) {
+    // Ghosted removable fit envelope.  The module is wired to J4 by an
+    // external 3.3 V SPI ribbon; its 38 stock header pins never enter the
+    // carrier.  Pin length and cradle height require a purchased-V3 dry fit.
+    mount_gap = gap + esp32_cradle_gap;
+    pin_stack = esp32_header_insulator_h + esp32_header_free_pin;
+
+    color([module_green[0], module_green[1], module_green[2], 0.30])
         back_slab_at(
             esp32_bay_center[0],
             esp32_bay_center[1],
@@ -639,41 +797,40 @@ module optional_esp32_driver(gap = 0) {
             mount_gap
         );
 
-    // Stock 2.54 mm male header rows. The exact projection is deliberately a
-    // Customizer constant because a physical V3 sample must set the cradle.
-    color(enig_gold)
+    // Stock .025-inch-square male rows remain wholly above the carrier.
+    color([enig_gold[0], enig_gold[1], enig_gold[2], 0.34])
         for (dx = [-esp32_header_row_dx, esp32_header_row_dx])
             for (i = [0 : esp32_header_count - 1])
                 back_slab_at(
                     esp32_bay_center[0] + dx,
                     esp32_header_first_y + i * esp32_header_pitch,
-                    [0.55, 0.55],
+                    [esp32_header_pin, esp32_header_pin],
                     0.05,
-                    esp32_header_projection,
-                    gap + esp32_cradle_clearance
+                    pin_stack,
+                    mount_gap - pin_stack
                 );
-    color(chip_black)
+    color([0.86, 0.67, 0.10, 0.30])
         for (dx = [-esp32_header_row_dx, esp32_header_row_dx])
             back_slab_at(
                 esp32_bay_center[0] + dx,
                 esp32_bay_center[1],
-                [2.5, 46],
-                0.3,
-                2.5,
-                mount_gap - 2.5
+                esp32_header_insulator,
+                0.18,
+                esp32_header_insulator_h,
+                mount_gap - esp32_header_insulator_h
             );
 
-    // PCB antenna at the top, ESP32 can/module in the middle, USB-C below.
-    color([0.09, 0.42, 0.28])
+    // PCB antenna at the top, ESP32 can in the middle, USB-C projecting below.
+    color([0.09, 0.42, 0.28, 0.30])
         back_slab_at(esp32_bay_center[0], 103.8, [24, 11.5], 0.5, 0.30,
                      mount_gap + esp32_board_t);
-    color(metal)
+    color([metal[0], metal[1], metal[2], 0.32])
         back_slab_at(esp32_bay_center[0], 119, [17, 16], 0.8, 2.4,
                      mount_gap + esp32_board_t);
-    color(chip_black)
+    color([chip_black[0], chip_black[1], chip_black[2], 0.36])
         back_slab_at(esp32_bay_center[0], 134, [8, 7], 0.5, 1.6,
                      mount_gap + esp32_board_t);
-    color(metal)
+    color([metal[0], metal[1], metal[2], 0.40])
         back_slab_at(esp32_bay_center[0], 146.3, [9.2, 7.0], 0.9, 3.2,
                      mount_gap + esp32_board_t);
 }
@@ -688,9 +845,10 @@ module assembled_badge() {
     if (show_protector) panel_protector();
     display_zif();
     if (show_protector) panel_service_spine();
-    driver_components();
+    raw_panel_components();
     rear_passive();
-    if (show_esp32_driver) optional_esp32_driver();
+    insulating_esp32_cradle();
+    if (show_optional_waveshare) optional_waveshare_module();
 }
 
 module pcb_only_badge() {
@@ -702,15 +860,18 @@ module exploded_badge() {
     bare_pcb();
     pcb_artwork();
 
-    // Front layers move forward; the rear driver set moves back.
+    // Front layers move forward; the rear raw-panel set and removable cradle
+    // move back.
     panel_adhesive(exploded_step * 0.35);
     epaper_panel(exploded_step);
     if (show_protector) panel_protector(exploded_step * 2);
     display_zif();
     if (show_protector) panel_service_spine(exploded_step * 2);
-    driver_components(exploded_step);
+    raw_panel_components(exploded_step);
     rear_passive(exploded_step);
-    if (show_esp32_driver) optional_esp32_driver(exploded_step);
+    insulating_esp32_cradle(exploded_step);
+    if (show_optional_waveshare)
+        optional_waveshare_module(exploded_step * 2);
 }
 
 module service_spine_part() {

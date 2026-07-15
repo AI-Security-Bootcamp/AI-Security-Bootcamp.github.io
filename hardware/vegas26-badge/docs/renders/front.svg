@@ -76,7 +76,7 @@
 
   <g font-family="Inter,Arial,sans-serif" letter-spacing="2">
     <text x="92" y="88" fill="#d8bd68" font-size="18" font-weight="700">AISB / HARDWARE CONCEPT</text>
-    <text x="1108" y="88" text-anchor="end" fill="#8f98a5" font-size="15">REV 1 · FRONT</text>
+    <text x="1108" y="88" text-anchor="end" fill="#8f98a5" font-size="15">REV 2 · FRONT</text>
   </g>
 
   <g filter="url(#shadow)">
@@ -173,8 +173,8 @@
     <line x1="880" y1="955" x2="880" y2="975" stroke="#68717d" stroke-width="1.5"/>
     <rect x="520" y="946" width="160" height="38" rx="19" fill="#1d2229" stroke="#4b535e"/>
     <text x="600" y="971" text-anchor="middle" fill="#eef0f2" font-size="15" font-weight="700" letter-spacing="1.8">100 × 145 MM</text>
-    <text x="600" y="1046" text-anchor="middle" fill="#f4f4f2" font-size="24" font-weight="700">Conference badge / passive instrument</text>
+    <text x="600" y="1046" text-anchor="middle" fill="#f4f4f2" font-size="24" font-weight="700">Conference badge / e-paper instrument</text>
     <text x="600" y="1080" text-anchor="middle" fill="#9ba4af" font-size="15" letter-spacing="1.2">BLACK PCB · WHITE SILK · 3.52-IN RAW E-PAPER · PASSIVE PICKUP</text>
-    <text x="600" y="1135" text-anchor="middle" fill="#626b76" font-size="12" letter-spacing="1.8">ILLUSTRATIVE REV-1 RENDER · COMPONENT FINISH MAY VARY</text>
+    <text x="600" y="1135" text-anchor="middle" fill="#626b76" font-size="12" letter-spacing="1.8">ILLUSTRATIVE REV-2 RENDER · COMPONENT FINISH MAY VARY</text>
   </g>
 </svg>

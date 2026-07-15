@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1200" width="1200" height="1200" role="img" aria-labelledby="title desc">
   <title id="title">AISB Vegas 2026 badge — back product render</title>
-  <desc id="desc">Back of the black conference badge PCB showing the rear half of a black-solder-mask-covered 60-turn series-aiding passive audio pickup, its three-component termination network, compact e-paper support network, zero-height TC2050 programming pads, and the illustrative ghosted optional Waveshare ESP32 driver-board bay at bottom left with USB-C accessible below. The stock module's underside headers require a deeper measured cradle but are omitted from this plan-view render. The right-facing display connector is front-mounted beneath the removable service spine; the back has neither a second display connector nor a flex slot.</desc>
+  <desc id="desc">Physical rear view of the black conference badge PCB, horizontally mirrored from KiCad's front-view coordinates. It shows the rear half of the passive pickup, raw-panel support network, zero-height TC2050 programming pads, horizontal 1-by-8 J4 SPI header footprint, and an illustrative ghosted removable Waveshare ESP32 module in a header-clear insulating cradle. Four 2.2-by-6 millimetre routed slots retain the cradle; the module antenna points up and USB-C remains accessible below. There is no onboard controller, module socket, power mux, or controller-side buffer.</desc>
   <defs>
     <radialGradient id="bg" cx="50%" cy="38%" r="74%">
       <stop offset="0" stop-color="#29303a"/><stop offset="0.58" stop-color="#15191f"/><stop offset="1" stop-color="#090b0e"/>
@@ -13,9 +13,6 @@
     </linearGradient>
     <linearGradient id="module" x1="0" y1="0" x2="1" y2="1">
       <stop stop-color="#214f45"/><stop offset="0.5" stop-color="#0f2e2a"/><stop offset="1" stop-color="#071c1a"/>
-    </linearGradient>
-    <linearGradient id="xiao" x1="0" y1="0" x2="1" y2="1">
-      <stop stop-color="#183b3a"/><stop offset="0.45" stop-color="#0c2527"/><stop offset="1" stop-color="#061517"/>
     </linearGradient>
     <linearGradient id="metal" x1="0" y1="0" x2="1" y2="0">
       <stop stop-color="#666c72"/><stop offset="0.15" stop-color="#e0e3e5"/><stop offset="0.44" stop-color="#7f858a"/><stop offset="0.78" stop-color="#e9ebec"/><stop offset="1" stop-color="#5c6268"/>
@@ -38,7 +35,7 @@
   <ellipse cx="600" cy="923" rx="320" ry="64" fill="#000" opacity="0.55" filter="url(#soft)"/>
   <g font-family="Inter,Arial,sans-serif" letter-spacing="2">
     <text x="92" y="88" fill="#d8bd68" font-size="18" font-weight="700">AISB / HARDWARE CONCEPT</text>
-    <text x="1108" y="88" text-anchor="end" fill="#8f98a5" font-size="15">REV 1 · BACK</text>
+    <text x="1108" y="88" text-anchor="end" fill="#8f98a5" font-size="15">REV 2 · PHYSICAL BACK</text>
   </g>
 
   <g filter="url(#shadow)">
@@ -62,37 +59,38 @@
   </g>
 
   <!-- Passive pickup termination and through-hole audio pigtail. -->
-  <g filter="url(#componentShadow)">
+  <g transform="translate(1200 0) scale(-1 1)" filter="url(#componentShadow)">
     <!-- C1: 1206 at board (7.0,17); R1: 0805 at (7.5,24); R2: horizontal 0805 at (31,34). -->
     <rect x="350" y="165.2" width="18.5" height="10.1" rx="2.3" fill="#14181c" stroke="#b58f3b" stroke-width="1.2"/><rect x="354.3" y="167.2" width="9.9" height="6.1" rx="1.5" fill="#ded6bd"/>
     <rect x="355.8" y="205.5" width="12.3" height="7.8" rx="1.8" fill="#14181c" stroke="#b58f3b" stroke-width="1.1"/><rect x="358.6" y="207.1" width="6.7" height="4.6" rx="1.2" fill="#272a2d"/>
     <rect x="487.4" y="261.5" width="12.3" height="7.8" rx="1.8" fill="#14181c" stroke="#b58f3b" stroke-width="1.1"/><rect x="490.2" y="263.1" width="6.7" height="4.6" rx="1.2" fill="#2b2e31"/>
   </g>
-  <g font-family="Inter,Arial,sans-serif" font-size="8" fill="#d9dde0" font-weight="700">
-    <text x="350" y="159">C1 · 4.7µF · 1206</text><text x="354" y="200">R1 · 4.99k</text><text x="481" y="256">R2 · 0Ω</text>
+  <g font-family="Inter,Arial,sans-serif" font-size="8" fill="#d9dde0" font-weight="700" text-anchor="end">
+    <text x="850" y="159">C1 · 4.7µF · 1206</text><text x="846" y="200">R1 · 4.99k</text><text x="719" y="256">R2 · 0Ω</text>
   </g>
-  <g fill="#07090b" stroke="#d8bd68" stroke-width="2">
+  <g transform="translate(1200 0) scale(-1 1)" fill="#07090b" stroke="#d8bd68" stroke-width="2">
     <circle cx="345.2" cy="198.2" r="7.2"/><circle cx="345.2" cy="226.2" r="7.2"/>
   </g>
-  <text x="340" y="248" fill="#8f98a3" font-family="Inter,Arial,sans-serif" font-size="9" letter-spacing="1.4">J2 · AUDIO PIGTAIL</text>
+  <text x="860" y="248" text-anchor="end" fill="#8f98a3" font-family="Inter,Arial,sans-serif" font-size="9" letter-spacing="1.4">J2 · AUDIO PIGTAIL</text>
 
   <!-- Centred raw panel and its removable service spine are ghosted from the front.
        J1 is on F.Cu, actuator LEFT and mouth RIGHT toward a straight tail; there is no
        display connector or slot on this side. -->
   <rect x="362.84" y="450.2" width="474.32" height="304.7" rx="4" fill="none" stroke="#aeb6bf" stroke-width="1.2" stroke-dasharray="7 7" opacity="0.18"/>
-  <path d="M321 448.5l9-9h71v326.5h-71l-9-9z" fill="#0d1115" fill-opacity="0.12" stroke="#7a828a" stroke-width="1" stroke-dasharray="5 4" opacity="0.46"/>
+  <path d="M321 448.5l9-9h71v326.5h-71l-9-9z" transform="translate(1200 0) scale(-1 1)" fill="#0d1115" fill-opacity="0.12" stroke="#7a828a" stroke-width="1" stroke-dasharray="5 4" opacity="0.46"/>
   <g font-family="Inter,Arial,sans-serif" fill="#737c86">
     <text x="600" y="444" text-anchor="middle" font-size="9" letter-spacing="1.6">CENTRED 3.52-IN RAW PANEL ON FRONT</text>
-    <text x="329" y="666" font-size="8" letter-spacing="1.1">FRONT FH34 FACES PANEL → · SERVICE SPINE GHOSTED</text>
+    <text x="871" y="575" text-anchor="end" font-size="8" letter-spacing="1.1">SERVICE SPINE GHOSTED · PANEL ← FRONT FH34</text>
   </g>
 
-  <!-- Compact passive raw-panel support circuit; there is intentionally no MCU. -->
-  <g fill="none" stroke="#b89542" stroke-width="1.2" opacity="0.28">
+  <!-- Raw-panel boost, conditioning, and rail support. Geometry is mirrored
+       into a physical rear view. -->
+  <g transform="translate(1200 0) scale(-1 1)" fill="none" stroke="#b89542" stroke-width="1.2" opacity="0.28">
     <path d="M403 573H646V479h50M403 584H630v80h25M403 597H622v128h33M403 610H614v164h40"/>
     <path d="M708 476h40v23h55M703 490v59h-40M762 484v270h-93M809 470v300h-140"/>
     <path d="M663 570v230M675 570v230M687 570v230"/>
   </g>
-  <g filter="url(#componentShadow)">
+  <g transform="translate(1200 0) scale(-1 1)" filter="url(#componentShadow)">
     <!-- Boost cluster. -->
     <rect x="724" y="452" width="42" height="27" rx="4" fill="#272b2d" stroke="#8f7435" stroke-width="1.4"/>
     <path d="M730 461c5-8 10 8 15 0s10 8 15 0" fill="none" stroke="#d8bd68" stroke-width="2"/>
@@ -121,31 +119,77 @@
     </g>
   </g>
   <g font-family="Inter,Arial,sans-serif">
-    <text x="721" y="443" fill="#e4e7e9" font-size="9" font-weight="700" letter-spacing="1.2">BOOST / CHARGE PUMP</text>
-    <text x="638" y="560" fill="#cbd0d5" font-size="8" font-weight="700" letter-spacing="1.1">SPI CONDITIONING</text>
-    <text x="638" y="690" fill="#cbd0d5" font-size="8" font-weight="700" letter-spacing="1.1">HIGH-VOLTAGE RAIL CAPS</text>
-    <text x="807" y="515" fill="#828c95" font-size="8">L2 · Q1 · D1–D3</text>
-    <text x="807" y="530" fill="#828c95" font-size="8">PASSIVES ONLY</text>
+    <text x="479" y="443" text-anchor="end" fill="#e4e7e9" font-size="9" font-weight="700" letter-spacing="1.2">BOOST / CHARGE PUMP</text>
+    <text x="562" y="560" text-anchor="end" fill="#cbd0d5" font-size="8" font-weight="700" letter-spacing="1.1">SPI CONDITIONING</text>
+    <text x="562" y="690" text-anchor="end" fill="#cbd0d5" font-size="8" font-weight="700" letter-spacing="1.1">HIGH-VOLTAGE RAIL CAPS</text>
+    <text x="393" y="515" fill="#828c95" font-size="8">L2 · Q1 · D1–D3</text>
   </g>
 
-  <!-- Padless optional ESP32 V3 fit bay: exact 29.46 x 48.25 mm board envelope.
-       The translucent module is illustrative and is not populated by default. -->
-  <g filter="url(#componentShadow)">
-    <rect x="350.8" y="616.8" width="165" height="270.2" rx="5" fill="url(#module)" fill-opacity="0.22" stroke="#d8bd68" stroke-width="1.6" stroke-dasharray="7 5"/>
+  <!-- Optional removable Waveshare V3 module in a passive insulating cradle.
+       All geometry is entered in KiCad/global coordinates, then mirrored for
+       the physical rear view. The four black ovals are exact finished NPTH
+       slots; there are no module sockets or module-pin holes in the carrier. -->
+  <g transform="translate(1200 0) scale(-1 1)" filter="url(#componentShadow)">
+    <g id="esp-cradle-slots" fill="#050608" stroke="#7a6530" stroke-width="1.4">
+      <rect x="333.44" y="794.6" width="12.32" height="33.6" rx="6.16"/>
+      <rect x="521.04" y="794.6" width="12.32" height="33.6" rx="6.16"/>
+      <rect x="333.44" y="839.4" width="12.32" height="33.6" rx="6.16"/>
+      <rect x="521.04" y="839.4" width="12.32" height="33.6" rx="6.16"/>
+    </g>
+    <!-- Electrically insulating edge rails, clear of both stock header rows. -->
+    <g fill="#aeb7ad" fill-opacity="0.38" stroke="#d6ddd4" stroke-width="1">
+      <rect x="350.8" y="707.8" width="10.08" height="162.4" rx="4"/>
+      <rect x="505.696" y="707.8" width="10.08" height="162.4" rx="4"/>
+    </g>
+    <rect x="350.8" y="616.8" width="165" height="270.2" rx="5" fill="url(#module)" fill-opacity="0.24" stroke="#d8bd68" stroke-width="1.6" stroke-dasharray="7 5"/>
     <rect x="359.2" y="628" width="148.2" height="74" rx="4" fill="#2d8a69" fill-opacity="0.16" stroke="#51a985" stroke-width="1" stroke-dasharray="4 4"/>
-    <rect x="387" y="720" width="92" height="88" rx="7" fill="url(#metal)" fill-opacity="0.30" stroke="#c4c9cc" stroke-opacity="0.55"/>
-    <rect x="407.5" y="866" width="51.5" height="39" rx="7" fill="url(#metal)" fill-opacity="0.48" stroke="#e0e3e5" stroke-opacity="0.68"/>
+    <rect x="387" y="720" width="92" height="88" rx="7" fill="url(#metal)" fill-opacity="0.27" stroke="#c4c9cc" stroke-opacity="0.48"/>
+    <rect x="407.5" y="866" width="51.5" height="39" rx="7" fill="url(#metal)" fill-opacity="0.45" stroke="#e0e3e5" stroke-opacity="0.64"/>
+    <!-- Two removable non-metallic straps use the left/right slot pairs. -->
+    <g fill="#080a0c" fill-opacity="0.78" stroke="#68717a" stroke-width="1">
+      <rect x="333.44" y="806.78" width="199.92" height="9.24" rx="4.62"/>
+      <rect x="333.44" y="851.58" width="199.92" height="9.24" rx="4.62"/>
+    </g>
+    <g fill="none" stroke="#b79a50" stroke-width="1.2" opacity=".9">
+      <rect x="333.44" y="794.6" width="12.32" height="33.6" rx="6.16"/>
+      <rect x="521.04" y="794.6" width="12.32" height="33.6" rx="6.16"/>
+      <rect x="333.44" y="839.4" width="12.32" height="33.6" rx="6.16"/>
+      <rect x="521.04" y="839.4" width="12.32" height="33.6" rx="6.16"/>
+    </g>
+    <path d="M394 851h78v78h-78z" fill="none" stroke="#aeb6bf" stroke-width="1.2" stroke-dasharray="5 5" opacity="0.45"/>
   </g>
   <g font-family="Inter,Arial,sans-serif" text-anchor="middle">
-    <text x="433.3" y="647" fill="#f2f0e8" font-size="9" font-weight="700" letter-spacing="1.1">OPTIONAL ESP32 V3 BAY</text>
-    <text x="433.3" y="665" fill="#9fb8ae" font-size="8" letter-spacing="0.8">HEADER-CLEAR CRADLE</text>
-    <text x="433.3" y="692" fill="#72a78f" font-size="7.5" letter-spacing="0.8">ANTENNA · RANGE TEST</text>
-    <text x="433.3" y="850" fill="#c7cdd1" font-size="8" font-weight="700" letter-spacing="1">USB-C DOWN</text>
-    <text x="433.3" y="919" fill="#77818b" font-size="7.5" letter-spacing="0.8">GHOSTED · STOCK PINS ADD DEPTH</text>
+    <text x="766.7" y="607" fill="#d8bd68" font-size="7.5" font-weight="700" letter-spacing=".8">REMOVABLE / GHOSTED MODULE</text>
+    <text x="766.7" y="647" fill="#f2f0e8" font-size="9" font-weight="700" letter-spacing="1.1">OPTIONAL WAVESHARE ESP32 V3 BAY</text>
+    <text x="766.7" y="665" fill="#9fb8ae" font-size="6.5" letter-spacing=".25">NO SOCKETS · STOCK HEADER PINS CLEAR CARRIER</text>
+    <text x="766.7" y="692" fill="#72a78f" font-size="7.5" letter-spacing="0.8">ANTENNA UP · RANGE TEST</text>
+    <text x="766.7" y="850" fill="#c7cdd1" font-size="8" font-weight="700" letter-spacing="1">USB-C DOWN</text>
+    <text x="766.7" y="919" fill="#77818b" font-size="7.2" letter-spacing=".65">4 × 2.2×6 NPTH · INSULATING RAILS + STRAPS</text>
+  </g>
+
+  <!-- J4: horizontal 1x8 P2.54 mm 3.3 V SPI ribbon/header footprint. -->
+  <g transform="translate(1200 0) scale(-1 1)" filter="url(#componentShadow)">
+    <rect x="649.28" y="854.24" width="112.84" height="15.12" rx="2.5" fill="none" stroke="#6d747b" stroke-width="1.2"/>
+    <g fill="#d8bd68" stroke="#fff0ae" stroke-width="0.8">
+      <rect x="650.4" y="856.2" width="11.2" height="11.2" rx=".8"/><circle cx="670.224" cy="861.8" r="5.6"/>
+      <circle cx="684.448" cy="861.8" r="5.6"/><circle cx="698.672" cy="861.8" r="5.6"/>
+      <circle cx="712.896" cy="861.8" r="5.6"/><circle cx="727.12" cy="861.8" r="5.6"/>
+      <circle cx="741.344" cy="861.8" r="5.6"/><circle cx="755.568" cy="861.8" r="5.6"/>
+    </g>
+    <g fill="#050608">
+      <circle cx="656" cy="861.8" r="2.8"/><circle cx="670.224" cy="861.8" r="2.8"/>
+      <circle cx="684.448" cy="861.8" r="2.8"/><circle cx="698.672" cy="861.8" r="2.8"/>
+      <circle cx="712.896" cy="861.8" r="2.8"/><circle cx="727.12" cy="861.8" r="2.8"/>
+      <circle cx="741.344" cy="861.8" r="2.8"/><circle cx="755.568" cy="861.8" r="2.8"/>
+    </g>
+  </g>
+  <g font-family="Inter,Arial,sans-serif" text-anchor="middle">
+    <text x="494.2" y="822" fill="#eef0f1" font-size="9" font-weight="700" letter-spacing="1.1">J4 · 1×8 · 3V3 SPI RIBBON</text>
+    <text x="494.2" y="842" fill="#8b949e" font-size="7.2" letter-spacing=".45">3V3 · GND · BUSY · RST · DC · CS · MOSI · CLK</text>
   </g>
 
   <!-- Zero-height TC2050 pogo footprint, centered at board x=90, y=137 mm. -->
-  <g filter="url(#componentShadow)">
+  <g transform="translate(1200 0) scale(-1 1)" filter="url(#componentShadow)">
     <rect x="805" y="831" width="38" height="23" rx="4" fill="#0d1012" stroke="#6d747b" stroke-width="1.2" stroke-dasharray="4 3"/>
     <g fill="#d8bd68" stroke="#fff0ae" stroke-width="0.8">
       <circle cx="810" cy="838" r="3.3"/><circle cx="817" cy="838" r="3.3"/><circle cx="824" cy="838" r="3.3"/><circle cx="831" cy="838" r="3.3"/><circle cx="838" cy="838" r="3.3"/>
@@ -154,8 +198,8 @@
     <g fill="#050608" stroke="#777f86"><circle cx="800" cy="842" r="3.1"/><circle cx="848" cy="836" r="3.1"/><circle cx="848" cy="849" r="3.1"/></g>
   </g>
   <g font-family="Inter,Arial,sans-serif" text-anchor="middle">
-    <text x="824" y="821" fill="#eef0f1" font-size="9" font-weight="700" letter-spacing="1.2">J3 · TC2050 · 3V3 SPI</text>
-    <text x="824" y="868" fill="#8b949e" font-size="8" letter-spacing="1">ZERO-HEIGHT PROGRAMMING PADS</text>
+    <text x="376" y="821" fill="#eef0f1" font-size="9" font-weight="700" letter-spacing="1.2">J3 · TC2050 · 3V3 SPI</text>
+    <text x="376" y="868" fill="#8b949e" font-size="8" letter-spacing="1">ZERO-HEIGHT PROGRAMMING PADS</text>
   </g>
 
   <g font-family="Inter,Arial,sans-serif">
@@ -163,8 +207,8 @@
     <line x1="320" y1="955" x2="320" y2="975" stroke="#68717d" stroke-width="1.5"/><line x1="880" y1="955" x2="880" y2="975" stroke="#68717d" stroke-width="1.5"/>
     <rect x="520" y="946" width="160" height="38" rx="19" fill="#1d2229" stroke="#4b535e"/>
     <text x="600" y="971" text-anchor="middle" fill="#eef0f2" font-size="15" font-weight="700" letter-spacing="1.8">100 × 145 MM</text>
-    <text x="600" y="1046" text-anchor="middle" fill="#f4f4f2" font-size="24" font-weight="700">Passive support circuit / service side</text>
-    <text x="600" y="1080" text-anchor="middle" fill="#9ba4af" font-size="15" letter-spacing="1.2">FRONT FH34 · PASSIVE BOOST · TC2050 · OPTIONAL ESP32 FIT BAY · AUDIO PICKUP</text>
-    <text x="600" y="1135" text-anchor="middle" fill="#626b76" font-size="12" letter-spacing="1.8">ILLUSTRATIVE REV-1 RENDER · NO MCU, USB CONNECTOR, OR BATTERY FITTED</text>
+    <text x="600" y="1046" text-anchor="middle" fill="#f4f4f2" font-size="24" font-weight="700">Passive display interface / removable module service side</text>
+    <text x="600" y="1080" text-anchor="middle" fill="#9ba4af" font-size="15" letter-spacing="1.05">FRONT FH34 · BOOST/RAILS · J4 RIBBON · TC2050 · PASSIVE ESP CRADLE · PICKUP</text>
+    <text x="600" y="1135" text-anchor="middle" fill="#626b76" font-size="12" letter-spacing="1.8">CONCEPT FIT RENDER · PHYSICAL REAR VIEW · VERIFY MODULE / CRADLE / USB CLEARANCE</text>
   </g>
 </svg>

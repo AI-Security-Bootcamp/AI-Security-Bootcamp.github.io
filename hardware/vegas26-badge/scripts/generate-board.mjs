@@ -43,6 +43,17 @@ const ESP32_BAY = Object.freeze({
   height: 48.25,
   antennaDepth: 14.5,
 });
+const ESP32_MOUNT_SLOTS = Object.freeze([
+  { x: 3.5, y: 131.5 },
+  { x: 37, y: 131.5 },
+  { x: 3.5, y: 139.5 },
+  { x: 37, y: 139.5 },
+]);
+const ESP_RIBBON = Object.freeze({
+  pin1X: 60,
+  y: 140.5,
+  pitch: 2.54,
+});
 const uidState = { value: 1 };
 const uid = () =>
   `00000000-0000-0000-0000-${String(uidState.value++).padStart(12, "0")}`;
@@ -102,6 +113,15 @@ function fpText(kind, text, x, y, layer, size = 1, justify = "") {
   )}\n    )`;
 }
 
+// A Y-reflected rear land pattern appears as a valid 180-degree package
+// rotation when the physical rear is viewed. Mark that assembly convention
+// explicitly so the hand-authored B.Cu footprint cannot be placed by guess.
+function rearPin1Mark(x, y, noteX, noteY) {
+  return `    (fp_circle (center ${x} ${y}) (end ${n(x + 0.22)} ${y}) (stroke (width 0.18) (type default)) (fill none) (layer "B.SilkS") (tstamp ${uid()}))
+    (fp_circle (center ${x} ${y}) (end ${n(x + 0.22)} ${y}) (stroke (width 0.12) (type default)) (fill none) (layer "B.Fab") (tstamp ${uid()}))
+    (fp_text user "P1 / ROT180" (at ${noteX} ${noteY}) (layer "B.Fab") (tstamp ${uid()}) ${effects(0.38, 0.07, "mirror")})`;
+}
+
 function grText(text, x, y, layer, size, thickness = 0.2, justify = "") {
   return `  (gr_text "${text}" (at ${x} ${y}) (layer "${layer}") (tstamp ${uid()})\n    ${effects(
     size,
@@ -136,7 +156,7 @@ function chip2(
   leftName,
   rightNet,
   rightName,
-  { pkg = "0603", rotation = 0, dnp = false } = {}
+  { pkg = "0603", rotation = 0, dnp = false, solidPads = [] } = {}
 ) {
   const packages = {
     "0603": { spacing: 0.8, pad: [0.9, 1.0], body: [1.8, 1.0] },
@@ -155,8 +175,8 @@ ${fpText("value", label, 0, 1.35, "B.Fab", 0.55, "mirror")}
     (fp_rect (start ${n(-bw / 2)} ${n(-bh / 2)}) (end ${n(bw / 2)} ${n(
       bh / 2
     )}) (stroke (width 0.12) (type default)) (fill none) (layer "B.SilkS") (tstamp ${uid()}))
-    (pad "1" smd roundrect (at ${-p.spacing} 0) (size ${pw} ${ph}) (layers "B.Cu" "B.Paste" "B.Mask") (roundrect_rratio 0.2) (net ${leftNet} "${leftName}") (tstamp ${uid()}))
-    (pad "2" smd roundrect (at ${p.spacing} 0) (size ${pw} ${ph}) (layers "B.Cu" "B.Paste" "B.Mask") (roundrect_rratio 0.2) (net ${rightNet} "${rightName}") (tstamp ${uid()}))
+    (pad "1" smd roundrect (at ${-p.spacing} 0) (size ${pw} ${ph}) (layers "B.Cu" "B.Paste" "B.Mask") (roundrect_rratio 0.2) (net ${leftNet} "${leftName}")${solidPads.includes(1) ? " (zone_connect 2)" : ""} (tstamp ${uid()}))
+    (pad "2" smd roundrect (at ${p.spacing} 0) (size ${pw} ${ph}) (layers "B.Cu" "B.Paste" "B.Mask") (roundrect_rratio 0.2) (net ${rightNet} "${rightName}")${solidPads.includes(2) ? " (zone_connect 2)" : ""} (tstamp ${uid()}))
   )`;
 }
 
@@ -173,13 +193,15 @@ ${fpText("value", "MBR0530", 0, 1.6, "B.Fab", 0.55, "mirror")}
 }
 
 function mosfet() {
+  // Y-reflected rear land pattern: assemble Q1 rotated 180 degrees.
   return `  (footprint "Package_TO_SOT_SMD:SOT-23" (layer "B.Cu") (tstamp ${uid()})
     (at 68 73)
-${fpText("reference", "Q1", 0, -2, "B.SilkS", 0.7, "mirror")}
-${fpText("value", "BSS138", 0, 2, "B.Fab", 0.6, "mirror")}
+${fpText("reference", "Q1", 0, 2, "B.SilkS", 0.7, "mirror")}
+${fpText("value", "BSS138", 0, -2, "B.Fab", 0.6, "mirror")}
     (fp_rect (start -1.5 -1.5) (end 1.5 1.5) (stroke (width 0.12) (type default)) (fill none) (layer "B.SilkS") (tstamp ${uid()}))
-    (pad "1" smd roundrect (at -1 -0.95) (size 1.1 1) (layers "B.Cu" "B.Paste" "B.Mask") (roundrect_rratio 0.2) (net ${nets.GDR} "GDR") (tstamp ${uid()}))
-    (pad "2" smd roundrect (at -1 0.95) (size 1.1 1) (layers "B.Cu" "B.Paste" "B.Mask") (roundrect_rratio 0.2) (net ${nets.RESE} "RESE") (tstamp ${uid()}))
+${rearPin1Mark(-1.85, 1.55, 0, -1.9)}
+    (pad "1" smd roundrect (at -1 0.95) (size 1.1 1) (layers "B.Cu" "B.Paste" "B.Mask") (roundrect_rratio 0.2) (net ${nets.GDR} "GDR") (tstamp ${uid()}))
+    (pad "2" smd roundrect (at -1 -0.95) (size 1.1 1) (layers "B.Cu" "B.Paste" "B.Mask") (roundrect_rratio 0.2) (net ${nets.RESE} "RESE") (tstamp ${uid()}))
     (pad "3" smd roundrect (at 1 0) (size 1.1 1) (layers "B.Cu" "B.Paste" "B.Mask") (roundrect_rratio 0.2) (net ${nets.SW} "SW") (tstamp ${uid()}))
   )`;
 }
@@ -212,16 +234,16 @@ function fpcConnector() {
     const pin = i + 1;
     const net = map[pin];
     // Number these by panel contact, not by the connector maker's terminal
-    // number.  After the 270-degree placement this keeps EPD pin 1 at the top
-    // of the tail, exactly as shown in the Waveshare front-view drawing.
-    const x = n(5.75 - i * 0.5);
+    // number. KiCad's 270-degree footprint transform maps negative local X to
+    // the top of the vertical tail, so EPD pin 1 starts at -5.75 mm.
+    const x = n(-5.75 + i * 0.5);
     // Hirose recommends a 0.30 x 0.80 mm copper land but a smaller
     // 0.25 x 0.65 mm metal-mask aperture with a 0.10 mm stencil.  Keep paste
     // as a separate unnumbered aperture so the reduction is anisotropic.
-    return `    (pad "${pin}" smd rect (at ${x} 0) (size 0.3 0.8) (layers "F.Cu" "F.Mask")${
+    return `    (pad "${pin}" smd rect (at ${x} 0 270) (size 0.3 0.8) (layers "F.Cu" "F.Mask")${
       net ? ` (net ${net[0]} "${net[1]}")` : ""
     } (tstamp ${uid()}))
-    (pad "" smd rect (at ${x} 0) (size 0.25 0.65) (layers "F.Paste") (tstamp ${uid()}))`;
+    (pad "" smd rect (at ${x} 0 270) (size 0.25 0.65) (layers "F.Paste") (tstamp ${uid()}))`;
   }).join("\n");
   return `  (footprint "Badge:Hirose_FH34SRJ-24S-0.5SH_24P_P0.50mm_Horizontal" (layer "F.Cu") (tstamp ${uid()})
     (at ${PANEL_J1.signalRowX} ${PANEL_J1.centerY} ${PANEL_J1.rotation})
@@ -231,8 +253,8 @@ ${fpText("value", "FH34SRJ-24S-0.5SH(50)/(99) / DISPLAY-NUMBERED / VERIFY FIT", 
     (fp_line (start 6.25 0.5) (end 6.25 1.05) (stroke (width 0.25) (type default)) (layer "F.SilkS") (tstamp ${uid()}))
     (fp_text user "FLEX ENTRY" (at 0 1.3) (layer "F.SilkS") (tstamp ${uid()}) ${effects(0.45, 0.08)})
 ${pads}
-    (pad "MP" smd rect (at -6.75 -3.3) (size 0.8 0.8) (layers "F.Cu" "F.Paste" "F.Mask") (tstamp ${uid()}))
-    (pad "MP" smd rect (at 6.75 -3.3) (size 0.8 0.8) (layers "F.Cu" "F.Paste" "F.Mask") (tstamp ${uid()}))
+    (pad "MP" smd rect (at -6.75 -3.3 270) (size 0.8 0.8) (layers "F.Cu" "F.Paste" "F.Mask") (tstamp ${uid()}))
+    (pad "MP" smd rect (at 6.75 -3.3 270) (size 0.8 0.8) (layers "F.Cu" "F.Paste" "F.Mask") (tstamp ${uid()}))
   )`;
 }
 
@@ -249,17 +271,19 @@ function tagConnect() {
     9: [nets.DGND, "DGND"],
     10: [nets["3V3"], "3V3"],
   };
+  // This no-pop target is probed from the physical rear. Explicitly mirror
+  // its keyed pattern in X; B.Cu alone does not transform local coordinates.
   const coordinates = {
-    1: [-2.54, 0.635],
-    2: [-1.27, 0.635],
+    1: [2.54, 0.635],
+    2: [1.27, 0.635],
     3: [0, 0.635],
-    4: [1.27, 0.635],
-    5: [2.54, 0.635],
-    6: [2.54, -0.635],
-    7: [1.27, -0.635],
+    4: [-1.27, 0.635],
+    5: [-2.54, 0.635],
+    6: [-2.54, -0.635],
+    7: [-1.27, -0.635],
     8: [0, -0.635],
-    9: [-1.27, -0.635],
-    10: [-2.54, -0.635],
+    9: [1.27, -0.635],
+    10: [2.54, -0.635],
   };
   const pads = Object.entries(coordinates)
     .map(([pin, [x, y]]) => {
@@ -274,9 +298,50 @@ ${fpText("value", "TC2050-IDC-NL / DNL", 0, 3.6, "B.Fab", 0.6, "mirror")}
     (fp_rect (start -3.1 -1.25) (end 3.1 1.25) (stroke (width 0.12) (type dash)) (fill none) (layer "B.SilkS") (tstamp ${uid()}))
     (fp_text user "NO PASTE" (at 0 2.5) (layer "B.SilkS") (tstamp ${uid()}) ${effects(0.55, 0.1, "mirror")})
 ${pads}
-    (pad "" np_thru_hole circle (at -3.81 0) (size 0.991 0.991) (drill 0.991) (layers "*.Cu" "*.Mask") (tstamp ${uid()}))
-    (pad "" np_thru_hole circle (at 3.81 1.016) (size 0.991 0.991) (drill 0.991) (layers "*.Cu" "*.Mask") (tstamp ${uid()}))
-    (pad "" np_thru_hole circle (at 3.81 -1.016) (size 0.991 0.991) (drill 0.991) (layers "*.Cu" "*.Mask") (tstamp ${uid()}))
+    (pad "" np_thru_hole circle (at 3.81 0) (size 0.991 0.991) (drill 0.991) (layers "*.Cu" "*.Mask") (tstamp ${uid()}))
+    (pad "" np_thru_hole circle (at -3.81 1.016) (size 0.991 0.991) (drill 0.991) (layers "*.Cu" "*.Mask") (tstamp ${uid()}))
+    (pad "" np_thru_hole circle (at -3.81 -1.016) (size 0.991 0.991) (drill 0.991) (layers "*.Cu" "*.Mask") (tstamp ${uid()}))
+  )`;
+}
+
+function espRibbonHeader() {
+  const map = {
+    1: [nets["3V3"], "3V3"],
+    2: [nets.DGND, "DGND"],
+    3: [nets.EXT_BUSY, "EXT_BUSY"],
+    4: [nets.EXT_RST, "EXT_RST"],
+    5: [nets.EXT_DC, "EXT_DC"],
+    6: [nets.EXT_CS, "EXT_CS"],
+    7: [nets.EXT_MOSI, "EXT_MOSI"],
+    8: [nets.EXT_CLK, "EXT_CLK"],
+  };
+  const pads = Object.entries(map)
+    .map(([pinText, [net, name]]) => {
+      const pin = Number(pinText);
+      const x = n((pin - 1) * ESP_RIBBON.pitch);
+      const shape = pin === 1 ? "rect" : "circle";
+      return `    (pad "${pin}" thru_hole ${shape} (at ${x} 0) (size 2 2) (drill 1) (layers "*.Cu" "*.Mask") (net ${net} "${name}") (tstamp ${uid()}))`;
+    })
+    .join("\n");
+  return `  (footprint "Badge:ESP_Ribbon_1x08_P2.54mm" (layer "B.Cu") (tstamp ${uid()})
+    (at ${ESP_RIBBON.pin1X} ${ESP_RIBBON.y})
+${fpText("reference", "J4", 8.89, -2.2, "B.SilkS", 0.7, "mirror")}
+${fpText("value", "1x08 P2.54 / OPTIONAL / DNP", 8.89, 2.2, "B.Fab", 0.5, "mirror")}
+    (fp_rect (start -1.2 -1.35) (end 18.95 1.35) (stroke (width 0.12) (type default)) (fill none) (layer "B.SilkS") (tstamp ${uid()}))
+    (fp_text user "ESP RIBBON · 3V3 ONLY" (at 8.89 -2.2) (layer "B.SilkS") (tstamp ${uid()}) ${effects(0.54, 0.1, "mirror")})
+${pads}
+  )`;
+}
+
+function espMountSlots() {
+  const pads = ESP32_MOUNT_SLOTS.map(
+    ({ x, y }) => `    (pad "" np_thru_hole oval (at ${x} ${y}) (size 2.2 6) (drill oval 2.2 6) (layers "*.Cu" "*.Mask") (tstamp ${uid()}))`
+  ).join("\n");
+  return `  (footprint "Badge:ESP32_Cradle_Strap_Slots" (layer "B.Cu") (tstamp ${uid()})
+    (at 0 0)
+${fpText("reference", "MH1", 20.25, 124, "B.Fab", 0.5, "mirror")}
+${fpText("value", "4x 2.2x6 NPTH CRADLE SLOTS", 20.25, 141.5, "B.Fab", 0.5, "mirror")}
+${pads}
   )`;
 }
 
@@ -294,9 +359,10 @@ ${fpText("value", "WAVESHARE E-PAPER ESP32 DRIVER BOARD V3 / OPTIONAL", 0, 0, "B
     (fp_rect (start -14.15 -21) (end -12.65 21) (stroke (width 0.12) (type dash)) (fill none) (layer "B.Adhes") (tstamp ${uid()}))
     (fp_rect (start 12.65 -21) (end 14.15 21) (stroke (width 0.12) (type dash)) (fill none) (layer "B.Adhes") (tstamp ${uid()}))
     (fp_text user "OPTIONAL ESP32 BAY" (at 0 -17.8) (layer "B.SilkS") (tstamp ${uid()}) ${effects(0.8, 0.15, "mirror")})
-    (fp_text user "HEADER-CLEAR CRADLE" (at 0 2) (layer "B.SilkS") (tstamp ${uid()}) ${effects(0.65, 0.12, "mirror")})
+    (fp_text user "HEADER-CLEAR SPACER" (at 0 2) (layer "B.SilkS") (tstamp ${uid()}) ${effects(0.65, 0.12, "mirror")})
+    (fp_text user "NO PIN HOLES" (at 0 5) (layer "B.SilkS") (tstamp ${uid()}) ${effects(0.58, 0.1, "mirror")})
     (fp_text user "ANTENNA / REDUCED RANGE" (at 0 -12.5) (layer "B.SilkS") (tstamp ${uid()}) ${effects(0.55, 0.12, "mirror")})
-    (fp_text user "USB-C DOWN" (at 0 20.8) (layer "B.SilkS") (tstamp ${uid()}) ${effects(0.8, 0.15, "mirror")})
+    (fp_text user "USB-C DOWN · USE J4" (at 0 20.8) (layer "B.SilkS") (tstamp ${uid()}) ${effects(0.7, 0.13, "mirror")})
     (fp_line (start -2.2 ${n(hy - 1.2)}) (end 0 ${hy}) (stroke (width 0.25) (type default)) (layer "B.SilkS") (tstamp ${uid()}))
     (fp_line (start 2.2 ${n(hy - 1.2)}) (end 0 ${hy}) (stroke (width 0.25) (type default)) (layer "B.SilkS") (tstamp ${uid()}))
   )`;
@@ -524,15 +590,33 @@ const fpcBreakout = Object.entries(usedPins)
       "F.Cu",
       net
     );
-    const rearRoute =
-      pinNumber === 23
-        ? polyline(
-            [spread, [45.8, 125.4], [52, 125.4], [52.8, spread[1]], [breakX, spread[1]]],
-            0.2,
-            "B.Cu",
-            net
-          )
-        : segment(spread, [breakX, spread[1]], 0.2, "B.Cu", net);
+    let rearRoute;
+    if (pinNumber === 2) {
+      // R4's GDR terminal is on the right; pass above its left DGND land.
+      rearRoute = polyline(
+        [spread, [56.8, spread[1]], [58.3, 70.1], [breakX, 70.1], [breakX, spread[1]]],
+        0.2,
+        "B.Cu",
+        net
+      );
+    } else if (pinNumber === 3) {
+      // R3's RESE terminal is on the right; pass below its left DGND land.
+      rearRoute = polyline(
+        [spread, [56.8, spread[1]], [58.3, 75.7], [breakX, 75.7], [breakX, spread[1]]],
+        0.2,
+        "B.Cu",
+        net
+      );
+    } else if (pinNumber === 23) {
+      rearRoute = polyline(
+        [spread, [45.8, 125.4], [52, 125.4], [52.8, spread[1]], [breakX, spread[1]]],
+        0.2,
+        "B.Cu",
+        net
+      );
+    } else {
+      rearRoute = segment(spread, [breakX, spread[1]], 0.2, "B.Cu", net);
+    }
     return [
       frontRoute,
       via(spread[0], spread[1], net),
@@ -545,10 +629,12 @@ const supportParts = [
   fpcConnector(),
   displayEnvelope(),
   tagConnect(),
+  espRibbonHeader(),
+  espMountSlots(),
   esp32Bay(),
   mosfet(),
-  chip2("R3", "3R", 59.4, rowY(3), nets.DGND, "DGND", nets.RESE, "RESE"),
-  chip2("R4", "10k", 59.4, rowY(2), nets.DGND, "DGND", nets.GDR, "GDR"),
+  chip2("R3", "3R", 59.4, rowY(3), nets.DGND, "DGND", nets.RESE, "RESE", { solidPads: [1] }),
+  chip2("R4", "10k", 59.4, rowY(2), nets.DGND, "DGND", nets.GDR, "GDR", { solidPads: [1] }),
   chip2("R5", "100R", 61, rowY(14), nets.EPD_MOSI, "EPD_MOSI", nets.EXT_MOSI, "EXT_MOSI"),
   chip2("R6", "100R", 61, rowY(13), nets.EPD_CLK, "EPD_CLK", nets.EXT_CLK, "EXT_CLK"),
   chip2("R7", "100R", 61, rowY(12), nets.EPD_CS, "EPD_CS", nets.EXT_CS, "EXT_CS"),
@@ -565,11 +651,11 @@ const supportParts = [
   chip2("C6", "1uF 25V", 61.2, rowY(19), nets.VPP, "VPP", nets.DGND, "DGND", { pkg: "0805" }),
   chip2("C7", "1uF 25V", 61.2, rowY(20), nets.VSH, "VSH", nets.DGND, "DGND", { pkg: "0805" }),
   chip2("C8", "1uF 25V", 61.2, rowY(21), nets.VGH, "VGH", nets.DGND, "DGND", { pkg: "0805" }),
-  chip2("C9", "1uF 25V", 61.2, rowY(22), nets.VSL, "VSL", nets.DGND, "DGND", { pkg: "0805" }),
+  chip2("C9", "1uF 25V", 61.2, rowY(22), nets.VSL, "VSL", nets.DGND, "DGND", { pkg: "0805", solidPads: [2] }),
   chip2("C10", "1uF 25V", 61.2, rowY(23), nets.VGL, "VGL", nets.DGND, "DGND", { pkg: "0805" }),
   chip2("C11", "1uF 25V", 61.2, rowY(24), nets.VCOM, "VCOM", nets.DGND, "DGND", { pkg: "0805" }),
   chip2("C12", "10uF 10V", 47, 130, nets.DGND, "DGND", nets["3V3"], "3V3", { pkg: "0805" }),
-  chip2("C13", "100nF", 47, 126.5, nets.DGND, "DGND", nets["3V3"], "3V3"),
+  chip2("C13", "100nF", 47, 126.5, nets.DGND, "DGND", nets["3V3"], "3V3", { solidPads: [1] }),
   chip2("C14", "1uF 10V", 61.2, rowY(15), nets["3V3"], "3V3", nets.DGND, "DGND", { pkg: "0805" }),
   chip2("C15", "1uF 25V", 61.2, rowY(4), nets.LEGACY_NC, "LEGACY_NC", nets.DGND, "DGND", { pkg: "0805", dnp: true }),
   chip2("L2", "68uH", 73, 69.5, nets.SW, "SW", nets["3V3"], "3V3", { pkg: "1210" }),
@@ -579,41 +665,91 @@ const supportParts = [
 ].join("\n");
 
 const externalRows = [
-  [9, nets.EXT_BUSY, [90, 122]],
-  [10, nets.EXT_RST, [91.27, 126]],
-  [11, nets.EXT_DC, [92.54, 130]],
-  [12, nets.EXT_CS, [92.54, 140]],
-  [13, nets.EXT_CLK, [91.27, 142]],
-  [14, nets.EXT_MOSI, [90, 144]],
+  // Escape to the mirrored physical-rear TC2050 pads through parallel
+  // 45-degree lanes. The intermediate targets keep the keyed-hole field clear.
+  [9, nets.EXT_BUSY, [78, 128]],
+  [10, nets.EXT_RST, [81.5, 130]],
+  [11, nets.EXT_DC, [83, 134]],
+  // Keep the final three front-side transition vias above J4.  Their rear
+  // routes drop to J3 after clearing the optional through-hole header.
+  [12, nets.EXT_CS, [84, 136]],
+  [13, nets.EXT_CLK, [82, 137.5]],
+  [14, nets.EXT_MOSI, [80.5, 139]],
 ];
 const externalRoutes = externalRows
   .flatMap(([pin, net, target], index) => {
     const start = [64, rowY(pin)];
-    // Put the lower destination rows in the leftmost lanes. This keeps each
-    // horizontal entry from crossing the diagonal of the route below it.
+    // Put lower destination rows in the leftmost lanes, then rise in parallel
+    // vertical trunks.  The one-millimetre 45-degree corner clips make a
+    // clean routed "river" without the long diagonals crossing each other or
+    // sweeping through the optional J4 through-hole pads.
     const laneX = n(72 - index * 1.2);
-    const diagonalStart = [laneX, n(target[1] - (target[0] - laneX))];
     return [
       segment([61.8, rowY(pin)], start, 0.25, "B.Cu", net),
       via(start[0], start[1], net),
-      polyline([start, [laneX, start[1]], diagonalStart, target], 0.25, "F.Cu", net),
+      polyline(
+        [
+          start,
+          [n(laneX - 1), start[1]],
+          [laneX, n(start[1] + 1)],
+          [laneX, n(target[1] - 1)],
+          [n(laneX + 1), target[1]],
+          target,
+        ],
+        0.25,
+        "F.Cu",
+        net
+      ),
       via(target[0], target[1], net),
     ];
   })
   .concat([
-    segment([90, 122], [90, 136.365], 0.25, "B.Cu", nets.EXT_BUSY),
-    segment([91.27, 126], [91.27, 136.365], 0.25, "B.Cu", nets.EXT_RST),
-    segment([92.54, 130], [92.54, 136.365], 0.25, "B.Cu", nets.EXT_DC),
-    segment([92.54, 137.635], [92.54, 140], 0.25, "B.Cu", nets.EXT_CS),
-    segment([91.27, 137.635], [91.27, 142], 0.25, "B.Cu", nets.EXT_CLK),
-    segment([90, 137.635], [90, 144], 0.25, "B.Cu", nets.EXT_MOSI),
+    polyline([[78, 128], [90, 128], [90, 136.365]], 0.25, "B.Cu", nets.EXT_BUSY),
+    polyline([[81.5, 130], [88.73, 130], [88.73, 136.365]], 0.25, "B.Cu", nets.EXT_RST),
+    polyline([[83, 134], [87.46, 134], [87.46, 136.365]], 0.25, "B.Cu", nets.EXT_DC),
+    polyline([[87.46, 137.635], [87.46, 140], [84, 140], [84, 136]], 0.25, "B.Cu", nets.EXT_CS),
+    polyline([[88.73, 137.635], [88.73, 142], [82, 142], [82, 137.5]], 0.25, "B.Cu", nets.EXT_CLK),
+    polyline([[90, 137.635], [90, 144], [80.5, 144], [80.5, 139]], 0.25, "B.Cu", nets.EXT_MOSI),
+  ])
+  .join("\n");
+
+const espRibbonSignals = [
+  [3, nets.EXT_BUSY, [[65.08, 140.5], [65.5, 140.5], [78, 128]]],
+  [4, nets.EXT_RST, [[67.62, 140.5], [78.12, 130], [81.5, 130]]],
+  [5, nets.EXT_DC, [[70.16, 140.5], [76.66, 134], [83, 134]]],
+  [6, nets.EXT_CS, [[72.7, 140.5], [77.2, 136], [84, 136]]],
+  [7, nets.EXT_MOSI, [[75.24, 140.5], [76.74, 142], [80.5, 142], [80.5, 139]]],
+  [8, nets.EXT_CLK, [[77.78, 140.5], [80.78, 137.5], [82, 137.5]]],
+];
+const espRibbonRoutes = espRibbonSignals
+  .flatMap(([, net, points]) => {
+    return [polyline(points, 0.25, "B.Cu", net)];
+  })
+  .concat([
+    // J4 pin 1 is the Waveshare board's regulated VDD3V3 output. Never route
+    // its 5 V header pin to the badge. J4 pin 2 reaches the rear DGND zone.
+    polyline([[ESP_RIBBON.pin1X, ESP_RIBBON.y], [58.3, 142.2], [50, 142.2]], 0.45, "B.Cu", nets["3V3"]),
+    via(50, 142.2, nets["3V3"], 0.8, 0.4),
+    segment([50, 142.2], [50, 142], 0.45, "F.Cu", nets["3V3"]),
   ])
   .join("\n");
 
 const supportRoutes = [
+  // Give the paste-free controller grounds explicit copper paths.  J3's two
+  // contacts bridge through the pour-blocked center strip; J4 escapes north
+  // to a ground via instead of relying on a thermal squeezed between pads.
+  segment([91.27, 136.365], [91.27, 137.635], 0.3, "B.Cu", nets.DGND),
+  segment([91.27, 137.635], [91.27, 142.5], 0.35, "B.Cu", nets.DGND),
+  via(91.27, 142.5, nets.DGND, 0.8, 0.4),
+  segment([62.54, 140.5], [62.54, 137], 0.35, "B.Cu", nets.DGND),
+  via(62.54, 137, nets.DGND, 0.8, 0.4),
   // GDR/RESE booster control.
-  polyline([[60.2, rowY(2)], [63, rowY(2)], [63.45, 72.05], [67, 72.05]], 0.25, "B.Cu", nets.GDR),
-  polyline([[60.2, rowY(3)], [63, rowY(3)], [63.25, 73.95], [67, 73.95]], 0.25, "B.Cu", nets.RESE),
+  segment([60.2, rowY(2)], [62.5, rowY(2)], 0.25, "B.Cu", nets.GDR),
+  via(62.5, rowY(2), nets.GDR, 0.6, 0.3),
+  polyline([[62.5, rowY(2)], [64.85, 73.95], [65, 73.95]], 0.25, "F.Cu", nets.GDR),
+  via(65, 73.95, nets.GDR, 0.6, 0.3),
+  segment([65, 73.95], [67, 73.95], 0.25, "B.Cu", nets.GDR),
+  polyline([[60.2, rowY(3)], [63, rowY(3)], [63, 72.05], [67, 72.05]], 0.25, "B.Cu", nets.RESE),
   // Switch node and local charge-pump connections.
   segment([69, 73], [76.5, 73], 0.35, "B.Cu", nets.SW),
   polyline([[71.4, 69.5], [71.4, 73]], 0.35, "B.Cu", nets.SW),
@@ -626,15 +762,14 @@ const supportRoutes = [
   // Panel CS pull-up and reset pull-down connect to the raw side of R7/R9.
   polyline([[60.2, rowY(12)], [60.2, 96], [67.2, 96]], 0.2, "B.Cu", nets.EPD_CS),
   polyline([[60.2, rowY(10)], [60.2, 91], [67.2, 91]], 0.2, "B.Cu", nets.EPD_RST),
-  polyline([[68.8, 96], [70, 96], [70, 106.5], [64, 106.5], [64, rowY(15)], [60.2, rowY(15)]], 0.3, "B.Cu", nets["3V3"]),
-  // Local 3V3 bus lives on the front, away from the rear signal fanout.
-  segment([87.46, 136.365], [87.46, 133.5], 0.45, "B.Cu", nets["3V3"]),
-  segment([87.46, 133.5], [50, 133.5], 0.45, "B.Cu", nets["3V3"]),
-  via(50, 133.5, nets["3V3"], 0.9, 0.45),
-  segment([50, 70], [50, 133.5], 0.5, "F.Cu", nets["3V3"]),
-  polyline([[87.46, 137.635], [87.46, 142], [50, 142]], 0.45, "B.Cu", nets["3V3"]),
-  via(50, 142, nets["3V3"], 0.9, 0.45),
-  segment([50, 133.5], [50, 142], 0.5, "F.Cu", nets["3V3"]),
+  polyline([[68.8, 96], [70, 96], [70, 106.5], [60.2, 106.5], [60.2, rowY(15)]], 0.3, "B.Cu", nets["3V3"]),
+  // J3's two 3V3 contacts join to the right of its key holes, then feed the
+  // front-side rail around the display perimeter instead of crossing signals.
+  polyline([[92.54, 136.365], [95.5, 133.405], [95.5, 133]], 0.45, "B.Cu", nets["3V3"]),
+  polyline([[92.54, 137.635], [96.5, 141.595], [96.5, 133], [95.5, 133]], 0.45, "B.Cu", nets["3V3"]),
+  via(95.5, 133, nets["3V3"], 0.8, 0.4),
+  polyline([[95.5, 133], [97, 131.5], [97, 68], [74.6, 68]], 0.45, "F.Cu", nets["3V3"]),
+  segment([50, 70], [50, 142], 0.5, "F.Cu", nets["3V3"]),
   // Entry decoupling.
   segment([48, 130], [50, 130], 0.45, "B.Cu", nets["3V3"]),
   via(50, 130, nets["3V3"]),
@@ -657,7 +792,7 @@ const supportRoutes = [
 const tagKeepout = `  (zone (net 0) (net_name "") (layers "B.Cu") (tstamp ${uid()}) (hatch edge 0.5)
     (connect_pads (clearance 0))
     (min_thickness 0.25)
-    (keepout (tracks not_allowed) (vias not_allowed) (pads allowed) (copperpour not_allowed) (footprints allowed))
+    (keepout (tracks allowed) (vias not_allowed) (pads allowed) (copperpour not_allowed) (footprints allowed))
     (polygon (pts (xy 87.3 136.75) (xy 92.7 136.75) (xy 92.7 137.25) (xy 87.3 137.25)))
   )`;
 
@@ -742,9 +877,9 @@ ${grText("PASSIVE EM PICKUP · 30T/LAYER", 27, 11.5, "F.SilkS", 0.85, 0.15)}
 ${grText("AUDIO", 5.5, 31, "F.SilkS", 0.8, 0.15)}
 ${grText("3.52in E-PAPER NAME BADGE", 50, 127, "F.SilkS", 1.1, 0.18)}
 ${grText("PROGRAM ON REAR · IMAGE STAYS WITHOUT POWER", 50, 131, "F.SilkS", 0.72, 0.12)}
-${grText("REV 1 · PANEL/J1 FIT MUST BE VERIFIED", 72, 67.2, "B.SilkS", 0.7, 0.15, "mirror")}
+${grText("REV 2 · VERIFY PANEL/J1 + ESP CRADLE", 72, 67.2, "B.SilkS", 0.7, 0.15, "mirror")}
 ${grText("J3 · TC2050", 90, 132.2, "B.SilkS", 0.65, 0.15, "mirror")}
-${grText("ONE 3V3 SOURCE ONLY", 52, 139.5, "B.SilkS", 0.65, 0.15, "mirror")}
+${grText("ONE CONTROLLER · 3V3 ONLY", 68, 139.5, "B.SilkS", 0.62, 0.13, "mirror")}
 ${grText("J1 · FRONT ZIF · 3.65 mm FLEX · NO SLOT", 6.2, 103.1, "F.SilkS", 0.45, 0.08)}
 
   (footprint "Badge:Gold_Brand_Accent" (layer "F.Cu") (tstamp ${uid()})
@@ -754,6 +889,7 @@ ${grText("J1 · FRONT ZIF · 3.65 mm FLEX · NO SLOT", 6.2, 103.1, "F.SilkS", 0.
 
 ${fpcBreakout}
 ${externalRoutes}
+${espRibbonRoutes}
 ${supportRoutes}
 ${pickupRoutes}
 ${tagKeepout}
@@ -814,8 +950,13 @@ if (balance !== 0) throw new Error(`Unbalanced KiCad s-expression: ${balance}`);
 if (!board.includes('(net 30 "PICKUP_A")')) throw new Error("Expected pickup net missing");
 if (!board.includes("Hirose_FH34SRJ-24S-0.5SH")) throw new Error("Expected 24-pin FPC connector missing");
 if (!board.includes("Tag-Connect_TC2050-IDC-NL")) throw new Error("Expected Tag-Connect port missing");
+if (!board.includes("ESP_Ribbon_1x08_P2.54mm")) throw new Error("Expected passive ESP ribbon header missing");
+if (!board.includes("ESP32_Cradle_Strap_Slots")) throw new Error("Expected passive ESP cradle slots missing");
 if (!board.includes("Waveshare_ESP32_Driver_Board_V3_Header_Clear_Cradle_Bay")) {
   throw new Error("Expected optional Waveshare ESP32 bay missing");
+}
+if (board.includes("TPS2116") || board.includes("SN74LVC541") || board.includes("SSM-119")) {
+  throw new Error("Obsolete onboard ESP socket/power/buffer circuitry remains");
 }
 if (board.includes("FLEX SLOT") || board.includes("FH12-24S") || board.includes("EDGE-WRAP")) {
   throw new Error("Obsolete flex-slot, edge-wrap, or FH12 geometry remains");

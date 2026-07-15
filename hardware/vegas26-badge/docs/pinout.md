@@ -1,14 +1,19 @@
 # Pin allocation
 
+> **NOT PRODUCTION RELEASED:** The optional Waveshare V3 harness and passive
+> mount are prototype features. Leave badge `J4` DNP unless its exact pin map,
+> strain relief, USB clearance, retention, and first-article refresh tests have
+> passed with the purchased module and panel revisions.
+
 ## Reusable programmer target J3
 
-`J3` is the bare PCB footprint for a Tag-Connect TC2050-IDC-NL cable. There is
-no connector, microcontroller, USB port, or permanent power source on a badge.
-The cable's 2 x 5 IDC end connects to the reusable programmer.
+Badge `J3` is the bare PCB footprint for a Tag-Connect TC2050-IDC-NL cable. It
+is unrelated to the Waveshare module connector also named `J3`. The cable's
+2 x 5 IDC end connects to the reusable programmer.
 
 | J3 pin | Signal | Direction at badge | Notes |
 |---:|---|---|---|
-| 1 | 3V3 | power in | regulated 3.3 V only; never 5 V |
+| 1 | 3V3 | power in | regulated, current-limited 3.3 V only; never 5 V |
 | 2 | GND | power return | digital/display ground |
 | 3 | MOSI / DIN | input | SPI display data through 100 ohm series resistor |
 | 4 | SCLK | input | SPI clock through 100 ohm series resistor |
@@ -17,11 +22,17 @@ The cable's 2 x 5 IDC end connects to the reusable programmer.
 | 7 | RST_N | input | active low; 100k pull-down on panel side |
 | 8 | BUSY_N | output | active low; 1k series protection |
 | 9 | GND | power return | second ground contact |
-| 10 | 3V3 | power in | second 3.3 V contact |
+| 10 | 3V3 | power in | second contact for the same badge rail |
 
 The interface is write-only SPI: there is no MISO signal. Use SPI mode 0 and
 begin at 2 MHz; increase only after prototype signal-integrity testing. The
 panel/controller limit is 4 MHz.
+
+The released controller for this interface is the
+[Seeed XIAO ESP32-S3](https://www.seeedstudio.com/XIAO-ESP32S3-p-5627.html)
+running the repository's built firmware target. Any generic ESP32, RP2040,
+STM32, Raspberry Pi, or other controller requires separate wiring, voltage,
+power-sequence, firmware, and first-article qualification before badge use.
 
 ### Safe update sequence
 
@@ -33,46 +44,70 @@ panel/controller limit is 4 MHz.
 6. Wait at least 2 seconds, disable 3.3 V, wait another 2 seconds, then lift
    the probe.
 
-Do not hot-plug the raw panel or the programming probe while powered. The image
-persists after power is removed.
+Do not hot-plug the raw panel or the programming probe while powered. There is
+no source selection or reverse-current protection between `J3` and optional
+`J4`: the Waveshare harness must be disconnected and its USB-C unplugged before
+the Tag-Connect probe is seated. The image persists after power is removed.
 
-### Optional Waveshare ESP32 board in rear bay
+### Optional Waveshare ESP32 board and passive J4 harness
 
-The `MOD1` outline at the rear bottom-left is mechanical only. It fits the
-current `29.46 x 48.25 mm` Waveshare e-Paper ESP32 Driver Board V3 with its
-USB-C connector facing down past the badge edge, but it has no pads, socket, or
-automatic electrical connection. This deliberate separation avoids committing
-the two-week PCB build to an unverified module revision or putting through-hole
-socket joints beneath the front display glass.
+Badge `J4` is a single 1 x 8 row of 2.54 mm plated through-holes. It may receive
+a breakaway male header, or an eight-wire harness may be soldered directly to
+the holes. Both are optional/DNP. A short female-female Dupont ribbon is a
+practical prototype harness: keep the badge end as a 1 x 8 shell and split the
+module end into individually labelled female sockets.
 
-The lowest-risk electrical use is the way Waveshare designed the ESP32 board:
-completely disconnect the raw panel from badge `J1`, place the supplied
-24-pin adapter beside the short panel tail, and connect that adapter to the
-ESP32 board with its supplied FFC. Confirm the cable reaches around the left
-outside edge without a crease before attaching the module. There is no flex
-slot. Never connect the raw panel to `J1` and the ESP32 driver simultaneously.
+The names `J3` and `J4` in the **Waveshare header** column refer to connectors
+printed on the Waveshare ESP32 Driver Board V3, not badge Tag-Connect `J3` or
+badge harness `J4`. Follow this literal map and continuity-test it before power:
 
-Do **not** make a bare GPIO-to-`J3` participant harness. Waveshare specifies the
-ESP32 driver board as a 5 V/USB-powered product, while badge `J3` accepts only a
-regulated 3.3 V target rail. The module pin labelled `VCC 3V3` is documented as
-part of its e-paper interface, not as a general-purpose USB-powered output for
-the badge. Direct jumper wires would also have no keying, current limiting,
-power sequencing, output isolation, or protection against back-power through
-the SPI/control pins.
+| Badge J4 pin | Badge signal | Waveshare header pin | ESP32 GPIO / role |
+|---:|---|---|---|
+| 1 | 3V3 | J3-1 `VDD3V3` | USB-derived 3.3 V output powers the badge |
+| 2 | GND | J3-14 `GND` | common return |
+| 3 | BUSY_N | J3-9 | GPIO25 |
+| 4 | RST_N | J3-10 | GPIO26 |
+| 5 | D/C | J3-11 | GPIO27 |
+| 6 | CS_N | J4-16 | GPIO15 |
+| 7 | MOSI / DIN | J3-12 | GPIO14 |
+| 8 | SCLK | J3-15 | GPIO13 |
 
-A future `J3` accessory needs a reviewed adapter schematic and PCB with the
-exact V3 header positions, keyed badge connection, both badge ground contacts,
-both badge 3V3 contacts, USB/5 V module power, a separately load-switched and
-current-limited 3.3 V badge rail, and defined GPIO isolation/tri-state behavior
-through power-up and power-down. It also needs module-specific firmware and a
-20-cycle bench qualification. Until that exists, `J3` remains for the tested
-external registration-station programmer only; the optional ESP32 module uses
-the direct-FFC method above.
+The module is mechanically removable. Passive carrier slots and a
+nonconductive spacer/retainer support it with USB-C accessible and the antenna
+clear; there are no electrical module sockets. Size the retainer from the
+purchased board and provide harness strain relief without loading the headers.
 
-The ESP32 product page's current supported-model table omits the 3.52-inch
-panel even though Waveshare's 3.52-inch raw-panel page recommends this driver.
-Treat the module, mode switch, firmware, cable reach, antenna range, and a full
-refresh as a bench qualification gate before letting participants install one.
+#### Power and connection rules
+
+This interface has no current limiter, power mux, logic buffer, or automatic
+arbitration. The Waveshare board is powered **only through its own USB-C**. Its
+`VDD3V3` output then powers the badge through `J4-1`; never inject power into
+that module pin from Tag-Connect or another supply.
+
+1. Unplug module USB-C and remove the badge `J3` Tag-Connect probe.
+2. With everything unpowered, connect the labelled J4 harness.
+3. Set the module's USB-to-UART switch 2 **ON**, then connect module USB-C.
+4. Program and wait for the firmware's `OK SLEEP USB_POWERED` response.
+5. Unplug USB-C before disconnecting the harness.
+
+Never connect or power the Tag-Connect programmer and Waveshare controller at
+the same time, and never hot-plug the harness or raw panel. The Waveshare
+module's onboard 24-pin FPC connector remains **empty**: the only raw panel
+stays connected to front-side badge `J1`. Do not install a second panel or use
+the module's supplied adapter/FFC in this topology.
+
+Published Rev 3 hardware marks GPIO4 link `R35` NC/DNP. Badge J4 does not carry
+GPIO4, and the Waveshare firmware target deliberately treats power-enable as a
+no-op. Deep sleep stops the panel update but neither USB-C power nor the badge
+3V3 rail. The CH343 serial bridge may require Waveshare's VCP driver on Windows
+or macOS.
+
+Before participant use, measure at least three delivered Rev 3 modules, verify
+the entire harness map and absence of shorts, and complete at least 20
+program/refresh/sleep cycles plus BUSY-timeout recovery. Also test USB cable
+clearance and side-load, harness strain, retainer insertion/removal, shake/drop,
+and worn-badge WiFi/Bluetooth range. Until those gates pass, leave J4 DNP and
+use Tag-Connect or the independent HAT path.
 
 ### Independent Driver HAT recovery
 
@@ -135,14 +170,14 @@ the first unpowered sample.
 | 6 | TSCL | no connection |
 | 7 | TSDA | no connection |
 | 8 | BS | ground through R13 0 ohm for 4-wire SPI |
-| 9 | BUSY_N | J3 pin 8 through R10 1k |
-| 10 | RST_N | J3 pin 7 through R9 100 ohm; R12 100k to ground |
-| 11 | D/C | J3 pin 6 through R8 100 ohm |
-| 12 | CSB / CS_N | J3 pin 5 through R7 100 ohm; R11 100k to 3V3 |
-| 13 | SCL / SCLK | J3 pin 4 through R6 100 ohm |
-| 14 | SDA / MOSI | J3 pin 3 through R5 100 ohm |
-| 15 | VDDIO | 3V3; joined with VDD and decoupled by C14 |
-| 16 | VDD | 3V3; joined with VDDIO and decoupled by C14 |
+| 9 | BUSY_N | J3 pin 8 and optional J4 pin 3 through R10 1k |
+| 10 | RST_N | J3 pin 7 and optional J4 pin 4 through R9 100 ohm; R12 100k to ground |
+| 11 | D/C | J3 pin 6 and optional J4 pin 5 through R8 100 ohm |
+| 12 | CSB / CS_N | J3 pin 5 and optional J4 pin 6 through R7 100 ohm; R11 100k to 3V3 |
+| 13 | SCL / SCLK | J3 pin 4 and optional J4 pin 8 through R6 100 ohm |
+| 14 | SDA / MOSI | J3 pin 3 and optional J4 pin 7 through R5 100 ohm |
+| 15 | VDDIO | 3V3 from J3 pins 1/10 or optional J4 pin 1; joined with VDD and decoupled by C14 |
+| 16 | VDD | 3V3 from J3 pins 1/10 or optional J4 pin 1; joined with VDDIO and decoupled by C14 |
 | 17 | VSS | ground |
 | 18 | VDDD | C5 1uF to ground |
 | 19 | VPP | C6 1uF to ground |
@@ -218,4 +253,4 @@ the trade-off that a phone/combo jack may no longer recognize a microphone.
 The 30-turn-per-layer coil responds to magnetic flux normal to the badge face,
 so rotate and tilt the upper half of the badge near the source. Do not update
 the e-paper while recording. Detailed geometry and tests are in
-`docs/pickup-design.md`.
+[`pickup-design.md`](pickup-design.md).

@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 1000" width="1400" height="1000" role="img" aria-labelledby="title desc">
   <title id="title">AISB Vegas 2026 badge — assembled isometric render</title>
-  <desc id="desc">Isometric product rendering of the thin black conference badge PCB with its black-solder-mask-covered chamfered 60-turn series-aiding passive pickup, official AISB artwork, and a centred 3.52-inch raw e-paper panel captured beneath a clear screwless instrument viewport. The true 3.65 millimetre flex runs straight into a right-facing front FH34 connector protected by an opaque removable left service spine; its actuator faces left and its cable mouth faces the panel.</desc>
+  <desc id="desc">Conceptual isometric product rendering of the thin black conference badge PCB with its black-solder-mask-covered chamfered 60-turn series-aiding passive pickup, official AISB artwork, and a centred 3.52-inch raw e-paper panel captured beneath a clear screwless instrument viewport. The true 3.65 millimetre flex runs straight into a right-facing front FH34 connector protected by an opaque removable left service spine. The hidden rear carries the raw-panel network, TC2050 pads, a horizontal 1-by-8 J4 SPI footprint, and a passive four-slot insulating cradle for a removable ghosted Waveshare ESP32 module. There is no onboard controller or module socket.</desc>
   <defs>
     <radialGradient id="bg" cx="43%" cy="42%" r="75%"><stop stop-color="#303743"/><stop offset="0.56" stop-color="#171b21"/><stop offset="1" stop-color="#090b0e"/></radialGradient>
     <linearGradient id="board" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#1d2025"/><stop offset="0.48" stop-color="#0b0d10"/><stop offset="1" stop-color="#15181d"/></linearGradient>
@@ -8,7 +8,6 @@
     <linearGradient id="paper" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#fffef7"/><stop offset="1" stop-color="#dcd9ce"/></linearGradient>
     <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#725a21"/><stop offset="0.27" stop-color="#e2c970"/><stop offset="0.58" stop-color="#957733"/><stop offset="0.84" stop-color="#ead581"/><stop offset="1" stop-color="#624a18"/></linearGradient>
     <linearGradient id="module" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#225247"/><stop offset="0.5" stop-color="#102f2b"/><stop offset="1" stop-color="#071b1a"/></linearGradient>
-    <linearGradient id="xiao" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#1e4a48"/><stop offset="0.55" stop-color="#0c292a"/><stop offset="1" stop-color="#061719"/></linearGradient>
     <linearGradient id="metal" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#61676d"/><stop offset="0.18" stop-color="#e3e6e7"/><stop offset="0.48" stop-color="#7e858b"/><stop offset="0.8" stop-color="#ecedef"/><stop offset="1" stop-color="#5e6469"/></linearGradient>
     <linearGradient id="flex" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#81370d"/><stop offset="0.45" stop-color="#e58b2e"/><stop offset="1" stop-color="#743009"/></linearGradient>
     <pattern id="dots" width="4" height="4" patternUnits="userSpaceOnUse"><circle cx=".5" cy=".5" r=".14" fill="#fff" opacity="0.06"/></pattern>
@@ -26,7 +25,7 @@
   <ellipse cx="612" cy="770" rx="470" ry="93" fill="#000" opacity="0.66" filter="url(#blur)"/>
   <g font-family="Inter,Arial,sans-serif" letter-spacing="2">
     <text x="76" y="76" fill="#d8bd68" font-size="18" font-weight="700">AISB / VEGAS 2026</text>
-    <text x="1324" y="76" text-anchor="end" fill="#8f98a5" font-size="15">REV 1 · ASSEMBLED ISOMETRIC</text>
+    <text x="1324" y="76" text-anchor="end" fill="#8f98a5" font-size="15">REV 2 · ASSEMBLED ISOMETRIC</text>
   </g>
 
   <!-- 1.6 mm PCB core/edge, exaggerated slightly so it reads in the render. -->
@@ -89,10 +88,32 @@
       <rect x="1.8" y="85.6" width="10" height="17.2" rx=".7" fill="none" stroke="#737c84" stroke-width=".17" stroke-dasharray=".7 .55"/>
     </g>
 
+    <!-- Through features visible from the front: four vertical cradle slots
+         and the horizontal J4 1x8 plated-hole row. -->
+    <g fill="#050608" stroke="#725d2a" stroke-width=".28">
+      <rect x="2.4" y="128.5" width="2.2" height="6" rx="1.1"/>
+      <rect x="35.9" y="128.5" width="2.2" height="6" rx="1.1"/>
+      <rect x="2.4" y="136.5" width="2.2" height="6" rx="1.1"/>
+      <rect x="35.9" y="136.5" width="2.2" height="6" rx="1.1"/>
+    </g>
+    <g fill="url(#gold)" stroke="#f2d780" stroke-width=".16">
+      <rect x="59" y="139.5" width="2" height="2" rx=".15"/>
+      <circle cx="62.54" cy="140.5" r="1"/><circle cx="65.08" cy="140.5" r="1"/>
+      <circle cx="67.62" cy="140.5" r="1"/><circle cx="70.16" cy="140.5" r="1"/>
+      <circle cx="72.7" cy="140.5" r="1"/><circle cx="75.24" cy="140.5" r="1"/>
+      <circle cx="77.78" cy="140.5" r="1"/>
+    </g>
+    <g fill="#050608">
+      <circle cx="60" cy="140.5" r=".5"/><circle cx="62.54" cy="140.5" r=".5"/>
+      <circle cx="65.08" cy="140.5" r=".5"/><circle cx="67.62" cy="140.5" r=".5"/>
+      <circle cx="70.16" cy="140.5" r=".5"/><circle cx="72.7" cy="140.5" r=".5"/>
+      <circle cx="75.24" cy="140.5" r=".5"/><circle cx="77.78" cy="140.5" r=".5"/>
+    </g>
+
     <g font-family="Inter,Arial,sans-serif" text-anchor="middle">
       <text x="50" y="128" fill="#f0f1ef" font-size="2.35" font-weight="700" letter-spacing=".42">3.52-IN RAW E-PAPER NAME BADGE</text>
       <text x="50" y="133.5" fill="#8e98a2" font-size="1.65" letter-spacing=".28">FRONT FH34 UNDER SERVICE SPINE · IMAGE STAYS WITHOUT POWER</text>
-      <text x="50" y="140" fill="#69727c" font-size="1.4" letter-spacing=".24">NO BATTERY · NO ON-BOARD CONTROLLER</text>
+      <text x="50" y="136.8" fill="#69727c" font-size="1.35" letter-spacing=".22">NO BATTERY · NO ON-BOARD CONTROLLER</text>
     </g>
   </g>
 
@@ -100,7 +121,7 @@
   <g font-family="Inter,Arial,sans-serif">
     <g><path d="M820 210l98-54h93" fill="none" stroke="#d8bd68" stroke-width="1.5"/><circle cx="820" cy="210" r="4" fill="#d8bd68"/><text x="1025" y="151" fill="#f2f2ef" font-size="14" font-weight="700">60-TURN PCB PICKUP</text><text x="1025" y="173" fill="#8f98a4" font-size="12">30 turns/layer · series-aiding</text><text x="1025" y="192" fill="#69727d" font-size="9.5">copper emphasized · production coil is mask-covered</text></g>
     <g><path d="M841 468l124 15h46" fill="none" stroke="#d8bd68" stroke-width="1.5"/><circle cx="841" cy="468" r="4" fill="#d8bd68"/><text x="1025" y="478" fill="#f2f2ef" font-size="14" font-weight="700">INSTRUMENT VIEWPORT</text><text x="1025" y="500" fill="#8f98a4" font-size="12">clear lens · right-facing front FH34 spine</text></g>
-    <g><path d="M800 720l165 54h46" fill="none" stroke="#d8bd68" stroke-width="1.5"/><circle cx="800" cy="720" r="4" fill="#d8bd68"/><text x="1025" y="770" fill="#f2f2ef" font-size="14" font-weight="700">REAR SERVICE SIDE</text><text x="1025" y="792" fill="#8f98a4" font-size="12">passives + TC2050 pads · no display connector</text></g>
+    <g><path d="M800 720l165 54h46" fill="none" stroke="#d8bd68" stroke-width="1.5"/><circle cx="800" cy="720" r="4" fill="#d8bd68"/><text x="1025" y="770" fill="#f2f2ef" font-size="14" font-weight="700">PASSIVE REAR SERVICE SIDE</text><text x="1025" y="792" fill="#8f98a4" font-size="12">raw-panel rails · J4 ribbon · TC2050</text></g>
   </g>
 
   <!-- Exploded side stack key. -->
@@ -111,15 +132,16 @@
       <path d="M8 18h160l18 10H26z" fill="#0b0e12" stroke="#6d747c"/><text x="212" y="29" fill="#cfd4da" font-size="11">bezel / front FH34 service spine</text>
       <path d="M0 37h176l18 10H18z" fill="#e6e2d7" stroke="#fff" opacity=".95"/><text x="212" y="48" fill="#cfd4da" font-size="11">0.87–1.18 mm panel</text>
       <path d="M0 57h176l18 10H18z" fill="#111419" stroke="#d8bd68"/><text x="212" y="68" fill="#cfd4da" font-size="11">1.6 mm PCB</text>
-      <path d="M55 79h85l18 10H73z" fill="#2a2d30" stroke="#8d7438"/><text x="212" y="90" fill="#cfd4da" font-size="11">rear passives / pogo pads</text>
-      <g fill="none" stroke="#6f7883" stroke-dasharray="3 4"><path d="M8 11v7M8 29v8M8 48v9M8 68v11"/></g>
+      <path d="M55 79h85l18 10H73z" fill="#2a2d30" stroke="#8d7438"/><text x="212" y="90" fill="#cfd4da" font-size="11">rear raw-panel parts / J4</text>
+      <path d="M24 101h122l18 10H42z" fill="url(#module)" fill-opacity=".28" stroke="#86a99d" stroke-dasharray="4 3"/><text x="212" y="112" fill="#aab4b9" font-size="11">ghosted removable cradle/module</text>
+      <g fill="none" stroke="#6f7883" stroke-dasharray="3 4"><path d="M8 11v7M8 29v8M8 48v9M8 68v11M73 89v12"/></g>
     </g>
   </g>
 
   <g font-family="Inter,Arial,sans-serif">
     <rect x="74" y="887" width="315" height="42" rx="21" fill="#1d2229" stroke="#4c5560"/><text x="231.5" y="914" text-anchor="middle" fill="#eff1f2" font-size="15" font-weight="700" letter-spacing="1.4">100 × 145 MM · ~4 MM VIEWPORT</text>
-    <text x="415" y="908" fill="#f3f3f1" font-size="22" font-weight="700">Thin conference badge / passive instrument</text>
-    <text x="415" y="936" fill="#919aa5" font-size="13" letter-spacing="1.1">SCREWLESS VIEWPORT · FRONT FH34 · REAR PASSIVE NETWORK · EXTERNAL 3V3 SPI</text>
-    <text x="1324" y="960" text-anchor="end" fill="#626b76" font-size="11" letter-spacing="1.5">ILLUSTRATIVE REV-1 PRODUCT RENDER</text>
+    <text x="415" y="908" fill="#f3f3f1" font-size="22" font-weight="700">Thin conference badge / e-paper instrument</text>
+    <text x="415" y="936" fill="#919aa5" font-size="13" letter-spacing="1.1">SCREWLESS VIEWPORT · FRONT FH34 · PASSIVE REAR J4/CRADLE · EXTERNAL 3V3 SPI</text>
+    <text x="1324" y="960" text-anchor="end" fill="#626b76" font-size="11" letter-spacing="1.5">ILLUSTRATIVE REV-2 PRODUCT RENDER</text>
   </g>
 </svg>

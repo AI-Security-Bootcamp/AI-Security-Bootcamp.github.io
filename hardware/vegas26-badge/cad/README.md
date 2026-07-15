@@ -5,8 +5,14 @@ AISB Vegas badge. Open it in OpenSCAD, press **F5** for a quick preview, and
 drag to orbit the model. Press **F6** for a full render.
 
 `viewport-cut-template.svg` is a one-to-one millimetre, layered template for
-the clear lens, black spacer, and underside black print. Hide the guide and
-unused fabrication groups before sending one layer to a cutter or printer.
+the clear lens, black spacer, underside black print, and an orange prototype
+transfer-adhesive frame. The adhesive frame has a 13.50 mm open notch around
+the 12.50 mm FPC so adhesive cannot cross the straight tail or J1 service path.
+Its 0.25 mm edge inset and 1.50 mm rails are starting dimensions, not released
+production dimensions: cut one sample and verify the actual panel lot, cutter
+kerf, squeeze-out, adhesive thickness, latch access, and FPC clearance. Hide
+the guide and unused fabrication groups before sending one layer to a cutter
+or printer.
 The small service spine is three-dimensional and should be exported from the
 OpenSCAD model instead of cut from this plan view.
 
@@ -16,8 +22,10 @@ The Customizer variables at the top of the file let you:
   `service_spine` part;
 - change `badge_name` and `badge_handle` on the e-paper placeholder;
 - adjust the separation in the exploded view; and
-- hide the pickup coil, protector, or labels for a cleaner mechanical view; or
-- set `show_esp32_driver = true` to fit-check the optional rear USB-C module.
+- hide the pickup coil, protector, labels, or ghosted removable module for a
+  cleaner mechanical view; and
+- set `show_j4_header = true` to preview a populated 1x8 rear header instead of
+  the default unpopulated plated-hole footprint.
 
 If the Customizer panel is hidden, enable **Window > Customizer**. Changes can
 also be made directly in the first few lines of the `.scad` file.
@@ -42,11 +50,14 @@ the useful interactive, coloured assembly view.
 
 ## Model scope
 
-The model shows the proposed controller-free mechanical revision: a 1.6 mm,
-R5 PCB; one centred 6 mm circular lanyard hole, AISB artwork and passive pickup;
-and a raw Waveshare 3.52-inch panel mounted on the front of solid FR-4. The 84.70 x
-54.41 mm glass occupies `x=7.65..92.35`, `y=67.00..121.41`; its 74.51 x
-49.67 mm active area occupies `x=15.47..89.98`, `y=69.37..119.04`.
+The model shows the proposed carrier mechanical revision: a 1.6 mm, R5 PCB;
+one centred 6 mm circular lanyard hole, AISB artwork and passive pickup, the
+raw-panel support network on the rear, and a raw Waveshare 3.52-inch panel
+mounted on the front of solid FR-4. There is no onboard microcontroller,
+ESP32 socket pair, controller power mux, or controller-side buffer. The
+84.70 x 54.41 mm glass occupies `x=7.65..92.35`, `y=67.00..121.41`; its
+74.51 x 49.67 mm active area occupies `x=15.47..89.98`,
+`y=69.37..119.04`.
 
 The optimized pickup is shown as a chamfered 30-turn-per-layer spiral in the
 80 x 49 mm upper winding envelope. Both physical copper layers are modelled;
@@ -78,28 +89,43 @@ fastener holes and uses no magnets, which is important next to the passive
 electromagnetic pickup. The black border can be printed on the lens underside
 for a durable, crisp finish.
 
-Rear mechanical envelopes also reserve space for the raw-panel driver passives,
-the zero-height rear TC2050-IDC-NL programming target centred at `(90,137)`,
-and the padless optional ESP32 bay at `(20.23,120.875)`. The bay is exactly
-`29.46 x 48.25 mm`, reaches the lower badge edge so USB-C remains accessible,
-and adds no mounting holes. The interactive ESP32 body is hidden by default;
-enable `show_esp32_driver` to see its approximate board, antenna, can, and USB
-envelopes. The model now includes a conservative 10 mm underside-header
-projection and two header-clear support rails; measure the purchased board and
-give a real cradle assembly clearance rather than using a zero-clearance
-`29.46 x 48.25 mm` pocket. Keep the lower 12-14 mm around USB-C unobstructed so
-a real cable overmold can enter. A qualified assembler may instead remove the
-stock headers after electrical inspection.
+Rear mechanical envelopes retain the raw-panel boost/rail network and the
+zero-height TC2050-IDC-NL programming target centred at `(90,137)`. An
+optional Waveshare e-Paper ESP32 Driver Board V3 is shown translucently in the
+bay centred at `(20.23,120.875)`. Its `29.46 x 48.25 mm` PCB reaches the lower
+badge edge, with the antenna up and USB-C exposed below. It is removable and
+is not electrically or mechanically socketed to the carrier.
+
+The carrier has four vertical, routed NPTH ovals for the insulating cradle:
+`(3.5,131.5)`, `(37,131.5)`, `(3.5,139.5)`, and `(37,139.5)`. Each finished
+slot is `2.2 x 6.0 mm`. Two non-metallic straps pass through the left/right
+slot pairs. Narrow PETG/PA12 side rails with thin closed-cell foam caps support
+only the module PCB edge strips; the populated centre and both stock 1x19 male
+header rows remain above open air. The model uses a provisional 9.40 mm
+carrier-to-module gap. Trim the rail/foam stack only after measuring the
+longest header pin and tallest underside component on the purchased V3 lot.
+No module pin may touch or pass through the carrier.
+
+Keep the lower module edge and the centreline beneath it clear for the USB-C
+plug and cable overmold. Use plastic/foam retention only—no metal clip or
+magnet beside the passive pickup. Dry-fit the module and largest intended USB
+cable, then perform shake, worn-badge drop, cable side-load, and radio-range
+tests before making multiple cradles.
+
+J4 is a horizontal 1x8, 2.54 mm-pitch 3.3 V SPI interface at `y=140.5`, with
+pin centres from `x=60.00` through `x=77.78`. Its order is `3V3`, `GND`,
+`BUSY`, `RST`, `DC`, `CS`, `MOSI`, `CLK`. The default model shows only the
+plated holes; set `show_j4_header = true` to preview a populated body. Connect
+the optional module using an external eight-wire female ribbon/harness and
+never route its 5 V pin to J4.
 
 The TC2050 target consists of ten exposed 0.787 mm contact pads, three 0.991 mm
 non-plated alignment holes, and its 6.2 x 2.5 mm rear-silkscreen envelope; the
 reusable spring-pin probe and cable are tooling, not badge components. The
-ESP32 bay is likewise only a mechanical reservation: the model does not imply
-an electrical socket, cable path, final cradle geometry, or qualified 3.52-inch
-firmware. It omits the supplied FFC/adapter, switches, and some small parts.
-Exact FH34SRJ footprint dimensions, FPC contact side and reach, component heights,
-adhesive stack, and spine clearances remain subject to measurement of a
-physical panel and connector before fabrication.
+ghost module omits its supplied display adapter/FFC, switches, and many small
+parts. Exact FH34SRJ footprint dimensions, FPC contact side and reach, module
+pin projection, cradle height, adhesive stack, and service-spine clearances
+remain subject to physical first-article measurement.
 
 This model is for visualization and preliminary mechanical fit checking. It is
 not a printable enclosure and must not be used to generate PCB fabrication

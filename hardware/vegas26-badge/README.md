@@ -16,11 +16,13 @@ controls fitted by default. Instead:
   cutout;
 - the badge carries the small passive high-voltage support circuit required by
   the raw panel;
-- a reusable external programmer supplies an eight-wire 3.3 V, ground,
-  SPI/control interface through a zero-height Tag-Connect footprint;
-- a rear bottom-left `29.46 x 48.25 mm` header-clear cradle bay lets an owner add the
-  optional Waveshare ESP32 driver board later, with its USB-C connector exposed
-  below the badge edge; and
+- a reusable external programmer supplies 3.3 V, ground, and SPI/control through
+  the zero-height Tag-Connect `J3` target;
+- optional `J4` is a passive 1 x 8, 2.54 mm through-hole interface for a short
+  ribbon harness to a removable Waveshare ESP32 Driver Board V3; the module is
+  powered only through its own USB-C connector, its onboard FPC stays empty,
+  and the carrier provides only passive slots and a nonconductive spacer/retainer;
+  and
 - a two-layer PCB pickup coil remains available as a passive electromagnetic
   audio sensor.
 
@@ -42,6 +44,10 @@ are not completely consistent. Before ordering production quantity:
 4. Confirm that the display survives repeated mounting and programming cycles.
 5. Run KiCad DRC and have an experienced PCB designer review the high-voltage
    support circuit, footprint geometry, and assembly files.
+6. If the optional ESP32 path is considered, measure at least three exact Rev 3
+   modules, continuity-test the passive harness, and validate the mounting
+   slots/spacer, USB clearance, retention/drop loads, and worn-badge RF range.
+   There is no onboard power isolation: never attach or power two controllers.
 
 Do not send the generated board straight to a production run.
 
@@ -55,12 +61,14 @@ writing the raw panel flex directly; they do not bypass the badge through
 
 For the two-week schedule, buy **both types of universal driver**: two
 [Universal Driver HATs](https://www.waveshare.com/e-paper-driver-hat.htm) as the
-Raspberry-Pi-friendly production fallback, and one
-[ESP32 Driver Board](https://www.waveshare.com/e-paper-esp32-driver-board.htm)
-for fit and participant-add-on experiments. Waveshare's 3.52-inch panel page
-recommends both, but the ESP32 product page's current support table does not
-explicitly list 3.52 inches, so do not depend on it until the exact parts pass
-a full refresh test together.
+Raspberry-Pi-friendly production fallback, and at least three exact
+[ESP32 Driver Board V3](https://www.waveshare.com/e-paper-esp32-driver-board.htm)
+samples for dimensional spread, passive-harness validation, and
+participant-add-on experiments. Waveshare's 3.52-inch panel page recommends
+both, but the ESP32
+product page's current support table does not explicitly list 3.52 inches, so
+do not depend on the optional module until the exact parts pass the complete
+physical, electrical, and repeated-refresh gates.
 
 ## Open the design in KiCad
 
@@ -101,7 +109,7 @@ front, 100 x 145 mm
 
 front: centred panel plus short-flex ZIF beneath the left service spine
 back:  passive e-paper support parts, audio pads, a connector-free
-       Tag-Connect target, and an empty optional ESP32 cradle bay
+       Tag-Connect target, optional DNP 1 x 8 J4, and passive module mounting
 ```
 
 The panel is centred at `(50.00, 94.205)` mm, so its 84.70 mm landscape width
@@ -171,27 +179,41 @@ carries its internal gate/source drive and boosted display rails, so it stays
 connected to low-profile front-side ZIF `J1` immediately left of the glass.
 See `docs/pinout.md` for the exact separation.
 
-### Optional rear ESP32 bay
+### Optional removable rear ESP32 controller
 
-`MOD1` is a padless mechanical reservation, not a populated footprint or a
-plug-and-play socket. It fits the current `29.46 x 48.25 mm` Waveshare e-Paper
-ESP32 Driver Board V3 in the rear bottom-left corner, with USB-C facing down.
-The stock module has no mounting holes and carries two long rows of male header
-pins on its underside, so it cannot sit flat on foam. Measure the purchased V3
-sample and either use a deeper all-plastic cradle/standoff that keeps every pin
-off the carrier, or have a qualified assembler remove the headers. The optional
-module stands at least a centimetre off the carrier with stock headers; the
-conservative model reaches about 16 mm at the outside of USB-C. The upper
-`14.5 mm` of the bay has copper-pour keep-outs on both board layers, although
-display traces still pass beneath it, so reduced antenna range is possible.
+> **NOT PRODUCTION RELEASED:** `J4`, its harness, and the passive module mount
+> remain optional. Qualify the exact delivered module, pin map, USB clearance,
+> retention/drop behavior, and worn-badge RF range before participant use.
 
-The bay intentionally adds no second raw-panel connector and no unverified
-38-pin socket beneath the display glass. A participant module therefore still
-needs its supplied raw-panel adapter/FFC with the panel completely disconnected
-from `J1`. A bare GPIO-to-`J3` harness is specifically not released: it needs a
-future keyed, load-switched, back-power-protected adapter before participant
-use. The empty bay costs essentially only silkscreen/courtyard area and does not
-make the base badge thicker.
+The physical-rear-right bay accepts the current `29.46 x 48.25 mm` Waveshare
+e-Paper ESP32 Driver Board V3 in passive carrier slots with a removable,
+nonconductive spacer/retainer. It does not plug electrically into the carrier.
+Keep its USB-C connector accessible below the badge edge and its antenna end
+clear. The module's onboard 24-pin FPC connector stays empty: the one raw panel
+remains connected only to front-side badge `J1`.
+
+Optional badge `J4` is one row of eight 2.54 mm plated holes. Populate a simple
+1 x 8 male header only on equipped badges, or solder a short harness directly
+to the holes. A short 8-way female-female Dupont ribbon can mate to the badge
+header and split into individual female sockets at the Waveshare end. Its badge
+pin order is `1=3V3`, `2=GND`, `3=BUSY`, `4=RST`, `5=DC`, `6=CS`, `7=MOSI`,
+`8=SCLK`; [`docs/pinout.md`](docs/pinout.md) gives the exact Waveshare `J3/J4`
+header mapping. Label pin 1 and continuity-test every harness before use.
+
+This is a deliberately passive interface: there is no onboard current limiter,
+power mux, buffer, or controller arbitration. The Waveshare board is powered
+only by its own USB-C connector, and its `VDD3V3` output supplies badge `3V3`
+through `J4-1`. Remove the Tag-Connect probe and every other supply before
+connecting the harness. Connect and disconnect only while fully unpowered, and
+never attach or power two controllers at once.
+
+Published Rev 3 hardware leaves GPIO4's `R35` link DNP, and this badge does not
+connect GPIO4. Firmware therefore cannot switch off the USB-powered target; a
+successful update means the panel entered deep sleep while the module and badge
+rail remain powered. Disconnect USB-C before removing the harness. Set the
+module's USB-to-UART switch 2 **ON** for its CH343 bridge. Test at least 20
+refresh/sleep cycles, BUSY-timeout recovery, harness strain relief, USB cable
+side-load, retention, shake/drop, and radio range on a fully stacked worn badge.
 
 ## Passive pickup
 
