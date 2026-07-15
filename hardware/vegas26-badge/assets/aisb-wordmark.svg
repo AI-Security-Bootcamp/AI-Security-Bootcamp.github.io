@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 2312.5 728"
+  width="46.25mm"
+  height="14.56mm"
+  role="img"
+  aria-labelledby="title desc">
+  <title id="title">AISB wordmark</title>
+  <desc id="desc">The AISB wordmark outlined from Space Grotesk Bold, followed by its square accent.</desc>
+  <!--
+    Path-only manufacturing master. No installed font is required.
+
+    Coordinate system:
+      - 1000 path units per em
+      - cap height: 700 units
+      - complete artwork bounds: 2312.5 x 728 units
+      - baseline: y=714 in this SVG's top-down coordinate system
+      - 50 path units per millimetre at the declared physical size
+
+    The glyph origins include the source logo's -0.02em letter spacing and
+    Space Grotesk's -4-unit S/B kerning pair: A=0, I=614, S=858, B=1440.
+    The accent square is 181.25 units (58 px at the source's 320 px em), with
+    its lower edge on the baseline and its left edge at x=2131.25.
+  -->
+  <g id="aisb-wordmark" transform="translate(0 714) scale(1 -1)" fill-rule="evenodd" clip-rule="evenodd">
+    <path id="aisb-letters" fill="#000000" d="
+      M18 0L202 700L432 700L616 0L480 0L442 154L192 154L154 0Z
+      M223 276L411 276L326 617L308 617Z
+      M680 0L680 700L812 700L812 0Z
+      M1167 -14Q1086 -14 1024 15Q962 44 927 98Q892 152 892 228L892 256L1022 256L1022 228Q1022 165 1061 133.5Q1100 102 1167 102Q1235 102 1268.5 129Q1302 156 1302 198Q1302 227 1285.5 245Q1269 263 1237.5 274.5Q1206 286 1161 296L1138 301Q1066 317 1014.5 341.5Q963 366 935.5 406Q908 446 908 510Q908 574 938.5 619.5Q969 665 1024.5 689.5Q1080 714 1155 714Q1230 714 1288.5 688.5Q1347 663 1380.5 612.5Q1414 562 1414 486L1414 456L1284 456L1284 486Q1284 526 1268.5 550.5Q1253 575 1224 586.5Q1195 598 1155 598Q1095 598 1066.5 575.5Q1038 553 1038 514Q1038 488 1051.5 470Q1065 452 1092 440Q1119 428 1161 419L1184 414Q1259 398 1314.5 373Q1370 348 1401 307Q1432 266 1432 202Q1432 138 1399.5 89.5Q1367 41 1307.5 13.5Q1248 -14 1167 -14Z
+      M1486 0L1486 116L1578 116L1578 584L1486 584L1486 700L1846 700Q1910 700 1957.5 678.5Q2005 657 2031.5 617.5Q2058 578 2058 523L2058 513Q2058 465 2040 434.5Q2022 404 1997.5 387.5Q1973 371 1951 364L1951 346Q1973 340 1999 323.5Q2025 307 2043.5 276Q2062 245 2062 195L2062 185Q2062 127 2035 85.5Q2008 44 1960.5 22Q1913 0 1850 0Z
+      M1710 120L1834 120Q1877 120 1903.5 141Q1930 162 1930 201L1930 211Q1930 250 1904 271Q1878 292 1834 292L1710 292Z
+      M1710 412L1832 412Q1873 412 1899.5 433Q1926 454 1926 491L1926 501Q1926 539 1900 559.5Q1874 580 1832 580L1710 580Z"/>
+    <path id="aisb-accent-square" fill="#ef4444" d="M2131.25 0H2312.5V181.25H2131.25Z"/>
+  </g>
+</svg>

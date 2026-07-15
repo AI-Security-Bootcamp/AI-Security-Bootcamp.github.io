@@ -1,0 +1,10 @@
+.history/
+~*.lck
+*.kicad_prl
+_autosave-*
+*-backups/
+fab/
+manufacturing-output/
+.DS_Store
+__pycache__/
+*.pyc

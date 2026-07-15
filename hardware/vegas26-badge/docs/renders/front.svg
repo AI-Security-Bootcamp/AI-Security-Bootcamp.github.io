@@ -1,0 +1,180 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1200" width="1200" height="1200" role="img" aria-labelledby="title desc">
+  <title id="title">AISB Vegas 2026 badge — front product render</title>
+  <desc id="desc">Front of a black 100 by 145 millimetre conference badge PCB with a black-solder-mask-covered chamfered 30-turn-per-layer passive copper pickup, official AISB artwork, and a centred 3.52-inch raw e-paper name panel in a screwless instrument-style viewport. Its 3.65 millimetre tail runs straight into a right-facing front FH34 connector hidden beneath an opaque removable left service spine; the actuator and retention side face left and the connector mouth faces the panel.</desc>
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="40%" r="72%">
+      <stop offset="0" stop-color="#29303a"/>
+      <stop offset="0.58" stop-color="#15191f"/>
+      <stop offset="1" stop-color="#090b0e"/>
+    </radialGradient>
+    <linearGradient id="board" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#181b20"/>
+      <stop offset="0.48" stop-color="#0c0e12"/>
+      <stop offset="1" stop-color="#15171b"/>
+    </linearGradient>
+    <linearGradient id="boardEdge" x1="0" y1="0" x2="0" y2="1">
+      <stop stop-color="#6f5c25"/>
+      <stop offset="0.42" stop-color="#312a1b"/>
+      <stop offset="1" stop-color="#0b0c0e"/>
+    </linearGradient>
+    <linearGradient id="paper" x1="0" y1="0" x2="0" y2="1">
+      <stop stop-color="#fffef7"/>
+      <stop offset="1" stop-color="#dfddd3"/>
+    </linearGradient>
+    <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#7a6226"/>
+      <stop offset="0.28" stop-color="#d8bd68"/>
+      <stop offset="0.55" stop-color="#8c7130"/>
+      <stop offset="0.8" stop-color="#e6cd78"/>
+      <stop offset="1" stop-color="#69531e"/>
+    </linearGradient>
+    <linearGradient id="metal" x1="0" y1="0" x2="1" y2="0">
+      <stop stop-color="#71767c"/>
+      <stop offset="0.18" stop-color="#d4d8db"/>
+      <stop offset="0.48" stop-color="#888e94"/>
+      <stop offset="0.78" stop-color="#e1e4e6"/>
+      <stop offset="1" stop-color="#6b7075"/>
+    </linearGradient>
+    <linearGradient id="glass" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#f3f1e8"/>
+      <stop offset="0.42" stop-color="#d7d4ca"/>
+      <stop offset="1" stop-color="#b9b7ae"/>
+    </linearGradient>
+    <linearGradient id="flex" x1="0" y1="0" x2="1" y2="0">
+      <stop stop-color="#74300b"/><stop offset="0.48" stop-color="#df8429"/><stop offset="1" stop-color="#8a3b0d"/>
+    </linearGradient>
+    <pattern id="dots" width="18" height="18" patternUnits="userSpaceOnUse">
+      <circle cx="2" cy="2" r="0.8" fill="#ffffff" opacity="0.055"/>
+    </pattern>
+    <pattern id="paperGrain" width="7" height="7" patternUnits="userSpaceOnUse">
+      <path d="M0 2.5h7M2.5 0v7" stroke="#202020" stroke-width="0.22" opacity="0.08"/>
+    </pattern>
+    <filter id="shadow" x="-30%" y="-20%" width="160%" height="170%">
+      <feDropShadow dx="0" dy="28" stdDeviation="28" flood-color="#000000" flood-opacity="0.72"/>
+    </filter>
+    <filter id="soft" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="16"/>
+    </filter>
+    <filter id="screenShadow" x="-20%" y="-25%" width="140%" height="160%">
+      <feDropShadow dx="0" dy="7" stdDeviation="6" flood-color="#000000" flood-opacity="0.78"/>
+    </filter>
+    <filter id="padGlow" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="3" stdDeviation="3" flood-color="#e6c868" flood-opacity="0.22"/>
+    </filter>
+    <clipPath id="boardClip">
+      <rect x="320" y="75" width="560" height="812" rx="28"/>
+    </clipPath>
+  </defs>
+
+  <rect width="1200" height="1200" fill="url(#bg)"/>
+  <g opacity="0.13" fill="none" stroke="#aeb6c2" stroke-width="1">
+    <path d="M0 1050L1050 0M150 1200L1200 150"/>
+    <circle cx="600" cy="520" r="470"/>
+    <circle cx="600" cy="520" r="390"/>
+  </g>
+  <ellipse cx="600" cy="923" rx="320" ry="64" fill="#000" opacity="0.55" filter="url(#soft)"/>
+
+  <g font-family="Inter,Arial,sans-serif" letter-spacing="2">
+    <text x="92" y="88" fill="#d8bd68" font-size="18" font-weight="700">AISB / HARDWARE CONCEPT</text>
+    <text x="1108" y="88" text-anchor="end" fill="#8f98a5" font-size="15">REV 1 · FRONT</text>
+  </g>
+
+  <g filter="url(#shadow)">
+    <rect x="327" y="83" width="560" height="812" rx="28" fill="url(#boardEdge)"/>
+    <rect x="320" y="75" width="560" height="812" rx="28" fill="url(#board)" stroke="#d8bd68" stroke-width="2.8"/>
+  </g>
+  <g clip-path="url(#boardClip)">
+    <rect x="320" y="75" width="560" height="812" fill="url(#dots)"/>
+    <path d="M330 92C500 110 698 76 868 118" fill="none" stroke="#fff" stroke-width="2" opacity="0.05"/>
+    <path d="M308 730C480 674 710 741 892 690" fill="none" stroke="#d8bd68" stroke-width="1" opacity="0.08"/>
+  </g>
+
+  <!-- One centred 6 mm circular lanyard cutout. -->
+  <circle cx="600" cy="119.8" r="16.8" fill="#07090b" stroke="#725d2a" stroke-width="3"/>
+
+  <!-- Exact front copper geometry: 30-turn, 0.30 mm chamfered spiral in the unchanged 10–90 x 15–64 mm envelope. -->
+  <g transform="translate(320 75) scale(5.6)" fill="none" stroke-linejoin="round" stroke-linecap="round">
+    <path d="M11.5 15 88.5 15 90 16.5 90 62.5 88.5 64 12 64 10.5 62.5 10.5 17 12 15.5 88 15.5 89.5 17 89.5 62 88 63.5 12.5 63.5 11 62 11 17.5 12.5 16 87.5 16 89 17.5 89 61.5 87.5 63 13 63 11.5 61.5 11.5 18 13 16.5 87 16.5 88.5 18 88.5 61 87 62.5 13.5 62.5 12 61 12 18.5 13.5 17 86.5 17 88 18.5 88 60.5 86.5 62 14 62 12.5 60.5 12.5 19 14 17.5 86 17.5 87.5 19 87.5 60 86 61.5 14.5 61.5 13 60 13 19.5 14.5 18 85.5 18 87 19.5 87 59.5 85.5 61 15 61 13.5 59.5 13.5 20 15 18.5 85 18.5 86.5 20 86.5 59 85 60.5 15.5 60.5 14 59 14 20.5 15.5 19 84.5 19 86 20.5 86 58.5 84.5 60 16 60 14.5 58.5 14.5 21 16 19.5 84 19.5 85.5 21 85.5 58 84 59.5 16.5 59.5 15 58 15 21.5 16.5 20 83.5 20 85 21.5 85 57.5 83.5 59 17 59 15.5 57.5 15.5 22 17 20.5 83 20.5 84.5 22 84.5 57 83 58.5 17.5 58.5 16 57 16 22.5 17.5 21 82.5 21 84 22.5 84 56.5 82.5 58 18 58 16.5 56.5 16.5 23 18 21.5 82 21.5 83.5 23 83.5 56 82 57.5 18.5 57.5 17 56 17 23.5 18.5 22 81.5 22 83 23.5 83 55.5 81.5 57 19 57 17.5 55.5 17.5 24 19 22.5 81 22.5 82.5 24 82.5 55 81 56.5 19.5 56.5 18 55 18 24.5 19.5 23 80.5 23 82 24.5 82 54.5 80.5 56 20 56 18.5 54.5 18.5 25 20 23.5 80 23.5 81.5 25 81.5 54 80 55.5 20.5 55.5 19 54 19 25.5 20.5 24 79.5 24 81 25.5 81 53.5 79.5 55 21 55 19.5 53.5 19.5 26 21 24.5 79 24.5 80.5 26 80.5 53 79 54.5 21.5 54.5 20 53 20 26.5 21.5 25 78.5 25 80 26.5 80 52.5 78.5 54 22 54 20.5 52.5 20.5 27 22 25.5 78 25.5 79.5 27 79.5 52 78 53.5 22.5 53.5 21 52 21 27.5 22.5 26 77.5 26 79 27.5 79 51.5 77.5 53 23 53 21.5 51.5 21.5 28 23 26.5 77 26.5 78.5 28 78.5 51 77 52.5 23.5 52.5 22 51 22 28.5 23.5 27 76.5 27 78 28.5 78 50.5 76.5 52 24 52 22.5 50.5 22.5 29 24 27.5 76 27.5 77.5 29 77.5 50 76 51.5 24.5 51.5 23 50 23 29.5 24.5 28 75.5 28 77 29.5 77 49.5 75.5 51 25 51 23.5 49.5 23.5 30 25 28.5 75 28.5 76.5 30 76.5 49 75 50.5 25.5 50.5 24 49 24 30.5 25.5 29 74.5 29 76 30.5 76 48.5 74.5 50 26 50 24.5 48.5 24.5 31 26 29.5 74 29.5 75.5 31 75.5 48 74 49.5 26.5 49.5 25 48 25 31.5 26.5 30" stroke="#6d5a31" stroke-width="0.30" opacity="0.56"/>
+  </g>
+  <circle cx="384.4" cy="159" r="3.3" fill="#3e3524" stroke="#78653a" stroke-width="0.8" opacity="0.72"/>
+  <circle cx="468.4" cy="243" r="3.3" fill="#3e3524" stroke="#78653a" stroke-width="0.8" opacity="0.72"/>
+  <text x="392" y="149" fill="#897747" font-family="Inter,Arial,sans-serif" font-size="10" font-weight="700" letter-spacing="1.45">PASSIVE EM PICKUP · 30T/LAYER · 60T SERIES</text>
+
+  <!-- Silkscreen brand lockup. -->
+  <g font-family="Inter,Arial,sans-serif" text-anchor="middle">
+    <!-- AISB wordmark outlined from Space Grotesk Bold so the letterforms are portable. -->
+    <g fill="#f7f7f5" fill-rule="evenodd" transform="translate(502.875 315) scale(.084 -.084)">
+      <path d="M18 0L202 700L432 700L616 0L480 0L442 154L192 154L154 0ZM223 276L411 276L326 617L308 617Z"/>
+      <path d="M66 0L66 700L198 700L198 0Z" transform="translate(614)"/>
+      <path d="M309 -14Q228 -14 166 15Q104 44 69 98Q34 152 34 228L34 256L164 256L164 228Q164 165 203 133.5Q242 102 309 102Q377 102 410.5 129Q444 156 444 198Q444 227 427.5 245Q411 263 379.5 274.5Q348 286 303 296L280 301Q208 317 156.5 341.5Q105 366 77.5 406Q50 446 50 510Q50 574 80.5 619.5Q111 665 166.5 689.5Q222 714 297 714Q372 714 430.5 688.5Q489 663 522.5 612.5Q556 562 556 486L556 456L426 456L426 486Q426 526 410.5 550.5Q395 575 366 586.5Q337 598 297 598Q237 598 208.5 575.5Q180 553 180 514Q180 488 193.5 470Q207 452 234 440Q261 428 303 419L326 414Q401 398 456.5 373Q512 348 543 307Q574 266 574 202Q574 138 541.5 89.5Q509 41 449.5 13.5Q390 -14 309 -14Z" transform="translate(858)"/>
+      <path d="M46 0L46 116L138 116L138 584L46 584L46 700L406 700Q470 700 517.5 678.5Q565 657 591.5 617.5Q618 578 618 523L618 513Q618 465 600 434.5Q582 404 557.5 387.5Q533 371 511 364L511 346Q533 340 559 323.5Q585 307 603.5 276Q622 245 622 195L622 185Q622 127 595 85.5Q568 44 520.5 22Q473 0 410 0ZM270 120L394 120Q437 120 463.5 141Q490 162 490 201L490 211Q490 250 464 271Q438 292 394 292L270 292ZM270 412L392 412Q433 412 459.5 433Q486 454 486 491L486 501Q486 539 460 559.5Q434 580 392 580L270 580Z" transform="translate(1440)"/>
+    </g>
+    <rect x="681.9" y="299.775" width="15.225" height="15.225" fill="#ef4444"/>
+    <text x="600" y="338" fill="#f6f6f4" font-size="12" font-weight="700" letter-spacing="1.8">AI SECURITY BOOTCAMP · LAS VEGAS 2026</text>
+  </g>
+
+  <!-- Screwless instrument viewport. The panel is centred at board x=50 mm.
+       FPC tip x=4.0, signal row x≈5.0, right-facing mouth x≈5.5, glass x=7.65 mm:
+       1.5 mm is inserted and the straight exposed span is only 2.15 mm. -->
+  <g filter="url(#screenShadow)">
+    <!-- Front-mounted FH34, shown before the opaque service spine is fitted.
+         Retention/actuator is LEFT; signal pads and the cable mouth are RIGHT toward the panel. -->
+    <g>
+      <!-- Full FPC from its inserted x=4.0 tip to the glass. Connector body is drawn over the insertion. -->
+      <path d="M342.4 567.55h20.44v70H342.4z" fill="url(#flex)" stroke="#f2a84c" stroke-width="1"/>
+      <path d="M343 570h19M343 572.7h19M343 575.4h19M343 578.1h19M343 580.8h19M343 583.5h19M343 586.2h19M343 588.9h19M343 591.6h19M343 594.3h19M343 597h19M343 599.7h19M343 602.4h19M343 605.1h19M343 607.8h19M343 610.5h19M343 613.2h19M343 615.9h19M343 618.6h19M343 621.3h19M343 624h19M343 626.7h19M343 629.4h19M343 632.1h19" stroke="#ffce77" stroke-width=".75" opacity=".62"/>
+      <rect x="329.52" y="557.47" width="21.28" height="90.16" rx="3.5" fill="#15191d" stroke="#858c92" stroke-width="1.3"/>
+      <rect x="329.52" y="561" width="9.2" height="83.1" rx="2" fill="#262b2f"/>
+      <path d="M330.2 565h6M330.2 640h6" stroke="#c7caca" stroke-width="3"/>
+      <!-- Twenty-four signal-pad marks lie at board x≈5.0 mm, immediately behind the right mouth. -->
+      <path d="M346.2 570h3.7M346.2 572.7h3.7M346.2 575.4h3.7M346.2 578.1h3.7M346.2 580.8h3.7M346.2 583.5h3.7M346.2 586.2h3.7M346.2 588.9h3.7M346.2 591.6h3.7M346.2 594.3h3.7M346.2 597h3.7M346.2 599.7h3.7M346.2 602.4h3.7M346.2 605.1h3.7M346.2 607.8h3.7M346.2 610.5h3.7M346.2 613.2h3.7M346.2 615.9h3.7M346.2 618.6h3.7M346.2 621.3h3.7M346.2 624h3.7M346.2 626.7h3.7M346.2 629.4h3.7M346.2 632.1h3.7" stroke="#e2c66d" stroke-width="1.15"/>
+      <path d="M350.8 565v75" stroke="#edf0ef" stroke-width="1.5" opacity=".82"/>
+    </g>
+
+    <!-- Raw glass, black spacer and the clear captured lens. -->
+    <path d="M359 439.2h482l9.8 9.8v307.2l-9.8 9.8H359l-9-9V448.2zm42 17.2v292.9h428.7V456.4z" fill="#080b0e" fill-rule="evenodd" stroke="#5f6670" stroke-width="1.5"/>
+    <rect x="362.84" y="450.2" width="474.32" height="304.7" rx="3.5" fill="url(#glass)" stroke="#6d6f70" stroke-width="3"/>
+    <path d="M366 453h468" stroke="#fff" stroke-width="2" opacity="0.48"/>
+    <rect x="406.63" y="463.47" width="417.26" height="278.15" rx="1.5" fill="url(#paper)" stroke="#aaa79f" stroke-width="1.6"/>
+    <rect x="406.63" y="463.47" width="417.26" height="278.15" rx="1.5" fill="url(#paperGrain)"/>
+    <rect x="370" y="527" width="28" height="150" rx="4" fill="#c0bdb3" opacity="0.78"/>
+    <rect x="353.6" y="443.5" width="492.8" height="317.8" rx="7" fill="#d9f4ff" fill-opacity="0.055" stroke="#c8d3d8" stroke-width="1.25"/>
+    <path d="M359 449h476" stroke="#fff" stroke-width="1.6" opacity="0.42"/>
+
+    <!-- Opaque full-height service spine: removable adhesive/snap cap, no fasteners. -->
+    <path d="M321 448.5l9-9h71v326.5h-71l-9-9z" fill="#101419" stroke="#d8bd68" stroke-width="1.35"/>
+    <path d="M392 452v301" stroke="#5c646d" stroke-width="1.3"/>
+    <rect x="330" y="559" width="54" height="87" rx="4" fill="none" stroke="#6e7780" stroke-width="1" stroke-dasharray="4 3"/>
+    <text x="357" y="603" transform="rotate(-90 357 603)" text-anchor="middle" fill="#aeb5bc" font-family="Inter,Arial,sans-serif" font-size="7.4" font-weight="700" letter-spacing="1.2">FH34 RIGHT-FACING · LIFT TO SERVICE</text>
+  </g>
+  <g font-family="Inter,Arial,sans-serif" fill="#111214" text-anchor="middle">
+    <text x="615.3" y="510" font-size="17" font-weight="700" letter-spacing="3">AISB / VEGAS 2026</text>
+    <line x1="455" y1="528" x2="775" y2="528" stroke="#111214" stroke-width="2"/>
+    <text x="615.3" y="610" font-size="52" font-weight="800" letter-spacing="0.2">ALEX RIVERA</text>
+    <text x="615.3" y="650" font-size="19" letter-spacing="1.3">@alex  ·  PARTICIPANT</text>
+    <line x1="475" y1="681" x2="755" y2="681" stroke="#111214" stroke-width="1.5"/>
+    <text x="615.3" y="715" font-size="14" font-weight="700" letter-spacing="1.8">AI SECURITY BOOTCAMP</text>
+  </g>
+  <g fill="#111214" opacity="0.88">
+    <rect x="421" y="478" width="3" height="25"/><rect x="427" y="478" width="7" height="25"/><rect x="438" y="478" width="2" height="25"/>
+    <rect x="805" y="478" width="3" height="25"/><rect x="796" y="478" width="6" height="25"/><rect x="788" y="478" width="2" height="25"/>
+  </g>
+
+  <g font-family="Inter,Arial,sans-serif" text-anchor="middle">
+    <text x="600" y="800" fill="#f3f3f1" font-size="14" font-weight="700" letter-spacing="2.3">3.52-IN RAW E-PAPER NAME BADGE</text>
+    <text x="600" y="827" fill="#9da5ae" font-size="10" letter-spacing="1.6">FRONT FH34 UNDER SERVICE SPINE · IMAGE STAYS WITHOUT POWER</text>
+    <text x="600" y="858" fill="#69727d" font-size="8.2" letter-spacing="1.15">COPPER PATH EMPHASIZED FOR CLARITY · PRODUCTION COIL IS MASK-COVERED</text>
+  </g>
+
+  <!-- Product-view dimension and material caption. -->
+  <g font-family="Inter,Arial,sans-serif">
+    <line x1="320" y1="965" x2="880" y2="965" stroke="#68717d" stroke-width="1.5"/>
+    <line x1="320" y1="955" x2="320" y2="975" stroke="#68717d" stroke-width="1.5"/>
+    <line x1="880" y1="955" x2="880" y2="975" stroke="#68717d" stroke-width="1.5"/>
+    <rect x="520" y="946" width="160" height="38" rx="19" fill="#1d2229" stroke="#4b535e"/>
+    <text x="600" y="971" text-anchor="middle" fill="#eef0f2" font-size="15" font-weight="700" letter-spacing="1.8">100 × 145 MM</text>
+    <text x="600" y="1046" text-anchor="middle" fill="#f4f4f2" font-size="24" font-weight="700">Conference badge / passive instrument</text>
+    <text x="600" y="1080" text-anchor="middle" fill="#9ba4af" font-size="15" letter-spacing="1.2">BLACK PCB · WHITE SILK · 3.52-IN RAW E-PAPER · PASSIVE PICKUP</text>
+    <text x="600" y="1135" text-anchor="middle" fill="#626b76" font-size="12" letter-spacing="1.8">ILLUSTRATIVE REV-1 RENDER · COMPONENT FINISH MAY VARY</text>
+  </g>
+</svg>

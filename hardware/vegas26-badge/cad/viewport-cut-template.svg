@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="100mm" height="70mm" viewBox="0 0 100 70">
+  <title>AISB Vegas 2026 badge instrument-viewport fabrication template</title>
+  <desc>One-to-one millimetre template. Enable only the desired fabrication group. Verify against a physical Waveshare 3.52-inch panel and FH34 connector before cutting production parts.</desc>
+  <style>
+    .cut { fill: none; stroke-width: .10; vector-effect: non-scaling-stroke; }
+    .guide { fill: none; stroke: #737b84; stroke-width: .10; stroke-dasharray: .7 .5; }
+    .note { font-family: sans-serif; font-size: 1.35px; fill: #222; }
+  </style>
+
+  <!-- Badge coordinates are translated by y=-60 mm on this 100 x 70 mm sheet. -->
+  <g id="lens-cut" aria-label="CUT: 0.5 mm hard-coated clear polycarbonate">
+    <rect class="cut" x="6" y="5.2" width="88" height="58" rx="1.5" stroke="#0066ff"/>
+  </g>
+
+  <g id="spacer-cut" aria-label="CUT: nominal 1.48 mm black PETG spacer">
+    <path class="cut" stroke="#ff00aa" fill-rule="evenodd"
+      d="M7.5 5.2H92.5A1.5 1.5 0 0 1 94 6.7V61.7A1.5 1.5 0 0 1 92.5 63.2H7.5A1.5 1.5 0 0 1 6 61.7V6.7A1.5 1.5 0 0 1 7.5 5.2Z
+         M7.70 6.50H92.30A.55 .55 0 0 1 92.85 7.05V61.36A.55 .55 0 0 1 92.30 61.91H7.70A.55 .55 0 0 1 7.15 61.36V7.05A.55 .55 0 0 1 7.70 6.50Z"/>
+  </g>
+
+  <g id="underside-black-print" aria-label="PRINT: black on underside of clear lens">
+    <path fill="#111318" fill-rule="evenodd" opacity=".72"
+      d="M7.5 5.2H92.5A1.5 1.5 0 0 1 94 6.7V61.7A1.5 1.5 0 0 1 92.5 63.2H7.5A1.5 1.5 0 0 1 6 61.7V6.7A1.5 1.5 0 0 1 7.5 5.2Z
+         M15.50 9.08H89.95A.45 .45 0 0 1 90.40 9.53V58.88A.45 .45 0 0 1 89.95 59.33H15.50A.45 .45 0 0 1 15.05 58.88V9.53A.45 .45 0 0 1 15.50 9.08Z"/>
+  </g>
+
+  <g id="fit-guides" aria-label="GUIDES: do not cut">
+    <rect class="guide" x="7.65" y="7" width="84.7" height="54.41" rx=".35"/>
+    <rect class="guide" x="15.47" y="9.37" width="74.51" height="49.67"/>
+    <rect x="4" y="27.955" width="3.65" height="12.5" fill="#c87532" opacity=".55"/>
+    <rect class="guide" x="1.7" y="27.205" width="3.8" height="14" rx=".3"/>
+    <rect class="guide" x=".8" y="25.455" width="7.8" height="17.5" rx=".5"/>
+    <path class="guide" d="M5.5 27.955V40.455"/>
+  </g>
+
+  <g id="notes">
+    <text class="note" x="1" y="66">Blue: lens cut · Magenta: spacer cut · Black: underside print · Grey/orange: fit guides only</text>
+    <text class="note" x="1" y="68">1:1 mm · physical dry-fit required · service-spine STL comes from vegas26-badge.scad</text>
+  </g>
+</svg>

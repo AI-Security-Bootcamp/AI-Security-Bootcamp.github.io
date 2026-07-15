@@ -1,0 +1,15 @@
+Reference,Quantity,Description,Suggested part/package,Status,Notes
+HAT-DRIVER,2,Universal raw-panel Driver HAT,Waveshare SKU 13512,Buy,"Independent bench stations; confirm supplied 3.52-inch adapter and switch settings on receipt"
+HAT-HOST,2,HAT-compatible host/controller,Raspberry Pi with 40-pin GPIO or Waveshare-supported controller,Buy,"One dedicated tested host per Driver HAT; do not count a bare HAT as a station"
+HAT-STORAGE,2,Prepared boot media and pinned software,microSD card,Prepare,"Keep a cloned spare image; use official e-Paper repository commit 500fa7c6f57b786102cccb866682f8cc43e08996"
+HAT-POWER,2,Host power supply and cable,Host-specific qualified supply,Buy,Label and keep with its station
+ESP32-DRIVER,1,Universal raw-panel ESP32 WiFi/Bluetooth Driver Board V3,Waveshare SKU 15823,Buy,"Experimental participant add-on and rear-bay fit sample; verify USB-C revision and complete 3.52-inch refresh before relying on it"
+HAT-REF,1-2,Complete 3.52-inch e-Paper HAT,Waveshare SKU 22698,Buy,"Known-good electrical/software reference or emergency complete assembly; bulky wearable fallback"
+PANEL-GOLDEN,2,Known-good 3.52-inch raw panel,Waveshare SKU 22609,Reserve,Keep one labeled panel with each Driver HAT station
+CUSTOM-MCU,2,Reusable custom-programmer MCU,Seeed XIAO ESP32-S3,Buy,Working station plus complete spare
+CUSTOM-PROBE,2,No-legs spring-pin programming cable,Tag-Connect TC2050-IDC-NL,Buy,Working cable plus complete spare
+CUSTOM-ADAPTER,2,Switched current-limited 3.3V target-power adapter,Custom fixture PCB or verified bench adapter,Design,"D4-controlled load switch; must not apply 5V to badge"
+FIXTURE,2,Nonconductive badge/probe alignment nest,Laser-cut or 3D-printed,Make,Supports board and prevents probe slips
+FLEX-TOOLS,2,Plastic ZIF tool and ESD-safe fine tweezers,Generic,Buy,No metal levering against powered circuitry
+KAPTON,2 rolls,Polyimide tape,Generic,Buy,Temporary flex insulation and strain relief
+USB,4,Known-good data/power cables,Host-specific,Buy,Label per station
