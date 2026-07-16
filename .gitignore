@@ -42,3 +42,8 @@ next-env.d.ts
 /.idea/
 /projects/
 /dmarc/
+
+# local agent and scratch data
+/.claude/settings.local.json
+/snapshots/
+/tmp/

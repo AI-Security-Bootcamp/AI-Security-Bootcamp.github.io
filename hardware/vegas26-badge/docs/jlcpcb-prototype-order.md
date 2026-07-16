@@ -6,8 +6,11 @@ assembled units until those five pass the electrical and display tests in
 [`two-week-release-plan.md`](two-week-release-plan.md).
 
 The repository's `bom.csv` is a descriptive prototype BOM. It is **not** a
-JLCPCB assembly BOM: it has no exact manufacturer or LCSC part numbers and it
-also includes the display, tooling, and manually fitted mechanical parts.
+JLCPCB assembly BOM: it includes the display, tooling, and manually fitted
+mechanical parts. The controlled machine-assembly snapshot is in
+[`assembly/jlcpcb-bom.csv`](../assembly/jlcpcb-bom.csv), paired with
+[`assembly/jlcpcb-cpl.csv`](../assembly/jlcpcb-cpl.csv). Confirm its live part
+inventory again at upload time.
 
 ## Release gates before export
 
@@ -95,12 +98,12 @@ JLCPCB policy adds no board mark by default, so do not add the obsolete
 For assembled prototypes, select **Standard PCBA** and **both-side assembly**:
 J1 is on the front and the remaining populated SMD parts are on the back.
 
-Upload:
+Upload the controlled files:
 
-- a production BOM with `Comment`, `Designator`, `Footprint`, and exact
-  `JLCPCB/LCSC Part #` fields; and
-- a CPL/centroid CSV with `Designator`, `Mid X`, `Mid Y`, `Rotation`, and
-  `Layer`, in millimetres.
+- [`assembly/jlcpcb-bom.csv`](../assembly/jlcpcb-bom.csv), with `Comment`,
+  `Designator`, `Footprint`, and exact `JLCPCB Part #` fields; and
+- [`assembly/jlcpcb-cpl.csv`](../assembly/jlcpcb-cpl.csv), with `Designator`,
+  `Mid X`, `Mid Y`, `Rotation`, and `Layer`, in millimetres.
 
 Every populated reference must occur exactly once in both files. Review every
 automatic part match rather than accepting substitutions by value alone.

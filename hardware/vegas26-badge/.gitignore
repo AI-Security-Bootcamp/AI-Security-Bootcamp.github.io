@@ -5,6 +5,8 @@ _autosave-*
 *-backups/
 fab/
 manufacturing-output/
+/out/
+*.rpt
 .DS_Store
 __pycache__/
 *.pyc
