@@ -3,30 +3,56 @@
 import { useState, useEffect, useRef } from "react";
 import posthog from "posthog-js";
 
-const editions = [
+type Cohort = {
+  name: string;
+  year: string;
+  href: string;
+  analyticsId: string;
+  detail: string;
+  description: string;
+  endDate: string;
+};
+
+const editions: Cohort[] = [
   {
     name: "AISB Vegas",
     year: "2026",
     href: "/vegas26",
+    analyticsId: "vegas_2026",
     detail: "7-day intensive · 20 participants · August 2026",
     description:
       "A frontier AI security cohort during the Las Vegas summer security calendar. Threat modelling, adversarial attacks, LLM and infrastructure security.",
+    endDate: "2026-08-08",
+  },
+  {
+    name: "AISB London",
+    year: "2026",
+    href: "/london26",
+    analyticsId: "london_2026",
+    detail: "7-day intensive · 20 participants · September 2026",
+    description:
+      "An intensive cohort for security professionals shaping how we secure emerging AI systems, from adversarial attacks and LLM security to infrastructure and governance.",
+    endDate: "2026-09-05",
   },
   {
     name: "AISB Singapore",
     year: "2026",
     href: "/singapore",
+    analyticsId: "singapore_2026",
     detail: "7-day intensive · 16 participants · April 2026",
     description:
       "A focused practitioner cohort run alongside Black Hat Asia. Threat modelling, adversarial attacks, LLM and infrastructure security.",
+    endDate: "2026-04-26",
   },
   {
     name: "AISB London",
     year: "2025",
     href: "/2025",
+    analyticsId: "london_2025",
     detail: "4-week intensive · 20 participants · August 2025",
     description:
       "The first AISB cohort. Four weeks of security fundamentals, infrastructure, and AI-specific threats \u2014 culminating in a week of capstone projects.",
+    endDate: "2025-08-29",
   },
 ];
 
@@ -159,7 +185,7 @@ function ThemeToggle({ isDark, toggle }: { isDark: boolean; toggle: () => void }
   );
 }
 
-function CohortsCarousel({ items }: { items: typeof editions }) {
+function CohortsCarousel({ items }: { items: Cohort[] }) {
   const ref = useRef<HTMLDivElement>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(false);
@@ -314,45 +340,58 @@ const teamFeatured = [
   },
 ];
 
-const pastPrograms = [
-  { href: "/vegas26", label: "AISB Vegas 2026", edition: "vegas_2026" },
-  { href: "/singapore", label: "AISB Singapore 2026", edition: "singapore_2026" },
-  { href: "/2025", label: "AISB London 2025", edition: "london_2025" },
-];
-
 export default function Home() {
   const { isDark, toggle, mounted } = useTheme();
+  const [currentDate, setCurrentDate] = useState<string | null>(null);
   const [pastOpen, setPastOpen] = useState(false);
+
+  const upcomingEditions = currentDate
+    ? editions
+        .filter((edition) => edition.endDate >= currentDate)
+        .sort((a, b) => a.endDate.localeCompare(b.endDate))
+    : editions;
+  const pastEditions = currentDate
+    ? editions
+        .filter((edition) => edition.endDate < currentDate)
+        .sort((a, b) => b.endDate.localeCompare(a.endDate))
+    : [];
 
   const scrollTo = (id: string) => {
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
   };
 
   useEffect(() => {
+    const updateCurrentDate = () => setCurrentDate(new Date().toISOString().slice(0, 10));
+    updateCurrentDate();
+    const interval = window.setInterval(updateCurrentDate, 60_000);
+    return () => window.clearInterval(interval);
+  }, []);
+
+  useEffect(() => {
     if (!pastOpen) return;
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setPastOpen(false);
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setPastOpen(false);
     };
-    document.addEventListener("keydown", onKey);
-    return () => document.removeEventListener("keydown", onKey);
+    document.addEventListener("keydown", onKeyDown);
+    return () => document.removeEventListener("keydown", onKeyDown);
   }, [pastOpen]);
 
   return (
     <div className="bg-white dark:bg-black text-black dark:text-white min-h-screen font-sans transition-colors">
       {mounted && <ThemeToggle isDark={isDark} toggle={toggle} />}
 
-      {/* ===================== PAST PROGRAMS MODAL ===================== */}
+      {/* ===================== PROGRAMS MODAL ===================== */}
       {pastOpen && (
         <div
           className="fixed inset-0 z-[60] flex items-center justify-center p-6 bg-black/60 backdrop-blur-sm"
           onClick={() => setPastOpen(false)}
           role="dialog"
           aria-modal="true"
-          aria-label="Past programs"
+          aria-label="Programs"
         >
           <div
-            className="relative w-full max-w-md bg-white dark:bg-black border-2 border-black dark:border-white p-8"
-            onClick={(e) => e.stopPropagation()}
+            className="relative w-full max-w-md max-h-[calc(100vh-3rem)] overflow-y-auto bg-white dark:bg-black border-2 border-black dark:border-white p-8"
+            onClick={(event) => event.stopPropagation()}
           >
             <button
               onClick={() => setPastOpen(false)}
@@ -362,19 +401,66 @@ export default function Home() {
               {"×"}
             </button>
             <h2 className="text-2xl md:text-3xl font-black tracking-tight mb-6">
-              Past Programs
+              Programs
             </h2>
-            <div className="flex flex-col gap-4">
-              {pastPrograms.map((p) => (
-                <a
-                  key={p.href}
-                  href={p.href}
-                  onClick={() => { posthog.capture("clicked_edition", { edition: p.edition, location: "past_programs_modal" }); }}
-                  className="inline-block border-2 border-black dark:border-white text-black dark:text-white font-black text-sm uppercase tracking-widest px-6 py-4 bg-transparent hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-colors"
-                >
-                  {p.label}
-                </a>
-              ))}
+            <div className="space-y-8">
+              <div>
+                <h3 className="text-xs font-black uppercase tracking-widest text-[#ef4444] mb-4">
+                  Upcoming
+                </h3>
+                <div className="flex flex-col gap-4">
+                  {upcomingEditions.length > 0 ? (
+                    upcomingEditions.map((edition) => (
+                      <a
+                        key={edition.href}
+                        href={edition.href}
+                        onClick={() => {
+                          posthog.capture("clicked_edition", {
+                            edition: edition.analyticsId,
+                            location: "programs_modal",
+                          });
+                        }}
+                        className="inline-block border-2 border-black dark:border-white text-black dark:text-white font-black text-sm uppercase tracking-widest px-6 py-4 bg-transparent hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-colors"
+                      >
+                        {edition.name} {edition.year}
+                      </a>
+                    ))
+                  ) : (
+                    <p className="text-neutral-500 dark:text-neutral-400">
+                      No upcoming programs yet.
+                    </p>
+                  )}
+                </div>
+              </div>
+
+              <div>
+                <h3 className="text-xs font-black uppercase tracking-widest text-[#ef4444] mb-4">
+                  Past
+                </h3>
+                <div className="flex flex-col gap-4">
+                  {pastEditions.length > 0 ? (
+                    pastEditions.map((edition) => (
+                      <a
+                        key={edition.href}
+                        href={edition.href}
+                        onClick={() => {
+                          posthog.capture("clicked_edition", {
+                            edition: edition.analyticsId,
+                            location: "programs_modal",
+                          });
+                        }}
+                        className="inline-block border-2 border-black dark:border-white text-black dark:text-white font-black text-sm uppercase tracking-widest px-6 py-4 bg-transparent hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-colors"
+                      >
+                        {edition.name} {edition.year}
+                      </a>
+                    ))
+                  ) : (
+                    <p className="text-neutral-500 dark:text-neutral-400">
+                      No past programs yet.
+                    </p>
+                  )}
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -403,14 +489,17 @@ export default function Home() {
 
           <div className="flex flex-wrap items-start gap-4 mb-12">
             <a
-              href="/london26"
-              onClick={() => { posthog.capture("clicked_edition", { edition: "london_2026", location: "hero" }); }}
+              href="/eoi"
+              onClick={() => { posthog.capture("clicked_expression_of_interest", { location: "hero" }); }}
               className="inline-block bg-[#ef4444] text-white font-black text-sm uppercase tracking-widest px-8 py-4 hover:bg-red-600 transition-colors"
             >
-              Apply Now
+              Submit EOI
             </a>
             <button
-              onClick={() => { setPastOpen(true); posthog.capture("clicked_past_programs", { location: "hero" }); }}
+              onClick={() => {
+                setPastOpen(true);
+                posthog.capture("clicked_past_programs", { location: "hero" });
+              }}
               className="inline-block border-2 border-black dark:border-white text-black dark:text-white font-black text-sm uppercase tracking-widest px-8 py-4 bg-transparent hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-colors cursor-pointer"
             >
               Past Programs
@@ -426,7 +515,7 @@ export default function Home() {
       <nav className="px-6 md:px-16 lg:px-24 py-6 border-t-2 border-black dark:border-white flex flex-wrap gap-8">
         {[
           { label: "About", id: "about" },
-          { label: "Past Cohorts", id: "cohorts" },
+          { label: "Cohorts", id: "cohorts" },
           { label: "Team", id: "team" },
           { label: "FAQs", id: "faqs" },
         ].map((item) => (
@@ -472,23 +561,47 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ===================== PAST COHORTS ===================== */}
+      {/* ===================== COHORTS ===================== */}
       <section
         id="cohorts"
         className="px-6 md:px-16 lg:px-24 py-20 border-t-2 border-black dark:border-white"
       >
-        <h2 className="text-4xl md:text-5xl lg:text-6xl font-black mb-16 tracking-tight">
-          Past Cohorts
+        <h2 className="text-4xl md:text-5xl lg:text-6xl font-black mb-12 tracking-tight">
+          Cohorts
         </h2>
 
-        <CohortsCarousel items={editions} />
+        <div>
+          <h3 className="text-sm font-black uppercase tracking-widest text-[#ef4444] mb-6">
+            Upcoming
+          </h3>
+          {upcomingEditions.length > 0 ? (
+            <CohortsCarousel items={upcomingEditions} />
+          ) : (
+            <p className="text-neutral-500 dark:text-neutral-400 text-base md:text-lg leading-relaxed">
+              No upcoming cohorts have been announced yet.
+            </p>
+          )}
+        </div>
+
+        <div className="mt-16">
+          <h3 className="text-sm font-black uppercase tracking-widest text-[#ef4444] mb-6">
+            Past
+          </h3>
+          {pastEditions.length > 0 ? (
+            <CohortsCarousel items={pastEditions} />
+          ) : (
+            <p className="text-neutral-500 dark:text-neutral-400 text-base md:text-lg leading-relaxed">
+              Past cohorts will appear here once they conclude.
+            </p>
+          )}
+        </div>
 
         <p className="text-neutral-500 dark:text-neutral-400 text-base md:text-lg leading-relaxed mt-12 max-w-3xl">
-          Applications for{" "}
-          <a href="/london26" className="underline hover:text-[#ef4444] transition-colors">
-            AISB London 2026
+          Interested in a future cohort?{" "}
+          <a href="/eoi" className="underline hover:text-[#ef4444] transition-colors">
+            Submit an expression of interest
           </a>{" "}
-          are now open.
+          and we&apos;ll keep you in the loop.
         </p>
       </section>
 
@@ -606,11 +719,11 @@ export default function Home() {
           </p>
           <div className="flex flex-wrap gap-4">
             <a
-              href="/london26"
-              onClick={() => { posthog.capture("clicked_edition", { edition: "london_2026", location: "cta_section" }); }}
+              href="/eoi"
+              onClick={() => { posthog.capture("clicked_expression_of_interest", { location: "cta_section" }); }}
               className="inline-block bg-[#ef4444] text-white font-black text-sm uppercase tracking-widest px-8 py-4 hover:bg-red-600 transition-colors"
             >
-              Apply now: AISB London
+              Submit EOI
             </a>
             <a
               href="/staff"
@@ -626,7 +739,10 @@ export default function Home() {
       <footer className="px-6 md:px-16 lg:px-24 py-8 border-t-2 border-black dark:border-white flex flex-col items-start gap-4">
         <div className="flex flex-wrap gap-6">
           <button
-            onClick={() => { setPastOpen(true); posthog.capture("clicked_past_programs", { location: "footer" }); }}
+            onClick={() => {
+              setPastOpen(true);
+              posthog.capture("clicked_past_programs", { location: "footer" });
+            }}
             className="text-neutral-400 dark:text-neutral-600 text-sm font-bold uppercase tracking-widest hover:text-[#ef4444] transition-colors bg-transparent border-none cursor-pointer p-0"
           >
             Past Programs

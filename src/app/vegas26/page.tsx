@@ -536,7 +536,7 @@ function TestimonialCard({ t }: { t: Testimonial }) {
   );
 }
 
-const APPLICATION_URL = "https://airtable.com/appyq1bBRnK6s7AkM/paglvXzxYAiJclCZX/form";
+const EOI_URL = "/eoi";
 
 export default function Home() {
   const { isDark, toggle, mounted } = useTheme();
@@ -584,11 +584,11 @@ export default function Home() {
 
           <div className="flex flex-wrap gap-4 mb-6">
             <a
-              href={APPLICATION_URL}
-              onClick={() => { posthog.capture("clicked_apply_now", { location: "vegas26_hero" }); }}
+              href={EOI_URL}
+              onClick={() => { posthog.capture("clicked_expression_of_interest", { location: "vegas26_hero" }); }}
               className="inline-block bg-[#ef4444] text-white font-black text-sm uppercase tracking-widest px-8 py-4 hover:bg-red-600 transition-colors"
             >
-              Apply Now
+              Expression of Interest
             </a>
             <button
               onClick={() => scrollTo("overview")}
@@ -839,21 +839,20 @@ export default function Home() {
       <section className="px-6 md:px-16 lg:px-24 py-20 border-t-2 border-black dark:border-white">
         <div className="max-w-3xl">
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-black mb-8 tracking-tight">
-            Ready to Apply?
+            Interested in Vegas 2026?
           </h2>
           <p className="text-neutral-500 dark:text-neutral-400 text-base md:text-lg leading-relaxed mb-4 max-w-xl">
-            Applications close June 21, 2026. We review on a rolling basis and will prioritize applications we receive
-            before the deadline. Early applications are encouraged.
+            Submit an expression of interest and we&apos;ll keep you in the loop about the upcoming Vegas bootcamp.
           </p>
           <p className="text-neutral-500 dark:text-neutral-400 text-base md:text-lg leading-relaxed mb-10 max-w-xl">
             Reach out to <a href="mailto:pranav@aisb.dev" className="underline hover:text-[#ef4444] transition-colors">pranav@aisb.dev</a> with questions about the program.
           </p>
           <a
-            href={APPLICATION_URL}
-            onClick={() => { posthog.capture("clicked_apply_now", { location: "vegas26_cta" }); }}
+            href={EOI_URL}
+            onClick={() => { posthog.capture("clicked_expression_of_interest", { location: "vegas26_cta" }); }}
             className="inline-block bg-[#ef4444] text-white font-black text-sm uppercase tracking-widest px-8 py-4 hover:bg-red-600 transition-colors"
           >
-            Apply Now
+            Expression of Interest
           </a>
         </div>
       </section>
