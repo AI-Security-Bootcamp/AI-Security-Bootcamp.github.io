@@ -311,13 +311,6 @@ const teamFeatured = [
     linkedin: "https://www.linkedin.com/in/jmichelfeit/",
   },
   {
-    name: "David Williams-King",
-    role: "Curriculum",
-    image: "/david.png",
-    bio: "Research Manager at ERA, upskilling fellows in technical AI safety research. PhD from Columbia in systems and security; previously CTO and cofounder of cybersecurity insurance startup Elpha Secure.",
-    linkedin: "https://www.linkedin.com/in/david-williams-king/",
-  },
-  {
     name: "Nitzan Shulman",
     role: "Advisor",
     image: "/nitzan.png",
