@@ -123,7 +123,7 @@ export default function StaffPage() {
             Staff<span className="text-[#ef4444]">.</span>
           </h1>
           <p className="text-lg md:text-xl text-neutral-500 dark:text-neutral-400 max-w-2xl leading-relaxed">
-            Everyone who has helped run AISB cohorts &mdash; grouped by programme.
+            Everyone who has helped run AISB cohorts, grouped by programme.
           </p>
         </div>
       </section>

@@ -106,7 +106,7 @@ export function LinkedinSquare({ dark = false, id }: LinkedinSquareProps) {
             lineHeight: 1.1,
           }}
         >
-          Aug 30 &ndash; Sep 5, 2026
+          Aug 30 - Sep 5, 2026
           <span style={{ color: COLOR, margin: "0 14px" }}>·</span>
           London
         </p>
@@ -184,7 +184,7 @@ export function LinkedinSquare({ dark = false, id }: LinkedinSquareProps) {
 }
 
 /**
- * LinkedinSquareScaled — wraps LinkedinSquare with a CSS scale transform so
+ * LinkedinSquareScaled - wraps LinkedinSquare with a CSS scale transform so
  * it renders at a smaller display size (e.g. as a thumbnail). The inner
  * element keeps its 1080 × 1080 coordinate space so screenshotting / DOM
  * measurement still work.

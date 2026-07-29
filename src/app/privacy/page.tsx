@@ -114,7 +114,7 @@ export default function PrivacyPolicy() {
 
           <Section title="Information we collect">
             <p>
-              We collect personal information when you interact with us &mdash; for example when you
+              We collect personal information when you interact with us, for example when you
               visit our website, apply to or take part in a program, sign up to hear from us,
               communicate with us by email, messaging and chat platforms, or video and phone calls, take
               part in interviews, surveys, or events, or otherwise engage with AISB, whether online or in
@@ -155,21 +155,21 @@ export default function PrivacyPolicy() {
             </p>
             <ul className="list-disc pl-6 space-y-2">
               <li>
-                <span className="font-bold text-black dark:text-white">Consent</span> &mdash; for
+                <span className="font-bold text-black dark:text-white">Consent</span>: for
                 example, for optional communications, non-essential cookies, and publishing certain
                 information about you;
               </li>
               <li>
-                <span className="font-bold text-black dark:text-white">Performance of a contract</span>{" "}
-                &mdash; to assess your application and to deliver the program to participants;
+                <span className="font-bold text-black dark:text-white">Performance of a contract</span>:
+                to assess your application and to deliver the program to participants;
               </li>
               <li>
-                <span className="font-bold text-black dark:text-white">Legitimate interests</span>{" "}
-                &mdash; to operate, secure, promote, and improve AISB and to communicate with our
+                <span className="font-bold text-black dark:text-white">Legitimate interests</span>:
+                to operate, secure, promote, and improve AISB and to communicate with our
                 community, balanced against your rights and interests; and
               </li>
               <li>
-                <span className="font-bold text-black dark:text-white">Legal obligation</span> &mdash;
+                <span className="font-bold text-black dark:text-white">Legal obligation</span>:
                 to comply with applicable laws and regulatory requirements.
               </li>
             </ul>
@@ -198,8 +198,8 @@ export default function PrivacyPolicy() {
               </li>
               <li>
                 <span className="font-bold text-black dark:text-white">Publicity.</span>{" "}
-                We may publish information about our staff and participants &mdash; such as names,
-                photos, professional affiliations, and testimonials &mdash; and photos or recordings
+                We may publish information about our staff and participants (such as names,
+                photos, professional affiliations, and testimonials) and photos or recordings
                 from our events, on our website and social media. Where required, we ask for your consent
                 first.
               </li>
@@ -230,8 +230,8 @@ export default function PrivacyPolicy() {
 
           <Section title="How long we keep your information">
             <p>
-              We keep personal information only for as long as necessary for the purposes in this policy
-              &mdash; for example, to maintain our alumni community and records, inform you of future
+              We keep personal information only for as long as necessary for the purposes in this policy:
+              for example, to maintain our alumni community and records, inform you of future
               programmes, and meet legal and record-keeping obligations (such as keeping financial
               records for the period required by law). We delete or anonymise information when we no
               longer need it, and you can ask us to delete your information at any time using the details

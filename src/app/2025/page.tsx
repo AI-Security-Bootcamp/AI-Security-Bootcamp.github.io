@@ -111,7 +111,7 @@ export default function Cohort2025() {
           <span>Fully funded</span>
         </div>
         <p className="text-lg text-gray-500">
-          August 4&ndash;29, 2025 &bull; 20 Participants
+          August 4-29, 2025 &bull; 20 Participants
         </p>
       </header>
 

@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { LinkedinSquare } from "./_square";
 
 // ============================================================================
-// Unicode Mathematical Alphanumeric Symbols block — LinkedIn renders these
+// Unicode Mathematical Alphanumeric Symbols block - LinkedIn renders these
 // as "formatted" since plain LinkedIn posts don't support markdown/HTML.
 // ============================================================================
 
@@ -99,7 +99,7 @@ const LI_FONT =
   '-apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", "Fira Sans", Ubuntu, Oxygen, "Oxygen Sans", Cantarell, "Droid Sans", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Lucida Grande", Helvetica, Arial, sans-serif';
 
 // ============================================================================
-// Body rendering — split on URLs and #hashtags, render LinkedIn-blue
+// Body rendering - split on URLs and #hashtags, render LinkedIn-blue
 // ============================================================================
 
 const LINK_RE = /(https?:\/\/\S+|www\.\S+|#\w+)/g;
@@ -509,7 +509,7 @@ export default function LinkedInFormatter() {
                 )}
               </div>
 
-              {/* Attached image (square — same component as /debug/linkedin/image) */}
+              {/* Attached image (square - same component as /debug/linkedin/image) */}
               <div style={{ width: cardWidth, height: cardWidth, overflow: "hidden" }}>
                 <div
                   style={{

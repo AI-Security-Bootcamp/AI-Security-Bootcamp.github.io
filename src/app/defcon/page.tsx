@@ -69,7 +69,7 @@ export default function DefconVisit() {
       <section className="px-6 md:px-16 lg:px-24 py-20">
         <div className="max-w-3xl">
           <p className="text-[#ef4444] font-black text-sm uppercase tracking-widest mb-3">
-            Las Vegas &middot; August 2&ndash;8, 2026
+            Las Vegas &middot; August 2-8, 2026
           </p>
           <h1 className="text-3xl md:text-4xl lg:text-5xl font-black leading-[0.95] tracking-tight mb-8">
             Visit AISB during DEF CON week
@@ -80,7 +80,7 @@ export default function DefconVisit() {
             <a href="/vegas26" className="underline hover:text-[#ef4444] transition-colors">
               AI Security Bootcamp
             </a>{" "}
-            (AISB) in Las Vegas &mdash; a 7-day intensive program for security professionals shaping
+            (AISB) in Las Vegas: a 7-day intensive program for security professionals shaping
             how we secure emerging AI systems. It runs adjacent to (but is not affiliated with)
             DEF&nbsp;CON.
           </p>
@@ -96,14 +96,14 @@ export default function DefconVisit() {
             </p>
             <ul className="space-y-3 text-neutral-600 dark:text-neutral-400 text-base md:text-lg leading-relaxed">
               <li>
-                <span className="font-bold text-black dark:text-white">Lunch:</span> 12:30&ndash;1:30pm
+                <span className="font-bold text-black dark:text-white">Lunch:</span> 12:30-1:30pm
               </li>
               <li>
                 <span className="font-bold text-black dark:text-white">Dinner:</span> from 7pm
               </li>
             </ul>
             <p className="text-neutral-500 dark:text-neutral-400 text-sm md:text-base leading-relaxed mt-4">
-              Between lunch and dinner is deep work time &mdash; expect approximately zero
+              Between lunch and dinner is deep work time; expect approximately zero
               socialization, so please plan visits around meals.
             </p>
             <p className="text-neutral-500 dark:text-neutral-400 text-sm md:text-base leading-relaxed mt-3">

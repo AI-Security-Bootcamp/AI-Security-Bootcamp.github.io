@@ -15,6 +15,16 @@ type Cohort = {
 
 const editions: Cohort[] = [
   {
+    name: "AISB San Francisco",
+    year: "2026",
+    href: "/sf26",
+    analyticsId: "sf_2026",
+    detail: "7-day intensive · 20 participants · October 2026",
+    description:
+      "An AI security cohort in the Bay Area, home to the frontier AI labs. Threat modelling, adversarial attacks, LLM and infrastructure security.",
+    endDate: "2026-10-10",
+  },
+  {
     name: "AISB Vegas",
     year: "2026",
     href: "/vegas26",
@@ -108,7 +118,7 @@ const affiliationLogos = [
   { src: "/logos/Santa Fe Institute_idLoL6oKVJ_2.svg", alt: "Santa Fe Institute" },
   { src: "/logos/Stanford University_idJUIPPYM3_1.svg", alt: "Stanford University" },
   { src: "/logos/UC San Diego_idxlKuXNo7_2.svg", alt: "University of California, San Diego" },
-  { src: "/logos/Unibo_idOu3rBjwY_1.svg", alt: "Alma Mater Studiorum — Università di Bologna" },
+  { src: "/logos/Unibo_idOu3rBjwY_1.svg", alt: "Alma Mater Studiorum: Università di Bologna" },
   { src: "/logos/University of Oxford_Icon_1.svg", alt: "University of Oxford" },
   { src: "/logos/University of Washington_id-HgUwUZo_1.svg", alt: "University of Washington" },
 ];
@@ -482,11 +492,11 @@ export default function Home() {
 
           <div className="flex flex-wrap items-start gap-4 mb-12">
             <a
-              href="/eoi"
-              onClick={() => { posthog.capture("clicked_expression_of_interest", { location: "hero" }); }}
+              href="/sf26"
+              onClick={() => { posthog.capture("clicked_edition", { edition: "sf_2026", location: "hero" }); }}
               className="inline-block bg-[#ef4444] text-white font-black text-sm uppercase tracking-widest px-8 py-4 hover:bg-red-600 transition-colors"
             >
-              Submit EOI
+              Apply Now
             </a>
             <button
               onClick={() => {
@@ -533,23 +543,23 @@ export default function Home() {
 
         <div className="max-w-3xl space-y-6 text-neutral-600 dark:text-neutral-300 text-base md:text-lg leading-relaxed">
           <p>
-            AISB exists to fill a gap. As AI systems become more capable and integrated into critical
+            As AI systems become more capable and integrated into critical
             infrastructure, new attack surfaces and failure modes are emerging that traditional security
             training doesn&apos;t cover. We bring together experienced security professionals and
             equip them with the threat models, techniques, and hands-on skills needed to engage with
             the most pressing AI security challenges.
           </p>
           <p>
-            Each cohort is small and intensive &mdash; designed so peer learning between practitioners
+            Each cohort is small and intensive, designed so peer learning between practitioners
             is a meaningful part of the experience. Participants come from offensive security,
             incident response, threat intelligence, infrastructure, and application security
-            backgrounds &mdash; the AI-specific material we cover pushes that experience into new
+            backgrounds; the AI-specific material we cover pushes that experience into new
             territory.
           </p>
           <p>
             We run cohorts in different cities, partnering with local AI safety and security
-            organisations. The program is fully funded for accepted participants &mdash; the cost is
-            your time.
+            organisations. Our programs are free to attend and fully funded for accepted
+            participants.
           </p>
         </div>
       </section>
@@ -701,22 +711,22 @@ export default function Home() {
       <section className="px-6 md:px-16 lg:px-24 py-20 border-t-2 border-black dark:border-white">
         <div className="max-w-3xl">
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-black mb-8 tracking-tight">
-            Stay in the loop.
+            Ready to Apply?
           </h2>
           <p className="text-neutral-500 dark:text-neutral-400 text-base md:text-lg leading-relaxed mb-4 max-w-xl">
-            Future cohorts will be announced as they&apos;re scheduled. Submit an expression of
-            interest and we&apos;ll let you know first.
+            Applications are open for AISB San Francisco, Oct 4-10, 2026. The deadline to
+            apply is August 16, 2026.
           </p>
           <p className="text-neutral-500 dark:text-neutral-400 text-base md:text-lg leading-relaxed mb-10 max-w-xl">
             Reach out to <a href="mailto:pranav@aisb.dev" className="underline hover:text-[#ef4444] transition-colors">pranav@aisb.dev</a> for any questions about the program.
           </p>
           <div className="flex flex-wrap gap-4">
             <a
-              href="/eoi"
-              onClick={() => { posthog.capture("clicked_expression_of_interest", { location: "cta_section" }); }}
+              href="/sf26"
+              onClick={() => { posthog.capture("clicked_edition", { edition: "sf_2026", location: "cta_section" }); }}
               className="inline-block bg-[#ef4444] text-white font-black text-sm uppercase tracking-widest px-8 py-4 hover:bg-red-600 transition-colors"
             >
-              Submit EOI
+              Apply now: AISB San Francisco
             </a>
             <a
               href="/staff"

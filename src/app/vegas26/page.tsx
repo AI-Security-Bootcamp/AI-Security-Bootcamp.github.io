@@ -187,7 +187,7 @@ const testimonials = [
     attribution: "CEO & Co-founder @ Collider",
     linkedin: "https://www.linkedin.com/in/uri-chen/",
   },
-  // Disabled — kept for easy re-enable
+  // Disabled - kept for easy re-enable
   // {
   //   quote: "The AISB Singapore 2026 bootcamp was a great experience.",
   //   quoteCollapsibleMiddle:
@@ -496,7 +496,7 @@ function TestimonialCard({ t }: { t: Testimonial }) {
   return (
     <blockquote className="border-2 border-black dark:border-white p-8 flex flex-col gap-6">
       <p className="text-neutral-600 dark:text-neutral-300 text-base md:text-lg leading-relaxed">
-        "{t.quote}
+        &ldquo;{t.quote}
         {hasCollapsible && (
           <>
             {" "}
@@ -515,7 +515,7 @@ function TestimonialCard({ t }: { t: Testimonial }) {
             {t.quoteEnd}
           </>
         )}
-        "
+        &rdquo;
       </p>
       <footer className="mt-auto">
         <p className="font-black text-base md:text-lg">
@@ -573,7 +573,7 @@ export default function Home() {
           </p>
 
           <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-neutral-400 dark:text-neutral-500 font-bold uppercase tracking-widest mb-5">
-            <span>August 2&ndash;8, 2026</span>
+            <span>August 2-8, 2026</span>
             <span className="text-[#ef4444]">|</span>
             <span>Las Vegas</span>
             <span className="text-[#ef4444]">|</span>
@@ -646,7 +646,7 @@ export default function Home() {
           <div>
             <div className="space-y-6 text-neutral-600 dark:text-neutral-300 text-base md:text-lg leading-relaxed">
               <p>
-                This iteration of AI Security Bootcamp explores the rapidly evolving threat landscape of frontier AI
+                AI Security Bootcamp explores the rapidly evolving threat landscape of frontier AI
                 systems, equipping security professionals with the knowledge and hands-on skills to secure against
                 current and emerging risks.
               </p>

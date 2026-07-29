@@ -128,7 +128,7 @@ const affiliationLogos = [
   { src: "/logos/Santa Fe Institute_idLoL6oKVJ_2.svg", alt: "Santa Fe Institute" },
   { src: "/logos/Stanford University_idJUIPPYM3_1.svg", alt: "Stanford University" },
   { src: "/logos/UC San Diego_idxlKuXNo7_2.svg", alt: "University of California, San Diego" },
-  { src: "/logos/Unibo_idOu3rBjwY_1.svg", alt: "Alma Mater Studiorum — Università di Bologna" },
+  { src: "/logos/Unibo_idOu3rBjwY_1.svg", alt: "Alma Mater Studiorum: Università di Bologna" },
   { src: "/logos/University of Oxford_Icon_1.svg", alt: "University of Oxford" },
   { src: "/logos/University of Washington_id-HgUwUZo_1.svg", alt: "University of Washington" },
 ];
@@ -312,11 +312,11 @@ export default function Home() {
 
           <p className="text-lg md:text-xl text-neutral-500 dark:text-neutral-400 max-w-2xl mb-6 leading-relaxed">
             A 7-day intensive program for security professionals shaping how we secure emerging AI systems.
-            The Singapore 2026 cohort ran April 20&ndash;26, 2026.
+            The Singapore 2026 cohort ran April 20-26, 2026.
           </p>
 
           <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-neutral-400 dark:text-neutral-500 font-bold uppercase tracking-widest mb-8">
-            <span>April 20&ndash;26, 2026</span>
+            <span>April 20-26, 2026</span>
             <span className="text-[#ef4444]">|</span>
             <span>Singapore</span>
             <span className="text-[#ef4444]">|</span>
@@ -457,14 +457,14 @@ export default function Home() {
           <div className="space-y-6 text-neutral-600 dark:text-neutral-300 text-base md:text-lg leading-relaxed">
             <p>
               Security professionals ready to secure frontier AI
-              systems at all stages &mdash; from user applications, to model APIs for developers;
+              systems at all stages: from user applications, to model APIs for developers;
               and from infrastructure hosting the models, to governance frameworks for
               emerging threats.
             </p>
             <p>
-              The Singapore cohort spanned a wide range of expertise &mdash; from
+              The Singapore cohort spanned a wide range of expertise, from
               offensive security, incident response, and threat intelligence to
-              infrastructure and application security &mdash; with the AI-specific
+              infrastructure and application security, with the AI-specific
               threat models and techniques pushing what participants already knew
               into new territory.
             </p>
@@ -477,7 +477,7 @@ export default function Home() {
             </h3>
             <p className="text-neutral-600 dark:text-neutral-300 text-base md:text-lg leading-relaxed mb-4">
               5+ years of hands-on security experience. No prior AI or ML
-              background needed - the pre-work will cover what's necessary.
+              background needed - the pre-work will cover what&apos;s necessary.
             </p>
             <p className="text-neutral-600 dark:text-neutral-300 text-base md:text-lg leading-relaxed mb-4">
               Selection prioritizes candidates interested in frontier AI risk,
@@ -508,28 +508,11 @@ export default function Home() {
               Timing
             </h3>
             <p className="text-neutral-600 dark:text-neutral-300 text-base md:text-lg leading-relaxed">
-              AISB Singapore ran April 20&ndash;26, 2026, overlapping with Black
-              Hat Asia (April 21&ndash;24) and just before DEF CON (April
-              28&ndash;30) &mdash; the bootcamp ended just before DEF CON opened,
+              AISB Singapore ran April 20-26, 2026, overlapping with Black
+              Hat Asia (April 21-24) and just before DEF CON (April
+              28-30); the bootcamp ended just before DEF CON opened,
               fitting naturally into the same trip for many participants.
             </p>
-          </div>
-
-          {/* Cost and Selection */}
-          <div>
-            <h3 className="text-[#ef4444] font-black text-sm uppercase tracking-widest mb-6">
-              Cost & Selection
-            </h3>
-            <div className="space-y-6 text-neutral-600 dark:text-neutral-300 text-base md:text-lg leading-relaxed">
-              <p>
-                Accommodation was included. Limited travel support was available
-                for those who needed it.
-              </p>
-              <p>
-                Selection was competitive &mdash; the Singapore cohort
-                accommodated 16 participants.
-              </p>
-            </div>
           </div>
         </div>
       </section>

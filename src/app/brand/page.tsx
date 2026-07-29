@@ -58,15 +58,15 @@ type Asset = {
 const logos: Asset[] = [
   { title: "Primary logo", subtitle: "On light backgrounds", file: "aisb-logo-light", bg: "light" },
   { title: "Primary logo", subtitle: "On dark backgrounds", file: "aisb-logo-dark", bg: "dark" },
-  { title: "Logo — transparent", subtitle: "For your own light backgrounds", file: "aisb-logo-on-light", bg: "light" },
-  { title: "Logo — transparent", subtitle: "For your own dark backgrounds", file: "aisb-logo-on-dark", bg: "dark" },
+  { title: "Logo - transparent", subtitle: "For your own light backgrounds", file: "aisb-logo-on-light", bg: "light" },
+  { title: "Logo - transparent", subtitle: "For your own dark backgrounds", file: "aisb-logo-on-dark", bg: "dark" },
 ];
 
 const icons: Asset[] = [
-  { title: "Icon — circle", subtitle: "Light", file: "aisb-icon-circle-light", bg: "light" },
-  { title: "Icon — circle", subtitle: "Dark", file: "aisb-icon-circle-dark", bg: "dark" },
-  { title: "Icon — square", subtitle: "Light", file: "aisb-icon-square-light", bg: "light" },
-  { title: "Icon — square", subtitle: "Dark", file: "aisb-icon-square-dark", bg: "dark" },
+  { title: "Icon - circle", subtitle: "Light", file: "aisb-icon-circle-light", bg: "light" },
+  { title: "Icon - circle", subtitle: "Dark", file: "aisb-icon-circle-dark", bg: "dark" },
+  { title: "Icon - square", subtitle: "Light", file: "aisb-icon-square-light", bg: "light" },
+  { title: "Icon - square", subtitle: "Dark", file: "aisb-icon-square-dark", bg: "dark" },
 ];
 
 const colors = [
@@ -174,7 +174,7 @@ export default function BrandPage() {
           </h1>
           <p className="text-lg md:text-xl text-neutral-500 dark:text-neutral-400 max-w-2xl leading-relaxed">
             Logos, icons, and colours for the AI Security Bootcamp. Download the
-            format you need &mdash; SVG for print and scaling, PNG for everything else.
+            format you need: SVG for print and scaling, PNG for everything else.
             Please don&apos;t stretch, recolour, or alter the marks.
           </p>
         </div>

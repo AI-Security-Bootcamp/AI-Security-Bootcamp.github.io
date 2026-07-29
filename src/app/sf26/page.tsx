@@ -1,7 +1,59 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import posthog from "posthog-js";
+
+function useCountdown(target: Date) {
+  const [now, setNow] = useState(() => new Date());
+  useEffect(() => {
+    const id = setInterval(() => setNow(new Date()), 1000);
+    return () => clearInterval(id);
+  }, []);
+  const diff = Math.max(0, target.getTime() - now.getTime());
+  const days = Math.floor(diff / 86_400_000);
+  const hours = Math.floor((diff % 86_400_000) / 3_600_000);
+  const minutes = Math.floor((diff % 3_600_000) / 60_000);
+  const seconds = Math.floor((diff % 60_000) / 1000);
+  return { days, hours, minutes, seconds, expired: diff === 0 };
+}
+
+function CountdownBanner() {
+  const deadline = useMemo(() => new Date("2026-08-16T23:59:59"), []);
+  const { days, hours, minutes, seconds, expired } = useCountdown(deadline);
+  // Render only after mount: the ticking seconds never match the server-rendered
+  // HTML, which triggers a full hydration bailout.
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
+
+  if (!mounted || expired) return null;
+
+  const units = [
+    { label: "Days", value: days },
+    { label: "Hours", value: hours },
+    { label: "Min", value: minutes },
+    { label: "Sec", value: seconds },
+  ];
+
+  return (
+    <div className="flex flex-col gap-2 mb-4">
+      <span className="text-xs uppercase tracking-widest text-neutral-500 dark:text-neutral-400 font-bold">
+        Applications close in
+      </span>
+      <div className="flex gap-5">
+        {units.map((u) => (
+          <div key={u.label} className="flex flex-col items-center">
+            <span className="text-2xl md:text-3xl font-black tabular-nums text-[#ef4444]">
+              {String(u.value).padStart(2, "0")}
+            </span>
+            <span className="text-[10px] uppercase tracking-widest text-neutral-500 dark:text-neutral-400">
+              {u.label}
+            </span>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
 
 const curriculumDays = [
   {
@@ -90,11 +142,11 @@ const faqs = [
   },
   {
     q: "Does the program cover accommodation and travel?",
-    a: "We will provide accommodation for you in London for the full duration of the program. We have need-based travel support available.",
+    a: "We will provide accommodation for you in San Francisco for the full duration of the program. We have need-based travel support available.",
   },
   {
     q: "What is the time commitment?",
-    a: "Full-time attendance from Sunday (Aug 30) through Saturday (Sep 5). We recommend you arrive Saturday Aug 29 and depart Sunday Sep 6. Pre-reading is sent in advance (2 weeks before the bootcamp) and we share extra reading throughout the week.",
+    a: "Full-time attendance from Sunday (Oct 4) through Saturday (Oct 10). We recommend you arrive Saturday Oct 3 and depart Sunday Oct 11. Pre-reading is sent in advance (2 weeks before the bootcamp) and we share extra reading throughout the week.",
   },
   {
     q: "Do I need prior AI/ML experience?",
@@ -231,7 +283,7 @@ const affiliationLogos = [
   // { src: "/logos/Turkish Aerospace Industries.svg", alt: "Turkish Aerospace Industries" },
 ];
 
-const SLOT_WORDS = ["London", "2026"];
+const SLOT_WORDS = ["San Francisco", "2026"];
 const SLOT_INTERVAL = 3000;
 const SLOT_DURATION = 600;
 
@@ -253,14 +305,16 @@ function SlotCarousel() {
   const next = (index + 1) % SLOT_WORDS.length;
 
   return (
-    <span className="relative inline-block overflow-hidden align-bottom h-[1.2em]">
+    // Grid-stacks every word in the same cell so the container sizes to the
+    // tallest one, letting long words wrap to two lines on narrow screens.
+    <span className="relative inline-grid overflow-hidden align-bottom max-w-full">
       {SLOT_WORDS.map((word) => (
-        <span key={word} className="invisible block whitespace-nowrap h-0" aria-hidden="true">
+        <span key={word} className="invisible col-start-1 row-start-1" aria-hidden="true">
           {word}
         </span>
       ))}
       <span
-        className="absolute left-0 top-0 inline-block text-[#ef4444] whitespace-nowrap"
+        className="col-start-1 row-start-1 text-[#ef4444]"
         style={
           phase === "animating"
             ? {
@@ -273,7 +327,7 @@ function SlotCarousel() {
       </span>
       {phase === "animating" && (
         <span
-          className="absolute left-0 top-0 inline-block text-[#ef4444] whitespace-nowrap"
+          className="col-start-1 row-start-1 text-[#ef4444]"
           style={{
             animation: `slot-slide-in ${SLOT_DURATION}ms ease-out forwards`,
           }}
@@ -488,7 +542,7 @@ function TestimonialCard({ t }: { t: Testimonial }) {
   );
 }
 
-const EOI_URL = "/eoi";
+const APPLICATION_URL = "https://airtable.com/appyq1bBRnK6s7AkM/paglvXzxYAiJclCZX/form";
 
 export default function Home() {
   const { isDark, toggle, mounted } = useTheme();
@@ -510,7 +564,7 @@ export default function Home() {
       <section className="min-h-screen flex flex-col px-6 md:px-16 lg:px-24 pt-4 md:pt-6">
         <div className="flex-1 flex flex-col justify-center w-full max-w-5xl">
           <p className="text-[#ef4444] font-black text-sm uppercase tracking-widest mb-3">
-            Upcoming
+            Applications open
           </p>
           <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black leading-[0.95] tracking-tight mb-6">
             AI Security
@@ -525,9 +579,9 @@ export default function Home() {
           </p>
 
           <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-neutral-400 dark:text-neutral-500 font-bold uppercase tracking-widest mb-5">
-            <span>30 Aug - 5 Sept</span>
+            <span>Oct 4-10, 2026</span>
             <span className="text-[#ef4444]">|</span>
-            <span>London</span>
+            <span>San Francisco</span>
             <span className="text-[#ef4444]">|</span>
             <span>In-Person</span>
             <span className="text-[#ef4444]">|</span>
@@ -536,11 +590,11 @@ export default function Home() {
 
           <div className="flex flex-wrap gap-4 mb-6">
             <a
-              href={EOI_URL}
-              onClick={() => { posthog.capture("clicked_expression_of_interest", { location: "london26_hero" }); }}
+              href={APPLICATION_URL}
+              onClick={() => { posthog.capture("clicked_apply_now", { location: "sf26_hero" }); }}
               className="inline-block bg-[#ef4444] text-white font-black text-sm uppercase tracking-widest px-8 py-4 hover:bg-red-600 transition-colors"
             >
-              Expression of Interest
+              Apply Now
             </a>
             <button
               onClick={() => scrollTo("overview")}
@@ -550,11 +604,13 @@ export default function Home() {
             </button>
           </div>
 
+          <CountdownBanner />
+
           <div className="flex flex-wrap gap-x-8 gap-y-2 text-sm text-neutral-400 dark:text-neutral-500">
             <span>
               Application Deadline:{" "}
               <span className="text-black dark:text-white font-bold">
-                July 15, 2026
+                August 16, 2026
               </span>
             </span>
           </div>
@@ -693,7 +749,7 @@ export default function Home() {
               Prerequisites
             </h3>
             <p className="text-neutral-600 dark:text-neutral-300 text-base md:text-lg leading-relaxed mb-4">
-              5+ years of hands-on security experience. No prior AI or ML
+              7+ years of hands-on security experience. No prior AI or ML
               background needed. The pre-work covers what&apos;s necessary.
             </p>
             <p className="text-neutral-600 dark:text-neutral-300 text-base md:text-lg leading-relaxed mb-4">
@@ -725,11 +781,11 @@ export default function Home() {
               Timing
             </h3>
             <p className="text-neutral-600 dark:text-neutral-300 text-base md:text-lg leading-relaxed mb-4">
-              AISB London runs from Sunday (Aug 30) through Saturday (Sep 5), 2026.
+              AISB San Francisco runs from Sunday (Oct 4) through Saturday (Oct 10), 2026.
             </p>
             <p className="text-neutral-600 dark:text-neutral-300 text-base md:text-lg leading-relaxed">
-              The week overlaps with the broader London security calendar: a strong networking opportunity
-              for participants to connect with practitioners and researchers from across the field.
+              The program is based in the Bay Area, which presents participants with a strong networking
+              opportunity to connect with practitioners and researchers working on frontier AI systems.
             </p>
           </div>
 
@@ -741,7 +797,7 @@ export default function Home() {
             <div className="space-y-6 text-neutral-600 dark:text-neutral-300 text-base md:text-lg leading-relaxed">
               <p>
                 <span className="font-bold text-black dark:text-white">The program is free to attend.</span>{" "}
-                Tuition, meals during program hours, materials, and accommodation in London are fully covered for
+                Tuition, meals during program hours, materials, and accommodation in San Francisco are fully covered for
                 accepted participants. Need-based travel support is available.
               </p>
               <p>
@@ -789,20 +845,21 @@ export default function Home() {
       <section className="px-6 md:px-16 lg:px-24 py-20 border-t-2 border-black dark:border-white">
         <div className="max-w-3xl">
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-black mb-8 tracking-tight">
-            Interested in London 2026?
+            Ready to Apply?
           </h2>
           <p className="text-neutral-500 dark:text-neutral-400 text-base md:text-lg leading-relaxed mb-4 max-w-xl">
-            Submit an expression of interest and we&apos;ll keep you in the loop about the upcoming London bootcamp.
+            Applications close August 16, 2026. We review on a rolling basis and will prioritize applications we receive
+            before the deadline. Early applications are encouraged.
           </p>
           <p className="text-neutral-500 dark:text-neutral-400 text-base md:text-lg leading-relaxed mb-10 max-w-xl">
             Reach out to <a href="mailto:pranav@aisb.dev" className="underline hover:text-[#ef4444] transition-colors">pranav@aisb.dev</a> with questions about the program.
           </p>
           <a
-            href={EOI_URL}
-            onClick={() => { posthog.capture("clicked_expression_of_interest", { location: "london26_cta" }); }}
+            href={APPLICATION_URL}
+            onClick={() => { posthog.capture("clicked_apply_now", { location: "sf26_cta" }); }}
             className="inline-block bg-[#ef4444] text-white font-black text-sm uppercase tracking-widest px-8 py-4 hover:bg-red-600 transition-colors"
           >
-            Expression of Interest
+            Apply Now
           </a>
         </div>
       </section>
@@ -830,22 +887,10 @@ export default function Home() {
             Home
           </a>
           <a
-            href="/vegas26"
+            href="/#cohorts"
             className="text-neutral-400 dark:text-neutral-600 text-sm font-bold uppercase tracking-widest hover:text-[#ef4444] transition-colors"
           >
-            Vegas 2026
-          </a>
-          <a
-            href="/singapore"
-            className="text-neutral-400 dark:text-neutral-600 text-sm font-bold uppercase tracking-widest hover:text-[#ef4444] transition-colors"
-          >
-            Singapore 2026
-          </a>
-          <a
-            href="/2025"
-            className="text-neutral-400 dark:text-neutral-600 text-sm font-bold uppercase tracking-widest hover:text-[#ef4444] transition-colors"
-          >
-            London 2025
+            Past Programs
           </a>
           <a
             href="/staff"

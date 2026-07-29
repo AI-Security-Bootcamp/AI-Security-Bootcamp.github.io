@@ -83,7 +83,7 @@ const bary: StaffAppearance = {
   linkedin: "https://www.linkedin.com/in/bary-levy/",
 };
 
-// Programmes — listed in reverse chronological order. Each programme owns its own staff list;
+// Programmes - listed in reverse chronological order. Each programme owns its own staff list;
 // duplicates across programmes are intentional (people who staffed multiple cohorts).
 export const programmes: Programme[] = [
   {

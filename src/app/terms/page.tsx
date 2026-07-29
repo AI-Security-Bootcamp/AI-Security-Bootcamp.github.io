@@ -134,8 +134,8 @@ export default function TermsOfUse() {
 
           <Section title="Intellectual property">
             <p>
-              Unless stated otherwise, the content on this Site &mdash; including text, design, logos,
-              and brand assets &mdash; belongs to AISB, or is used with permission.
+              Unless stated otherwise, the content on this Site (including text, design, logos,
+              and brand assets) belongs to AISB, or is used with permission.
               Our brand assets are made available on our{" "}
               <a href="/brand" className={linkClass}>
                 brand page
