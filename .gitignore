@@ -42,3 +42,6 @@ next-env.d.ts
 /.idea/
 /projects/
 /dmarc/
+
+# hardware lives on the badge/* branches; local dir holds build artifacts
+/hardware/
