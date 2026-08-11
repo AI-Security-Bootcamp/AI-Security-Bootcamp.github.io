@@ -33,6 +33,7 @@ export function LinkedinSquare({ dark = false, id }: LinkedinSquareProps) {
         display: "flex",
         flexDirection: "column",
         padding: 80,
+        paddingLeft: 56,
         boxSizing: "border-box",
         border: `12px solid ${palette.rule}`,
       }}
@@ -54,20 +55,23 @@ export function LinkedinSquare({ dark = false, id }: LinkedinSquareProps) {
       {/* Title block */}
       <h1
         style={{
-          fontSize: 168,
+          fontSize: 144,
           fontWeight: 900,
           lineHeight: 0.92,
-          letterSpacing: "-0.035em",
+          letterSpacing: "-0.025em",
           margin: 0,
-          marginTop: 28,
+          marginTop: 44,
         }}
       >
         AI Security
         <br />
         Bootcamp
         <br />
-        <span style={{ color: COLOR }}>London</span>
+        <span style={{ color: COLOR, whiteSpace: "nowrap" }}>San Francisco</span>
       </h1>
+
+      {/* Spacer */}
+      <div style={{ flex: 1, minHeight: 28 }} />
 
       {/* Curriculum themes tagline */}
       <p
@@ -77,7 +81,8 @@ export function LinkedinSquare({ dark = false, id }: LinkedinSquareProps) {
           textTransform: "uppercase",
           letterSpacing: "0.05em",
           margin: 0,
-          marginTop: 32,
+          marginTop: 16,
+          marginBottom: 24,
           whiteSpace: "nowrap",
         }}
       >
@@ -85,9 +90,6 @@ export function LinkedinSquare({ dark = false, id }: LinkedinSquareProps) {
         LLM Security<span style={{ color: COLOR, margin: "0 10px" }}>|</span>
         Infrastructure &amp; Governance
       </p>
-
-      {/* Spacer */}
-      <div style={{ flex: 1, minHeight: 28 }} />
 
       {/* Info block (dates + format) */}
       <div
@@ -106,13 +108,13 @@ export function LinkedinSquare({ dark = false, id }: LinkedinSquareProps) {
             lineHeight: 1.1,
           }}
         >
-          Aug 30 - Sep 5, 2026
+          Oct 4-10, 2026
           <span style={{ color: COLOR, margin: "0 14px" }}>·</span>
-          London
+          San Francisco
         </p>
         <p
           style={{
-            fontSize: 22,
+            fontSize: 20,
             color: palette.muted,
             fontWeight: 700,
             textTransform: "uppercase",
@@ -126,7 +128,7 @@ export function LinkedinSquare({ dark = false, id }: LinkedinSquareProps) {
           <span style={{ color: COLOR, margin: "0 6px" }}>·</span>
           Fully Funded
           <span style={{ color: COLOR, margin: "0 6px" }}>·</span>
-          20 Senior Security Professionals
+          16-20 Senior Security Professionals
         </p>
       </div>
 
@@ -164,7 +166,7 @@ export function LinkedinSquare({ dark = false, id }: LinkedinSquareProps) {
               letterSpacing: "-0.01em",
             }}
           >
-            July 15, 2026
+            August 16, 2026
           </p>
         </div>
         <p
@@ -176,7 +178,7 @@ export function LinkedinSquare({ dark = false, id }: LinkedinSquareProps) {
             letterSpacing: "-0.01em",
           }}
         >
-          aisb.dev/<span style={{ color: COLOR }}>london26</span>
+          aisb.dev/<span style={{ color: COLOR }}>sf26</span>
         </p>
       </div>
     </div>

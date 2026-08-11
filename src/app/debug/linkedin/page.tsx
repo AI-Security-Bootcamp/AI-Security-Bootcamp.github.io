@@ -47,23 +47,14 @@ const toStrikethrough = (s: string) => [...s].map((c) => c + "̶").join("");
 // Sample / formats / snippets
 // ============================================================================
 
-const SAMPLE = `𝗔𝗽𝗽𝗹𝗶𝗰𝗮𝘁𝗶𝗼𝗻𝘀 𝗳𝗼𝗿 𝗔𝗜𝗦𝗕 𝗟𝗼𝗻𝗱𝗼𝗻 𝗮𝗿𝗲 𝗻𝗼𝘄 𝗼𝗽𝗲𝗻!
-AI Security Bootcamp is a fully funded, 7-day intensive program for security professionals focused on securing frontier AI systems from emerging threats. This cohort runs in London from August 30 to September 5, 2026.
+const SAMPLE = `Curious how OpenAI models escaped their sandbox and why it took 5 days to catch them?
+We run fully funded trainings for CISOs and senior security professionals to upskill in AI Security, and we are bringing the next iteration to San Francisco!
 
-Participants learn to threat-model, attack, and defend frontier AI systems, and leave with the skills and network to step into roles at the labs, agencies, and research orgs shaping the field.
+AISB is a selective 7-day intensive teaching AI security to experienced security professionals. No ML background needed: we start at tokenizers and attention, and by the end of the week you've attacked and defended real models, agents, and the infrastructure they run on. You will learn to threat-model, attack, and defend frontier AI systems, and leave with the skills and the network to step into roles at the labs, agencies, and research orgs shaping the field.
 
-We are looking for security professionals with 5+ years of hands-on experience. No AI or ML background required.
+Past participants have been affiliated with OpenAI, Anthropic, Nvidia, Google, Meta, Microsoft, Apple, Snyk, Stanford, MIT, Oxford, Cambridge, and national security agencies.
 
-Past participants have been affiliated with Google, Meta, Apple, Microsoft, AWS, Stanford, MIT, Oxford, Cambridge, and national security agencies. This is our fourth iteration after London, Singapore, and Vegas.
-
-We accept a small cohort and selection is competitive. Program costs are covered and travel support is available.
-
-Applications close July 15. We review on a rolling basis and encourage you to apply as early as possible.
-
-Apply here: [APPLICATION LINK]
-Learn more: https://aisb.dev/london26
-
-Know someone who would be a great fit? Tag them in the comments or share this post with them.`;
+Know someone who would be a great fit? Tag them in the comments or share this post. Apply at aisb․dev (link in comments).`;
 
 type FormatId =
   | "bold"
@@ -422,7 +413,7 @@ export default function LinkedInFormatter() {
                 <a href="https://www.linkedin.com/company/ai-security-bootcamp" target="_blank" rel="noopener noreferrer" className="flex-shrink-0">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
-                    src="/aisb-linkedin-avatar.jpg"
+                    src="/brand/aisb-icon-square-light.png"
                     alt="AI Security Bootcamp"
                     width={48}
                     height={48}
@@ -446,7 +437,7 @@ export default function LinkedInFormatter() {
                     AI Security Bootcamp
                   </a>
                   <div style={{ color: "rgba(0,0,0,0.6)", fontSize: 12, lineHeight: "16px" }}>
-                    112 followers
+                    797 followers
                   </div>
                   <div
                     style={{

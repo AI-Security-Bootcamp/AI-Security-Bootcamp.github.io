@@ -10,6 +10,9 @@ module.exports = {
       fontFamily: {
         sans: ['SF Mono', 'Monaco', 'Cascadia Code', 'Roboto Mono', 'Consolas', 'Courier New', 'monospace'],
       },
+      letterSpacing: {
+        tight: '-0.025em',
+      },
     },
   },
   plugins: [],
