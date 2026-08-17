@@ -83,7 +83,7 @@ export default function PrivacyPolicy() {
             Privacy Policy<span className="text-[#ef4444]">.</span>
           </h1>
           <p className="text-sm uppercase tracking-widest text-neutral-400 dark:text-neutral-500 font-bold">
-            Last updated 9 June 2026
+            Last updated 17 August 2026
           </p>
         </div>
       </section>
@@ -186,6 +186,16 @@ export default function PrivacyPolicy() {
                   Privacy Policy
                 </a>{" "}
                 applies to that processing.
+              </li>
+              <li>
+                <span className="font-bold text-black dark:text-white">Hiver (data processor).</span>{" "}
+                We use Hiver to manage shared email inboxes and related workflows. When you email us,
+                Hiver may process your contact details, email content and attachments, message metadata,
+                and communication history on our behalf. You can learn more in Hiver&apos;s{" "}
+                <a href="https://hiverhq.com/privacy" target="_blank" rel="noopener noreferrer" className={linkClass}>
+                  Privacy Policy
+                </a>
+                .
               </li>
               <li>
                 <span className="font-bold text-black dark:text-white">Service providers and other
