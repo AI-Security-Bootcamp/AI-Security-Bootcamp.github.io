@@ -524,7 +524,7 @@
     "last_paths": {
       "idf": "",
       "netlist": "",
-      "plot": "out",
+      "plot": "out-london",
       "specctra_dsn": "",
       "vrml": ""
     },

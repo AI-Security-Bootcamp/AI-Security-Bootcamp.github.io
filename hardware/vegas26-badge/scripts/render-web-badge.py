@@ -20,7 +20,11 @@ def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser()
     parser.add_argument("--first-name", default="Pranav")
     parser.add_argument("--last-name", default="Gade")
-    parser.add_argument("--role", choices=("participant", "speaker"), default="speaker")
+    parser.add_argument(
+        "--role",
+        choices=("participant", "speaker", "operations", "guest", "bestie"),
+        default="speaker",
+    )
     parser.add_argument("--font", type=Path, required=True)
     parser.add_argument("--logo", type=Path, required=True)
     parser.add_argument("--output-dir", type=Path, required=True)
@@ -42,9 +46,24 @@ def draw_tracked_text(
     tracking: float,
 ) -> None:
     x, visible_top = position
+    cap_ink_bounds = font.getmask("H").getbbox()
+    cap_ink_height = (
+        cap_ink_bounds[3] - cap_ink_bounds[1] if cap_ink_bounds is not None else font.size
+    )
     for character in text:
         bounds = draw.textbbox((0, 0), character, font=font)
-        draw.text((x - bounds[0], visible_top - bounds[1]), character, font=font, fill=fill)
+        character_top = visible_top
+        if character in "-–—":
+            ink_bounds = font.getmask(character).getbbox()
+            if ink_bounds is not None:
+                ink_height = ink_bounds[3] - ink_bounds[1]
+                character_top += (cap_ink_height - ink_height) / 2
+        draw.text(
+            (x - bounds[0], character_top - bounds[1]),
+            character,
+            font=font,
+            fill=fill,
+        )
         x += draw.textlength(character, font=font) + tracking
 
 
