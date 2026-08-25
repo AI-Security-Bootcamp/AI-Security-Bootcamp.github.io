@@ -109,6 +109,7 @@ function DocCard({ doc }: { doc: Doc }) {
 
 export default function Badge0Page() {
   const { isDark, toggle, mounted } = useTheme();
+  const [showAlternatePhoto, setShowAlternatePhoto] = useState(false);
 
   return (
     <div className="bg-white dark:bg-black text-black dark:text-white min-h-screen font-sans transition-colors">
@@ -124,42 +125,69 @@ export default function Badge0Page() {
 
       {/* Hero */}
       <section className="px-6 md:px-16 lg:px-24 py-20">
-        <div className="max-w-3xl">
-          <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black leading-[0.95] tracking-tight mb-8">
-            Badge0<span className="text-[#ef4444]">.</span>
-          </h1>
-          <p className="text-lg md:text-xl text-neutral-500 dark:text-neutral-400 max-w-2xl leading-relaxed mb-4">
-            Hello there. Looks like you&apos;ve encountered the AISB Badge0.
-            This page is for the schematics of the badge if you want to tinker
-            with it, and to tell you more about AISB.
-          </p>
-          <p className="text-base md:text-lg text-neutral-500 dark:text-neutral-400 max-w-2xl leading-relaxed mb-8">
-            The badge is a 100 x 145 mm board built around a Waveshare 3.52-inch
-            raw black/white e-paper panel. There is no microcontroller, USB
-            port, or battery on the badge: a reusable external programmer
-            writes each name over SPI through a Tag-Connect target, and the
-            image persists after power is removed. The upper PCB stays visible
-            for the AISB logo and copper artwork, and a passive two-layer
-            pickup coil doubles as an electromagnetic audio sensor.
-          </p>
-          <div className="flex flex-wrap gap-4">
-            <a
-              href="/"
-              className="inline-block bg-[#ef4444] text-white font-black text-sm uppercase tracking-widest px-8 py-4 hover:bg-red-600 transition-colors"
-            >
-              What is AISB
-            </a>
-            <a
-              href="#badge-details"
-              onClick={(e) => {
-                e.preventDefault();
-                document.getElementById("badge-details")?.scrollIntoView({ behavior: "smooth" });
-              }}
-              className="inline-block border-2 border-black dark:border-white text-black dark:text-white font-black text-sm uppercase tracking-widest px-8 py-4 bg-transparent hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-colors"
-            >
-              More about the Badge0
-            </a>
+        <div className="mx-auto grid max-w-7xl items-start gap-12 lg:grid-cols-[minmax(0,1.2fr)_minmax(320px,0.8fr)] lg:gap-16">
+          <div className="max-w-3xl">
+            <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black leading-[0.95] tracking-tight mb-8">
+              Badge0<span className="text-[#ef4444]">.</span>
+            </h1>
+            <p className="text-lg md:text-xl text-neutral-500 dark:text-neutral-400 max-w-2xl leading-relaxed mb-4">
+              Hello there. Looks like you&apos;ve encountered the AISB Badge0.
+              This page is for the schematics of the badge if you want to tinker
+              with it, and to tell you more about AISB.
+            </p>
+            <p className="text-base md:text-lg text-neutral-500 dark:text-neutral-400 max-w-2xl leading-relaxed mb-8">
+              The badge is a 100 x 145 mm board built around a Waveshare 3.52-inch
+              raw black/white e-paper panel. There is no microcontroller, USB
+              port, or battery on the badge: a reusable external programmer
+              writes each name over SPI through a Tag-Connect target, and the
+              image persists after power is removed. The upper PCB stays visible
+              for the AISB logo and copper artwork, and a passive two-layer
+              pickup coil doubles as an electromagnetic audio sensor.
+            </p>
+            <div className="flex flex-wrap gap-4">
+              <a
+                href="/"
+                className="inline-block bg-[#ef4444] text-white font-black text-sm uppercase tracking-widest px-8 py-4 hover:bg-red-600 transition-colors"
+              >
+                What is AISB
+              </a>
+              <a
+                href="#badge-details"
+                onClick={(e) => {
+                  e.preventDefault();
+                  document.getElementById("badge-details")?.scrollIntoView({ behavior: "smooth" });
+                }}
+                className="inline-block border-2 border-black dark:border-white text-black dark:text-white font-black text-sm uppercase tracking-widest px-8 py-4 bg-transparent hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-colors"
+              >
+                More about the Badge0
+              </a>
+            </div>
           </div>
+
+          <button
+            type="button"
+            onClick={() => setShowAlternatePhoto((shown) => !shown)}
+            className="group relative mx-auto w-full max-w-md overflow-hidden border-2 border-black bg-neutral-100 text-left shadow-[12px_12px_0_0_#ef4444] outline-none transition-transform duration-300 hover:-translate-y-1 focus-visible:ring-4 focus-visible:ring-[#ef4444]/40 dark:border-white dark:bg-neutral-900 lg:mx-0 lg:max-w-none"
+            aria-label="View alternate Badge0 photo"
+          >
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              key={showAlternatePhoto ? "alternate" : "badge"}
+              src={
+                showAlternatePhoto
+                  ? "/badge0/badge0-in-use.jpg"
+                  : "/badge0/actual-badge.jpg"
+              }
+              alt={
+                showAlternatePhoto
+                  ? "Two AISB attendees holding Badge0 badges"
+                  : "The physical AISB Badge0 e-paper conference badge"
+              }
+              width={1400}
+              height={showAlternatePhoto ? 1050 : 2248}
+              className="h-auto w-full"
+            />
+          </button>
         </div>
       </section>
 
@@ -238,7 +266,7 @@ export default function Badge0Page() {
             Home
           </a>
           <a
-            href="/vegas26"
+            href="/2026/aug/vegas"
             className="text-neutral-400 dark:text-neutral-600 text-sm font-bold uppercase tracking-widest hover:text-[#ef4444] transition-colors"
           >
             Vegas 2026
