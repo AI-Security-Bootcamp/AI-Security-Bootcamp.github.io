@@ -2,7 +2,6 @@
 
 import { useState, useEffect, useMemo } from "react";
 import posthog from "posthog-js";
-import { CanonicalizeUrl } from "../2026/_components/CanonicalizeUrl";
 
 function useCountdown(target: Date) {
   const [now, setNow] = useState(() => new Date());
@@ -19,10 +18,14 @@ function useCountdown(target: Date) {
 }
 
 function CountdownBanner() {
-  const deadline = useMemo(() => new Date("2026-06-21T23:59:59"), []);
+  const deadline = useMemo(() => new Date("2026-10-01T23:59:59-12:00"), []);
   const { days, hours, minutes, seconds, expired } = useCountdown(deadline);
+  // Render only after mount: the ticking seconds never match the server-rendered
+  // HTML, which triggers a full hydration bailout.
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
 
-  if (expired) return null;
+  if (!mounted || expired) return null;
 
   const units = [
     { label: "Days", value: days },
@@ -110,7 +113,6 @@ const curriculumDays = [
       "Data center infrastructure: power, networking, physical security",
       "ML stack threat modeling end-to-end",
       "Personnel security considerations for AI deployments",
-      "Potential site visit (TBD) to a local data center for a behind-the-scenes look at real-world deployments",
     ],
   },
   {
@@ -139,11 +141,11 @@ const faqs = [
   },
   {
     q: "Does the program cover accommodation and travel?",
-    a: "We will provide accommodation for you in Vegas for the full duration of the program. We have need-based travel support available.",
+    a: "We will provide accommodation for you in London for the full duration of the program. We have need-based travel support available.",
   },
   {
     q: "What is the time commitment?",
-    a: "Full-time attendance from Sunday (Aug 2) through Saturday (Aug 8). We recommend you arrive Saturday Aug 1 and depart Sunday Aug 9. Pre-reading is sent in advance (2 weeks before the bootcamp) and we share extra reading throughout the week.",
+    a: "Full-time attendance from Sunday (Dec 6) through Saturday (Dec 12). We recommend you arrive Saturday Dec 5 and depart Sunday Dec 13. Pre-reading is sent in advance (2 weeks before the bootcamp) and we share extra reading throughout the week.",
   },
   {
     q: "Do I need prior AI/ML experience?",
@@ -280,7 +282,7 @@ const affiliationLogos = [
   // { src: "/logos/Turkish Aerospace Industries.svg", alt: "Turkish Aerospace Industries" },
 ];
 
-const SLOT_WORDS = ["Vegas", "2026"];
+const SLOT_WORDS = ["London", "2026"];
 const SLOT_INTERVAL = 3000;
 const SLOT_DURATION = 600;
 
@@ -302,14 +304,16 @@ function SlotCarousel() {
   const next = (index + 1) % SLOT_WORDS.length;
 
   return (
-    <span className="relative inline-block overflow-hidden align-bottom h-[1.2em]">
+    // Grid-stacks every word in the same cell so the container sizes to the
+    // tallest one, letting long words wrap to two lines on narrow screens.
+    <span className="relative inline-grid overflow-hidden align-bottom max-w-full">
       {SLOT_WORDS.map((word) => (
-        <span key={word} className="invisible block whitespace-nowrap h-0" aria-hidden="true">
+        <span key={word} className="invisible col-start-1 row-start-1" aria-hidden="true">
           {word}
         </span>
       ))}
       <span
-        className="absolute left-0 top-0 inline-block text-[#ef4444] whitespace-nowrap"
+        className="col-start-1 row-start-1 text-[#ef4444]"
         style={
           phase === "animating"
             ? {
@@ -322,7 +326,7 @@ function SlotCarousel() {
       </span>
       {phase === "animating" && (
         <span
-          className="absolute left-0 top-0 inline-block text-[#ef4444] whitespace-nowrap"
+          className="col-start-1 row-start-1 text-[#ef4444]"
           style={{
             animation: `slot-slide-in ${SLOT_DURATION}ms ease-out forwards`,
           }}
@@ -436,7 +440,7 @@ function AccordionItem({
           </span>
         </div>
         <span className="text-black dark:text-white text-3xl font-light leading-none select-none">
-          {open ? "\u2212" : "+"}
+          {open ? "−" : "+"}
         </span>
       </button>
       {open && (
@@ -446,7 +450,7 @@ function AccordionItem({
               key={i}
               className="flex items-start gap-4 text-neutral-600 dark:text-neutral-300"
             >
-              <span className="text-[#ef4444] mt-1 text-xs">{"\u25A0"}</span>
+              <span className="text-[#ef4444] mt-1 text-xs">{"■"}</span>
               <span className="text-base">{item}</span>
             </li>
           ))}
@@ -469,7 +473,7 @@ function FaqItem({ q, a }: { q: string; a: string }) {
           {q}
         </span>
         <span className="text-black dark:text-white text-3xl font-light leading-none select-none flex-shrink-0">
-          {open ? "\u2212" : "+"}
+          {open ? "−" : "+"}
         </span>
       </button>
       {open && (
@@ -537,7 +541,7 @@ function TestimonialCard({ t }: { t: Testimonial }) {
   );
 }
 
-const EOI_URL = "/eoi";
+const APPLICATION_URL = "https://airtable.com/appyq1bBRnK6s7AkM/paglvXzxYAiJclCZX/form";
 
 export default function Home() {
   const { isDark, toggle, mounted } = useTheme();
@@ -553,14 +557,13 @@ export default function Home() {
 
   return (
     <div className="bg-white dark:bg-black text-black dark:text-white min-h-screen font-sans transition-colors">
-      <CanonicalizeUrl to="/2026/aug/vegas" />
       {mounted && <ThemeToggle isDark={isDark} toggle={toggle} />}
 
       {/* ===================== HERO ===================== */}
       <section className="min-h-screen flex flex-col px-6 md:px-16 lg:px-24 pt-4 md:pt-6">
         <div className="flex-1 flex flex-col justify-center w-full max-w-5xl">
           <p className="text-[#ef4444] font-black text-sm uppercase tracking-widest mb-3">
-            Applications Closed
+            Applications open
           </p>
           <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black leading-[0.95] tracking-tight mb-6">
             AI Security
@@ -575,9 +578,9 @@ export default function Home() {
           </p>
 
           <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-neutral-400 dark:text-neutral-500 font-bold uppercase tracking-widest mb-5">
-            <span>August 2-8, 2026</span>
+            <span>Dec 6-12, 2026</span>
             <span className="text-[#ef4444]">|</span>
-            <span>Las Vegas</span>
+            <span>London</span>
             <span className="text-[#ef4444]">|</span>
             <span>In-Person</span>
             <span className="text-[#ef4444]">|</span>
@@ -586,11 +589,11 @@ export default function Home() {
 
           <div className="flex flex-wrap gap-4 mb-6">
             <a
-              href={EOI_URL}
-              onClick={() => { posthog.capture("clicked_expression_of_interest", { location: "vegas26_hero" }); }}
+              href={APPLICATION_URL}
+              onClick={() => { posthog.capture("clicked_apply_now", { location: "dec26_hero" }); }}
               className="inline-block bg-[#ef4444] text-white font-black text-sm uppercase tracking-widest px-8 py-4 hover:bg-red-600 transition-colors"
             >
-              Expression of Interest
+              Apply Now
             </a>
             <button
               onClick={() => scrollTo("overview")}
@@ -606,7 +609,7 @@ export default function Home() {
             <span>
               Application Deadline:{" "}
               <span className="text-black dark:text-white font-bold">
-                June 21, 2026
+                October 1, 2026 (AoE)
               </span>
             </span>
           </div>
@@ -704,7 +707,7 @@ export default function Home() {
             ].map((item, i) => (
               <li key={i} className="flex items-start gap-4">
                 <span className="text-[#ef4444] mt-1.5 text-xs font-black">
-                  {"\u25A0"}
+                  {"■"}
                 </span>
                 <span className="text-neutral-600 dark:text-neutral-300 text-base md:text-lg leading-relaxed">
                   {item}
@@ -777,11 +780,11 @@ export default function Home() {
               Timing
             </h3>
             <p className="text-neutral-600 dark:text-neutral-300 text-base md:text-lg leading-relaxed mb-4">
-              AISB Vegas runs from Sunday (Aug 2) through Saturday (Aug 8), 2026.
+              AISB London runs from Sunday (Dec 6) through Saturday (Dec 12), 2026.
             </p>
             <p className="text-neutral-600 dark:text-neutral-300 text-base md:text-lg leading-relaxed">
-              The week overlaps with the broader Las Vegas summer security calendar: a strong networking opportunity
-              for participants to connect with practitioners and researchers from across the field.
+              The program is based in London, giving participants opportunities to connect with practitioners and
+              researchers working on frontier AI security.
             </p>
           </div>
 
@@ -793,7 +796,7 @@ export default function Home() {
             <div className="space-y-6 text-neutral-600 dark:text-neutral-300 text-base md:text-lg leading-relaxed">
               <p>
                 <span className="font-bold text-black dark:text-white">The program is free to attend.</span>{" "}
-                Tuition, meals during program hours, materials, and accommodation in Las Vegas are fully covered for
+                Tuition, meals during program hours, materials, and accommodation in London are fully covered for
                 accepted participants. Need-based travel support is available.
               </p>
               <p>
@@ -841,20 +844,21 @@ export default function Home() {
       <section className="px-6 md:px-16 lg:px-24 py-20 border-t-2 border-black dark:border-white">
         <div className="max-w-3xl">
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-black mb-8 tracking-tight">
-            Interested in Vegas 2026?
+            Ready to Apply?
           </h2>
           <p className="text-neutral-500 dark:text-neutral-400 text-base md:text-lg leading-relaxed mb-4 max-w-xl">
-            Submit an expression of interest and we&apos;ll keep you in the loop about the upcoming Vegas bootcamp.
+            Applications close October 1, 2026 at 11:59pm AoE. We review on a rolling basis and will prioritize applications we receive
+            before the deadline. Early applications are encouraged.
           </p>
           <p className="text-neutral-500 dark:text-neutral-400 text-base md:text-lg leading-relaxed mb-10 max-w-xl">
             Reach out to <a href="mailto:pranav@aisb.dev" className="underline hover:text-[#ef4444] transition-colors">pranav@aisb.dev</a> with questions about the program.
           </p>
           <a
-            href={EOI_URL}
-            onClick={() => { posthog.capture("clicked_expression_of_interest", { location: "vegas26_cta" }); }}
+            href={APPLICATION_URL}
+            onClick={() => { posthog.capture("clicked_apply_now", { location: "dec26_cta" }); }}
             className="inline-block bg-[#ef4444] text-white font-black text-sm uppercase tracking-widest px-8 py-4 hover:bg-red-600 transition-colors"
           >
-            Expression of Interest
+            Apply Now
           </a>
         </div>
       </section>
@@ -872,7 +876,6 @@ export default function Home() {
             BlueDot Impact
           </a>
           .
-          {/* TODO: confirm and add BlueDot Impact's registered charity number, company number, and registered office address. */}
         </p>
         <div className="flex flex-wrap gap-6">
           <a
@@ -882,16 +885,10 @@ export default function Home() {
             Home
           </a>
           <a
-            href="/2026/apr/singapore"
+            href="/#cohorts"
             className="text-neutral-400 dark:text-neutral-600 text-sm font-bold uppercase tracking-widest hover:text-[#ef4444] transition-colors"
           >
-            Singapore 2026
-          </a>
-          <a
-            href="/2025"
-            className="text-neutral-400 dark:text-neutral-600 text-sm font-bold uppercase tracking-widest hover:text-[#ef4444] transition-colors"
-          >
-            London 2025
+            Past Programs
           </a>
           <a
             href="/staff"

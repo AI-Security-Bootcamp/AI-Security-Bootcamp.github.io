@@ -2,69 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import posthog from "posthog-js";
-
-type Cohort = {
-  name: string;
-  year: string;
-  href: string;
-  analyticsId: string;
-  detail: string;
-  description: string;
-  endDate: string;
-};
-
-const editions: Cohort[] = [
-  {
-    name: "AISB San Francisco",
-    year: "2026",
-    href: "/sf26",
-    analyticsId: "sf_2026",
-    detail: "7-day intensive · 20 participants · October 2026",
-    description:
-      "An AI security cohort in the Bay Area, home to the frontier AI labs. Threat modelling, adversarial attacks, LLM and infrastructure security.",
-    endDate: "2026-10-10",
-  },
-  {
-    name: "AISB Vegas",
-    year: "2026",
-    href: "/vegas26",
-    analyticsId: "vegas_2026",
-    detail: "7-day intensive · 20 participants · August 2026",
-    description:
-      "A frontier AI security cohort during the Las Vegas summer security calendar. Threat modelling, adversarial attacks, LLM and infrastructure security.",
-    endDate: "2026-08-08",
-  },
-  {
-    name: "AISB London",
-    year: "2026",
-    href: "/london26",
-    analyticsId: "london_2026",
-    detail: "7-day intensive · 20 participants · September 2026",
-    description:
-      "An intensive cohort for security professionals shaping how we secure emerging AI systems, from adversarial attacks and LLM security to infrastructure and governance.",
-    endDate: "2026-09-05",
-  },
-  {
-    name: "AISB Singapore",
-    year: "2026",
-    href: "/singapore",
-    analyticsId: "singapore_2026",
-    detail: "7-day intensive · 16 participants · April 2026",
-    description:
-      "A focused practitioner cohort run alongside Black Hat Asia. Threat modelling, adversarial attacks, LLM and infrastructure security.",
-    endDate: "2026-04-26",
-  },
-  {
-    name: "AISB London",
-    year: "2025",
-    href: "/2025",
-    analyticsId: "london_2025",
-    detail: "4-week intensive · 20 participants · August 2025",
-    description:
-      "The first AISB cohort. Four weeks of security fundamentals, infrastructure, and AI-specific threats \u2014 culminating in a week of capstone projects.",
-    endDate: "2025-08-29",
-  },
-];
+import { editions, type Cohort } from "../lib/cohorts";
 
 const faqs = [
   {
@@ -492,8 +430,8 @@ export default function Home() {
 
           <div className="flex flex-wrap items-start gap-4 mb-12">
             <a
-              href="/sf26"
-              onClick={() => { posthog.capture("clicked_edition", { edition: "sf_2026", location: "hero" }); }}
+              href="/2026/dec/london"
+              onClick={() => { posthog.capture("clicked_edition", { edition: "london_dec_2026", location: "hero" }); }}
               className="inline-block bg-[#ef4444] text-white font-black text-sm uppercase tracking-widest px-8 py-4 hover:bg-red-600 transition-colors"
             >
               Apply Now
@@ -714,19 +652,19 @@ export default function Home() {
             Ready to Apply?
           </h2>
           <p className="text-neutral-500 dark:text-neutral-400 text-base md:text-lg leading-relaxed mb-4 max-w-xl">
-            Applications are open for AISB San Francisco, Oct 4-10, 2026. The deadline to
-            apply is August 16, 2026.
+            Applications are open for AISB London, Dec 6-12, 2026. The deadline to
+            apply is October 1, 2026 (AoE).
           </p>
           <p className="text-neutral-500 dark:text-neutral-400 text-base md:text-lg leading-relaxed mb-10 max-w-xl">
             Reach out to <a href="mailto:pranav@aisb.dev" className="underline hover:text-[#ef4444] transition-colors">pranav@aisb.dev</a> for any questions about the program.
           </p>
           <div className="flex flex-wrap gap-4">
             <a
-              href="/sf26"
-              onClick={() => { posthog.capture("clicked_edition", { edition: "sf_2026", location: "cta_section" }); }}
+              href="/2026/dec/london"
+              onClick={() => { posthog.capture("clicked_edition", { edition: "london_dec_2026", location: "cta_section" }); }}
               className="inline-block bg-[#ef4444] text-white font-black text-sm uppercase tracking-widest px-8 py-4 hover:bg-red-600 transition-colors"
             >
-              Apply now: AISB San Francisco
+              Apply now: AISB London
             </a>
             <a
               href="/staff"

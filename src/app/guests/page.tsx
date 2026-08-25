@@ -77,7 +77,7 @@ export default function GuestVisit() {
 
           <p className="text-lg md:text-xl text-neutral-500 dark:text-neutral-400 max-w-2xl mb-4 leading-relaxed">
             Our next{" "}
-            <a href="/london26" className="underline hover:text-[#ef4444] transition-colors">
+            <a href="/2026/aug/london" className="underline hover:text-[#ef4444] transition-colors">
               AI Security Bootcamp
             </a>{" "}
             (AISB) is in London: a 7-day intensive program for security professionals shaping how
@@ -146,7 +146,7 @@ export default function GuestVisit() {
             Home
           </a>
           <a
-            href="/london26"
+            href="/2026/aug/london"
             className="text-neutral-400 dark:text-neutral-600 text-sm font-bold uppercase tracking-widest hover:text-[#ef4444] transition-colors"
           >
             London 2026

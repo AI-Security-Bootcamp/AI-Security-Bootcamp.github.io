@@ -119,7 +119,7 @@ export default function ExpressionOfInterest() {
             London 2025
           </a>
           <a
-            href="/singapore"
+            href="/2026/apr/singapore"
             className="text-neutral-400 dark:text-neutral-600 text-sm font-bold uppercase tracking-widest hover:text-[#ef4444] transition-colors"
           >
             Singapore 2026
