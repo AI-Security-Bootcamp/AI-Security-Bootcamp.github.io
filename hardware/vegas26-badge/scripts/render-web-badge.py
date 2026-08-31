@@ -6,6 +6,7 @@ from __future__ import annotations
 import argparse
 from pathlib import Path
 import re
+import unicodedata
 
 from PIL import Image, ImageDraw, ImageFont
 
@@ -22,7 +23,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--last-name", default="Gade")
     parser.add_argument(
         "--role",
-        choices=("participant", "speaker", "operations", "guest", "bestie"),
+        choices=("participant", "speaker", "guest-speaker", "operations", "guest", "bestie"),
         default="speaker",
     )
     parser.add_argument("--font", type=Path, required=True)
@@ -53,13 +54,25 @@ def draw_tracked_text(
     for character in text:
         bounds = draw.textbbox((0, 0), character, font=font)
         character_top = visible_top
+        # Anchor accented capitals by the underlying letter's cap height. If
+        # the whole accented glyph is top-aligned, the accent sits correctly
+        # but the letter itself drops below all neighboring capitals.
+        decomposed = unicodedata.normalize("NFD", character)
+        base_character = "".join(
+            component
+            for component in decomposed
+            if not unicodedata.combining(component)
+        )
+        vertical_bounds = bounds
+        if base_character and base_character != character:
+            vertical_bounds = draw.textbbox((0, 0), base_character, font=font)
         if character in "-–—":
             ink_bounds = font.getmask(character).getbbox()
             if ink_bounds is not None:
                 ink_height = ink_bounds[3] - ink_bounds[1]
                 character_top += (cap_ink_height - ink_height) / 2
         draw.text(
-            (x - bounds[0], character_top - bounds[1]),
+            (x - bounds[0], character_top - vertical_bounds[1]),
             character,
             font=font,
             fill=fill,
@@ -77,6 +90,35 @@ def draw_centered_tracked_text(
 ) -> None:
     x = (SIZE[0] - tracked_width(draw, text, font, tracking)) / 2
     draw_tracked_text(draw, (x, visible_top), text, font, fill, tracking)
+
+
+def tracked_text_ink_bounds(
+    text: str,
+    font: ImageFont.FreeTypeFont,
+    tracking: float,
+) -> tuple[int, int, int, int]:
+    """Return actual tracked-text ink bounds relative to its visible-top anchor."""
+    anchor_x = 64
+    anchor_y = 96
+    scratch = Image.new("L", (1024, 256), 0)
+    scratch_draw = ImageDraw.Draw(scratch)
+    draw_tracked_text(
+        scratch_draw,
+        (anchor_x, anchor_y),
+        text,
+        font,
+        255,
+        tracking,
+    )
+    bounds = scratch.getbbox()
+    if bounds is None:
+        return (0, 0, 0, 0)
+    return (
+        bounds[0] - anchor_x,
+        bounds[1] - anchor_y,
+        bounds[2] - anchor_x,
+        bounds[3] - anchor_y,
+    )
 
 
 def fitted_font(
@@ -131,8 +173,19 @@ def main() -> int:
     last = args.last_name.strip().upper() or "LAST"
     name_font = fitted_font(draw, args.font, (first, last), 314)
     name_tracking = -0.025 * name_font.size
-    draw_centered_tracked_text(draw, 55, first, name_font, foreground, name_tracking)
-    draw_centered_tracked_text(draw, 106, last, name_font, RED, name_tracking)
+    first_ink = tracked_text_ink_bounds(first, name_font, name_tracking)
+    last_ink = tracked_text_ink_bounds(last, name_font, name_tracking)
+    first_height = first_ink[3] - first_ink[1]
+    last_height = last_ink[3] - last_ink[1]
+    line_gap = 10
+    name_area_top = 5
+    name_area_bottom = 181
+    block_height = first_height + line_gap + last_height
+    block_top = name_area_top + (name_area_bottom - name_area_top - block_height) / 2
+    first_top = block_top - first_ink[1]
+    last_top = block_top + first_height + line_gap - last_ink[1]
+    draw_centered_tracked_text(draw, first_top, first, name_font, foreground, name_tracking)
+    draw_centered_tracked_text(draw, last_top, last, name_font, RED, name_tracking)
 
     with Image.open(args.logo) as source:
         logo = source.convert("RGB").resize((58, 58), Image.Resampling.LANCZOS)
@@ -143,13 +196,21 @@ def main() -> int:
 
     draw.rectangle((23, 181, 336, 183), fill=foreground)
     role_font = ImageFont.truetype(str(args.font), 22)
-    draw_centered_tracked_text(
+    role_label = args.role.replace("-", " ").upper()
+    role_tracking = 0.14 * role_font.size
+    role_width = tracked_width(draw, role_label, role_font, role_tracking)
+    role_x = (SIZE[0] - role_width) / 2
+    logo_clearance_x = 91
+    footer_right = 336
+    if role_x < logo_clearance_x:
+        role_x = logo_clearance_x + (footer_right - logo_clearance_x - role_width) / 2
+    draw_tracked_text(
         draw,
-        193,
-        args.role.upper(),
+        (role_x, 193),
+        role_label,
         role_font,
         foreground,
-        0.14 * role_font.size,
+        role_tracking,
     )
 
     black, red = split_planes(preview)
