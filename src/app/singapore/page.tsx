@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import posthog from "posthog-js";
 import { CanonicalizeUrl } from "../2026/_components/CanonicalizeUrl";
 import { getProgramme } from "../../lib/staff";
+import { ApplicationCta } from "../../components/ApplicationCta";
 
 const curriculumDays = [
   {
@@ -328,13 +329,7 @@ export default function Home() {
           </div>
 
           <div className="flex flex-wrap gap-4 mb-10">
-            <a
-              href="/eoi"
-              onClick={() => { posthog.capture("clicked_expression_of_interest", { location: "singapore_hero" }); }}
-              className="inline-block bg-[#ef4444] text-white font-black text-sm uppercase tracking-widest px-8 py-4 hover:bg-red-600 transition-colors"
-            >
-              Express interest in future cohorts
-            </a>
+            <ApplicationCta cohortId="singapore-2026" location="singapore_hero" />
             <button
               onClick={() => scrollTo("overview")}
               className="inline-block border-2 border-black dark:border-white text-black dark:text-white font-black text-sm uppercase tracking-widest px-8 py-4 bg-transparent hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-colors"
@@ -646,13 +641,7 @@ export default function Home() {
             Reach out to <a href="mailto:pranav@aisb.dev" className="underline hover:text-[#ef4444] transition-colors">pranav@aisb.dev</a> to ask questions about the program.
           </p>
           <div className="flex flex-wrap gap-4">
-            <a
-              href="/eoi"
-              onClick={() => { posthog.capture("clicked_expression_of_interest", { location: "singapore_cta" }); }}
-              className="inline-block bg-[#ef4444] text-white font-black text-sm uppercase tracking-widest px-8 py-4 hover:bg-red-600 transition-colors"
-            >
-              Expression of Interest
-            </a>
+            <ApplicationCta cohortId="singapore-2026" location="singapore_cta" />
             <a
               href="/"
               className="inline-block border-2 border-black dark:border-white text-black dark:text-white font-black text-sm uppercase tracking-widest px-8 py-4 bg-transparent hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-colors"

@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import posthog from "posthog-js";
 import { CanonicalizeUrl } from "../2026/_components/CanonicalizeUrl";
+import { ApplicationCta } from "../../components/ApplicationCta";
 
 const curriculumDays = [
   {
@@ -491,8 +492,6 @@ function TestimonialCard({ t }: { t: Testimonial }) {
   );
 }
 
-const EOI_URL = "/eoi";
-
 export default function Home() {
   const { isDark, toggle, mounted } = useTheme();
 
@@ -514,7 +513,7 @@ export default function Home() {
       <section className="min-h-screen flex flex-col px-6 md:px-16 lg:px-24 pt-4 md:pt-6">
         <div className="flex-1 flex flex-col justify-center w-full max-w-5xl">
           <p className="text-[#ef4444] font-black text-sm uppercase tracking-widest mb-3">
-            Applications Closed
+            Applications open
           </p>
           <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black leading-[0.95] tracking-tight mb-6">
             AI Security
@@ -539,13 +538,7 @@ export default function Home() {
           </div>
 
           <div className="flex flex-wrap gap-4 mb-6">
-            <a
-              href={EOI_URL}
-              onClick={() => { posthog.capture("clicked_expression_of_interest", { location: "sf26_hero" }); }}
-              className="inline-block bg-[#ef4444] text-white font-black text-sm uppercase tracking-widest px-8 py-4 hover:bg-red-600 transition-colors"
-            >
-              Expression of Interest
-            </a>
+            <ApplicationCta cohortId="sf-2026" location="sf26_hero" />
             <button
               onClick={() => scrollTo("overview")}
               className="inline-block border-2 border-black dark:border-white text-black dark:text-white font-black text-sm uppercase tracking-widest px-8 py-4 bg-transparent hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-colors"
@@ -788,18 +781,12 @@ export default function Home() {
             Interested in San Francisco 2026?
           </h2>
           <p className="text-neutral-500 dark:text-neutral-400 text-base md:text-lg leading-relaxed mb-4 max-w-xl">
-            Submit an expression of interest and we&apos;ll keep you in the loop about future AISB cohorts.
+            Applications are open for the upcoming San Francisco bootcamp.
           </p>
           <p className="text-neutral-500 dark:text-neutral-400 text-base md:text-lg leading-relaxed mb-10 max-w-xl">
             Reach out to <a href="mailto:pranav@aisb.dev" className="underline hover:text-[#ef4444] transition-colors">pranav@aisb.dev</a> with questions about the program.
           </p>
-          <a
-            href={EOI_URL}
-            onClick={() => { posthog.capture("clicked_expression_of_interest", { location: "sf26_cta" }); }}
-            className="inline-block bg-[#ef4444] text-white font-black text-sm uppercase tracking-widest px-8 py-4 hover:bg-red-600 transition-colors"
-          >
-            Expression of Interest
-          </a>
+          <ApplicationCta cohortId="sf-2026" location="sf26_cta" />
         </div>
       </section>
 

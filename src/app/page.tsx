@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from "react";
 import posthog from "posthog-js";
 import { editions, type Cohort } from "../lib/cohorts";
+import { ApplicationCta } from "../components/ApplicationCta";
 
 const faqs = [
   {
@@ -429,13 +430,7 @@ export default function Home() {
           </div>
 
           <div className="flex flex-wrap items-start gap-4 mb-12">
-            <a
-              href="/2026/dec/london"
-              onClick={() => { posthog.capture("clicked_edition", { edition: "london_dec_2026", location: "hero" }); }}
-              className="inline-block bg-[#ef4444] text-white font-black text-sm uppercase tracking-widest px-8 py-4 hover:bg-red-600 transition-colors"
-            >
-              Apply Now
-            </a>
+            <ApplicationCta cohortId="london-dec-2026" location="hero" />
             <button
               onClick={() => {
                 setPastOpen(true);
@@ -539,9 +534,7 @@ export default function Home() {
 
         <p className="text-neutral-500 dark:text-neutral-400 text-base md:text-lg leading-relaxed mt-12 max-w-3xl">
           Interested in a future cohort?{" "}
-          <a href="/eoi" className="underline hover:text-[#ef4444] transition-colors">
-            Submit an expression of interest
-          </a>{" "}
+          <ApplicationCta cohortId="default" location="cohorts" variant="inline" />{" "}
           and we&apos;ll keep you in the loop.
         </p>
       </section>
@@ -659,13 +652,7 @@ export default function Home() {
             Reach out to <a href="mailto:pranav@aisb.dev" className="underline hover:text-[#ef4444] transition-colors">pranav@aisb.dev</a> for any questions about the program.
           </p>
           <div className="flex flex-wrap gap-4">
-            <a
-              href="/2026/dec/london"
-              onClick={() => { posthog.capture("clicked_edition", { edition: "london_dec_2026", location: "cta_section" }); }}
-              className="inline-block bg-[#ef4444] text-white font-black text-sm uppercase tracking-widest px-8 py-4 hover:bg-red-600 transition-colors"
-            >
-              Apply now: AISB London
-            </a>
+            <ApplicationCta cohortId="london-dec-2026" location="cta_section" />
             <a
               href="/staff"
               className="inline-block border-2 border-black dark:border-white text-black dark:text-white font-black text-sm uppercase tracking-widest px-8 py-4 bg-transparent hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-colors"

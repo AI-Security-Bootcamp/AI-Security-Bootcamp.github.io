@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { ApplicationCta } from "../../components/ApplicationCta";
 
 const VISIT_FORM_EMBED_URL =
   "https://docs.google.com/forms/d/e/1FAIpQLSfR360NeQQiVltfCOdrRR93ZQTTNdL4vPAhx6HbqsmYT8uhrw/viewform?embedded=true";
@@ -151,12 +152,11 @@ export default function GuestVisit() {
           >
             London 2026
           </a>
-          <a
-            href="/eoi"
+          <ApplicationCta
+            cohortId="default"
+            location="guest_visit_footer"
             className="text-neutral-400 dark:text-neutral-600 text-sm font-bold uppercase tracking-widest hover:text-[#ef4444] transition-colors"
-          >
-            Expression of Interest
-          </a>
+          />
           <a
             href="/staff"
             className="text-neutral-400 dark:text-neutral-600 text-sm font-bold uppercase tracking-widest hover:text-[#ef4444] transition-colors"

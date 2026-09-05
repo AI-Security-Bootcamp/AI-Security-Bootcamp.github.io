@@ -3,6 +3,7 @@
 import { useState, useEffect, useMemo } from "react";
 import posthog from "posthog-js";
 import { CanonicalizeUrl } from "../2026/_components/CanonicalizeUrl";
+import { ApplicationCta } from "../../components/ApplicationCta";
 
 function useCountdown(target: Date) {
   const [now, setNow] = useState(() => new Date());
@@ -537,8 +538,6 @@ function TestimonialCard({ t }: { t: Testimonial }) {
   );
 }
 
-const EOI_URL = "/eoi";
-
 export default function Home() {
   const { isDark, toggle, mounted } = useTheme();
 
@@ -585,13 +584,7 @@ export default function Home() {
           </div>
 
           <div className="flex flex-wrap gap-4 mb-6">
-            <a
-              href={EOI_URL}
-              onClick={() => { posthog.capture("clicked_expression_of_interest", { location: "vegas26_hero" }); }}
-              className="inline-block bg-[#ef4444] text-white font-black text-sm uppercase tracking-widest px-8 py-4 hover:bg-red-600 transition-colors"
-            >
-              Expression of Interest
-            </a>
+            <ApplicationCta cohortId="vegas-2026" location="vegas26_hero" />
             <button
               onClick={() => scrollTo("overview")}
               className="inline-block border-2 border-black dark:border-white text-black dark:text-white font-black text-sm uppercase tracking-widest px-8 py-4 bg-transparent hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-colors"
@@ -849,13 +842,7 @@ export default function Home() {
           <p className="text-neutral-500 dark:text-neutral-400 text-base md:text-lg leading-relaxed mb-10 max-w-xl">
             Reach out to <a href="mailto:pranav@aisb.dev" className="underline hover:text-[#ef4444] transition-colors">pranav@aisb.dev</a> with questions about the program.
           </p>
-          <a
-            href={EOI_URL}
-            onClick={() => { posthog.capture("clicked_expression_of_interest", { location: "vegas26_cta" }); }}
-            className="inline-block bg-[#ef4444] text-white font-black text-sm uppercase tracking-widest px-8 py-4 hover:bg-red-600 transition-colors"
-          >
-            Expression of Interest
-          </a>
+          <ApplicationCta cohortId="vegas-2026" location="vegas26_cta" />
         </div>
       </section>
 
