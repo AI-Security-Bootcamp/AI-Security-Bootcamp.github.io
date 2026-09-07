@@ -2,6 +2,10 @@
 
 import { useEffect, useRef, useState } from "react";
 import { LinkedinSquare } from "../_square";
+import {
+  defaultLinkedinImageCohort,
+  linkedinImageCohorts,
+} from "../../../../lib/cohorts";
 
 // Square LinkedIn post image (1080 × 1080).
 // Renders at exact pixel size; viewport-scaled for preview, screenshot the
@@ -12,7 +16,10 @@ export default function LinkedinImagePage() {
   const [dark, setDark] = useState(false);
   const [fit, setFit] = useState(true);
   const [scale, setScale] = useState(1);
+  const [cohortId, setCohortId] = useState(defaultLinkedinImageCohort.id);
   const containerRef = useRef<HTMLDivElement>(null);
+  const cohort =
+    linkedinImageCohorts.find((candidate) => candidate.id === cohortId) ?? defaultLinkedinImageCohort;
 
   useEffect(() => {
     if (!fit) {
@@ -42,6 +49,20 @@ export default function LinkedinImagePage() {
             </p>
           </div>
           <div className="flex items-center gap-2 flex-wrap">
+            <label className="flex items-center gap-2 text-sm font-bold text-black">
+              <span className="sr-only">Cohort</span>
+              <select
+                value={cohortId}
+                onChange={(event) => setCohortId(event.target.value)}
+                className="border-2 border-black bg-white px-3 py-1.5 text-sm font-bold focus:outline-none focus:border-[#ef4444]"
+              >
+                {linkedinImageCohorts.map((candidate) => (
+                  <option key={candidate.id} value={candidate.id}>
+                    {candidate.location} · {candidate.monthLabel} {candidate.year}
+                  </option>
+                ))}
+              </select>
+            </label>
             <button
               onClick={() => setDark((d) => !d)}
               className="border-2 border-black px-3 py-1.5 text-sm font-bold hover:bg-black hover:text-white transition-colors text-black"
@@ -73,7 +94,7 @@ export default function LinkedinImagePage() {
           }}
         >
           <div style={{ transform: `scale(${scale})`, transformOrigin: "top left" }}>
-            <LinkedinSquare id="linkedin-square" dark={dark} />
+            <LinkedinSquare id="linkedin-square" dark={dark} cohort={cohort} />
           </div>
         </div>
 

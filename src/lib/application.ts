@@ -1,3 +1,5 @@
+import { editions, type Cohort } from "./cohorts";
+
 export const APPLICATION_URL =
   "https://airtable.com/appyq1bBRnK6s7AkM/paglvXzxYAiJclCZX/form";
 export const EOI_URL = "/eoi";
@@ -27,4 +29,25 @@ export function getApplicationMode(cohortId: ApplicationCohortId): ApplicationMo
 
 export function getApplicationDestination(cohortId: ApplicationCohortId): string {
   return getApplicationMode(cohortId) === "apply" ? APPLICATION_URL : EOI_URL;
+}
+
+function isApplicationCohortId(cohortId: string): cohortId is ApplicationCohortId {
+  return cohortId in applicationModes;
+}
+
+/** The chronologically latest cohort that is currently accepting applications. */
+export function getLatestOpenApplicationCohort(): Cohort {
+  const cohort = editions
+    .filter(
+      (candidate) =>
+        isApplicationCohortId(candidate.id) && getApplicationMode(candidate.id) === "apply",
+    )
+    .sort((a, b) => b.startDate.localeCompare(a.startDate))
+    .at(0);
+
+  if (!cohort) {
+    throw new Error("No cohort is currently accepting applications.");
+  }
+
+  return cohort;
 }

@@ -6,6 +6,11 @@
 // Wrap with a scale transform on the consumer side if you need it smaller.
 
 import React from "react";
+import {
+  defaultLinkedinImageCohort,
+  formatCohortDateRange,
+  type LinkedinImageCohort,
+} from "../../../lib/cohorts";
 
 const COLOR = "#ef4444";
 const FONT =
@@ -14,9 +19,16 @@ const FONT =
 export type LinkedinSquareProps = {
   dark?: boolean;
   id?: string;
+  cohort?: LinkedinImageCohort;
 };
 
-export function LinkedinSquare({ dark = false, id }: LinkedinSquareProps) {
+export function LinkedinSquare({
+  dark = false,
+  id,
+  cohort = defaultLinkedinImageCohort,
+}: LinkedinSquareProps) {
+  const image = cohort.linkedinImage;
+  const callToActionPath = image.callToActionPath ?? cohort.href;
   const palette = dark
     ? { bg: "#000", text: "#fff", muted: "#a3a3a3", rule: "#fff" }
     : { bg: "#fff", text: "#000", muted: "#525252", rule: "#000" };
@@ -49,7 +61,7 @@ export function LinkedinSquare({ dark = false, id }: LinkedinSquareProps) {
           margin: 0,
         }}
       >
-        Applications Now Open
+        {image.eyebrow}
       </p>
 
       {/* Title block */}
@@ -67,7 +79,7 @@ export function LinkedinSquare({ dark = false, id }: LinkedinSquareProps) {
         <br />
         Bootcamp
         <br />
-        <span style={{ color: COLOR, whiteSpace: "nowrap" }}>San Francisco</span>
+        <span style={{ color: COLOR, whiteSpace: "nowrap" }}>{cohort.location}</span>
       </h1>
 
       {/* Spacer */}
@@ -86,9 +98,12 @@ export function LinkedinSquare({ dark = false, id }: LinkedinSquareProps) {
           whiteSpace: "nowrap",
         }}
       >
-        Adversarial ML<span style={{ color: COLOR, margin: "0 10px" }}>|</span>
-        LLM Security<span style={{ color: COLOR, margin: "0 10px" }}>|</span>
-        Infrastructure &amp; Governance
+        {image.curriculumThemes.map((theme, index) => (
+          <React.Fragment key={theme}>
+            {index > 0 && <span style={{ color: COLOR, margin: "0 10px" }}>|</span>}
+            {theme}
+          </React.Fragment>
+        ))}
       </p>
 
       {/* Info block (dates + format) */}
@@ -108,9 +123,9 @@ export function LinkedinSquare({ dark = false, id }: LinkedinSquareProps) {
             lineHeight: 1.1,
           }}
         >
-          Oct 4-10, 2026
+          {formatCohortDateRange(cohort)}
           <span style={{ color: COLOR, margin: "0 14px" }}>·</span>
-          San Francisco
+          {cohort.location}
         </p>
         <p
           style={{
@@ -124,11 +139,11 @@ export function LinkedinSquare({ dark = false, id }: LinkedinSquareProps) {
             whiteSpace: "nowrap",
           }}
         >
-          7-Day Intensive
+          {image.format}
           <span style={{ color: COLOR, margin: "0 6px" }}>·</span>
-          Fully Funded
+          {image.funding}
           <span style={{ color: COLOR, margin: "0 6px" }}>·</span>
-          16-20 Senior Security Professionals
+          {image.audience}
         </p>
       </div>
 
@@ -166,7 +181,7 @@ export function LinkedinSquare({ dark = false, id }: LinkedinSquareProps) {
               letterSpacing: "-0.01em",
             }}
           >
-            August 16, 2026
+            {image.applicationDeadline}
           </p>
         </div>
         <p
@@ -178,7 +193,7 @@ export function LinkedinSquare({ dark = false, id }: LinkedinSquareProps) {
             letterSpacing: "-0.01em",
           }}
         >
-          aisb.dev/<span style={{ color: COLOR }}>sf26</span>
+          aisb.dev<span style={{ color: COLOR }}>{callToActionPath}</span>
         </p>
       </div>
     </div>
@@ -195,10 +210,12 @@ export function LinkedinSquareScaled({
   dark = false,
   width,
   id,
+  cohort,
 }: {
   dark?: boolean;
   width: number;
   id?: string;
+  cohort?: LinkedinImageCohort;
 }) {
   const scale = width / 1080;
   return (
@@ -210,7 +227,7 @@ export function LinkedinSquareScaled({
       }}
     >
       <div style={{ transform: `scale(${scale})`, transformOrigin: "top left" }}>
-        <LinkedinSquare dark={dark} id={id} />
+        <LinkedinSquare dark={dark} id={id} cohort={cohort} />
       </div>
     </div>
   );

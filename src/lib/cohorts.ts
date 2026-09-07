@@ -1,3 +1,13 @@
+export type LinkedinImageDetails = {
+  eyebrow: string;
+  curriculumThemes: readonly string[];
+  format: string;
+  funding: string;
+  audience: string;
+  applicationDeadline: string;
+  callToActionPath?: string;
+};
+
 export type Cohort = {
   id: string;
   name: string;
@@ -12,6 +22,15 @@ export type Cohort = {
   monthLabel: string;
   location: string;
   locationSlug: string;
+  /**
+   * The copy unique to the reusable LinkedIn image template. Adding this to a
+   * cohort automatically makes it available in the debug image picker.
+   */
+  linkedinImage?: LinkedinImageDetails;
+};
+
+export type LinkedinImageCohort = Cohort & {
+  linkedinImage: LinkedinImageDetails;
 };
 
 export const editions: Cohort[] = [
@@ -30,6 +49,15 @@ export const editions: Cohort[] = [
     monthLabel: "December",
     location: "London",
     locationSlug: "london",
+    linkedinImage: {
+      eyebrow: "Applications Now Open",
+      curriculumThemes: ["Adversarial ML", "LLM Security", "Infrastructure & Governance"],
+      format: "7-Day Intensive",
+      funding: "Fully Funded",
+      audience: "20 Senior Security Professionals",
+      applicationDeadline: "October 1, 2026",
+      callToActionPath: "/apply",
+    },
   },
   {
     id: "sf-2026",
@@ -123,4 +151,43 @@ export const cohortMonths2026 = Array.from(
 
 export function getCohortsForMonth(month: string) {
   return cohorts2026.filter((cohort) => cohort.month === month.toLowerCase());
+}
+
+export const linkedinImageCohorts: LinkedinImageCohort[] = editions.filter(
+  (cohort): cohort is LinkedinImageCohort => cohort.linkedinImage !== undefined,
+);
+
+const firstLinkedinImageCohort = linkedinImageCohorts.at(0);
+
+if (!firstLinkedinImageCohort) {
+  throw new Error("At least one cohort must define LinkedIn image details.");
+}
+
+export const defaultLinkedinImageCohort = firstLinkedinImageCohort;
+
+const utcDateFormatter = new Intl.DateTimeFormat("en-GB", {
+  month: "short",
+  timeZone: "UTC",
+});
+
+/** Formats a cohort's ISO date range for compact social-image copy. */
+export function formatCohortDateRange({ startDate, endDate }: Cohort): string {
+  const start = new Date(`${startDate}T00:00:00Z`);
+  const end = new Date(`${endDate}T00:00:00Z`);
+  const startMonth = utcDateFormatter.format(start);
+  const endMonth = utcDateFormatter.format(end);
+  const startDay = start.getUTCDate();
+  const endDay = end.getUTCDate();
+  const startYear = start.getUTCFullYear();
+  const endYear = end.getUTCFullYear();
+
+  if (startYear === endYear && startMonth === endMonth) {
+    return `${startMonth} ${startDay}-${endDay}, ${startYear}`;
+  }
+
+  if (startYear === endYear) {
+    return `${startMonth} ${startDay}-${endMonth} ${endDay}, ${startYear}`;
+  }
+
+  return `${startMonth} ${startDay}, ${startYear}-${endMonth} ${endDay}, ${endYear}`;
 }
