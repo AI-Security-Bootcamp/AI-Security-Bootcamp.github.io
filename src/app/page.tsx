@@ -430,7 +430,11 @@ export default function Home() {
           </div>
 
           <div className="flex flex-wrap items-start gap-4 mb-12">
-            <ApplicationCta cohortId="london-dec-2026" location="hero" />
+            <ApplicationCta
+              cohortId="london-dec-2026"
+              location="hero"
+              destination="latest-program"
+            />
             <button
               onClick={() => {
                 setPastOpen(true);
@@ -652,7 +656,11 @@ export default function Home() {
             Reach out to <a href="mailto:pranav@aisb.dev" className="underline hover:text-[#ef4444] transition-colors">pranav@aisb.dev</a> for any questions about the program.
           </p>
           <div className="flex flex-wrap gap-4">
-            <ApplicationCta cohortId="london-dec-2026" location="cta_section" />
+            <ApplicationCta
+              cohortId="london-dec-2026"
+              location="cta_section"
+              destination="latest-program"
+            />
             <a
               href="/staff"
               className="inline-block border-2 border-black dark:border-white text-black dark:text-white font-black text-sm uppercase tracking-widest px-8 py-4 bg-transparent hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-colors"

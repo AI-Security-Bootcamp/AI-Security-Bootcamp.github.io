@@ -3,6 +3,7 @@
 import posthog from "posthog-js";
 import {
   getApplicationDestination,
+  getLatestOpenApplicationCohort,
   getApplicationMode,
   type ApplicationCohortId,
 } from "../lib/application";
@@ -15,6 +16,7 @@ type ApplicationCtaProps = {
   cohortId: ApplicationCohortId;
   location: string;
   variant?: "button" | "inline";
+  destination?: "application" | "latest-program";
   className?: string;
 };
 
@@ -22,10 +24,15 @@ export function ApplicationCta({
   cohortId,
   location,
   variant = "button",
+  destination = "application",
   className,
 }: ApplicationCtaProps) {
   const mode = getApplicationMode(cohortId);
   const isApplying = mode === "apply";
+  const href =
+    destination === "latest-program"
+      ? getLatestOpenApplicationCohort().href
+      : getApplicationDestination(cohortId);
   const label =
     variant === "inline"
       ? isApplying
@@ -37,7 +44,7 @@ export function ApplicationCta({
 
   return (
     <a
-      href={getApplicationDestination(cohortId)}
+      href={href}
       onClick={() => {
         posthog.capture(isApplying ? "clicked_apply_now" : "clicked_expression_of_interest", {
           location,
