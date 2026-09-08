@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import posthog from "posthog-js";
 import { editions, type Cohort } from "../lib/cohorts";
 import { ApplicationCta } from "../components/ApplicationCta";
+import { HeroFilm } from "../components/HeroFilm";
 
 const faqs = [
   {
@@ -64,9 +65,9 @@ const affiliationLogos = [
 
 function LogoCarousel() {
   return (
-    <div className="pb-10 -mx-6 md:-mx-16 lg:-mx-24 overflow-hidden">
+    <div data-testid="hero-affiliations" className="md:mt-auto shrink-0 pb-6 md:pb-10 -mx-6 md:-mx-16 lg:-mx-24 overflow-hidden">
       <div className="border-t-2 border-black dark:border-white" />
-      <p className="text-xs uppercase tracking-widest text-neutral-500 dark:text-neutral-400 font-bold text-center mt-4 mb-4">
+      <p className="px-4 text-[11px] md:text-xs uppercase tracking-widest text-neutral-500 dark:text-neutral-400 font-bold text-center my-4">
         Past participants have been affiliated with
       </p>
       <div className="relative">
@@ -117,7 +118,7 @@ function ThemeToggle({ isDark, toggle }: { isDark: boolean; toggle: () => void }
   return (
     <button
       onClick={toggle}
-      className="fixed top-6 right-6 z-50 flex items-center gap-2 px-3 py-2 text-xs font-bold uppercase tracking-widest rounded-full border-2 border-neutral-300 dark:border-neutral-600 bg-white/80 dark:bg-black/80 backdrop-blur text-neutral-700 dark:text-neutral-300 hover:border-[#ef4444] hover:text-[#ef4444] dark:hover:border-[#ef4444] dark:hover:text-[#ef4444] transition-colors"
+      className="fixed top-[max(0.75rem,env(safe-area-inset-top))] right-[max(0.75rem,env(safe-area-inset-right))] md:top-6 md:right-6 z-50 flex h-11 w-11 md:h-auto md:w-auto items-center justify-center gap-2 md:px-3 md:py-2 text-xs font-bold uppercase tracking-widest rounded-full border-2 border-neutral-300 dark:border-neutral-600 bg-white/80 dark:bg-black/80 backdrop-blur text-neutral-700 dark:text-neutral-300 hover:border-[#ef4444] hover:text-[#ef4444] dark:hover:border-[#ef4444] dark:hover:text-[#ef4444] transition-colors"
       aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
     >
       {isDark ? (
@@ -129,7 +130,7 @@ function ThemeToggle({ isDark, toggle }: { isDark: boolean; toggle: () => void }
           <path strokeLinecap="round" strokeLinejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
         </svg>
       )}
-      <span className="hidden sm:inline">{isDark ? "Light" : "Dark"}</span>
+      <span className="hidden md:inline">{isDark ? "Light" : "Dark"}</span>
     </button>
   );
 }
@@ -409,42 +410,46 @@ export default function Home() {
       )}
 
       {/* ===================== HERO ===================== */}
-      <section className="min-h-screen flex flex-col px-6 md:px-16 lg:px-24 pt-10">
-        <div className="flex-1 flex flex-col justify-center w-full max-w-5xl">
-          <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black leading-[0.95] tracking-tight mb-8">
-            AI Security
-            <br />
-            Bootcamp
-          </h1>
+      <section data-testid="homepage-hero" className="md:min-h-screen flex flex-col px-6 md:px-16 lg:px-24 pt-[max(3.5rem,env(safe-area-inset-top))] md:pt-10">
+        <div className="md:flex-1 grid lg:grid-cols-[1.15fr_1fr] items-center gap-6 md:gap-10 lg:gap-12 w-full max-w-7xl pb-6 md:py-12 lg:py-16">
+          <div className="min-w-0">
+            <h1 className="text-[clamp(2.5rem,12.8vw,3rem)] sm:text-6xl md:text-7xl lg:text-6xl xl:text-7xl 2xl:text-8xl font-black leading-[0.95] tracking-tight mb-8">
+              AI Security
+              <br />
+              Bootcamp
+            </h1>
 
-          <p className="text-lg md:text-xl text-neutral-500 dark:text-neutral-400 max-w-2xl mb-6 leading-relaxed">
-            Training professionals to shape how we secure frontier AI systems.
-          </p>
+            <p className="text-lg md:text-xl text-neutral-500 dark:text-neutral-400 max-w-2xl mb-6 leading-relaxed">
+              Training professionals to shape how we secure frontier AI systems.
+            </p>
 
-          <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-neutral-400 dark:text-neutral-500 font-bold uppercase tracking-widest mb-10">
-            <span>Adversarial ML</span>
-            <span className="text-[#ef4444]">|</span>
-            <span>LLM Security</span>
-            <span className="text-[#ef4444]">|</span>
-            <span>Infrastructure &amp; Governance</span>
+            <div data-testid="hero-topics" className="hidden md:flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-neutral-400 dark:text-neutral-500 font-bold uppercase tracking-widest mb-10">
+              <span>Adversarial ML</span>
+              <span className="text-[#ef4444]">|</span>
+              <span>LLM Security</span>
+              <span className="hidden md:inline text-[#ef4444]">|</span>
+              <span className="basis-full md:basis-auto">Infrastructure &amp; Governance</span>
+            </div>
+
+            <div data-testid="hero-actions" className="grid grid-cols-2 sm:flex sm:flex-wrap items-stretch sm:items-start gap-2 md:gap-4">
+              <ApplicationCta
+                cohortId="london-dec-2026"
+                location="hero"
+                destination="latest-program"
+                className="flex min-h-[52px] items-center justify-center whitespace-nowrap bg-[#ef4444] text-white font-black text-xs min-[360px]:text-sm uppercase tracking-[0.06em] md:tracking-widest px-2 py-3 md:px-8 md:py-4 hover:bg-red-600 transition-colors"
+              />
+              <button
+                onClick={() => {
+                  setPastOpen(true);
+                  posthog.capture("clicked_past_programs", { location: "hero" });
+                }}
+                className="flex min-h-[52px] items-center justify-center whitespace-nowrap border-2 border-black dark:border-white text-black dark:text-white font-black text-xs min-[360px]:text-sm uppercase tracking-[0.06em] md:tracking-widest px-2 py-3 md:px-8 md:py-4 bg-transparent hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-colors cursor-pointer"
+              >
+                Past Programs
+              </button>
+            </div>
           </div>
-
-          <div className="flex flex-wrap items-start gap-4 mb-12">
-            <ApplicationCta
-              cohortId="london-dec-2026"
-              location="hero"
-              destination="latest-program"
-            />
-            <button
-              onClick={() => {
-                setPastOpen(true);
-                posthog.capture("clicked_past_programs", { location: "hero" });
-              }}
-              className="inline-block border-2 border-black dark:border-white text-black dark:text-white font-black text-sm uppercase tracking-widest px-8 py-4 bg-transparent hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-colors cursor-pointer"
-            >
-              Past Programs
-            </button>
-          </div>
+          <HeroFilm />
         </div>
 
         {/* ===================== AFFILIATIONS CAROUSEL ===================== */}
