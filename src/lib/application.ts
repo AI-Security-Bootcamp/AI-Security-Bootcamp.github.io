@@ -17,7 +17,7 @@ export type ApplicationCohortId =
 export const applicationModes: Record<ApplicationCohortId, ApplicationMode> = {
   default: "eoi",
   "london-dec-2026": "apply",
-  "sf-2026": "apply",
+  "sf-2026": "eoi",
   "vegas-2026": "eoi",
   "london-2026": "eoi",
   "singapore-2026": "eoi",

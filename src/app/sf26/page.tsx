@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import posthog from "posthog-js";
 import { CanonicalizeUrl } from "../2026/_components/CanonicalizeUrl";
-import { ApplicationCta } from "../../components/ApplicationCta";
+import { EOI_URL, getLatestOpenApplicationCohort } from "../../lib/application";
 
 const curriculumDays = [
   {
@@ -88,7 +88,7 @@ const faqs = [
   },
   {
     q: "What does the full application process look like?",
-    a: "It's a 3-stage process. Stage 1 is a short CV/application: most of the signal here comes from your GitHub, past projects, and CV. Stage 2 is a technical assessment: a threat modeling exercise (the bulk of the assessment), a small PyTorch exercise, and a brief Python exercise. Stage 3 is a 30-minute interview covering your background, motivation, and short technical questions. We review applications on a rolling basis, so please apply early.",
+    a: "Applications for this San Francisco cohort are now closed. Our selection process has three stages: a short CV/application, a technical assessment covering threat modeling, PyTorch, and Python, and a 30-minute interview about your background, motivation, and technical experience.",
   },
   {
     q: "Does the program cover accommodation and travel?",
@@ -492,6 +492,51 @@ function TestimonialCard({ t }: { t: Testimonial }) {
   );
 }
 
+function ClosedApplications({ location }: { location: string }) {
+  const nextCohort = getLatestOpenApplicationCohort();
+
+  return (
+    <div data-testid="sf-closed-applications" className="max-w-2xl">
+      <p className="text-base text-neutral-600 dark:text-neutral-300 leading-relaxed mb-4">
+        Applications for this cohort are closed.
+        <br />
+        Now accepting applications for{" "}
+        <span className="font-bold text-black dark:text-white">
+          {nextCohort.name}
+        </span>.
+      </p>
+      <a
+        href={nextCohort.href}
+        onClick={() => {
+          posthog.capture("clicked_edition", {
+            edition: nextCohort.analyticsId,
+            location,
+            source_cohort: "sf-2026",
+          });
+        }}
+        className="inline-flex min-h-[52px] items-center bg-[#ef4444] text-white font-black text-sm uppercase tracking-widest px-6 py-4 hover:bg-red-600 transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#ef4444]"
+      >
+        Explore {nextCohort.name}
+      </a>
+      <div className="mt-2">
+        <a
+          href={`${EOI_URL}?interest=san-francisco`}
+          onClick={() => {
+            posthog.capture("clicked_expression_of_interest", {
+              location,
+              source_cohort: "sf-2026",
+              interest: "san-francisco",
+            });
+          }}
+          className="inline-flex min-h-[44px] items-center py-2 text-sm text-neutral-600 dark:text-neutral-400 underline underline-offset-4 hover:text-[#ef4444] dark:hover:text-[#ef4444] transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#ef4444]"
+        >
+          Get notified of future cohorts
+        </a>
+      </div>
+    </div>
+  );
+}
+
 export default function Home() {
   const { isDark, toggle, mounted } = useTheme();
 
@@ -513,7 +558,7 @@ export default function Home() {
       <section className="min-h-screen flex flex-col px-6 md:px-16 lg:px-24 pt-4 md:pt-6">
         <div className="flex-1 flex flex-col justify-center w-full max-w-5xl">
           <p className="text-[#ef4444] font-black text-sm uppercase tracking-widest mb-3">
-            Applications open
+            Applications Closed
           </p>
           <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black leading-[0.95] tracking-tight mb-6">
             AI Security
@@ -537,14 +582,8 @@ export default function Home() {
             <span>Fully Funded</span>
           </div>
 
-          <div className="flex flex-wrap gap-4 mb-6">
-            <ApplicationCta cohortId="sf-2026" location="sf26_hero" />
-            <button
-              onClick={() => scrollTo("overview")}
-              className="inline-block border-2 border-black dark:border-white text-black dark:text-white font-black text-sm uppercase tracking-widest px-8 py-4 bg-transparent hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-colors"
-            >
-              Learn More
-            </button>
+          <div className="border-t border-neutral-200 dark:border-neutral-800 pt-5 mb-6">
+            <ClosedApplications location="sf26_hero" />
           </div>
 
         </div>
@@ -778,15 +817,12 @@ export default function Home() {
       <section className="px-6 md:px-16 lg:px-24 py-20 border-t-2 border-black dark:border-white">
         <div className="max-w-3xl">
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-black mb-8 tracking-tight">
-            Interested in San Francisco 2026?
+            Looking for your next AISB cohort?
           </h2>
-          <p className="text-neutral-500 dark:text-neutral-400 text-base md:text-lg leading-relaxed mb-4 max-w-xl">
-            Applications are open for the upcoming San Francisco bootcamp.
-          </p>
-          <p className="text-neutral-500 dark:text-neutral-400 text-base md:text-lg leading-relaxed mb-10 max-w-xl">
+          <ClosedApplications location="sf26_cta" />
+          <p className="text-neutral-500 dark:text-neutral-400 text-base md:text-lg leading-relaxed mt-6 max-w-xl">
             Reach out to <a href="mailto:pranav@aisb.dev" className="underline hover:text-[#ef4444] transition-colors">pranav@aisb.dev</a> with questions about the program.
           </p>
-          <ApplicationCta cohortId="sf-2026" location="sf26_cta" />
         </div>
       </section>
 
