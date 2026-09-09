@@ -1,0 +1,3 @@
+[submodule "videos"]
+	path = videos
+	url = https://github.com/AI-Security-Bootcamp/video-editor.git
