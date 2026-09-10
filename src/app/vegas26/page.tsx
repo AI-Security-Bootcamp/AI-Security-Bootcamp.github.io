@@ -156,7 +156,7 @@ const faqs = [
   },
   {
     q: "I have more questions.",
-    a: "Email pranav@aisb.dev.",
+    a: "Email hello@aisb.dev.",
   },
 ];
 
@@ -840,7 +840,7 @@ export default function Home() {
             Submit an expression of interest and we&apos;ll keep you in the loop about the upcoming Vegas bootcamp.
           </p>
           <p className="text-neutral-500 dark:text-neutral-400 text-base md:text-lg leading-relaxed mb-10 max-w-xl">
-            Reach out to <a href="mailto:pranav@aisb.dev" className="underline hover:text-[#ef4444] transition-colors">pranav@aisb.dev</a> with questions about the program.
+            Reach out to <a href="mailto:hello@aisb.dev" className="underline hover:text-[#ef4444] transition-colors">hello@aisb.dev</a> with questions about the program.
           </p>
           <ApplicationCta cohortId="vegas-2026" location="vegas26_cta" />
         </div>

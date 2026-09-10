@@ -158,7 +158,7 @@ const faqs = [
   },
   {
     q: "I have more questions.",
-    a: "Email pranav@aisb.dev.",
+    a: "Email hello@aisb.dev.",
   },
 ];
 
@@ -844,7 +844,7 @@ export default function Home() {
             before the deadline. Early applications are encouraged.
           </p>
           <p className="text-neutral-500 dark:text-neutral-400 text-base md:text-lg leading-relaxed mb-10 max-w-xl">
-            Reach out to <a href="mailto:pranav@aisb.dev" className="underline hover:text-[#ef4444] transition-colors">pranav@aisb.dev</a> with questions about the program.
+            Reach out to <a href="mailto:hello@aisb.dev" className="underline hover:text-[#ef4444] transition-colors">hello@aisb.dev</a> with questions about the program.
           </p>
           <ApplicationCta cohortId="london-dec-2026" location="dec26_cta" />
         </div>

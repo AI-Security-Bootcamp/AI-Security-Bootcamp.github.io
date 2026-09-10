@@ -235,10 +235,10 @@ export default function Badge0Page() {
           Questions about
           the design? Email{" "}
           <a
-            href="mailto:pranav@aisb.dev"
+            href="mailto:hello@aisb.dev"
             className="underline hover:text-[#ef4444] transition-colors"
           >
-            pranav@aisb.dev
+            hello@aisb.dev
           </a>
           .
         </p>
