@@ -215,8 +215,8 @@ export default function TermsOfUse() {
           <Section title="Contact us">
             <p>
               Questions about these terms? Contact us at{" "}
-              <a href="mailto:pranav@aisb.dev" className={linkClass}>
-                pranav@aisb.dev
+              <a href="mailto:hello@aisb.dev" className={linkClass}>
+                hello@aisb.dev
               </a>
               .
             </p>

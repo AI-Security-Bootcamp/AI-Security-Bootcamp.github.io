@@ -104,7 +104,7 @@ const faqs = [
   },
   {
     q: "I have more questions.",
-    a: "Email pranav@aisb.dev.",
+    a: "Email hello@aisb.dev.",
   },
 ];
 
@@ -628,7 +628,7 @@ export default function Home() {
           </h2>
           <ClosedApplications cohortId="singapore-2026" location="singapore_cta" />
           <p className="text-neutral-500 dark:text-neutral-400 text-base md:text-lg leading-relaxed mt-6 max-w-xl">
-            Reach out to <a href="mailto:pranav@aisb.dev" className="underline hover:text-[#ef4444] transition-colors">pranav@aisb.dev</a> to ask questions about the program.
+            Reach out to <a href="mailto:hello@aisb.dev" className="underline hover:text-[#ef4444] transition-colors">hello@aisb.dev</a> to ask questions about the program.
           </p>
         </div>
       </section>

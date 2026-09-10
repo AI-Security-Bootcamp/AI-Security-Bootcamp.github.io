@@ -33,7 +33,7 @@ const faqs = [
   },
   {
     q: "How do I apply or stay informed about future cohorts?",
-    a: "Submit an expression of interest and we\u2019ll keep you in the loop on upcoming editions. Or email pranav@aisb.dev with any questions.",
+    a: "Submit an expression of interest and we\u2019ll keep you in the loop on upcoming editions. Or email hello@aisb.dev with any questions.",
   },
 ];
 
@@ -411,7 +411,7 @@ export default function Home() {
 
       {/* ===================== HERO ===================== */}
       <section data-testid="homepage-hero" className="md:min-h-screen flex flex-col px-6 md:px-16 lg:px-24 pt-[max(3.5rem,env(safe-area-inset-top))] md:pt-10">
-        <div className="md:flex-1 grid lg:grid-cols-[1.15fr_1fr] items-center gap-6 md:gap-10 lg:gap-12 w-full max-w-7xl pb-6 md:py-12 lg:py-16">
+        <div className="md:flex-1 grid lg:grid-cols-[1.15fr_1fr] xl:grid-cols-[1.1fr_1.15fr] items-center gap-6 md:gap-10 lg:gap-12 w-full max-w-[88rem] pb-6 md:py-12 lg:py-16">
           <div className="min-w-0">
             <h1 className="text-[clamp(2.5rem,12.8vw,3rem)] sm:text-6xl md:text-7xl lg:text-6xl xl:text-7xl 2xl:text-8xl font-black leading-[0.95] tracking-tight mb-8">
               AI Security
@@ -449,7 +449,9 @@ export default function Home() {
               </button>
             </div>
           </div>
-          <HeroFilm />
+          <div className="min-w-0 lg:translate-x-4 xl:translate-x-8">
+            <HeroFilm />
+          </div>
         </div>
 
         {/* ===================== AFFILIATIONS CAROUSEL ===================== */}
@@ -658,7 +660,7 @@ export default function Home() {
             apply is October 1, 2026 (AoE).
           </p>
           <p className="text-neutral-500 dark:text-neutral-400 text-base md:text-lg leading-relaxed mb-10 max-w-xl">
-            Reach out to <a href="mailto:pranav@aisb.dev" className="underline hover:text-[#ef4444] transition-colors">pranav@aisb.dev</a> for any questions about the program.
+            Reach out to <a href="mailto:hello@aisb.dev" className="underline hover:text-[#ef4444] transition-colors">hello@aisb.dev</a> for any questions about the program.
           </p>
           <div className="flex flex-wrap gap-4">
             <ApplicationCta
