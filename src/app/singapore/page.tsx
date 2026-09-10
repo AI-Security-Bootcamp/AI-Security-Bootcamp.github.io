@@ -1,10 +1,9 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import posthog from "posthog-js";
 import { CanonicalizeUrl } from "../2026/_components/CanonicalizeUrl";
 import { getProgramme } from "../../lib/staff";
-import { ApplicationCta } from "../../components/ApplicationCta";
+import { ClosedApplications } from "../../components/ClosedApplications";
 
 const curriculumDays = [
   {
@@ -89,7 +88,7 @@ const faqs = [
   },
   {
     q: "What does the full application process look like?",
-    a: "It\u2019s a 3-step process. First, you submit an application. The second stage is a short (30-60min) coding test. The last step is a 30-minute interview. We review submissions on a rolling basis, so please apply early!",
+    a: "Applications for this cohort are closed. The selection process had three stages: an application, a short (30-60min) coding test, and a 30-minute interview.",
   },
   {
     q: "Does the program cover accommodation and travel?",
@@ -328,14 +327,8 @@ export default function Home() {
             <span>Fully Funded</span>
           </div>
 
-          <div className="flex flex-wrap gap-4 mb-10">
-            <ApplicationCta cohortId="singapore-2026" location="singapore_hero" />
-            <button
-              onClick={() => scrollTo("overview")}
-              className="inline-block border-2 border-black dark:border-white text-black dark:text-white font-black text-sm uppercase tracking-widest px-8 py-4 bg-transparent hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-colors"
-            >
-              See the curriculum
-            </button>
+          <div className="border-t border-neutral-200 dark:border-neutral-800 pt-5 mb-10">
+            <ClosedApplications cohortId="singapore-2026" location="singapore_hero" />
           </div>
         </div>
 
@@ -631,24 +624,12 @@ export default function Home() {
       <section className="px-6 md:px-16 lg:px-24 py-20 border-t-2 border-black dark:border-white">
         <div className="max-w-3xl">
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-black mb-8 tracking-tight">
-            Interested in future cohorts?
+            Looking for your next AISB cohort?
           </h2>
-          <p className="text-neutral-500 dark:text-neutral-400 text-base md:text-lg leading-relaxed mb-4 max-w-xl">
-            The Singapore 2026 cohort has concluded. Submit an expression of interest and we&apos;ll keep you in the
-            loop on future editions.
-          </p>
-          <p className="text-neutral-500 dark:text-neutral-400 text-base md:text-lg leading-relaxed mb-10 max-w-xl">
+          <ClosedApplications cohortId="singapore-2026" location="singapore_cta" />
+          <p className="text-neutral-500 dark:text-neutral-400 text-base md:text-lg leading-relaxed mt-6 max-w-xl">
             Reach out to <a href="mailto:hello@aisb.dev" className="underline hover:text-[#ef4444] transition-colors">hello@aisb.dev</a> to ask questions about the program.
           </p>
-          <div className="flex flex-wrap gap-4">
-            <ApplicationCta cohortId="singapore-2026" location="singapore_cta" />
-            <a
-              href="/"
-              className="inline-block border-2 border-black dark:border-white text-black dark:text-white font-black text-sm uppercase tracking-widest px-8 py-4 bg-transparent hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-colors"
-            >
-              About AISB
-            </a>
-          </div>
         </div>
       </section>
 

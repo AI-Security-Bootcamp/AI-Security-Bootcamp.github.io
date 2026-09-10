@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { getProgramme } from '../../lib/staff';
+import { ClosedApplications } from '../../components/ClosedApplications';
 
 const projects = [
   {
@@ -113,6 +114,9 @@ export default function Cohort2025() {
         <p className="text-lg text-gray-500">
           August 4-29, 2025 &bull; 20 Participants
         </p>
+        <div className="mt-6 pt-5 border-t border-gray-200">
+          <ClosedApplications cohortId="london-2025" location="london25_hero" className="mx-auto" forceLight />
+        </div>
       </header>
 
       {/* Bootcamp Image */}
@@ -307,6 +311,10 @@ export default function Cohort2025() {
               />
             </a>
           </div>
+        </section>
+        <section className="text-center">
+          <h2 className="text-3xl font-bold mb-8">Looking for your next AISB cohort?</h2>
+          <ClosedApplications cohortId="london-2025" location="london25_cta" className="mx-auto" forceLight />
         </section>
       </main>
 

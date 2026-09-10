@@ -60,7 +60,7 @@ captions. All 29 caption boxes have equal 16 px vertical padding in the master.
 To encode a replacement from a corrected master and its lossless audio mix:
 
 ```bash
-python3 scripts/encode-hero.py path/to/master.mp4 \
+python3 videos/encode_web.py path/to/master.mp4 \
   --audio-master path/to/delivery-master.wav \
   --timeline path/to/timeline.json \
   --output public/video/aisb-hero-v6
@@ -88,3 +88,11 @@ saving, declined playback, HLS failure fallback and a real throttled bandwidth
 downshift. Native Safari playback still warrants a real-device check.
 Local integration/builds do not themselves publish the site or resolve any
 outstanding participant-release permissions.
+
+## Video-generation source
+
+The reusable renderers, edit plans, selections and review templates are in
+[videos/](videos/README.md), with one flat folder per edit and shared helpers.
+Run `python3 videos/run.py list` to see the available commands. Raw/private inputs
+and generated assets stay in the ignored media workspace; they are not needed in
+Git. The previous `scripts/encode-hero.py` command remains a compatibility wrapper.

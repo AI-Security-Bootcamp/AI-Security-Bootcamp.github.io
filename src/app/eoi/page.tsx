@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { editions } from "../../lib/cohorts";
 
 function useTheme() {
   const [isDark, setIsDark] = useState(false);
@@ -50,6 +51,21 @@ function ThemeToggle({ isDark, toggle }: { isDark: boolean; toggle: () => void }
 
 export default function ExpressionOfInterest() {
   const { isDark, toggle, mounted } = useTheme();
+  const [interestLocation, setInterestLocation] = useState<string | undefined>();
+
+  useEffect(() => {
+    const interest = new URLSearchParams(window.location.search).get("interest");
+    // Resolve only known locations; never interpolate arbitrary query text into the form.
+    setInterestLocation(editions.find((cohort) => cohort.locationSlug === interest)?.location);
+  }, []);
+
+  const formUrl =
+    "https://docs.google.com/forms/d/e/1FAIpQLSembVSnmuFyV-xrGFsOVsU-kQoGR-JUaJQoPIJ2f7rr77L8Yg/viewform?embedded=true" +
+    (interestLocation
+      // The existing form's optional "Anything else?" field. This is editable
+      // and records a preference, not the visitor's current location.
+      ? `&entry.1785871862=${encodeURIComponent(`I'm interested in future AISB ${interestLocation} cohorts.`)}`
+      : "");
 
   return (
     <div className="bg-white dark:bg-black text-black dark:text-white min-h-screen font-sans transition-colors">
@@ -66,12 +82,13 @@ export default function ExpressionOfInterest() {
       <section className="px-6 md:px-16 lg:px-24 py-20">
         <div className="max-w-3xl">
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-black leading-[0.95] tracking-tight mb-8">
-            Expression of Interest
+            {interestLocation ? `Future ${interestLocation} cohorts` : "Expression of Interest"}
           </h1>
 
           <p className="text-lg md:text-xl text-neutral-500 dark:text-neutral-400 max-w-2xl mb-4 leading-relaxed">
-            If you&apos;re interested in future AISB cohorts or would like to be notified about upcoming
-            programs, please fill out the form below.
+            {interestLocation
+              ? `Interested in a future AISB program in ${interestLocation}? Leave your details below. We've prefilled your interest in the form; you can edit it before submitting. This is not an application or confirmation of another cohort.`
+              : "If you're interested in future AISB cohorts or would like to be notified about upcoming programs, please fill out the form below."}
           </p>
 
           <p className="text-neutral-500 dark:text-neutral-400 text-base md:text-lg leading-relaxed mb-10 max-w-xl">
@@ -80,15 +97,25 @@ export default function ExpressionOfInterest() {
         </div>
 
         <div className="max-w-3xl">
-          <iframe
-            src="https://docs.google.com/forms/d/e/1FAIpQLSembVSnmuFyV-xrGFsOVsU-kQoGR-JUaJQoPIJ2f7rr77L8Yg/viewform?embedded=true"
-            width="100%"
-            height="800"
-            className="border-2 border-black dark:border-white"
-            title="Expression of Interest Form"
-          >
-            Loading...
-          </iframe>
+          {mounted && (
+            <iframe
+              src={formUrl}
+              width="100%"
+              height="800"
+              className="border-2 border-black dark:border-white"
+              title="Expression of Interest Form"
+            >
+              Loading...
+            </iframe>
+          )}
+          <noscript>
+            <a
+              href="https://docs.google.com/forms/d/e/1FAIpQLSembVSnmuFyV-xrGFsOVsU-kQoGR-JUaJQoPIJ2f7rr77L8Yg/viewform"
+              className="underline underline-offset-4 hover:text-[#ef4444]"
+            >
+              Open the expression of interest form &rarr;
+            </a>
+          </noscript>
         </div>
       </section>
 
