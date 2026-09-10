@@ -431,12 +431,12 @@ export default function Home() {
               <span className="basis-full md:basis-auto">Infrastructure &amp; Governance</span>
             </div>
 
-            <div data-testid="hero-actions" className="grid grid-cols-2 sm:flex sm:flex-wrap items-stretch sm:items-start gap-2 md:gap-4">
+            <div data-testid="hero-actions" className="grid grid-cols-2 sm:flex sm:flex-wrap items-stretch gap-2 md:gap-4">
               <ApplicationCta
                 cohortId="london-dec-2026"
                 location="hero"
                 destination="latest-program"
-                className="flex min-h-[52px] items-center justify-center whitespace-nowrap bg-[#ef4444] text-white font-black text-xs min-[360px]:text-sm uppercase tracking-[0.06em] md:tracking-widest px-2 py-3 md:px-8 md:py-4 hover:bg-red-600 transition-colors"
+                className="flex min-h-[52px] items-center justify-center whitespace-nowrap border-2 border-transparent bg-[#ef4444] text-white font-black text-xs min-[360px]:text-sm uppercase tracking-[0.06em] md:tracking-widest px-2 py-3 md:px-8 md:py-4 hover:bg-red-600 transition-colors"
               />
               <button
                 onClick={() => {
