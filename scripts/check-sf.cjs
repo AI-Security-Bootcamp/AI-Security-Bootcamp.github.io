@@ -33,7 +33,7 @@ const londonPath = '/2026/dec/london';
       assert.equal(await page.locator('a[href*="airtable.com"]').count(), 0);
       assert.equal(await page.getByText('Oct 4-10, 2026', { exact: true }).count(), 1);
 
-      const blocks = page.getByTestId('sf-closed-applications');
+      const blocks = page.getByTestId('closed-applications');
       assert.equal(await blocks.count(), 2);
       for (const block of await blocks.all()) {
         assert.match(await block.locator('p').innerText(), /Applications for this cohort are closed\.\s+Now accepting applications for AISB London\./);
@@ -86,7 +86,7 @@ const londonPath = '/2026/dec/london';
       assert.equal(new URL(page.url()).search, '?source=check');
       assert.equal(new URL(page.url()).hash, '#overview');
       assert.equal(documents, 1, 'Alias made a second document navigation');
-      assert.equal(await page.getByTestId('sf-closed-applications').count(), 2);
+      assert.equal(await page.getByTestId('closed-applications').count(), 2);
       page.off('request', onRequest);
     }
     report.checks.push({ legacyAndMonthAliases: true, preserveQueryAndHash: true, noNavigationRedirect: true });
@@ -115,7 +115,7 @@ const londonPath = '/2026/dec/london';
     await homeApply.waitFor();
     assert.equal(await homeApply.getAttribute('href'), londonPath);
     assert.equal(await page.getByTestId('hero-actions').getByRole('button', { name: 'Past Programs', exact: true }).count(), 1);
-    assert.equal(await page.getByTestId('sf-closed-applications').count(), 0);
+    assert.equal(await page.getByTestId('closed-applications').count(), 0);
     report.checks.push({ homepageCtasUnchanged: true });
     const noScriptContext = await browser.newContext({ javaScriptEnabled: false });
     await noScriptContext.route('https://**/*', route => route.abort());

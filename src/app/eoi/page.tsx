@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { editions } from "../../lib/cohorts";
 
 function useTheme() {
   const [isDark, setIsDark] = useState(false);
@@ -50,20 +51,20 @@ function ThemeToggle({ isDark, toggle }: { isDark: boolean; toggle: () => void }
 
 export default function ExpressionOfInterest() {
   const { isDark, toggle, mounted } = useTheme();
-  const [isSanFranciscoInterest, setIsSanFranciscoInterest] = useState(false);
+  const [interestLocation, setInterestLocation] = useState<string | undefined>();
 
   useEffect(() => {
-    setIsSanFranciscoInterest(
-      new URLSearchParams(window.location.search).get("interest") === "san-francisco",
-    );
+    const interest = new URLSearchParams(window.location.search).get("interest");
+    // Resolve only known locations; never interpolate arbitrary query text into the form.
+    setInterestLocation(editions.find((cohort) => cohort.locationSlug === interest)?.location);
   }, []);
 
   const formUrl =
     "https://docs.google.com/forms/d/e/1FAIpQLSembVSnmuFyV-xrGFsOVsU-kQoGR-JUaJQoPIJ2f7rr77L8Yg/viewform?embedded=true" +
-    (isSanFranciscoInterest
+    (interestLocation
       // The existing form's optional "Anything else?" field. This is editable
       // and records a preference, not the visitor's current location.
-      ? `&entry.1785871862=${encodeURIComponent("I'm interested in future AISB San Francisco cohorts.")}`
+      ? `&entry.1785871862=${encodeURIComponent(`I'm interested in future AISB ${interestLocation} cohorts.`)}`
       : "");
 
   return (
@@ -81,12 +82,12 @@ export default function ExpressionOfInterest() {
       <section className="px-6 md:px-16 lg:px-24 py-20">
         <div className="max-w-3xl">
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-black leading-[0.95] tracking-tight mb-8">
-            {isSanFranciscoInterest ? "Future San Francisco cohorts" : "Expression of Interest"}
+            {interestLocation ? `Future ${interestLocation} cohorts` : "Expression of Interest"}
           </h1>
 
           <p className="text-lg md:text-xl text-neutral-500 dark:text-neutral-400 max-w-2xl mb-4 leading-relaxed">
-            {isSanFranciscoInterest
-              ? "Interested in a future AISB program in San Francisco? Leave your details below. We've prefilled your interest in the form; you can edit it before submitting. This is not an application or confirmation of another SF cohort."
+            {interestLocation
+              ? `Interested in a future AISB program in ${interestLocation}? Leave your details below. We've prefilled your interest in the form; you can edit it before submitting. This is not an application or confirmation of another cohort.`
               : "If you're interested in future AISB cohorts or would like to be notified about upcoming programs, please fill out the form below."}
           </p>
 

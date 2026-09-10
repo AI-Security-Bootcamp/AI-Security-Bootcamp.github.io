@@ -1,9 +1,8 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import posthog from "posthog-js";
 import { CanonicalizeUrl } from "../2026/_components/CanonicalizeUrl";
-import { EOI_URL, getLatestOpenApplicationCohort } from "../../lib/application";
+import { ClosedApplications } from "../../components/ClosedApplications";
 
 const curriculumDays = [
   {
@@ -492,51 +491,6 @@ function TestimonialCard({ t }: { t: Testimonial }) {
   );
 }
 
-function ClosedApplications({ location }: { location: string }) {
-  const nextCohort = getLatestOpenApplicationCohort();
-
-  return (
-    <div data-testid="sf-closed-applications" className="max-w-2xl">
-      <p className="text-base text-neutral-600 dark:text-neutral-300 leading-relaxed mb-4">
-        Applications for this cohort are closed.
-        <br />
-        Now accepting applications for{" "}
-        <span className="font-bold text-black dark:text-white">
-          {nextCohort.name}
-        </span>.
-      </p>
-      <a
-        href={nextCohort.href}
-        onClick={() => {
-          posthog.capture("clicked_edition", {
-            edition: nextCohort.analyticsId,
-            location,
-            source_cohort: "sf-2026",
-          });
-        }}
-        className="inline-flex min-h-[52px] items-center bg-[#ef4444] text-white font-black text-sm uppercase tracking-widest px-6 py-4 hover:bg-red-600 transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#ef4444]"
-      >
-        Explore {nextCohort.name}
-      </a>
-      <div className="mt-2">
-        <a
-          href={`${EOI_URL}?interest=san-francisco`}
-          onClick={() => {
-            posthog.capture("clicked_expression_of_interest", {
-              location,
-              source_cohort: "sf-2026",
-              interest: "san-francisco",
-            });
-          }}
-          className="inline-flex min-h-[44px] items-center py-2 text-sm text-neutral-600 dark:text-neutral-400 underline underline-offset-4 hover:text-[#ef4444] dark:hover:text-[#ef4444] transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#ef4444]"
-        >
-          Get notified of future cohorts
-        </a>
-      </div>
-    </div>
-  );
-}
-
 export default function Home() {
   const { isDark, toggle, mounted } = useTheme();
 
@@ -583,7 +537,7 @@ export default function Home() {
           </div>
 
           <div className="border-t border-neutral-200 dark:border-neutral-800 pt-5 mb-6">
-            <ClosedApplications location="sf26_hero" />
+            <ClosedApplications cohortId="sf-2026" location="sf26_hero" />
           </div>
 
         </div>
@@ -819,7 +773,7 @@ export default function Home() {
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-black mb-8 tracking-tight">
             Looking for your next AISB cohort?
           </h2>
-          <ClosedApplications location="sf26_cta" />
+          <ClosedApplications cohortId="sf-2026" location="sf26_cta" />
           <p className="text-neutral-500 dark:text-neutral-400 text-base md:text-lg leading-relaxed mt-6 max-w-xl">
             Reach out to <a href="mailto:pranav@aisb.dev" className="underline hover:text-[#ef4444] transition-colors">pranav@aisb.dev</a> with questions about the program.
           </p>
