@@ -147,7 +147,7 @@ export default function Badge0Page() {
             <div className="flex flex-wrap gap-4">
               <a
                 href="/"
-                className="inline-block bg-[#ef4444] text-white font-black text-sm uppercase tracking-widest px-8 py-4 hover:bg-red-600 transition-colors"
+                className="inline-block border-2 border-transparent bg-[#ef4444] text-white font-black text-sm uppercase tracking-widest px-8 py-4 hover:bg-red-600 transition-colors"
               >
                 What is AISB
               </a>

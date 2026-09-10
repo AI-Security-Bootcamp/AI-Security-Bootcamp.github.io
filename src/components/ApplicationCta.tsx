@@ -9,7 +9,7 @@ import {
 } from "../lib/application";
 
 const BUTTON_CLASS_NAME =
-  "inline-block bg-[#ef4444] text-white font-black text-sm uppercase tracking-widest px-8 py-4 hover:bg-red-600 transition-colors";
+  "inline-block border-2 border-transparent bg-[#ef4444] text-white font-black text-sm uppercase tracking-widest px-8 py-4 hover:bg-red-600 transition-colors";
 const INLINE_CLASS_NAME = "underline hover:text-[#ef4444] transition-colors";
 
 type ApplicationCtaProps = {
