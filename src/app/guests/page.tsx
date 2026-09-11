@@ -70,7 +70,7 @@ export default function GuestVisit() {
       <section className="px-6 md:px-16 lg:px-24 py-20">
         <div className="max-w-3xl">
           <p className="text-[#ef4444] font-black text-sm uppercase tracking-widest mb-3">
-            London &middot; August 30 to September 5, 2026
+            London &middot; December 6-12, 2026
           </p>
           <h1 className="text-3xl md:text-4xl lg:text-5xl font-black leading-[0.95] tracking-tight mb-8">
             Visit AISB in London
@@ -78,7 +78,7 @@ export default function GuestVisit() {
 
           <p className="text-lg md:text-xl text-neutral-500 dark:text-neutral-400 max-w-2xl mb-4 leading-relaxed">
             Our next{" "}
-            <a href="/2026/aug/london" className="underline hover:text-[#ef4444] transition-colors">
+            <a href="/2026/dec/london" className="underline hover:text-[#ef4444] transition-colors">
               AI Security Bootcamp
             </a>{" "}
             (AISB) is in London: a 7-day intensive program for security professionals shaping how
@@ -147,13 +147,13 @@ export default function GuestVisit() {
             Home
           </a>
           <a
-            href="/2026/aug/london"
+            href="/2026/dec/london"
             className="text-neutral-400 dark:text-neutral-600 text-sm font-bold uppercase tracking-widest hover:text-[#ef4444] transition-colors"
           >
-            London 2026
+            London December 2026
           </a>
           <ApplicationCta
-            cohortId="default"
+            cohortId="london-dec-2026"
             location="guest_visit_footer"
             className="text-neutral-400 dark:text-neutral-600 text-sm font-bold uppercase tracking-widest hover:text-[#ef4444] transition-colors"
           />
