@@ -17,7 +17,23 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
+      <head>
+        {/* Apply the theme before the first paint, without waiting for hydration. */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(() => {
+              let theme;
+              try {
+                theme = localStorage.getItem("theme");
+              } catch {}
+              const isDark = theme === "dark" ||
+                (theme !== "light" && window.matchMedia("(prefers-color-scheme: dark)").matches);
+              document.documentElement.classList.toggle("dark", isDark);
+            })();`,
+          }}
+        />
+      </head>
       <PHProvider>
         <body className="antialiased">
           {children}

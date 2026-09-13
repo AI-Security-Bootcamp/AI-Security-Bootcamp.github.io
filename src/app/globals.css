@@ -2,6 +2,22 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+  html {
+    color-scheme: light;
+    background-color: #fff;
+  }
+
+  html.dark {
+    color-scheme: dark;
+    background-color: #000;
+  }
+
+  body {
+    background-color: inherit;
+  }
+}
+
 @keyframes shimmer {
   0% {
     transform: translateX(-100%);
