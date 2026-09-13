@@ -136,7 +136,7 @@ export default function Cohort2025() {
             The inaugural AI Security Bootcamp brought together 20 researchers and engineers for four intensive weeks of training in security fundamentals, AI infrastructure security, and AI-specific threats. The program culminated in a week of capstone projects where participants explored cutting-edge security research.
           </p>
           <p className="text-xl md:text-2xl text-gray-700 text-center">
-            The curriculum is available <a href="https://github.com/pranavgade20/aisb" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">on GitHub</a> for self-study.
+            The curriculum is available <a href="https://github.com/AI-Security-Bootcamp/aisb-sg/" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">on GitHub</a> for self-study.
           </p>
         </section>
 

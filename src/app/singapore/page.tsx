@@ -685,7 +685,7 @@ export default function Home() {
             Terms
           </a>
           <a
-            href="https://github.com/pranavgade20/aisb"
+            href="https://github.com/AI-Security-Bootcamp/aisb-sg/"
             target="_blank"
             rel="noopener noreferrer"
             className="text-neutral-400 dark:text-neutral-600 text-sm font-bold uppercase tracking-widest hover:text-[#ef4444] transition-colors"
