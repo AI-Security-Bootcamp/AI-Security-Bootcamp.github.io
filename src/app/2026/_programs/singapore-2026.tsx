@@ -1,9 +1,8 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { CanonicalizeUrl } from "../2026/_components/CanonicalizeUrl";
-import { getProgramme } from "../../lib/staff";
-import { ClosedApplications } from "../../components/ClosedApplications";
+import { getProgramme } from "../../../lib/staff";
+import { ClosedApplications } from "../../../components/ClosedApplications";
 
 const curriculumDays = [
   {
@@ -287,7 +286,6 @@ export default function Home() {
 
   return (
     <div className="bg-white dark:bg-black text-black dark:text-white min-h-screen font-sans transition-colors">
-      <CanonicalizeUrl to="/2026/apr/singapore" />
       {mounted && <ThemeToggle isDark={isDark} toggle={toggle} />}
 
       {/* ===================== BACK BANNER ===================== */}

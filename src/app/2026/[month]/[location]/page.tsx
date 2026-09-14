@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import { cohorts2026 } from "../../../../lib/cohorts";
-import { programPages } from "../../_program-pages";
+import { programPages } from "../../../_program-pages";
 
 export const dynamicParams = false;
 

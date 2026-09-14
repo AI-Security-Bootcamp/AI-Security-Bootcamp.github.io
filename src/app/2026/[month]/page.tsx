@@ -5,7 +5,7 @@ import {
 } from "../../../lib/cohorts";
 import { CanonicalizeUrl } from "../_components/CanonicalizeUrl";
 import { ProgramIndex } from "../_components/ProgramIndex";
-import { programPages } from "../_program-pages";
+import { programPages } from "../../_program-pages";
 
 export const dynamicParams = false;
 
