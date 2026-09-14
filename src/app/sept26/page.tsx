@@ -1,5 +1,6 @@
 "use client";
 
+import { ProgramHero } from "../../components/ProgramHero";
 import { useState, useEffect } from "react";
 import { CanonicalizeUrl } from "../2026/_components/CanonicalizeUrl";
 import { ClosedApplications } from "../../components/ClosedApplications";
@@ -345,7 +346,7 @@ function ThemeToggle({ isDark, toggle }: { isDark: boolean; toggle: () => void }
   return (
     <button
       onClick={toggle}
-      className="fixed top-6 right-6 z-50 flex items-center gap-2 px-3 py-2 text-xs font-bold uppercase tracking-widest rounded-full border-2 border-neutral-300 dark:border-neutral-600 bg-white/80 dark:bg-black/80 backdrop-blur text-neutral-700 dark:text-neutral-300 hover:border-[#ef4444] hover:text-[#ef4444] dark:hover:border-[#ef4444] dark:hover:text-[#ef4444] transition-colors"
+      className="fixed top-[max(0.75rem,env(safe-area-inset-top))] right-[max(0.75rem,env(safe-area-inset-right))] md:top-6 md:right-6 z-50 flex min-h-11 min-w-11 items-center justify-center gap-2 px-3 py-2 text-xs font-bold uppercase tracking-widest rounded-full border-2 border-neutral-300 dark:border-neutral-600 bg-white/80 dark:bg-black/80 backdrop-blur text-neutral-700 dark:text-neutral-300 hover:border-[#ef4444] hover:text-[#ef4444] dark:hover:border-[#ef4444] dark:hover:text-[#ef4444] transition-colors"
       aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
     >
       {isDark ? (
@@ -507,41 +508,36 @@ export default function Home() {
       {mounted && <ThemeToggle isDark={isDark} toggle={toggle} />}
 
       {/* ===================== HERO ===================== */}
-      <section className="min-h-screen flex flex-col px-6 md:px-16 lg:px-24 pt-4 md:pt-6">
-        <div className="flex-1 flex flex-col justify-center w-full max-w-5xl">
-          <p className="text-[#ef4444] font-black text-sm uppercase tracking-widest mb-3">
-            Applications Closed
-          </p>
-          <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black leading-[0.95] tracking-tight mb-6">
-            AI Security
-            <br />
-            Bootcamp
-            <br />
-            <SlotCarousel />
-          </h1>
+      <ProgramHero affiliations={<LogoCarousel />}>
+        <p className="text-[#ef4444] font-black text-sm uppercase tracking-widest mb-3">
+          Applications Closed
+        </p>
+        <h1 className="text-[clamp(2.5rem,12.8vw,3rem)] sm:text-6xl md:text-7xl lg:text-6xl xl:text-7xl 2xl:text-8xl font-black leading-[0.95] tracking-tight mb-6">
+          AI Security
+          <br />
+          Bootcamp
+          <br />
+          <SlotCarousel />
+        </h1>
 
-          <p className="text-base md:text-lg text-neutral-500 dark:text-neutral-400 max-w-2xl mb-4 leading-relaxed">
-            A 7-day intensive program for security professionals shaping how we secure emerging AI systems.
-          </p>
+        <p className="text-base md:text-lg text-neutral-500 dark:text-neutral-400 max-w-2xl mb-4 leading-relaxed">
+          A 7-day intensive program for security professionals shaping how we secure emerging AI systems.
+        </p>
 
-          <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-neutral-400 dark:text-neutral-500 font-bold uppercase tracking-widest mb-5">
-            <span>30 Aug - 5 Sept</span>
-            <span className="text-[#ef4444]">|</span>
-            <span>London</span>
-            <span className="text-[#ef4444]">|</span>
-            <span>In-Person</span>
-            <span className="text-[#ef4444]">|</span>
-            <span>Fully Funded</span>
-          </div>
-
-          <div className="border-t border-neutral-200 dark:border-neutral-800 pt-5 mb-6">
-            <ClosedApplications cohortId="london-2026" location="sept26_hero" />
-          </div>
+        <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-neutral-400 dark:text-neutral-500 font-bold uppercase tracking-widest mb-5">
+          <span>30 Aug - 5 Sept</span>
+          <span className="text-[#ef4444]">|</span>
+          <span>London</span>
+          <span className="text-[#ef4444]">|</span>
+          <span>In-Person</span>
+          <span className="text-[#ef4444]">|</span>
+          <span>Fully Funded</span>
         </div>
 
-        {/* ===================== AFFILIATIONS CAROUSEL ===================== */}
-        <LogoCarousel />
-      </section>
+        <div className="border-t border-neutral-200 dark:border-neutral-800 pt-5">
+          <ClosedApplications cohortId="london-2026" location="sept26_hero" />
+        </div>
+      </ProgramHero>
 
       {/* ===================== JUMP-TO NAV ===================== */}
       <nav className="sticky top-0 z-30 bg-white dark:bg-black px-6 md:px-16 lg:px-24 py-6 border-t-2 border-black dark:border-white flex flex-wrap gap-8">

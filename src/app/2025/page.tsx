@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { getProgramme } from '../../lib/staff';
 import { ClosedApplications } from '../../components/ClosedApplications';
+import { HeroFilm } from '../../components/HeroFilm';
 
 const projects = [
   {
@@ -116,6 +117,9 @@ export default function Cohort2025() {
         </p>
         <div className="mt-6 pt-5 border-t border-gray-200">
           <ClosedApplications cohortId="london-2025" location="london25_hero" className="mx-auto" forceLight />
+        </div>
+        <div className="mt-6 md:mt-10">
+          <HeroFilm />
         </div>
       </header>
 

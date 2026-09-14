@@ -19,6 +19,20 @@ test("the poster preloads the opening without autoplay", async ({ page }) => {
   await expect(page.getByText("London · In person", { exact: true })).toHaveCount(0);
 });
 
+test("a program film starts when its play button scrolls into view on mobile", async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto("/2026/apr/singapore/");
+  await expect(playButton(page)).toBeEnabled();
+  const film = page.getByTestId("hero-film");
+  await expect(film).not.toBeInViewport({ ratio: 0.15 });
+  await expect(film).toHaveJSProperty("paused", true);
+
+  await playButton(page).click();
+  await expectPlaying(page);
+  await expect(film).toHaveJSProperty("controls", true);
+  await expect(film).toHaveJSProperty("playsInline", true);
+});
+
 test("keyboard playback uses native controls, pauses offscreen, seeks and ends without looping", async ({ page, request }) => {
   const requests: string[] = [];
   page.on("request", (request) => { if (mediaRequest(request.url())) requests.push(request.url()); });

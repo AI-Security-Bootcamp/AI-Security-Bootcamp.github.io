@@ -122,6 +122,12 @@ export function HeroFilm() {
     };
     const visibility = () => {
       if (document.hidden || !visible) suspend();
+      else if (intent.current) {
+        // A play click can arrive before the observer reports scrolling the
+        // film into view. Honor that click once visibility catches up.
+        hls?.startLoad(-1);
+        void play();
+      }
       else if (!hasPlayed) hls?.startLoad();
     };
     const onPlay = () => {
