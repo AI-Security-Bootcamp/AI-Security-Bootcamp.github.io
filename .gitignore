@@ -47,3 +47,6 @@ next-env.d.ts
 /.claude/settings.local.json
 /snapshots/
 /tmp/
+
+# Badge previews belong in hardware/{aisb,m3}/out/flash/.
+/*-preview*.png

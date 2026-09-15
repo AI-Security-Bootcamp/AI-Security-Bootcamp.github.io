@@ -11,7 +11,7 @@ const OUT = __dirname;
 const LOGO_PATH = path.join(ROOT, "public/brand/aisb-logo-on-light.png");
 const SPACE_GROTESK = path.join(
   ROOT,
-  "hardware/vegas26-badge/assets/fonts/SpaceGrotesk-700.ttf",
+  "hardware/aisb/assets/fonts/SpaceGrotesk-700.ttf",
 );
 const MONO_REGULAR = "/usr/share/fonts/truetype/dejavu/DejaVuSansMono.ttf";
 const MONO_BOLD = "/usr/share/fonts/truetype/dejavu/DejaVuSansMono-Bold.ttf";
