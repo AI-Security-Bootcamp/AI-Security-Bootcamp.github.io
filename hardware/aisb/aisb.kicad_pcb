@@ -4348,8 +4348,8 @@
 		(uuid "00000000-0000-0000-0000-000000001113")
 	)
 	(gr_circle
-		(center 50 8)
-		(end 53 8)
+		(center 20 8)
+		(end 23 8)
 		(stroke
 			(width 0.1)
 			(type default)
@@ -4357,6 +4357,17 @@
 		(fill no)
 		(layer "Edge.Cuts")
 		(uuid "00000000-0000-0000-0000-000000001116")
+	)
+	(gr_circle
+		(center 80 8)
+		(end 83 8)
+		(stroke
+			(width 0.1)
+			(type default)
+		)
+		(fill no)
+		(layer "Edge.Cuts")
+		(uuid "ff537712-dfbf-4d23-9b5d-52e8d1376744")
 	)
 	(gr_arc
 		(start 95 0)
@@ -4423,7 +4434,7 @@
 		)
 	)
 	(gr_text "aisb.dev"
-		(at 19.5 7.5 0)
+		(at 50 7 0)
 		(layer "F.SilkS")
 		(uuid "88b7c6bc-fe88-4d8b-a256-0bc48f29adad")
 		(effects
@@ -4530,7 +4541,7 @@
 		)
 	)
 	(gr_text "aisb.dev"
-		(at 81 7.5 0)
+		(at 50 7 0)
 		(layer "B.SilkS")
 		(uuid "00000000-0000-0000-0000-000000001202")
 		(effects
@@ -4553,9 +4564,9 @@
 		)
 	)
 	(barcode
-		(at 72.5 37 0)
+		(at 66 40 0)
 		(layer "B.SilkS")
-		(size 38 38)
+		(size 41 41)
 		(text "https://aisb.dev/badge0")
 		(text_height 1)
 		(type qr)
