@@ -48,5 +48,17 @@ next-env.d.ts
 /snapshots/
 /tmp/
 
+# Local Raspberry Pi SSH keypair
+/codex_rpi_ed25519
+/codex_rpi_ed25519.pub
+
+# Generated paper badges and conference print exports (keep source files)
+/print/guest-badges/*.pdf
+/print/guest-badges/*.png
+/print/guest-badges/*.svg
+/print/conference-pack/*.pdf
+/print/conference-pack/*.png
+/print/conference-pack/*-a4.svg
+
 # Badge previews belong in hardware/{aisb,m3}/out/flash/.
 /*-preview*.png

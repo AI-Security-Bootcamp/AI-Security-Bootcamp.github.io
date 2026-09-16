@@ -10,3 +10,6 @@ out/
 .DS_Store
 __pycache__/
 *.pyc
+
+# Local project left behind when the active M3 project moved to m3/
+/vegas26-badge/london26-m3.kicad_pro
