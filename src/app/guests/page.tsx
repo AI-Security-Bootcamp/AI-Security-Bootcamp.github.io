@@ -70,23 +70,23 @@ export default function GuestVisit() {
       <section className="px-6 md:px-16 lg:px-24 py-20">
         <div className="max-w-3xl">
           <p className="text-[#ef4444] font-black text-sm uppercase tracking-widest mb-3">
-            London &middot; December 6-12, 2026
+            San Francisco &middot; October 4-10, 2026
           </p>
           <h1 className="text-3xl md:text-4xl lg:text-5xl font-black leading-[0.95] tracking-tight mb-8">
-            Visit AISB in London
+            Visit AISB in San Francisco
           </h1>
 
           <p className="text-lg md:text-xl text-neutral-500 dark:text-neutral-400 max-w-2xl mb-4 leading-relaxed">
             Our next{" "}
-            <a href="/2026/dec/london" className="underline hover:text-[#ef4444] transition-colors">
+            <a href="/2026/oct/san-francisco" className="underline hover:text-[#ef4444] transition-colors">
               AI Security Bootcamp
             </a>{" "}
-            (AISB) is in London: a 7-day intensive program for security professionals shaping how
+            (AISB) is in San Francisco: a 7-day intensive program for security professionals shaping how
             we secure emerging AI systems.
           </p>
 
           <p className="text-neutral-500 dark:text-neutral-400 text-base md:text-lg leading-relaxed mb-8 max-w-2xl">
-            If you&apos;ll be in London and would like to drop by, say hi, and meet the cohort, fill
+            If you&apos;ll be in San Francisco and would like to drop by, say hi, and meet the cohort, fill
             in the form below with the dates you&apos;d like to visit.
           </p>
 
@@ -119,7 +119,7 @@ export default function GuestVisit() {
             width="100%"
             height="800"
             className="border-2 border-black dark:border-white"
-            title="AISB London Guest Visit Form"
+            title="AISB San Francisco Guest Visit Form"
           >
             Loading...
           </iframe>
@@ -147,13 +147,13 @@ export default function GuestVisit() {
             Home
           </a>
           <a
-            href="/2026/dec/london"
+            href="/2026/oct/san-francisco"
             className="text-neutral-400 dark:text-neutral-600 text-sm font-bold uppercase tracking-widest hover:text-[#ef4444] transition-colors"
           >
-            London December 2026
+            San Francisco October 2026
           </a>
           <ApplicationCta
-            cohortId="london-dec-2026"
+            cohortId="sf-2026"
             location="guest_visit_footer"
             className="text-neutral-400 dark:text-neutral-600 text-sm font-bold uppercase tracking-widest hover:text-[#ef4444] transition-colors"
           />
