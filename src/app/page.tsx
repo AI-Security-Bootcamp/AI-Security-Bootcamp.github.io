@@ -245,10 +245,12 @@ function FaqItem({ q, a }: { q: string; a: string }) {
   );
 }
 
+// The four people running AISB day to day. The wider cast — advisors and
+// per-cohort staff — lives on /staff rather than the homepage.
 const teamFeatured = [
   {
     name: "Pranav Gade",
-    role: "Program Lead",
+    role: "Program Director",
     image: "/pranav.png",
     bio: "Created AISB to bridge AI safety and security; previously research engineer at Conjecture. Leads curriculum design and program direction.",
     linkedin: "https://www.linkedin.com/in/pranav-gade/",
@@ -261,25 +263,18 @@ const teamFeatured = [
     linkedin: "https://www.linkedin.com/in/jmichelfeit/",
   },
   {
-    name: "Nitzan Shulman",
-    role: "Advisor",
-    image: "/nitzan.png",
-    bio: "Head of Cyber Security at Heron AI Security Initiative. 6+ years of security research specialising in IoT, robotics, malware, and AI security.",
-    linkedin: "https://www.linkedin.com/in/nitzan-shulman-14857b1a5/",
+    name: "Rhita Ameziane",
+    role: "Operations Head",
+    image: "/rhita.png",
+    bio: "AI red teamer, now focused on managing operations across AISB cohorts. Previously a data scientist and engineer at leading consumer-tech companies.",
+    linkedin: "https://www.linkedin.com/in/rameziane/",
   },
   {
-    name: "Dewi Erwan",
-    role: "Advisor",
-    image: "/dewi.png",
-    bio: "CEO of BlueDot Impact, building the workforce to protect humanity from frontier AI risks.",
-    linkedin: "https://www.linkedin.com/in/dewierwan/",
-  },
-  {
-    name: "Shay Yahal",
-    role: "Advisor",
-    image: "/shay.png",
-    bio: "Co-founder at a stealth startup; previously led AI & Data Engineering at Grip Security. Advises AISB drawing on 5 years of security research at the IDF.",
-    linkedin: "https://www.linkedin.com/in/shay-yahal/",
+    name: "Priyanshu Upadhyay",
+    role: "Founder's Office",
+    image: "/priyanshu.png",
+    bio: "Technical generalist building alongside Pranav & Rhita to make AISB cohorts run smoother and hit harder. Former fintech PM.",
+    linkedin: "https://www.linkedin.com/in/upadhyaypriyanshu/",
   },
 ];
 
