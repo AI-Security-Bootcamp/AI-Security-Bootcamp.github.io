@@ -14,10 +14,26 @@ export type Programme = {
 
 const pranav: StaffAppearance = {
   name: "Pranav Gade",
-  role: "Program Lead",
+  role: "Program Director",
   bio: "Research engineer at Conjecture. Created AISB to bridge AI safety and security; leads curriculum design and program direction across all editions.",
   image: "/pranav.png",
   linkedin: "https://www.linkedin.com/in/pranav-gade/",
+};
+
+const rhita: StaffAppearance = {
+  name: "Rhita Ameziane",
+  role: "Operations Head",
+  bio: "AI red teamer, now focused on managing operations across AISB cohorts. Previously a data scientist and engineer at leading consumer-tech companies.",
+  image: "/rhita.png",
+  linkedin: "https://www.linkedin.com/in/rameziane/",
+};
+
+const priyanshu: StaffAppearance = {
+  name: "Priyanshu Upadhyay",
+  role: "Founder's Office",
+  bio: "Technical generalist building alongside Pranav & Rhita to make AISB cohorts run smoother and hit harder. Former fintech PM.",
+  image: "/priyanshu.png",
+  linkedin: "https://www.linkedin.com/in/upadhyaypriyanshu/",
 };
 
 const jan: StaffAppearance = {
@@ -87,12 +103,27 @@ const bary: StaffAppearance = {
 // duplicates across programmes are intentional (people who staffed multiple cohorts).
 export const programmes: Programme[] = [
   {
-    name: "Singapore 2026",
+    name: "San Francisco · October 2026",
+    slug: "san-francisco",
+    staff: [pranav, jan, rhita, priyanshu],
+  },
+  {
+    name: "London · September 2026",
+    slug: "london-2026",
+    staff: [pranav, jan, rhita],
+  },
+  {
+    name: "Vegas · August 2026",
+    slug: "vegas",
+    staff: [pranav, jan, rhita],
+  },
+  {
+    name: "Singapore · April 2026",
     slug: "singapore",
     staff: [pranav, jan, david, nitzan, valerie, raymund, bary],
   },
   {
-    name: "London 2025",
+    name: "London · August 2025",
     slug: "2025",
     staff: [pranav, jan, david, nitzan, jinglin, frantisek],
   },
