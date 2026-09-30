@@ -39,7 +39,7 @@ const priyanshu: StaffAppearance = {
 const jan: StaffAppearance = {
   name: "Jan Michelfeit",
   role: "Security Lead",
-  bio: "Security lead at Conjecture. Designs AISB\u2019s hands-on labs and capstone projects, drawing on 10+ years securing complex systems and ML infrastructure.",
+  bio: "AI Control researcher at the UK AI Security Institute. Designs AISB\u2019s hands-on labs and capstone projects, drawing on a path from cybersecurity product development to AI security.",
   image: "/jan.png",
   linkedin: "https://www.linkedin.com/in/jmichelfeit/",
 };
@@ -99,28 +99,67 @@ const bary: StaffAppearance = {
   linkedin: "https://www.linkedin.com/in/bary-levy/",
 };
 
+const shiauHuei: StaffAppearance = {
+  name: "Shiau Huei Chang",
+  role: "Staff",
+  bio: "Founder of SherpaSec, a Malaysian cybersecurity community, and cybersecurity executive at Gamuda. Plays and creates CTF challenges; AISB Singapore 2026 alum.",
+  image: "/shiau-huei.png",
+  linkedin: "https://www.linkedin.com/in/chang-shiau-huei/",
+};
+
+const emma: StaffAppearance = {
+  name: "Emma Liddell",
+  role: "Security",
+  bio: "Infrastructure security engineer with 10 years protecting infrastructure from highly capable threat actors. Formerly at HRT and Google.",
+  image: "/emma.png",
+  linkedin: "https://www.linkedin.com/in/emma-liddell/",
+};
+
+const fernando: StaffAppearance = {
+  name: "Fernando Smith",
+  role: "M3 Lead",
+  bio: "Runs M3. AISB Singapore alum; previously founded a healthcare startup in Chile and found vulnerabilities in critical infrastructure. Co-organised Hack.ing, one of LatAm\u2019s largest college CTFs.",
+  image: "/fernando.png",
+  linkedin: "https://www.linkedin.com/in/fernando-smith/",
+};
+
+const davidQuarel: StaffAppearance = {
+  name: "David Quarel",
+  role: "Curriculum",
+  bio: "Head of Teaching at ARENA and curriculum development at ILIAD. Teaching at ARENA since ARENA 2.0; previously at Timaeus and the Krueger AI Safety Lab.",
+  image: "/david-quarel.png",
+};
+
+const jannis: StaffAppearance = {
+  name: "Jannis Kirschner",
+  role: "Security",
+  bio: "Swiss security researcher and CTF enthusiast. Security engineer at Niantic, focused on finding flaws in highly secured systems. Previously helped host AISB Singapore with the Singapore AI Safety Hub.",
+  image: null,
+  linkedin: "https://www.linkedin.com/in/janniskirschner/",
+};
+
 // Programmes - listed in reverse chronological order. Each programme owns its own staff list;
 // duplicates across programmes are intentional (people who staffed multiple cohorts).
 export const programmes: Programme[] = [
   {
     name: "San Francisco · October 2026",
     slug: "san-francisco",
-    staff: [pranav, jan, rhita, priyanshu],
+    staff: [pranav, jan, rhita, priyanshu, davidQuarel, emma, shiauHuei],
   },
   {
     name: "London · September 2026",
     slug: "london-2026",
-    staff: [pranav, jan, rhita],
+    staff: [pranav, rhita, jan, davidQuarel, shiauHuei, emma, fernando],
   },
   {
     name: "Vegas · August 2026",
     slug: "vegas",
-    staff: [pranav, jan, rhita],
+    staff: [pranav, davidQuarel, shiauHuei, jannis, nitzan],
   },
   {
     name: "Singapore · April 2026",
     slug: "singapore",
-    staff: [pranav, jan, david, nitzan, valerie, raymund, bary],
+    staff: [pranav, jan, david, nitzan, jannis, valerie, raymund, bary],
   },
   {
     name: "London · August 2025",
