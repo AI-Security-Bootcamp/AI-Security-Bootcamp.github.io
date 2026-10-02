@@ -20,7 +20,7 @@ test("the poster preloads the opening without autoplay", async ({ page }) => {
 });
 
 test("a program film starts when its play button scrolls into view on mobile", async ({ page }) => {
-  await page.setViewportSize({ width: 390, height: 844 });
+  await page.setViewportSize({ width: 390, height: 664 });
   await page.goto("/2026/apr/singapore/");
   await expect(playButton(page)).toBeEnabled();
   const film = page.getByTestId("hero-film");

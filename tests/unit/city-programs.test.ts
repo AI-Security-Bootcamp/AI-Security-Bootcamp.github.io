@@ -24,7 +24,7 @@ test('city shortcuts render the latest registered cohort, including closed cohor
     const html = renderToStaticMarkup(React.createElement(CityProgram, { params: { city } }));
     assert.match(html, /<h1/);
     if (city === 'london') assert.match(html, /Dec 6-12, 2026/);
-    else assert.match(html, /Applications for this cohort are closed/);
+    assert.match(html, /Applications for this cohort are closed/);
   }
 });
 

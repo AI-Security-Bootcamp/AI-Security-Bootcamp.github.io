@@ -3,7 +3,7 @@
 import posthog from "posthog-js";
 import {
   getApplicationDestination,
-  getLatestOpenApplicationCohort,
+  getLatestProgramDestination,
   getApplicationMode,
   type ApplicationCohortId,
 } from "../lib/application";
@@ -31,7 +31,7 @@ export function ApplicationCta({
   const isApplying = mode === "apply";
   const href =
     destination === "latest-program"
-      ? getLatestOpenApplicationCohort().href
+      ? getLatestProgramDestination()
       : getApplicationDestination(cohortId);
   const label =
     variant === "inline"
@@ -40,7 +40,7 @@ export function ApplicationCta({
         : "Submit an expression of interest"
       : isApplying
         ? "Apply Now"
-        : "Expression of Interest";
+        : "Show Interest";
 
   return (
     <a

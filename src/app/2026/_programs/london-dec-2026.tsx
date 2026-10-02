@@ -1,61 +1,8 @@
 "use client";
 
 import { ProgramHero } from "../../../components/ProgramHero";
-import { useState, useEffect, useMemo } from "react";
-import posthog from "posthog-js";
-import { ApplicationCta } from "../../../components/ApplicationCta";
-
-function useCountdown(target: Date) {
-  const [now, setNow] = useState(() => new Date());
-  useEffect(() => {
-    const id = setInterval(() => setNow(new Date()), 1000);
-    return () => clearInterval(id);
-  }, []);
-  const diff = Math.max(0, target.getTime() - now.getTime());
-  const days = Math.floor(diff / 86_400_000);
-  const hours = Math.floor((diff % 86_400_000) / 3_600_000);
-  const minutes = Math.floor((diff % 3_600_000) / 60_000);
-  const seconds = Math.floor((diff % 60_000) / 1000);
-  return { days, hours, minutes, seconds, expired: diff === 0 };
-}
-
-function CountdownBanner() {
-  const deadline = useMemo(() => new Date("2026-10-01T23:59:59-12:00"), []);
-  const { days, hours, minutes, seconds, expired } = useCountdown(deadline);
-  // Render only after mount: the ticking seconds never match the server-rendered
-  // HTML, which triggers a full hydration bailout.
-  const [mounted, setMounted] = useState(false);
-  useEffect(() => setMounted(true), []);
-
-  if (!mounted || expired) return null;
-
-  const units = [
-    { label: "Days", value: days },
-    { label: "Hours", value: hours },
-    { label: "Min", value: minutes },
-    { label: "Sec", value: seconds },
-  ];
-
-  return (
-    <div className="flex flex-col gap-2 mb-4">
-      <span className="text-xs uppercase tracking-widest text-neutral-500 dark:text-neutral-400 font-bold">
-        Applications close in
-      </span>
-      <div className="flex gap-5">
-        {units.map((u) => (
-          <div key={u.label} className="flex flex-col items-center">
-            <span className="text-2xl md:text-3xl font-black tabular-nums text-[#ef4444]">
-              {String(u.value).padStart(2, "0")}
-            </span>
-            <span className="text-[10px] uppercase tracking-widest text-neutral-500 dark:text-neutral-400">
-              {u.label}
-            </span>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
+import { useState, useEffect } from "react";
+import { ClosedApplications } from "../../../components/ClosedApplications";
 
 const curriculumDays = [
   {
@@ -139,7 +86,7 @@ const faqs = [
   },
   {
     q: "What does the full application process look like?",
-    a: "It's a 3-stage process. Stage 1 is a short CV/application: most of the signal here comes from your GitHub, past projects, and CV. Stage 2 is a technical assessment: a threat modeling exercise (the bulk of the assessment), a small PyTorch exercise, and a brief Python exercise. Stage 3 is a 30-minute interview covering your background, motivation, and short technical questions. We review applications on a rolling basis, so please apply early.",
+    a: "Applications for this cohort are closed. Our selection process has three stages: a short CV/application, a technical assessment covering threat modeling, PyTorch, and Python, and a 30-minute interview about your background, motivation, and technical experience.",
   },
   {
     q: "Does the program cover accommodation and travel?",
@@ -562,7 +509,7 @@ export default function Home() {
       {/* ===================== HERO ===================== */}
       <ProgramHero affiliations={<LogoCarousel />}>
         <p className="text-[#ef4444] font-black text-sm uppercase tracking-widest mb-3">
-          Applications open
+          Applications Closed
         </p>
         <h1 className="text-[clamp(2.5rem,12.8vw,3rem)] sm:text-6xl md:text-7xl lg:text-6xl xl:text-7xl 2xl:text-8xl font-black leading-[0.95] tracking-tight mb-6">
           AI Security
@@ -586,29 +533,8 @@ export default function Home() {
           <span>Fully Funded</span>
         </div>
 
-        <div className="grid grid-cols-2 gap-2 mb-6 sm:flex sm:flex-wrap sm:gap-4">
-          <ApplicationCta
-            cohortId="london-dec-2026"
-            location="dec26_hero"
-            className="flex min-h-[52px] items-center justify-center border-2 border-transparent bg-[#ef4444] text-white font-black text-xs min-[360px]:text-sm uppercase tracking-[0.06em] md:tracking-widest px-2 py-3 sm:px-8 sm:py-4 hover:bg-red-600 transition-colors"
-          />
-          <button
-            onClick={() => scrollTo("overview")}
-            className="flex min-h-[52px] items-center justify-center border-2 border-black dark:border-white text-black dark:text-white font-black text-xs min-[360px]:text-sm uppercase tracking-[0.06em] md:tracking-widest px-2 py-3 sm:px-8 sm:py-4 bg-transparent hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-colors"
-          >
-            Learn More
-          </button>
-        </div>
-
-        <CountdownBanner />
-
-        <div className="flex flex-wrap gap-x-8 gap-y-2 text-sm text-neutral-400 dark:text-neutral-500">
-          <span>
-            Application Deadline:{" "}
-            <span className="text-black dark:text-white font-bold">
-              October 1, 2026 (AoE)
-            </span>
-          </span>
+        <div className="border-t border-neutral-200 dark:border-neutral-800 pt-5">
+          <ClosedApplications cohortId="london-dec-2026" location="dec26_hero" />
         </div>
       </ProgramHero>
 
@@ -837,16 +763,12 @@ export default function Home() {
       <section className="px-6 md:px-16 lg:px-24 py-20 border-t-2 border-black dark:border-white">
         <div className="max-w-3xl">
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-black mb-8 tracking-tight">
-            Ready to Apply?
+            Looking for your next AISB cohort?
           </h2>
-          <p className="text-neutral-500 dark:text-neutral-400 text-base md:text-lg leading-relaxed mb-4 max-w-xl">
-            Applications close October 1, 2026 at 11:59pm AoE. We review on a rolling basis and will prioritize applications we receive
-            before the deadline. Early applications are encouraged.
-          </p>
-          <p className="text-neutral-500 dark:text-neutral-400 text-base md:text-lg leading-relaxed mb-10 max-w-xl">
+          <ClosedApplications cohortId="london-dec-2026" location="dec26_cta" />
+          <p className="text-neutral-500 dark:text-neutral-400 text-base md:text-lg leading-relaxed mt-6 max-w-xl">
             Reach out to <a href="mailto:hello@aisb.dev" className="underline hover:text-[#ef4444] transition-colors">hello@aisb.dev</a> with questions about the program.
           </p>
-          <ApplicationCta cohortId="london-dec-2026" location="dec26_cta" />
         </div>
       </section>
 
