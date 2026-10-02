@@ -13,11 +13,24 @@ const render = (cohortId: NoticeProps["cohortId"], props: Partial<NoticeProps> =
   React.createElement(ClosedApplications, { cohortId, location: 'test', ...props }),
 );
 
-test('every closed cohort uses the same London notice and preserves its city preference', () => {
-  for (const [id, interest] of [
-    ['sf-2026', 'san-francisco'], ['vegas-2026', 'vegas'],
-    ['london-2026', 'london'], ['singapore-2026', 'singapore'], ['london-2025', 'london'],
-  ] as const) {
+const closedCohorts = [
+  ['sf-2026', 'san-francisco'], ['vegas-2026', 'vegas'],
+  ['london-2026', 'london'], ['singapore-2026', 'singapore'], ['london-2025', 'london'],
+] as const;
+
+test('no cohort is accepting applications, so every program offers only city updates', () => {
+  assert.equal(findLatestOpenApplicationCohort(), undefined);
+  for (const [id, interest] of [['london-dec-2026', 'london'], ...closedCohorts] as const) {
+    const html = render(id);
+    assert.match(html, /Applications for this cohort are closed\./);
+    assert(html.includes(`href="/eoi?interest=${interest}"`));
+    assert.doesNotMatch(html, /Now accepting|Explore AISB|→|&rarr;|airtable\.com/);
+  }
+});
+
+test('every closed cohort uses the same notice for an open program and preserves its city preference', () => {
+  applicationModes['london-dec-2026'] = 'apply';
+  for (const [id, interest] of closedCohorts) {
     const html = render(id);
     assert.match(html, /Applications for this cohort are closed\./);
     assert.match(html, /Now accepting applications for/);
@@ -29,7 +42,6 @@ test('every closed cohort uses the same London notice and preserves its city pre
 });
 
 test('the recommendation follows the open cohort registry, not hardcoded London copy', () => {
-  applicationModes['london-dec-2026'] = 'eoi';
   applicationModes['sf-2026'] = 'apply';
   assert.equal(findLatestOpenApplicationCohort()?.id, 'sf-2026');
   assert.match(render('london-2025'), /Explore AISB San Francisco/);
@@ -38,6 +50,7 @@ test('the recommendation follows the open cohort registry, not hardcoded London 
 
 test('multiple open cohorts use the existing latest-cohort ordering', () => {
   applicationModes['sf-2026'] = 'apply';
+  applicationModes['london-dec-2026'] = 'apply';
   assert.equal(findLatestOpenApplicationCohort()?.id, 'london-dec-2026');
 });
 
@@ -51,6 +64,7 @@ test('between campaigns, the archive offers updates without claiming application
 });
 
 test('an open program never gets a closed-applications notice', () => {
+  applicationModes['london-dec-2026'] = 'apply';
   assert.equal(render('london-dec-2026'), '');
 });
 

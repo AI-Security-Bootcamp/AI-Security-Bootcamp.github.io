@@ -17,7 +17,7 @@ export type ApplicationCohortId =
 // This is the single source of truth for whether a cohort is accepting applications.
 export const applicationModes: Record<ApplicationCohortId, ApplicationMode> = {
   default: "eoi",
-  "london-dec-2026": "apply",
+  "london-dec-2026": "eoi",
   "sf-2026": "eoi",
   "vegas-2026": "eoi",
   "london-2026": "eoi",
@@ -48,13 +48,7 @@ export function findLatestOpenApplicationCohort(): Cohort | undefined {
     .at(0);
 }
 
-/** The chronologically latest cohort that is currently accepting applications. */
-export function getLatestOpenApplicationCohort(): Cohort {
-  const cohort = findLatestOpenApplicationCohort();
-
-  if (!cohort) {
-    throw new Error("No cohort is currently accepting applications.");
-  }
-
-  return cohort;
+/** The latest open cohort's page, or the interest form between application campaigns. */
+export function getLatestProgramDestination(): string {
+  return findLatestOpenApplicationCohort()?.href ?? EOI_URL;
 }

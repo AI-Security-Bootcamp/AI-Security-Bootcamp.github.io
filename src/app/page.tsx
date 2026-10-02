@@ -648,11 +648,11 @@ export default function Home() {
       <section className="px-6 md:px-16 lg:px-24 py-20 border-t-2 border-black dark:border-white">
         <div className="max-w-3xl">
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-black mb-8 tracking-tight">
-            Ready to Apply?
+            Join a Future Cohort
           </h2>
           <p className="text-neutral-500 dark:text-neutral-400 text-base md:text-lg leading-relaxed mb-4 max-w-xl">
-            Applications are open for AISB London, Dec 6-12, 2026. The deadline to
-            apply is October 1, 2026 (AoE).
+            Applications for AISB London, Dec 6-12, 2026 are now closed. Show your
+            interest and we&apos;ll let you know when the next cohort opens.
           </p>
           <p className="text-neutral-500 dark:text-neutral-400 text-base md:text-lg leading-relaxed mb-10 max-w-xl">
             Reach out to <a href="mailto:hello@aisb.dev" className="underline hover:text-[#ef4444] transition-colors">hello@aisb.dev</a> for any questions about the program.

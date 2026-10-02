@@ -37,7 +37,7 @@ test.describe("without JavaScript", () => {
       expect((await page.goto(`${path}/`))?.status()).toBe(200);
       await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
       if (path === "/london") await expect(page.getByText("Dec 6-12, 2026", { exact: true })).toBeVisible();
-      else await expect(page.getByTestId("closed-applications")).toHaveCount(2);
+      await expect(page.getByTestId("closed-applications")).toHaveCount(2);
     });
   }
 });
