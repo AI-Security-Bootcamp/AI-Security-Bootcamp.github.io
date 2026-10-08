@@ -7,6 +7,7 @@ export const EOI_URL = "/eoi";
 export type ApplicationMode = "apply" | "eoi";
 export type ApplicationCohortId =
   | "default"
+  | "sf-jan-2027"
   | "london-dec-2026"
   | "sf-2026"
   | "vegas-2026"
@@ -17,6 +18,7 @@ export type ApplicationCohortId =
 // This is the single source of truth for whether a cohort is accepting applications.
 export const applicationModes: Record<ApplicationCohortId, ApplicationMode> = {
   default: "eoi",
+  "sf-jan-2027": "apply",
   "london-dec-2026": "eoi",
   "sf-2026": "eoi",
   "vegas-2026": "eoi",

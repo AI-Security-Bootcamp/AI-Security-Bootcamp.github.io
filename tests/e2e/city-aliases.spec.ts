@@ -2,8 +2,8 @@ import { test, expect } from "./fixtures";
 
 const aliases = [
   { path: "/london", target: "/2026/dec/london/" },
-  { path: "/sf", target: "/2026/oct/san-francisco/" },
-  { path: "/san-francisco", target: "/2026/oct/san-francisco/" },
+  { path: "/sf", target: "/2027/jan/san-francisco/" },
+  { path: "/san-francisco", target: "/2027/jan/san-francisco/" },
   { path: "/vegas", target: "/2026/aug/vegas/" },
   { path: "/singapore", target: "/2026/apr/singapore/" },
 ];
@@ -37,7 +37,12 @@ test.describe("without JavaScript", () => {
       expect((await page.goto(`${path}/`))?.status()).toBe(200);
       await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
       if (path === "/london") await expect(page.getByText("Dec 6-12, 2026", { exact: true })).toBeVisible();
-      await expect(page.getByTestId("closed-applications")).toHaveCount(2);
+      if (path === "/sf" || path === "/san-francisco") {
+        await expect(page.getByText("Jan 10-16, 2027", { exact: true })).toBeVisible();
+        await expect(page.getByTestId("closed-applications")).toHaveCount(0);
+      } else {
+        await expect(page.getByTestId("closed-applications")).toHaveCount(2);
+      }
     });
   }
 });

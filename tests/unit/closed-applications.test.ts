@@ -14,44 +14,34 @@ const render = (cohortId: NoticeProps["cohortId"], props: Partial<NoticeProps> =
 );
 
 const closedCohorts = [
-  ['sf-2026', 'san-francisco'], ['vegas-2026', 'vegas'],
+  ['london-dec-2026', 'london'], ['sf-2026', 'san-francisco'], ['vegas-2026', 'vegas'],
   ['london-2026', 'london'], ['singapore-2026', 'singapore'], ['london-2025', 'london'],
 ] as const;
 
-test('no cohort is accepting applications, so every program offers only city updates', () => {
-  assert.equal(findLatestOpenApplicationCohort(), undefined);
-  for (const [id, interest] of [['london-dec-2026', 'london'], ...closedCohorts] as const) {
-    const html = render(id);
-    assert.match(html, /Applications for this cohort are closed\./);
-    assert(html.includes(`href="/eoi?interest=${interest}"`));
-    assert.doesNotMatch(html, /Now accepting|Explore AISB|→|&rarr;|airtable\.com/);
-  }
-});
-
-test('every closed cohort uses the same notice for an open program and preserves its city preference', () => {
-  applicationModes['london-dec-2026'] = 'apply';
+test('every closed cohort uses the same San Francisco notice and preserves its city preference', () => {
+  assert.equal(findLatestOpenApplicationCohort()?.id, 'sf-jan-2027');
   for (const [id, interest] of closedCohorts) {
     const html = render(id);
     assert.match(html, /Applications for this cohort are closed\./);
     assert.match(html, /Now accepting applications for/);
-    assert.match(html, /Explore AISB London/);
-    assert.match(html, /href="\/2026\/dec\/london"/);
+    assert.match(html, /Explore AISB San Francisco/);
+    assert.match(html, /href="\/2027\/jan\/san-francisco"/);
     assert(html.includes(`href="/eoi?interest=${interest}"`));
     assert.doesNotMatch(html, /→|&rarr;|airtable\.com/);
   }
 });
 
-test('the recommendation follows the open cohort registry, not hardcoded London copy', () => {
-  applicationModes['sf-2026'] = 'apply';
-  assert.equal(findLatestOpenApplicationCohort()?.id, 'sf-2026');
-  assert.match(render('london-2025'), /Explore AISB San Francisco/);
-  assert.match(render('london-2025'), /href="\/2026\/oct\/san-francisco"/);
+test('the recommendation follows the open cohort registry, not hardcoded copy', () => {
+  applicationModes['sf-jan-2027'] = 'eoi';
+  applicationModes['london-dec-2026'] = 'apply';
+  assert.equal(findLatestOpenApplicationCohort()?.id, 'london-dec-2026');
+  assert.match(render('london-2025'), /Explore AISB London/);
+  assert.match(render('london-2025'), /href="\/2026\/dec\/london"/);
 });
 
 test('multiple open cohorts use the existing latest-cohort ordering', () => {
-  applicationModes['sf-2026'] = 'apply';
   applicationModes['london-dec-2026'] = 'apply';
-  assert.equal(findLatestOpenApplicationCohort()?.id, 'london-dec-2026');
+  assert.equal(findLatestOpenApplicationCohort()?.id, 'sf-jan-2027');
 });
 
 test('between campaigns, the archive offers updates without claiming applications are open', () => {
@@ -64,8 +54,7 @@ test('between campaigns, the archive offers updates without claiming application
 });
 
 test('an open program never gets a closed-applications notice', () => {
-  applicationModes['london-dec-2026'] = 'apply';
-  assert.equal(render('london-dec-2026'), '');
+  assert.equal(render('sf-jan-2027'), '');
 });
 
 test('the light-only 2025 archive does not inherit dark text styles', () => {

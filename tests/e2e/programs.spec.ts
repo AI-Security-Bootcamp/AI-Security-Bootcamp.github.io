@@ -13,7 +13,7 @@ for (const colorScheme of ["light", "dark"] as const) {
   test.describe(colorScheme, () => {
     test.use({ colorScheme });
     for (const program of programs) {
-      test(`${program.id} offers city updates at all viewport sizes`, async ({ page }, testInfo) => {
+      test(`${program.id} offers the latest program and city updates at all viewport sizes`, async ({ page }, testInfo) => {
         await page.goto(program.href);
         await page.evaluate((dark) => document.documentElement.classList.toggle("dark", dark), colorScheme === "dark");
         const blocks = page.getByTestId("closed-applications");
@@ -23,13 +23,13 @@ for (const colorScheme of ["light", "dark"] as const) {
         await expect(page.locator("body")).not.toContainText(/Application Deadline|Applications close in|please apply early|upcoming (Vegas|London) bootcamp/i);
         for (const block of await blocks.all()) {
           await expect(block).toHaveAttribute("data-cohort", program.id);
-          await expect(block.locator("p")).toHaveText("Applications for this cohort are closed.", { useInnerText: true });
-          await expect(block.getByRole("link")).toHaveCount(1);
-          const updates = block.getByRole("link", { name: "Get notified of future cohorts", exact: true });
-          await expect(updates).toHaveAttribute("href", `/eoi?interest=${program.interest}`);
-          await expect(updates).toHaveCSS("background-color", "rgb(239, 68, 68)");
-          await expect(updates).toHaveCSS("color", "rgb(255, 255, 255)");
-          await expect(updates).toHaveCSS("border-radius", "0px");
+          await expect(block.locator("p")).toHaveText(/Applications for this cohort are closed\.\s+Now accepting applications for AISB San Francisco\./, { useInnerText: true });
+          const explore = block.getByRole("link", { name: "Explore AISB San Francisco", exact: true });
+          await expect(explore).toHaveAttribute("href", "/2027/jan/san-francisco");
+          await expect(explore).toHaveCSS("background-color", "rgb(239, 68, 68)");
+          await expect(explore).toHaveCSS("color", "rgb(255, 255, 255)");
+          await expect(explore).toHaveCSS("border-radius", "0px");
+          await expect(block.getByRole("link", { name: "Get notified of future cohorts", exact: true })).toHaveAttribute("href", `/eoi?interest=${program.interest}`);
         }
         if (program.id === "sf-2026") {
           await expect(page.getByText("Applications Closed", { exact: true })).toHaveCount(1);
@@ -86,13 +86,32 @@ for (const program of programs) {
   }
 }
 
-test("the city updates link works with the keyboard", async ({ page }) => {
+test("the latest program link works with the keyboard", async ({ page }) => {
   await page.goto("/2026/dec/london/");
-  await page.getByRole("link", { name: "Get notified of future cohorts", exact: true }).first().focus();
+  await page.getByRole("link", { name: "Explore AISB San Francisco", exact: true }).first().focus();
   await page.keyboard.press("Enter");
-  await expect(page).toHaveURL((url) => /^\/eoi\/?$/.test(url.pathname) && url.search === "?interest=london");
-  await expect(page.getByRole("heading", { name: "Future London cohorts", exact: true })).toBeVisible();
+  await expect(page).toHaveURL(/\/2027\/jan\/san-francisco\/?$/);
+  await expect(page.getByRole("link", { name: "Apply Now", exact: true })).toHaveCount(2);
 });
+
+test("sf-jan-2027 is open for applications", async ({ page }) => {
+  await page.goto("/2027/jan/san-francisco/");
+  await expect(page.getByText("Applications open", { exact: true })).toHaveCount(1);
+  await expect(page.getByText("Jan 10-16, 2027", { exact: true })).toHaveCount(1);
+  await expect(page.getByText("November 7, 2026 (AoE)", { exact: true })).toHaveCount(1);
+  await expect(page.getByTestId("closed-applications")).toHaveCount(0);
+  const apply = page.getByRole("link", { name: "Apply Now", exact: true });
+  await expect(apply).toHaveCount(2);
+  for (const link of await apply.all()) await expect(link).toHaveAttribute("href", /airtable\.com/);
+});
+
+for (const alias of ["/sf27/", "/2027/", "/2027/jan/"]) {
+  test(`${alias} points to the January 2027 San Francisco program`, async ({ page }) => {
+    await page.goto(`${alias}?source=check#overview`);
+    await expect(page).toHaveURL((url) => url.pathname === "/2027/jan/san-francisco/" && url.search === "?source=check" && url.hash === "#overview");
+    await expect(page.getByText("Jan 10-16, 2027", { exact: true })).toHaveCount(1);
+  });
+}
 
 test("general and unknown-city interest forms do not prefill a city", async ({ page }) => {
   for (const query of ["", "?interest=unknown"]) {
@@ -104,25 +123,21 @@ test("general and unknown-city interest forms do not prefill a city", async ({ p
   }
 });
 
-test("between campaigns, the homepage invites interest instead of applications", async ({ page }) => {
+test("the homepage application link opens the latest program", async ({ page }) => {
   await page.goto("/");
   const actions = page.getByTestId("hero-actions");
-  await expect(actions.getByRole("link", { name: "Show Interest", exact: true })).toHaveAttribute("href", "/eoi");
+  await expect(actions.getByRole("link", { name: "Apply Now", exact: true })).toHaveAttribute("href", "/2027/jan/san-francisco");
   await expect(actions.getByRole("button", { name: "Past Programs", exact: true })).toBeVisible();
-  await expect(page.getByRole("link", { name: "Show Interest", exact: true })).toHaveCount(2);
-  await expect(page.getByRole("link", { name: "Apply Now", exact: true })).toHaveCount(0);
-  await expect(page.locator('a[href*="airtable.com"]')).toHaveCount(0);
-  await expect(page.locator("body")).not.toContainText(/Applications are open|Ready to Apply|deadline to apply/i);
+  await expect(page.getByRole("link", { name: "Apply Now", exact: true })).toHaveCount(2);
+  await expect(page.locator("body")).toContainText("Applications are open for AISB San Francisco, Jan 10-16, 2027.");
   await expect(page.getByTestId("closed-applications")).toHaveCount(0);
 });
 
-for (const path of ["/apply/", "/aisf/"]) {
-  test(`${path} leads to the interest form while applications are closed`, async ({ page }) => {
-    await page.goto(path);
-    await expect(page).toHaveURL((url) => /^\/eoi\/?$/.test(url.pathname));
-    await expect(page.getByRole("heading", { name: "Expression of Interest", exact: true })).toBeVisible();
-  });
-}
+test("/apply/ leads to the latest open program", async ({ page }) => {
+  await page.goto("/apply/");
+  await expect(page).toHaveURL((url) => /^\/2027\/jan\/san-francisco\/?$/.test(url.pathname));
+  await expect(page.getByText("Jan 10-16, 2027", { exact: true })).toHaveCount(1);
+});
 
 test.describe("without JavaScript", () => {
   test.use({ javaScriptEnabled: false });
@@ -130,10 +145,10 @@ test.describe("without JavaScript", () => {
     await page.goto("/eoi/");
     await expect(page.getByRole("link", { name: /Open the expression of interest form/ })).toBeVisible();
     await page.goto("/2026/oct/san-francisco/");
-    await expect(page.getByRole("link", { name: "Get notified of future cohorts", exact: true })).toHaveCount(2);
-    for (const path of ["/apply/", "/aisf/"]) {
-      await page.goto(path);
-      await expect(page.locator("main a, div a")).toHaveAttribute("href", "/eoi");
-    }
+    await expect(page.getByRole("link", { name: "Explore AISB San Francisco", exact: true })).toHaveCount(2);
+    await page.goto("/apply/");
+    await expect(page.locator("main a")).toHaveAttribute("href", "/2027/jan/san-francisco");
+    await page.goto("/aisf/");
+    await expect(page.locator("div a")).toHaveAttribute("href", /airtable\.com/);
   });
 });

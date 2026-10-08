@@ -12,8 +12,8 @@ afterEach(() => editions.splice(0, editions.length, ...originalEditions));
 test('city shortcuts render the latest registered cohort, including closed cohorts', () => {
   const expected = {
     london: '/2026/dec/london',
-    sf: '/2026/oct/san-francisco',
-    'san-francisco': '/2026/oct/san-francisco',
+    sf: '/2027/jan/san-francisco',
+    'san-francisco': '/2027/jan/san-francisco',
     vegas: '/2026/aug/vegas',
     singapore: '/2026/apr/singapore',
   };
@@ -24,7 +24,12 @@ test('city shortcuts render the latest registered cohort, including closed cohor
     const html = renderToStaticMarkup(React.createElement(CityProgram, { params: { city } }));
     assert.match(html, /<h1/);
     if (city === 'london') assert.match(html, /Dec 6-12, 2026/);
-    assert.match(html, /Applications for this cohort are closed/);
+    if (href.startsWith('/2027/')) {
+      assert.match(html, /Jan 10-16, 2027/);
+      assert.doesNotMatch(html, /Applications for this cohort are closed/);
+    } else {
+      assert.match(html, /Applications for this cohort are closed/);
+    }
   }
 });
 
@@ -33,7 +38,7 @@ test('selection uses start dates, not registry ordering or the current applicati
   assert.equal(getLatestCityProgram('london')?.id, 'london-dec-2026');
   assert.deepEqual(editions, snapshot, 'lookup must not reorder the shared registry');
   editions.reverse();
-  const nextLondon = { ...snapshot[0], id: 'london-2027', href: '/2027/jan/london', startDate: '2027-01-10' };
+  const nextLondon = { ...snapshot.find(({ id }) => id === 'london-dec-2026')!, id: 'london-2027', href: '/2027/jan/london', startDate: '2027-01-10' };
   editions.push(nextLondon);
   assert.equal(getLatestCityProgram('london'), nextLondon);
   assert.equal(getLatestCityProgram('vegas')?.id, 'vegas-2026');

@@ -428,7 +428,7 @@ export default function Home() {
 
             <div data-testid="hero-actions" className="grid grid-cols-2 sm:flex sm:flex-wrap items-stretch gap-2 md:gap-4">
               <ApplicationCta
-                cohortId="london-dec-2026"
+                cohortId="sf-jan-2027"
                 location="hero"
                 destination="latest-program"
                 className="flex min-h-[52px] items-center justify-center whitespace-nowrap border-2 border-transparent bg-[#ef4444] text-white font-black text-xs min-[360px]:text-sm uppercase tracking-[0.06em] md:tracking-widest px-2 py-3 md:px-8 md:py-4 hover:bg-red-600 transition-colors"
@@ -648,18 +648,18 @@ export default function Home() {
       <section className="px-6 md:px-16 lg:px-24 py-20 border-t-2 border-black dark:border-white">
         <div className="max-w-3xl">
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-black mb-8 tracking-tight">
-            Join a Future Cohort
+            Ready to Apply?
           </h2>
           <p className="text-neutral-500 dark:text-neutral-400 text-base md:text-lg leading-relaxed mb-4 max-w-xl">
-            Applications for AISB London, Dec 6-12, 2026 are now closed. Show your
-            interest and we&apos;ll let you know when the next cohort opens.
+            Applications are open for AISB San Francisco, Jan 10-16, 2027. The deadline to
+            apply is November 7, 2026 (AoE).
           </p>
           <p className="text-neutral-500 dark:text-neutral-400 text-base md:text-lg leading-relaxed mb-10 max-w-xl">
             Reach out to <a href="mailto:hello@aisb.dev" className="underline hover:text-[#ef4444] transition-colors">hello@aisb.dev</a> for any questions about the program.
           </p>
           <div className="flex flex-wrap gap-4">
             <ApplicationCta
-              cohortId="london-dec-2026"
+              cohortId="sf-jan-2027"
               location="cta_section"
               destination="latest-program"
             />

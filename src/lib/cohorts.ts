@@ -35,6 +35,31 @@ export type LinkedinImageCohort = Cohort & {
 
 export const editions: Cohort[] = [
   {
+    id: "sf-jan-2027",
+    name: "AISB San Francisco",
+    year: "2027",
+    href: "/2027/jan/san-francisco",
+    analyticsId: "sf_jan_2027",
+    detail: "7-day intensive · 20 participants · January 2027",
+    description:
+      "An AI security cohort in the Bay Area, home to the frontier AI labs. Threat modelling, adversarial attacks, LLM and infrastructure security.",
+    startDate: "2027-01-10",
+    endDate: "2027-01-16",
+    month: "jan",
+    monthLabel: "January",
+    location: "San Francisco",
+    locationSlug: "san-francisco",
+    linkedinImage: {
+      eyebrow: "Applications Now Open",
+      curriculumThemes: ["Adversarial ML", "LLM Security", "Infrastructure & Governance"],
+      format: "7-Day Intensive",
+      funding: "Fully Funded",
+      audience: "20 Senior Security Professionals",
+      applicationDeadline: "November 7, 2026",
+      callToActionPath: "/apply",
+    },
+  },
+  {
     id: "london-dec-2026",
     name: "AISB London",
     year: "2026",
@@ -141,17 +166,25 @@ export const editions: Cohort[] = [
   },
 ];
 
-export const cohorts2026 = editions
-  .filter((cohort) => cohort.year === "2026")
-  .sort((a, b) => a.startDate.localeCompare(b.startDate));
-
-export const cohortMonths2026 = Array.from(
-  new Set(cohorts2026.map((cohort) => cohort.month)),
-);
-
-export function getCohortsForMonth(month: string) {
-  return cohorts2026.filter((cohort) => cohort.month === month.toLowerCase());
+/** Cohorts starting in a given year, in chronological order. */
+export function getCohortsForYear(year: string) {
+  return editions
+    .filter((cohort) => cohort.year === year)
+    .sort((a, b) => a.startDate.localeCompare(b.startDate));
 }
+
+export function getCohortMonths(year: string) {
+  return Array.from(new Set(getCohortsForYear(year).map((cohort) => cohort.month)));
+}
+
+export function getCohortsForMonth(month: string, year = "2026") {
+  return getCohortsForYear(year).filter((cohort) => cohort.month === month.toLowerCase());
+}
+
+export const cohorts2026 = getCohortsForYear("2026");
+export const cohortMonths2026 = getCohortMonths("2026");
+export const cohorts2027 = getCohortsForYear("2027");
+export const cohortMonths2027 = getCohortMonths("2027");
 
 export const linkedinImageCohorts: LinkedinImageCohort[] = editions.filter(
   (cohort): cohort is LinkedinImageCohort => cohort.linkedinImage !== undefined,

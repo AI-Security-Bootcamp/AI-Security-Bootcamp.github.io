@@ -1,4 +1,5 @@
 import type { ComponentType } from "react";
+import SanFranciscoJanuary2027 from "./2027/_programs/sf-jan-2027";
 import LondonDecember2026 from "./2026/_programs/london-dec-2026";
 import SanFrancisco2026 from "./sf26/page";
 import Vegas2026 from "./vegas26/page";
@@ -7,6 +8,7 @@ import Singapore2026 from "./2026/_programs/singapore-2026";
 import London2025 from "./2025/page";
 
 export const programPages: Record<string, ComponentType> = {
+  "sf-jan-2027": SanFranciscoJanuary2027,
   "london-dec-2026": LondonDecember2026,
   "sf-2026": SanFrancisco2026,
   "vegas-2026": Vegas2026,
