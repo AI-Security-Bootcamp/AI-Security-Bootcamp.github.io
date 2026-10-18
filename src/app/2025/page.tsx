@@ -7,7 +7,7 @@ const projects = [
   {
     name: "Andrew",
     title: "MCP Protector Proxy",
-    description: "A security layer for the Model Context Protocol (MCP) that provides tool inspection, permission controls, sanitization against prompt injection, and rate limiting.",
+    description: "A security layer for the Model Context Protocol (MCP) that provides tool inspection, permission controls, sanitisation against prompt injection, and rate limiting.",
     link: "https://github.com/PR0VIDENCE/mcp_protector_proxy",
   },
   {
@@ -73,7 +73,7 @@ const projects = [
   {
     name: "Lorenzo",
     title: "Adversarial Attack Detector",
-    description: "Using linear probes to detect and analyze adversarial attacks on neural networks.",
+    description: "Using linear probes to detect and analyse adversarial attacks on neural networks.",
     link: "https://github.com/Venn1998/Adversarial_Attacks_detector",
   },
   {
@@ -85,7 +85,7 @@ const projects = [
   {
     name: "Sam",
     title: "Here Comes the Worm",
-    description: "AI security research exploring worm-like behavior in AI systems.",
+    description: "AI security research exploring worm-like behaviour in AI systems.",
     link: "https://github.com/stetef/Here-comes-the-worm-aisb/",
   },
 ];
@@ -106,7 +106,7 @@ export default function Cohort2025() {
           AI Security Bootcamp
         </h1>
         <div className="text-lg md:text-xl text-gray-600 mb-4 flex flex-wrap justify-center gap-2 md:gap-4">
-          <span>4-week intensive program</span>
+          <span>4-week intensive programme</span>
           <span className="hidden md:inline">&bull;</span>
           <span>London, UK (In-person)</span>
           <span className="hidden md:inline">&bull;</span>
@@ -137,7 +137,7 @@ export default function Cohort2025() {
         {/* Program Description */}
         <section className="space-y-6">
           <p className="text-xl md:text-2xl text-gray-700 text-center">
-            The inaugural AI Security Bootcamp brought together 20 researchers and engineers for four intensive weeks of training in security fundamentals, AI infrastructure security, and AI-specific threats. The program culminated in a week of capstone projects where participants explored cutting-edge security research.
+            The inaugural AI Security Bootcamp brought together 20 researchers and engineers for four intensive weeks of training in security fundamentals, AI infrastructure security, and AI-specific threats. The programme culminated in a week of capstone projects where participants explored cutting-edge security research.
           </p>
           <p className="text-xl md:text-2xl text-gray-700 text-center">
             The curriculum is available <a href="https://github.com/AI-Security-Bootcamp/aisb-sg/" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">on GitHub</a> for self-study.
@@ -154,7 +154,7 @@ export default function Cohort2025() {
               <ul className="list-disc space-y-3 text-gray-700 text-lg ml-8">
                 <li><span className="font-semibold">Fundamentals of Cryptography:</span> Stream ciphers (LCG), block ciphers (DES, SPN), hashing (MD5), message authentication (HMAC), public-key cryptography (RSA), cryptanalysis (crib dragging, meet-in-the-middle, padding oracle attacks)</li>
                 <li><span className="font-semibold">Network Security:</span> Traffic analysis with Wireshark, HTTP/HTTPS man-in-the-middle interception, certificate pinning, NFQUEUE, covert channels (DNS, ICMP)</li>
-                <li><span className="font-semibold">Threat Modeling:</span> STRIDE methodology, attack trees, adversary capability modeling</li>
+                <li><span className="font-semibold">Threat Modelling:</span> STRIDE methodology, attack trees, adversary capability modelling</li>
                 <li><span className="font-semibold">Penetration Testing:</span> Network reconnaissance, enumeration, password cracking, Metasploit exploitation, privilege escalation, persistence</li>
               </ul>
             </div>
@@ -163,8 +163,8 @@ export default function Cohort2025() {
             <div>
               <h3 className="text-2xl font-bold mb-4">Week 2: Infrastructure Security</h3>
               <ul className="list-disc space-y-3 text-gray-700 text-lg ml-8">
-                <li><span className="font-semibold">Containerization:</span> Container fundamentals (chroot, cgroups, namespaces), network isolation, container escapes, syscall monitoring</li>
-                <li><span className="font-semibold">Supply Chain Security:</span> Pickle deserialization attacks, dependency confusion, model provenance</li>
+                <li><span className="font-semibold">Containerisation:</span> Container fundamentals (chroot, cgroups, namespaces), network isolation, container escapes, syscall monitoring</li>
+                <li><span className="font-semibold">Supply Chain Security:</span> Pickle deserialisation attacks, dependency confusion, model provenance</li>
                 <li><span className="font-semibold">Reverse Engineering:</span> Ghidra, buffer overflow, crafting shellcode exploits, bypassing stack canaries</li>
                 <li><span className="font-semibold">Application &amp; Cloud Security:</span> XSS, CSRF, SSRF, SQL injection, command injection (OWASP Top 10), cloud Identity and Access Management</li>
               </ul>
@@ -175,8 +175,8 @@ export default function Cohort2025() {
               <h3 className="text-2xl font-bold mb-4">Week 3: AI-Specific Security</h3>
               <ul className="list-disc space-y-3 text-gray-700 text-lg ml-8">
                 <li><span className="font-semibold">Adversarial ML:</span> Crafting adversarial examples, attacks on image classifier, watermarking, trojans</li>
-                <li><span className="font-semibold">LLM Security:</span> Tokenization, prompt injection, model weight extraction attacks, model editing, abliteration</li>
-                <li><span className="font-semibold">GPU &amp; Datacenter Security:</span> Nvidia container toolkit exploits, GPU isolation, confidential computing</li>
+                <li><span className="font-semibold">LLM Security:</span> Tokenisation, prompt injection, model weight extraction attacks, model editing, abliteration</li>
+                <li><span className="font-semibold">GPU &amp; Datacentre Security:</span> Nvidia container toolkit exploits, GPU isolation, confidential computing</li>
                 <li><span className="font-semibold">AI Application Security:</span> MCP (Model Context Protocol) security, RAG injection, hardware supply chain</li>
               </ul>
             </div>
@@ -201,7 +201,7 @@ export default function Cohort2025() {
               AISB was designed for researchers and engineers who care about securing the development of AI systems. Ideal participants had prior experience with deep learning (training/evals) and were comfortable with Python.
             </p>
             <p>
-              The program ran full-time, in-person in London. All expenses including flights, accommodation, and meals were covered.
+              The programme ran full-time, in-person in London. All expenses including flights, accommodation, and meals were covered.
             </p>
           </div>
         </section>
@@ -292,7 +292,7 @@ export default function Cohort2025() {
           <h2 className="text-3xl font-bold mb-8 text-center">Acknowledgments</h2>
           <div className="flex flex-col items-center gap-4">
             <p className="text-lg text-gray-700 text-center">
-              This program was supported by{" "}
+              This programme was supported by{" "}
               <a
                 href="https://www.openphilanthropy.org/"
                 target="_blank"

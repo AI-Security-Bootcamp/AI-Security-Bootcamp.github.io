@@ -4,7 +4,7 @@ import { PHProvider } from "./providers";
 
 export const metadata: Metadata = {
   title: "AI Security Bootcamp",
-  description: "A 7-day intensive program for security professionals shaping how we secure emerging AI systems.",
+  description: "A 7-day intensive programme for security professionals shaping how we secure emerging AI systems.",
   icons: {
     icon: '/favicon.svg',
     apple: '/apple-icon.svg',

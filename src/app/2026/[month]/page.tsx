@@ -33,9 +33,9 @@ export default function MonthPrograms({ params }: { params: { month: string } })
   const monthLabel = programs[0].monthLabel;
   return (
     <ProgramIndex
-      eyebrow="2026 Programs"
+      eyebrow="2026 Programmes"
       title={`${monthLabel} 2026`}
-      description={`Choose from the AISB programs beginning in ${monthLabel} 2026.`}
+      description={`Choose from the AISB programmes beginning in ${monthLabel} 2026.`}
       programs={programs}
       analyticsLocation={`2026_${params.month}_index`}
     />

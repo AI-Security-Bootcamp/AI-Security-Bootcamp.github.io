@@ -8,12 +8,12 @@ import { ClosedApplications } from "../../../components/ClosedApplications";
 const curriculumDays = [
   {
     day: "Day 1",
-    title: "Introduction & Threat Modeling",
+    title: "Introduction & Threat Modelling",
     items: [
       "Current threat landscape: frameworks, misuse (e.g., to assist cyberattacks), application security, infrastructure security",
       "Future threat models: misalignment, model theft and tampering, integrity attacks (backdoors, trojans), governance guarantees",
-      "Mapping threat models to attacks, defenses, and follow-up pathways",
-      "Threat modeling exercise against an AI deployment, which we will attack and defend in future days",
+      "Mapping threat models to attacks, defences, and follow-up pathways",
+      "Threat modelling exercise against an AI deployment, which we will attack and defend in future days",
     ],
   },
   {
@@ -34,7 +34,7 @@ const curriculumDays = [
       "Jailbreaks, prompt injection, and RAG injection",
       "Guardrails: Constitutional classifiers and linear probes for input and output monitoring",
       "Abliteration and model editing techniques",
-      "Tokenization vulnerabilities",
+      "Tokenisation vulnerabilities",
       "MCP (Model Context Protocol) security",
     ],
   },
@@ -58,12 +58,12 @@ const curriculumDays = [
   },
   {
     day: "Day 6",
-    title: "Data Center Security & ML Stack Threat Modeling",
+    title: "Data Centre Security & ML Stack Threat Modelling",
     items: [
-      "Data center infrastructure: power, networking, physical security",
-      "ML stack threat modeling end-to-end",
+      "Data centre infrastructure: power, networking, physical security",
+      "ML stack threat modelling end-to-end",
       "Personnel security considerations for AI deployments",
-      "(Potential site visit - TBD) to a local data center for a behind-the-scenes look at real-world deployments",
+      "(Potential site visit - TBD) to a local data centre for a behind-the-scenes look at real-world deployments",
     ],
   },
   {
@@ -80,27 +80,27 @@ const curriculumDays = [
 const faqs = [
   {
     q: "Who else will be in the room?",
-    a: "Senior security professionals from across the stack\u2014offensive and defensive, application and infrastructure, detection and response. Cohort size is intentionally small (16 in Singapore) so that peer learning is a meaningful part of the experience. We aim to bring security professionals and researchers working on frontier AI systems together.",
+    a: "Senior security professionals from across the stack: offensive and defensive, application and infrastructure, detection and response. Cohort size is intentionally small (16 in Singapore) so that peer learning is a meaningful part of the experience. We aim to bring security professionals and researchers working on frontier AI systems together.",
   },
   {
     q: "What does \u201cfrontier AI security\u201d mean in practice?",
-    a: "It means engaging with the threat models that matter as AI systems become more capable\u2014not just today\u2019s enterprise LLM deployments, but the attack surfaces, control mechanisms, and governance challenges that become critical as systems grow more powerful.",
+    a: "It means engaging with the threat models that matter as AI systems become more capable, not just today\u2019s enterprise LLM deployments, but the attack surfaces, control mechanisms, and governance challenges that become critical as systems grow more powerful.",
   },
   {
     q: "What does the full application process look like?",
     a: "Applications for this cohort are closed. The selection process had three stages: an application, a short (30-60min) coding test, and a 30-minute interview.",
   },
   {
-    q: "Does the program cover accommodation and travel?",
-    a: "Accommodation is included for all international participants. We have limited travel support available for those who need it\u2014indicate this in your application and we\u2019ll do our best to accommodate. Program costs are fully covered regardless.",
+    q: "Does the programme cover accommodation and travel?",
+    a: "Accommodation is included for all international participants. We have limited travel support available for those who need it. Indicate this in your application and we\u2019ll do our best to accommodate. Programme costs are fully covered regardless.",
   },
   {
     q: "What is the time commitment?",
-    a: "Full-time attendance for seven days (10am - 6pm), April 20 through 26. Pre-reading will be sent in advance (should take ~16-20 hours), and we'll have extra reading materials to familiarize yourself with the day's contents as well.",
+    a: "Full-time attendance for seven days (10am - 6pm), April 20 through 26. Pre-reading will be sent in advance (should take ~16-20 hours), and we'll have extra reading materials to familiarise yourself with the day's contents as well.",
   },
   {
-    q: "What happens after the program?",
-    a: "Participants join a network of AISB alumni across cohorts. We\u2019ll share relevant opportunities in AI security research, fellowship programs, and organizations working on frontier AI security challenges.",
+    q: "What happens after the programme?",
+    a: "Participants join a network of AISB alumni across cohorts. We\u2019ll share relevant opportunities in AI security research, fellowship programmes, and organisations working on frontier AI security challenges.",
   },
   {
     q: "I have more questions.",
@@ -311,7 +311,7 @@ export default function Home() {
         </h1>
 
         <p className="text-lg md:text-xl text-neutral-500 dark:text-neutral-400 max-w-2xl mb-6 leading-relaxed">
-          A 7-day intensive program for security professionals shaping how we secure emerging AI systems.
+          A 7-day intensive programme for security professionals shaping how we secure emerging AI systems.
           The Singapore 2026 cohort ran April 20-26, 2026.
         </p>
 
@@ -334,7 +334,7 @@ export default function Home() {
       <nav className="px-6 md:px-16 lg:px-24 py-6 border-t-2 border-black dark:border-white flex flex-wrap gap-8">
         {[
           "Overview",
-          "The Program",
+          "The Programme",
           "Who Should Attend",
           "Team",
           "FAQs",
@@ -367,11 +367,11 @@ export default function Home() {
               </p>
               <p>
                 As AI systems become more capable and integrated into critical infrastructure, new attack surfaces and
-                failure modes are emerging that traditional security training doesn&apos;t cover. This program filled that
+                failure modes are emerging that traditional security training doesn&apos;t cover. This programme filled that
                 gap with an intensive, practitioner-focused curriculum.
               </p>
               <p>
-                Participants completed pre-work before the program to establish
+                Participants completed pre-work before the programme to establish
                 baseline ML fundamentals, followed by an immersive week delivered through
                 demos, lectures, guest speakers, and hands-on red/blue exercises that
                 built skills across the modern AI system stack.
@@ -383,11 +383,11 @@ export default function Home() {
 
       {/* ===================== THE PROGRAM ===================== */}
       <section
-        id="the-program"
+        id="the-programme"
         className="px-6 md:px-16 lg:px-24 py-20 border-t-2 border-black dark:border-white"
       >
         <h2 className="text-4xl md:text-5xl lg:text-6xl font-black mb-16 tracking-tight">
-          The Program
+          The Programme
         </h2>
 
         <div className="max-w-3xl border-t-2 border-black dark:border-white">
@@ -410,9 +410,9 @@ export default function Home() {
             {[
               "Develop a threat model for frontier AI systems: from current deployments to the security challenges posed by increasingly capable systems",
               "Build hands-on capability across the full attack surface: adversarial techniques, infrastructure exploitation, supply chain attacks, and model-level vulnerabilities",
-              "Understand how attacks and defenses scale with AI capability increases",
-              "Engage with security challenges that frontier AI organizations are actively working on\u2014problems not yet covered in standard training curricula",
-              "Position yourself for high-impact roles at the frontier: AI labs, government programs, and research institutions shaping how the field develops",
+              "Understand how attacks and defences scale with AI capability increases",
+              "Engage with security challenges that frontier AI organisations are actively working on: problems not yet covered in standard training curricula",
+              "Position yourself for high-impact roles at the frontier: AI labs, government programmes, and research institutions shaping how the field develops",
             ].map((item, i) => (
               <li key={i} className="flex items-start gap-4">
                 <span className="text-[#ef4444] mt-1.5 text-xs font-black">
@@ -464,7 +464,7 @@ export default function Home() {
               background needed - the pre-work will cover what&apos;s necessary.
             </p>
             <p className="text-neutral-600 dark:text-neutral-300 text-base md:text-lg leading-relaxed mb-4">
-              Selection prioritizes candidates interested in frontier AI risk,
+              Selection prioritises candidates interested in frontier AI risk,
               high-consequence failure modes, or work involving sophisticated
               threat actors.
             </p>
@@ -622,7 +622,7 @@ export default function Home() {
           </h2>
           <ClosedApplications cohortId="singapore-2026" location="singapore_cta" />
           <p className="text-neutral-500 dark:text-neutral-400 text-base md:text-lg leading-relaxed mt-6 max-w-xl">
-            Reach out to <a href="mailto:hello@aisb.dev" className="underline hover:text-[#ef4444] transition-colors">hello@aisb.dev</a> to ask questions about the program.
+            Reach out to <a href="mailto:hello@aisb.dev" className="underline hover:text-[#ef4444] transition-colors">hello@aisb.dev</a> to ask questions about the programme.
           </p>
         </div>
       </section>

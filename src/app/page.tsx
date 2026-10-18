@@ -9,27 +9,27 @@ import { HeroFilm } from "../components/HeroFilm";
 const faqs = [
   {
     q: "What is AISB?",
-    a: "The AI Security Bootcamp is an intensive, in-person program for security professionals working at the frontier of AI \u2014 the attack surfaces, control mechanisms, and governance challenges that become critical as AI systems grow more capable. We run cohorts in different cities; each is fully funded for accepted participants.",
+    a: "The AI Security Bootcamp is an intensive, in-person programme for security professionals working at the frontier of AI: the attack surfaces, control mechanisms, and governance challenges that become critical as AI systems grow more capable. We run cohorts in different cities; each is fully funded for accepted participants.",
   },
   {
     q: "Who else will be in the room?",
-    a: "Senior security professionals from across the stack \u2014 offensive and defensive, application and infrastructure, detection and response. Cohort sizes are intentionally small so peer learning is a meaningful part of the experience. We aim to bring security professionals and researchers working on frontier AI systems together.",
+    a: "Senior security professionals from across the stack: offensive and defensive, application and infrastructure, detection and response. Cohort sizes are intentionally small so peer learning is a meaningful part of the experience. We aim to bring security professionals and researchers working on frontier AI systems together.",
   },
   {
     q: "What does \u201cfrontier AI security\u201d mean in practice?",
-    a: "It means engaging with the threat models that matter as AI systems become more capable \u2014 not just today\u2019s enterprise LLM deployments, but the attack surfaces, control mechanisms, and governance challenges that become critical as systems grow more powerful.",
+    a: "It means engaging with the threat models that matter as AI systems become more capable, not just today\u2019s enterprise LLM deployments, but the attack surfaces, control mechanisms, and governance challenges that become critical as systems grow more powerful.",
   },
   {
     q: "How are participants selected?",
     a: "Selection is competitive. Each cohort runs its own application process, typically including a coding test and a short interview. Selection prioritises candidates with substantial security experience and an interest in frontier AI risk, high-consequence failure modes, or work involving sophisticated threat actors.",
   },
   {
-    q: "Does the program cover accommodation and travel?",
-    a: "Accommodation is included for all in-person cohorts. We have limited travel support available for those who need it. Program costs are fully covered for accepted participants.",
+    q: "Does the programme cover accommodation and travel?",
+    a: "Accommodation is included for all in-person cohorts. We have limited travel support available for those who need it. Programme costs are fully covered for accepted participants.",
   },
   {
-    q: "What happens after the program?",
-    a: "Participants join a network of AISB alumni across cohorts. We share relevant opportunities in AI security research, fellowship programs, and organisations working on frontier AI security challenges.",
+    q: "What happens after the programme?",
+    a: "Participants join a network of AISB alumni across cohorts. We share relevant opportunities in AI security research, fellowship programmes, and organisations working on frontier AI security challenges.",
   },
   {
     q: "How do I apply or stay informed about future cohorts?",
@@ -250,9 +250,9 @@ function FaqItem({ q, a }: { q: string; a: string }) {
 const teamFeatured = [
   {
     name: "Pranav Gade",
-    role: "Program Director",
+    role: "Programme Director",
     image: "/pranav.png",
-    bio: "Created AISB to bridge AI safety and security; previously research engineer at Conjecture. Leads curriculum design and program direction.",
+    bio: "Created AISB to bridge AI safety and security; previously research engineer at Conjecture. Leads curriculum design and programme direction.",
     linkedin: "https://www.linkedin.com/in/pranav-gade/",
   },
   {
@@ -325,7 +325,7 @@ export default function Home() {
           onClick={() => setPastOpen(false)}
           role="dialog"
           aria-modal="true"
-          aria-label="Programs"
+          aria-label="Programmes"
         >
           <div
             className="relative w-full max-w-md max-h-[calc(100vh-3rem)] overflow-y-auto bg-white dark:bg-black border-2 border-black dark:border-white p-8"
@@ -339,7 +339,7 @@ export default function Home() {
               {"×"}
             </button>
             <h2 className="text-2xl md:text-3xl font-black tracking-tight mb-6">
-              Programs
+              Programmes
             </h2>
             <div className="space-y-8">
               <div>
@@ -365,7 +365,7 @@ export default function Home() {
                     ))
                   ) : (
                     <p className="text-neutral-500 dark:text-neutral-400">
-                      No upcoming programs yet.
+                      No upcoming programmes yet.
                     </p>
                   )}
                 </div>
@@ -394,7 +394,7 @@ export default function Home() {
                     ))
                   ) : (
                     <p className="text-neutral-500 dark:text-neutral-400">
-                      No past programs yet.
+                      No past programmes yet.
                     </p>
                   )}
                 </div>
@@ -440,7 +440,7 @@ export default function Home() {
                 }}
                 className="flex min-h-[52px] items-center justify-center whitespace-nowrap border-2 border-black dark:border-white text-black dark:text-white font-black text-xs min-[360px]:text-sm uppercase tracking-[0.06em] md:tracking-widest px-2 py-3 md:px-8 md:py-4 bg-transparent hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-colors cursor-pointer"
               >
-                Past Programs
+                Past Programmes
               </button>
             </div>
           </div>
@@ -497,7 +497,7 @@ export default function Home() {
           </p>
           <p>
             We run cohorts in different cities, partnering with local AI safety and security
-            organisations. Our programs are free to attend and fully funded for accepted
+            organisations. Our programmes are free to attend and fully funded for accepted
             participants.
           </p>
         </div>
@@ -554,7 +554,7 @@ export default function Home() {
           Team
         </h2>
         <p className="text-neutral-500 dark:text-neutral-400 text-base md:text-lg leading-relaxed mb-16 max-w-3xl">
-          AISB is led by a small core team that designs the curriculum and runs the program across
+          AISB is led by a small core team that designs the curriculum and runs the programme across
           editions. See the{" "}
           <a href="/staff" className="underline hover:text-[#ef4444] transition-colors">
             full staff list
@@ -655,7 +655,7 @@ export default function Home() {
             apply is November 7, 2026 (AoE).
           </p>
           <p className="text-neutral-500 dark:text-neutral-400 text-base md:text-lg leading-relaxed mb-10 max-w-xl">
-            Reach out to <a href="mailto:hello@aisb.dev" className="underline hover:text-[#ef4444] transition-colors">hello@aisb.dev</a> for any questions about the program.
+            Reach out to <a href="mailto:hello@aisb.dev" className="underline hover:text-[#ef4444] transition-colors">hello@aisb.dev</a> for any questions about the programme.
           </p>
           <div className="flex flex-wrap gap-4">
             <ApplicationCta
@@ -683,7 +683,7 @@ export default function Home() {
             }}
             className="text-neutral-400 dark:text-neutral-600 text-sm font-bold uppercase tracking-widest hover:text-[#ef4444] transition-colors bg-transparent border-none cursor-pointer p-0"
           >
-            Past Programs
+            Past Programmes
           </button>
           <a
             href="/staff"

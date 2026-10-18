@@ -14,8 +14,8 @@ export type Programme = {
 
 const pranav: StaffAppearance = {
   name: "Pranav Gade",
-  role: "Program Director",
-  bio: "Research engineer at Conjecture. Created AISB to bridge AI safety and security; leads curriculum design and program direction across all editions.",
+  role: "Programme Director",
+  bio: "Research engineer at Conjecture. Created AISB to bridge AI safety and security; leads curriculum design and programme direction across all editions.",
   image: "/pranav.png",
   linkedin: "https://www.linkedin.com/in/pranav-gade/",
 };
