@@ -83,7 +83,7 @@ export default function PrivacyPolicy() {
             Privacy Policy<span className="text-[#ef4444]">.</span>
           </h1>
           <p className="text-sm uppercase tracking-widest text-neutral-400 dark:text-neutral-500 font-bold">
-            Last updated 20 August 2026
+            Last updated 18 October 2026
           </p>
         </div>
       </section>
@@ -194,6 +194,27 @@ export default function PrivacyPolicy() {
                 and communication history on our behalf. You can learn more on Missive&apos;s{" "}
                 <a href="https://missiveapp.com/security" target="_blank" rel="noopener noreferrer" className={linkClass}>
                   Security page
+                </a>
+                .
+              </li>
+              <li>
+                <span className="font-bold text-black dark:text-white">AI model providers (data
+                processors).</span>{" "}
+                We use AI models from Anthropic, OpenAI, and OpenRouter to help us review applications,
+                handle communications, and operate our programs. When we do, these providers may process
+                your application details, the content of your communications with us, and other information
+                you give us, on our behalf and under our instructions. OpenRouter may route requests to the
+                underlying model providers it works with. You can learn more in the privacy policies of{" "}
+                <a href="https://www.anthropic.com/legal/privacy" target="_blank" rel="noopener noreferrer" className={linkClass}>
+                  Anthropic
+                </a>
+                ,{" "}
+                <a href="https://openai.com/policies/privacy-policy" target="_blank" rel="noopener noreferrer" className={linkClass}>
+                  OpenAI
+                </a>
+                , and{" "}
+                <a href="https://openrouter.ai/privacy" target="_blank" rel="noopener noreferrer" className={linkClass}>
+                  OpenRouter
                 </a>
                 .
               </li>
