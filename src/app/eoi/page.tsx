@@ -87,8 +87,8 @@ export default function ExpressionOfInterest() {
 
           <p className="text-lg md:text-xl text-neutral-500 dark:text-neutral-400 max-w-2xl mb-4 leading-relaxed">
             {interestLocation
-              ? `Interested in a future AISB program in ${interestLocation}? Leave your details below. We've prefilled your interest in the form; you can edit it before submitting. This is not an application or confirmation of another cohort.`
-              : "If you're interested in future AISB cohorts or would like to be notified about upcoming programs, please fill out the form below."}
+              ? `Interested in a future AISB programme in ${interestLocation}? Leave your details below. We've prefilled your interest in the form; you can edit it before submitting. This is not an application or confirmation of another cohort.`
+              : "If you're interested in future AISB cohorts or would like to be notified about upcoming programmes, please fill out the form below."}
           </p>
 
           <p className="text-neutral-500 dark:text-neutral-400 text-base md:text-lg leading-relaxed mb-10 max-w-xl">

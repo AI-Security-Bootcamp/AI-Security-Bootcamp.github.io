@@ -156,7 +156,7 @@ export const editions: Cohort[] = [
     analyticsId: "london_2025",
     detail: "4-week intensive · 20 participants · August 2025",
     description:
-      "The first AISB cohort. Four weeks of security fundamentals, infrastructure, and AI-specific threats \u2014 culminating in a week of capstone projects.",
+      "The first AISB cohort. Four weeks of security fundamentals, infrastructure, and AI-specific threats, culminating in a week of capstone projects.",
     startDate: "2025-08-04",
     endDate: "2025-08-29",
     month: "aug",

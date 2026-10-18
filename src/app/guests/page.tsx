@@ -81,7 +81,7 @@ export default function GuestVisit() {
             <a href="/2026/oct/san-francisco" className="underline hover:text-[#ef4444] transition-colors">
               AI Security Bootcamp
             </a>{" "}
-            (AISB) is in San Francisco: a 7-day intensive program for security professionals shaping how
+            (AISB) is in San Francisco: a 7-day intensive programme for security professionals shaping how
             we secure emerging AI systems.
           </p>
 
@@ -104,7 +104,7 @@ export default function GuestVisit() {
             </ul>
             <p className="text-neutral-500 dark:text-neutral-400 text-sm md:text-base leading-relaxed mt-4">
               Between lunch and dinner is deep work time; expect approximately zero
-              socialization, so please plan visits around meals.
+              socialisation, so please plan visits around meals.
             </p>
             <p className="text-neutral-500 dark:text-neutral-400 text-sm md:text-base leading-relaxed mt-3">
               Spaces are limited, so please visit earlier in the week if you can. After you submit

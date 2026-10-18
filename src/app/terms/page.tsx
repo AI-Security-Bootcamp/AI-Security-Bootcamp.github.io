@@ -94,8 +94,8 @@ export default function TermsOfUse() {
           <Section title="About these terms">
             <p>
               These Terms of Use govern your use of the AI Security Bootcamp website at aisb.dev (the
-              &ldquo;Site&rdquo;) and your participation in our application process and programs. By
-              using the Site or applying to a program, you agree to these terms. If you do not agree,
+              &ldquo;Site&rdquo;) and your participation in our application process and programmes. By
+              using the Site or applying to a programme, you agree to these terms. If you do not agree,
               please do not use the Site.
             </p>
           </Section>
@@ -103,7 +103,7 @@ export default function TermsOfUse() {
           <Section title="Who we are">
             <p>
               The AI Security Bootcamp (&ldquo;AISB&rdquo;, &ldquo;we&rdquo;, &ldquo;us&rdquo;) is a
-              program fiscally sponsored by{" "}
+              programme fiscally sponsored by{" "}
               <a href="https://bluedot.org" target="_blank" rel="noopener noreferrer" className={linkClass}>
                 BlueDot Impact
               </a>
@@ -125,9 +125,9 @@ export default function TermsOfUse() {
             <p>
               Eligibility, selection, and admission to any cohort are at our discretion, and applying
               does not guarantee a place. You agree to provide accurate and complete information in your
-              application and during the program. We may change, postpone, or cancel a cohort, or modify
+              application and during the programme. We may change, postpone, or cancel a cohort, or modify
               the curriculum, schedule, location, or staff, and we may withdraw a place or remove a
-              participant where reasonably necessary, including for breach of these terms or any program
+              participant where reasonably necessary, including for breach of these terms or any programme
               code of conduct.
             </p>
           </Section>
@@ -149,7 +149,7 @@ export default function TermsOfUse() {
           <Section title="Your submissions">
             <p>
               You keep ownership of the materials you submit to us. By submitting them, you grant us a
-              licence to use them for the purposes of running, evaluating, and improving our programs, as
+              licence to use them for the purposes of running, evaluating, and improving our programmes, as
               described in our{" "}
               <a href="/privacy" className={linkClass}>
                 Privacy Policy

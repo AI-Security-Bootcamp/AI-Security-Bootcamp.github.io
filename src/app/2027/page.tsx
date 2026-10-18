@@ -18,7 +18,7 @@ export default function Programs2027() {
 
   return (
     <ProgramIndex
-      eyebrow="Programs"
+      eyebrow="Programmes"
       title="AISB 2027"
       description="Explore every AI Security Bootcamp cohort beginning in 2027."
       programs={cohorts2027}

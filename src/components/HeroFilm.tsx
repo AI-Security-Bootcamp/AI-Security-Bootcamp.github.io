@@ -179,7 +179,7 @@ export function HeroFilm() {
   };
 
   return (
-    <figure className="w-full min-w-0" aria-label="A week at AISB — participant film">
+    <figure className="w-full min-w-0" aria-label="A week at AISB: participant film">
       <div className="relative overflow-hidden border-2 border-black bg-black dark:border-white">
         <video
           ref={videoRef}

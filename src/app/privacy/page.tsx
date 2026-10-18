@@ -94,12 +94,12 @@ export default function PrivacyPolicy() {
           <Section title="Who we are">
             <p>
               The AI Security Bootcamp (&ldquo;AISB&rdquo;, &ldquo;we&rdquo;, &ldquo;us&rdquo;) is a
-              program fiscally sponsored by{" "}
+              programme fiscally sponsored by{" "}
               <a href="https://bluedot.org" target="_blank" rel="noopener noreferrer" className={linkClass}>
                 BlueDot Impact
               </a>
               . This policy explains what personal information we collect through this website
-              (aisb.dev) and our application and program processes, how we use it, and who we share it
+              (aisb.dev) and our application and programme processes, how we use it, and who we share it
               with.
             </p>
             <p>
@@ -115,7 +115,7 @@ export default function PrivacyPolicy() {
           <Section title="Information we collect">
             <p>
               We collect personal information when you interact with us, for example when you
-              visit our website, apply to or take part in a program, sign up to hear from us,
+              visit our website, apply to or take part in a programme, sign up to hear from us,
               communicate with us by email, messaging and chat platforms, or video and phone calls, take
               part in interviews, surveys, or events, or otherwise engage with AISB, whether online or in
               person. This includes:
@@ -125,7 +125,7 @@ export default function PrivacyPolicy() {
                 <span className="font-bold text-black dark:text-white">Information you provide.</span>{" "}
                 Information you choose to share with us through these interactions, such as your contact
                 details and any other information you give us as part of your application, communications,
-                and participation in our programs and community.
+                and participation in our programmes and community.
               </li>
               <li>
                 <span className="font-bold text-black dark:text-white">Information we collect
@@ -140,9 +140,9 @@ export default function PrivacyPolicy() {
             <p>We use personal information to:</p>
             <ul className="list-disc pl-6 space-y-2">
               <li>assess applications and run our selection process;</li>
-              <li>operate, administer, and deliver our programs and events;</li>
+              <li>operate, administer, and deliver our programmes and events;</li>
               <li>communicate with you and respond to your enquiries;</li>
-              <li>understand and improve our website, programs, and communications;</li>
+              <li>understand and improve our website, programmes, and communications;</li>
               <li>keep our community and events safe; and</li>
               <li>comply with our legal and regulatory obligations.</li>
             </ul>
@@ -161,7 +161,7 @@ export default function PrivacyPolicy() {
               </li>
               <li>
                 <span className="font-bold text-black dark:text-white">Performance of a contract</span>:
-                to assess your application and to deliver the program to participants;
+                to assess your application and to deliver the programme to participants;
               </li>
               <li>
                 <span className="font-bold text-black dark:text-white">Legitimate interests</span>:
@@ -201,7 +201,7 @@ export default function PrivacyPolicy() {
                 <span className="font-bold text-black dark:text-white">AI model providers (data
                 processors).</span>{" "}
                 We use AI models from Anthropic, OpenAI, and OpenRouter to help us review applications,
-                handle communications, and operate our programs. When we do, these providers may process
+                handle communications, and operate our programmes. When we do, these providers may process
                 your application details, the content of your communications with us, and other information
                 you give us, on our behalf and under our instructions. OpenRouter may route requests to the
                 underlying model providers it works with. You can learn more in the privacy policies of{" "}
@@ -221,9 +221,9 @@ export default function PrivacyPolicy() {
               <li>
                 <span className="font-bold text-black dark:text-white">Service providers and other
                 third parties.</span>{" "}
-                We work with third parties who help us operate AISB, our website, and our programs, and
+                We work with third parties who help us operate AISB, our website, and our programmes, and
                 we may share personal information with them for those purposes. We may also share
-                information with partner organisations we work with to deliver programs, and with other
+                information with partner organisations we work with to deliver programmes, and with other
                 third parties where appropriate. Some of these third parties may also process your
                 information for their own purposes.
               </li>
