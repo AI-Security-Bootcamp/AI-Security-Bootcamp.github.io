@@ -1,34 +1,31 @@
-"use client";
-
-import { useEffect } from "react";
+import type { Metadata } from "next";
+import { notFound } from "next/navigation";
 import {
+  EOI_URL,
   findLatestOpenApplicationCohort,
   getLatestProgramDestination,
 } from "../../lib/application";
+import { CanonicalizeUrl } from "../2026/_components/CanonicalizeUrl";
+import { programPages } from "../_program-pages";
+import ExpressionOfInterest from "../eoi/page";
+
+export function generateMetadata(): Metadata {
+  return { alternates: { canonical: getLatestProgramDestination() } };
+}
 
 /**
- * Stable, shareable application link. Its destination follows the latest
- * cohort marked as accepting applications in lib/application.ts, or the
- * interest form when none is.
+ * Render the latest open program (or the interest form between campaigns)
+ * in the initial HTML, then update the address without another navigation.
  */
 export default function ApplyPage() {
-  const isOpen = findLatestOpenApplicationCohort() !== undefined;
-  const destination = getLatestProgramDestination();
-
-  useEffect(() => {
-    window.location.replace(destination);
-  }, [destination]);
+  const program = findLatestOpenApplicationCohort();
+  const ProgramPage = program ? programPages[program.id] : ExpressionOfInterest;
+  if (!ProgramPage) notFound();
 
   return (
-    <main className="min-h-screen grid place-items-center bg-white p-6 text-center text-black">
-      <p className="text-sm font-bold uppercase tracking-widest">
-        {isOpen
-          ? "Taking you to the application for the latest cohort…"
-          : "Applications are currently closed. Taking you to the expression of interest form…"}{" "}
-        <a className="text-[#ef4444] underline" href={destination}>
-          Continue
-        </a>
-      </p>
-    </main>
+    <>
+      <CanonicalizeUrl to={program?.href ?? EOI_URL} />
+      <ProgramPage />
+    </>
   );
 }

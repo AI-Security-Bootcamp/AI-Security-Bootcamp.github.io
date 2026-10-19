@@ -133,10 +133,18 @@ test("the homepage application link opens the latest program", async ({ page }) 
   await expect(page.getByTestId("closed-applications")).toHaveCount(0);
 });
 
-test("/apply/ leads to the latest open program", async ({ page }) => {
-  await page.goto("/apply/");
-  await expect(page).toHaveURL((url) => /^\/2027\/jan\/san-francisco\/?$/.test(url.pathname));
+test("/apply/ renders the latest open program without a second document request", async ({ page }) => {
+  let documents = 0;
+  page.on("request", (request) => {
+    if (request.isNavigationRequest() && request.frame() === page.mainFrame()) documents++;
+  });
+  await page.goto("/apply/?source=check#overview");
+  await expect(page).toHaveURL((url) =>
+    url.pathname === "/2027/jan/san-francisco/" && url.search === "?source=check" && url.hash === "#overview",
+  );
   await expect(page.getByText("Jan 10-16, 2027", { exact: true })).toHaveCount(1);
+  await expect(page.locator('link[rel="canonical"]')).toHaveAttribute("href", "/2027/jan/san-francisco");
+  expect(documents).toBe(1);
 });
 
 test.describe("without JavaScript", () => {
@@ -147,7 +155,10 @@ test.describe("without JavaScript", () => {
     await page.goto("/2026/oct/san-francisco/");
     await expect(page.getByRole("link", { name: "Explore AISB San Francisco", exact: true })).toHaveCount(2);
     await page.goto("/apply/");
-    await expect(page.locator("main a")).toHaveAttribute("href", "/2027/jan/san-francisco");
+    await expect(page.getByText("Jan 10-16, 2027", { exact: true })).toBeVisible();
+    const apply = page.getByRole("link", { name: "Apply Now", exact: true });
+    await expect(apply).toHaveCount(2);
+    for (const link of await apply.all()) await expect(link).toHaveAttribute("href", /airtable\.com/);
     await page.goto("/aisf/");
     await expect(page.locator("div a")).toHaveAttribute("href", /airtable\.com/);
   });
