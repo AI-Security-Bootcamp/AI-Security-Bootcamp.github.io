@@ -25,6 +25,21 @@ The three-color panel writer is `scripts/write_image_b.py`; it expects the
 Waveshare driver checkout under `scripts/driver/` on the programming machine.
 The monochrome programmer and its setup instructions are in `firmware/`.
 
+### Small 250 × 122 name-only badge
+
+```bash
+python3 hardware/aisb/scripts/render-small-badge.py --name "Byron Alvarez"
+```
+
+This separate layout uses IBM Plex Mono Bold, all caps, black text on white,
+and nothing else. It fits one or two lines using actual ink bounds, centers
+them with 10px minimum margins, and saves a true 1-bit PNG to `out/small/`.
+It never accesses the Pi or a display. The existing 360 × 240 flash helper
+is **not compatible**. A separate `write_image_2in13_v4.py` and the recovery
+kit's `flash-small-badge.sh` support the confirmed Waveshare 2.13-inch V4
+monochrome panel; see [setup and switch settings](../epaper/README.md).
+Tests: `python3 hardware/aisb/scripts/test-small-badge.py`.
+
 ## Hardware overview
 
 This revision is a 100 x 145 mm conference badge built around the

@@ -27,6 +27,10 @@ Generated outputs are local and can be recreated. Commit source changes;
 generate new outputs into `out/` rather than `assets/` or the repository root.
 Shared programming tools live under `aisb/` and can also be used for M3.
 
+The [Raspberry Pi recovery kit](epaper/README.md) bundles those scripts, the
+three-color Waveshare driver, logo, and IBM Plex Mono font locally. Use it to
+restore the programming Pi after an SD-card reimage without losing the setup.
+
 ## Revision history
 
 `c8e74b9` captures the original folder, including the previously untracked London
