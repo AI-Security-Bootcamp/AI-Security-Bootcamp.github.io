@@ -72,6 +72,12 @@ def draw_tracked_text(
             if ink_bounds is not None:
                 ink_height = ink_bounds[3] - ink_bounds[1]
                 character_top += (cap_ink_height - ink_height) / 2
+        elif character == ".":
+            # Initials use a baseline full stop, not a dot at cap height.
+            ink_bounds = font.getmask(character).getbbox()
+            if ink_bounds is not None:
+                ink_height = ink_bounds[3] - ink_bounds[1]
+                character_top += cap_ink_height - ink_height
         draw.text(
             (x - bounds[0], character_top - vertical_bounds[1]),
             character,
