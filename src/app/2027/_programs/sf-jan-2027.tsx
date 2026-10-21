@@ -4,6 +4,9 @@ import { ProgramHero } from "../../../components/ProgramHero";
 import { useState, useEffect, useMemo } from "react";
 import posthog from "posthog-js";
 import { ApplicationCta } from "../../../components/ApplicationCta";
+import { DecisionSummary } from "../../../components/DecisionSummary";
+import { MobileApply } from "../../../components/MobileApply";
+import { useSignupExperiments } from "../../../lib/signup-experiments";
 
 function useCountdown(target: Date) {
   const [now, setNow] = useState(() => new Date());
@@ -545,6 +548,7 @@ function TestimonialCard({ t }: { t: Testimonial }) {
 
 export default function SanFranciscoJanuary2027() {
   const { isDark, toggle, mounted } = useTheme();
+  const experiments = useSignupExperiments("sf");
 
   const scrollTo = (id: string) => {
     const el = document.getElementById(id);
@@ -601,6 +605,8 @@ export default function SanFranciscoJanuary2027() {
         </div>
 
         <CountdownBanner />
+
+        {experiments.information === "test" && <DecisionSummary />}
 
         <div className="flex flex-wrap gap-x-8 gap-y-2 text-sm text-neutral-400 dark:text-neutral-500">
           <span>
@@ -797,6 +803,11 @@ export default function SanFranciscoJanuary2027() {
                 full attendance for the seven days, plus pre-reading completed before arrival.
               </p>
             </div>
+            {experiments.mobile === "test" && (
+              <div data-testid="mobile-funding-apply" className="mt-6 md:hidden">
+                <ApplicationCta cohortId="sf-jan-2027" location="sf27_after_funding" />
+              </div>
+            )}
           </div>
         </div>
       </section>
@@ -875,7 +886,7 @@ export default function SanFranciscoJanuary2027() {
             href="/#cohorts"
             className="text-neutral-400 dark:text-neutral-600 text-sm font-bold uppercase tracking-widest hover:text-[#ef4444] transition-colors"
           >
-            Past Programmes
+            View programmes
           </a>
           <a
             href="/staff"
@@ -893,6 +904,7 @@ export default function SanFranciscoJanuary2027() {
           </a>
         </div>
       </footer>
+      {experiments.mobile === "test" && <MobileApply />}
     </div>
   );
 }

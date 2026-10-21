@@ -127,7 +127,7 @@ test("the homepage application link opens the latest program", async ({ page }) 
   await page.goto("/");
   const actions = page.getByTestId("hero-actions");
   await expect(actions.getByRole("link", { name: "Apply Now", exact: true })).toHaveAttribute("href", "/2027/jan/san-francisco");
-  await expect(actions.getByRole("button", { name: "Past Programmes", exact: true })).toBeVisible();
+  await expect(actions.getByRole("button", { name: "View programmes", exact: true })).toBeVisible();
   await expect(page.getByRole("link", { name: "Apply Now", exact: true })).toHaveCount(2);
   await expect(page.locator("body")).toContainText("Applications are open for AISB San Francisco, Jan 10-16, 2027.");
   await expect(page.getByTestId("closed-applications")).toHaveCount(0);

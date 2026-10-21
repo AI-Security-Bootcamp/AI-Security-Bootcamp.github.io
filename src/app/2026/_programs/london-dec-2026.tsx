@@ -797,7 +797,7 @@ export default function Home() {
             href="/#cohorts"
             className="text-neutral-400 dark:text-neutral-600 text-sm font-bold uppercase tracking-widest hover:text-[#ef4444] transition-colors"
           >
-            Past Programmes
+            View programmes
           </a>
           <a
             href="/staff"

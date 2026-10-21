@@ -133,6 +133,57 @@ Artifacts go to ignored `test-results/` and `playwright-report/` directories.
 Pull requests run typechecking, lint, unit tests, and browser tests. Main-branch
 builds pass the same checks before deployment.
 
+## Signup experiments (October 2026)
+
+The homepage always lists cohorts accepting applications first and marks each
+cohort's application status. The programme menu is labelled “View programmes”.
+
+Three **draft, disabled** experiments have been created in PostHog project 324798:
+
+| Experiment | Feature flag | Primary conversion |
+| --- | --- | --- |
+| [Homepage essentials](https://us.posthog.com/project/324798/experiments/501071) | `signup-home-decision-info-v1` | Click from the homepage to the open SF programme |
+| [SF essentials](https://us.posthog.com/project/324798/experiments/501072) | `signup-sf-decision-info-v1` | Click an Airtable application link |
+| [SF mobile Apply](https://us.posthog.com/project/324798/experiments/501073) | `signup-sf-mobile-apply-v1` | Click any Airtable application link; individual new CTA usage is secondary |
+
+Each flag uses equal `control` / `test` variants. Information treatments repeat
+verified SF eligibility, funding, selection and attendance details in the hero.
+The mobile treatment adds a fixed bottom Apply button and another after Cost &
+Selection. Mobile eligibility is determined at page load with a viewport below
+768 CSS pixels. The buttons hide on wider screens after resizing.
+
+`src/lib/signup-experiments.ts` reads flags without the SDK's automatic exposure
+event. It emits `signup_experiment_exposed` after the assigned UI is committed,
+with `experiment`, `variant`, `page`, and `$feature/<flag-key>` properties. Missing,
+disabled or blocked flags retain the normal page and emit no exposure. The
+PostHog experiments use that custom exposure, production host filters, exclusion
+of test accounts and a 30-minute conversion window. The application CTAs also emit
+`application_form_clicked` for actual form destinations, while keeping existing
+click events and adding `cohort_id`, `destination` and `href` to them.
+
+Analytics keeps `persistence: 'memory'`. Assignment stays fixed for the current
+page load; a reload or document navigation can produce a new identity/variant.
+These are **page-load comparisons, not unique-person or completed-application
+conversion rates**. Do not join homepage and SF loads as a cross-page funnel.
+SF information and mobile treatments are independently randomised and can
+overlap; inspect the other flag as a breakdown when interpreting interactions.
+The small mobile audience may not yield a conclusive result before applications
+close. Secondary CTA usage alone is not evidence of overall improvement.
+
+Deploy this code and verify both variants before launching the drafts in PostHog.
+Launch uses each experiment's normal **Launch** action, which enables its flag.
+Check exposure balance and production application-link events before interpreting
+results. End the tests by **8 November 2026 at 11:59:59 UTC** (the 7 November AoE
+deadline). The client also stops enrolling new page loads after that deadline or
+when the SF cohort's application mode is closed. Disable the corresponding flag
+to return new loads to the original layout. Do not persist analytics IDs to make
+assignments sticky without a separate privacy decision.
+
+`tests/e2e/signup-experiments.spec.ts` mocks PostHog and intercepts all analytics
+traffic. It checks control/treatment exposures, delayed and disabled flags,
+mobile and desktop eligibility, the deadline, CTA destinations, footer clearance
+and the existing cookie/localStorage behaviour.
+
 ## Video-generation source
 
 The reusable renderers, edit plans, selections and review templates are in

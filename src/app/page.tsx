@@ -5,6 +5,9 @@ import posthog from "posthog-js";
 import { editions, type Cohort } from "../lib/cohorts";
 import { ApplicationCta } from "../components/ApplicationCta";
 import { HeroFilm } from "../components/HeroFilm";
+import { compareUpcomingCohorts, isCohortOpen } from "../lib/application";
+import { DecisionSummary } from "../components/DecisionSummary";
+import { useSignupExperiments } from "../lib/signup-experiments";
 
 const faqs = [
   {
@@ -135,6 +138,15 @@ function ThemeToggle({ isDark, toggle }: { isDark: boolean; toggle: () => void }
   );
 }
 
+function CohortStatus({ cohort }: { cohort: Cohort }) {
+  const open = isCohortOpen(cohort);
+  return (
+    <span className={`inline-block border-2 px-2 py-1 text-[11px] font-black uppercase tracking-wider ${open ? "border-[#ef4444] bg-[#ef4444] text-white" : "border-current"}`}>
+      {open ? "Applications open" : "Applications closed"}
+    </span>
+  );
+}
+
 function CohortsCarousel({ items }: { items: Cohort[] }) {
   const ref = useRef<HTMLDivElement>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
@@ -183,6 +195,7 @@ function CohortsCarousel({ items }: { items: Cohort[] }) {
               {edition.name}{" "}
               <span className="text-neutral-400 dark:text-neutral-500">{edition.year}</span>
             </h3>
+            <div className="mb-4"><CohortStatus cohort={edition} /></div>
             <p className="text-xs uppercase tracking-widest text-neutral-500 dark:text-neutral-400 font-bold mb-6">
               {edition.detail}
             </p>
@@ -280,14 +293,15 @@ const teamFeatured = [
 
 export default function Home() {
   const { isDark, toggle, mounted } = useTheme();
+  const experiments = useSignupExperiments("home");
   const [currentDate, setCurrentDate] = useState<string | null>(null);
   const [pastOpen, setPastOpen] = useState(false);
 
   const upcomingEditions = currentDate
     ? editions
         .filter((edition) => edition.endDate >= currentDate)
-        .sort((a, b) => a.endDate.localeCompare(b.endDate))
-    : editions;
+        .sort(compareUpcomingCohorts)
+    : [...editions].sort(compareUpcomingCohorts);
   const pastEditions = currentDate
     ? editions
         .filter((edition) => edition.endDate < currentDate)
@@ -360,7 +374,8 @@ export default function Home() {
                         }}
                         className="inline-block border-2 border-black dark:border-white text-black dark:text-white font-black text-sm uppercase tracking-widest px-6 py-4 bg-transparent hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-colors"
                       >
-                        {edition.name} {edition.year}
+                        <span className="block mb-2">{edition.name} {edition.year}</span>
+                        <CohortStatus cohort={edition} />
                       </a>
                     ))
                   ) : (
@@ -389,7 +404,8 @@ export default function Home() {
                         }}
                         className="inline-block border-2 border-black dark:border-white text-black dark:text-white font-black text-sm uppercase tracking-widest px-6 py-4 bg-transparent hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-colors"
                       >
-                        {edition.name} {edition.year}
+                        <span className="block mb-2">{edition.name} {edition.year}</span>
+                        <CohortStatus cohort={edition} />
                       </a>
                     ))
                   ) : (
@@ -440,9 +456,10 @@ export default function Home() {
                 }}
                 className="flex min-h-[52px] items-center justify-center whitespace-nowrap border-2 border-black dark:border-white text-black dark:text-white font-black text-xs min-[360px]:text-sm uppercase tracking-[0.06em] md:tracking-widest px-2 py-3 md:px-8 md:py-4 bg-transparent hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-colors cursor-pointer"
               >
-                Past Programmes
+                View programmes
               </button>
             </div>
+            {experiments.information === "test" && <DecisionSummary homepage />}
           </div>
           <div className="min-w-0 lg:translate-x-4 xl:translate-x-8">
             <HeroFilm />
@@ -683,7 +700,7 @@ export default function Home() {
             }}
             className="text-neutral-400 dark:text-neutral-600 text-sm font-bold uppercase tracking-widest hover:text-[#ef4444] transition-colors bg-transparent border-none cursor-pointer p-0"
           >
-            Past Programmes
+            View programmes
           </button>
           <a
             href="/staff"

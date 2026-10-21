@@ -48,7 +48,13 @@ export function ApplicationCta({
       onClick={() => {
         posthog.capture(isApplying ? "clicked_apply_now" : "clicked_expression_of_interest", {
           location,
+          cohort_id: cohortId,
+          destination,
+          href,
         });
+        if (isApplying && destination === "application") {
+          posthog.capture("application_form_clicked", { location, cohort_id: cohortId, href });
+        }
       }}
       className={className ?? (variant === "inline" ? INLINE_CLASS_NAME : BUTTON_CLASS_NAME)}
     >

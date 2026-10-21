@@ -39,6 +39,15 @@ function isApplicationCohortId(cohortId: string): cohortId is ApplicationCohortI
   return cohortId in applicationModes;
 }
 
+export function isCohortOpen(cohort: Cohort): boolean {
+  return isApplicationCohortId(cohort.id) && getApplicationMode(cohort.id) === "apply";
+}
+
+/** Open applications first; retain chronological order within each status. */
+export function compareUpcomingCohorts(a: Cohort, b: Cohort): number {
+  return Number(isCohortOpen(b)) - Number(isCohortOpen(a)) || a.startDate.localeCompare(b.startDate);
+}
+
 /** Returns undefined between application campaigns, so archive CTAs can fall back to updates. */
 export function findLatestOpenApplicationCohort(): Cohort | undefined {
   return editions
