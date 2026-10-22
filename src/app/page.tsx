@@ -6,8 +6,6 @@ import { editions, type Cohort } from "../lib/cohorts";
 import { ApplicationCta } from "../components/ApplicationCta";
 import { HeroFilm } from "../components/HeroFilm";
 import { compareUpcomingCohorts, isCohortOpen } from "../lib/application";
-import { DecisionSummary } from "../components/DecisionSummary";
-import { useSignupExperiments } from "../lib/signup-experiments";
 
 const faqs = [
   {
@@ -293,7 +291,6 @@ const teamFeatured = [
 
 export default function Home() {
   const { isDark, toggle, mounted } = useTheme();
-  const experiments = useSignupExperiments("home");
   const [currentDate, setCurrentDate] = useState<string | null>(null);
   const [pastOpen, setPastOpen] = useState(false);
 
@@ -459,7 +456,6 @@ export default function Home() {
                 View programmes
               </button>
             </div>
-            {experiments.information === "test" && <DecisionSummary homepage />}
           </div>
           <div className="min-w-0 lg:translate-x-4 xl:translate-x-8">
             <HeroFilm />

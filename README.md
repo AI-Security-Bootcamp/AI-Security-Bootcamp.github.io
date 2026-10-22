@@ -138,25 +138,29 @@ builds pass the same checks before deployment.
 The homepage always lists cohorts accepting applications first and marks each
 cohort's application status. The programme menu is labelled “View programmes”.
 
-Three **draft, disabled** experiments have been created in PostHog project 324798:
+The **SF mobile Apply** experiment is running in PostHog project 324798:
 
 | Experiment | Feature flag | Primary conversion |
 | --- | --- | --- |
-| [Homepage essentials](https://us.posthog.com/project/324798/experiments/501071) | `signup-home-decision-info-v1` | Click from the homepage to the open SF programme |
-| [SF essentials](https://us.posthog.com/project/324798/experiments/501072) | `signup-sf-decision-info-v1` | Click an Airtable application link |
 | [SF mobile Apply](https://us.posthog.com/project/324798/experiments/501073) | `signup-sf-mobile-apply-v1` | Click any Airtable application link; individual new CTA usage is secondary |
 
-Each flag uses equal `control` / `test` variants. Information treatments repeat
-verified SF eligibility, funding, selection and attendance details in the hero.
-The mobile treatment adds a fixed bottom Apply button and another after Cost &
-Selection. Mobile eligibility is determined at page load with a viewport below
-768 CSS pixels. The buttons hide on wider screens after resizing.
+The flag uses equal `control` / `test` variants. The treatment adds a fixed bottom
+Apply button and another after Cost & Selection. Mobile eligibility is determined
+at page load with a viewport below 768 CSS pixels. The buttons hide on wider
+screens after resizing.
 
-`src/lib/signup-experiments.ts` reads flags without the SDK's automatic exposure
-event. It emits `signup_experiment_exposed` after the assigned UI is committed,
-with `experiment`, `variant`, `page`, and `$feature/<flag-key>` properties. Missing,
-disabled or blocked flags retain the normal page and emit no exposure. The
-PostHog experiments use that custom exposure, production host filters, exclusion
+The [homepage essentials](https://us.posthog.com/project/324798/experiments/501071)
+and [SF essentials](https://us.posthog.com/project/324798/experiments/501072) tests
+were stopped on 21 October 2026, and their flags were disabled. The summary blocks
+and their assignment code have been removed. Their historical results remain in
+PostHog; the early samples were insufficient for a reliable conversion conclusion.
+
+`src/lib/mobile-apply-experiment.ts` reads the mobile flag without the SDK's
+automatic exposure event. It emits `signup_experiment_exposed` after the assigned
+UI is committed, with `experiment`, `variant`, `page`, `mobile_apply_variant`, and
+`$feature/<flag-key>` properties. Missing, disabled or blocked flags retain the
+normal page and emit no exposure. The
+PostHog experiment uses that custom exposure, production host filters, exclusion
 of test accounts and a 30-minute conversion window. The application CTAs also emit
 `application_form_clicked` for actual form destinations, while keeping existing
 click events and adding `cohort_id`, `destination` and `href` to them.
@@ -165,15 +169,13 @@ Analytics keeps `persistence: 'memory'`. Assignment stays fixed for the current
 page load; a reload or document navigation can produce a new identity/variant.
 These are **page-load comparisons, not unique-person or completed-application
 conversion rates**. Do not join homepage and SF loads as a cross-page funnel.
-SF information and mobile treatments are independently randomised and can
-overlap; inspect the other flag as a breakdown when interpreting interactions.
+Before 21 October at 22:44 UTC, the mobile test could overlap with the SF essentials
+test. Keep that change in context when comparing results before and after removal.
 The small mobile audience may not yield a conclusive result before applications
 close. Secondary CTA usage alone is not evidence of overall improvement.
 
-Deploy this code and verify both variants before launching the drafts in PostHog.
-Launch uses each experiment's normal **Launch** action, which enables its flag.
 Check exposure balance and production application-link events before interpreting
-results. End the tests by **8 November 2026 at 11:59:59 UTC** (the 7 November AoE
+results. End the mobile test by **8 November 2026 at 11:59:59 UTC** (the 7 November AoE
 deadline). The client also stops enrolling new page loads after that deadline or
 when the SF cohort's application mode is closed. Disable the corresponding flag
 to return new loads to the original layout. Do not persist analytics IDs to make

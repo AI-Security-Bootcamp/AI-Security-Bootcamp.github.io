@@ -4,9 +4,8 @@ import { ProgramHero } from "../../../components/ProgramHero";
 import { useState, useEffect, useMemo } from "react";
 import posthog from "posthog-js";
 import { ApplicationCta } from "../../../components/ApplicationCta";
-import { DecisionSummary } from "../../../components/DecisionSummary";
 import { MobileApply } from "../../../components/MobileApply";
-import { useSignupExperiments } from "../../../lib/signup-experiments";
+import { useMobileApplyExperiment } from "../../../lib/mobile-apply-experiment";
 
 function useCountdown(target: Date) {
   const [now, setNow] = useState(() => new Date());
@@ -548,7 +547,7 @@ function TestimonialCard({ t }: { t: Testimonial }) {
 
 export default function SanFranciscoJanuary2027() {
   const { isDark, toggle, mounted } = useTheme();
-  const experiments = useSignupExperiments("sf");
+  const mobileApplyVariant = useMobileApplyExperiment();
 
   const scrollTo = (id: string) => {
     const el = document.getElementById(id);
@@ -605,8 +604,6 @@ export default function SanFranciscoJanuary2027() {
         </div>
 
         <CountdownBanner />
-
-        {experiments.information === "test" && <DecisionSummary />}
 
         <div className="flex flex-wrap gap-x-8 gap-y-2 text-sm text-neutral-400 dark:text-neutral-500">
           <span>
@@ -803,7 +800,7 @@ export default function SanFranciscoJanuary2027() {
                 full attendance for the seven days, plus pre-reading completed before arrival.
               </p>
             </div>
-            {experiments.mobile === "test" && (
+            {mobileApplyVariant === "test" && (
               <div data-testid="mobile-funding-apply" className="mt-6 md:hidden">
                 <ApplicationCta cohortId="sf-jan-2027" location="sf27_after_funding" />
               </div>
@@ -904,7 +901,7 @@ export default function SanFranciscoJanuary2027() {
           </a>
         </div>
       </footer>
-      {experiments.mobile === "test" && <MobileApply />}
+      {mobileApplyVariant === "test" && <MobileApply />}
     </div>
   );
 }
