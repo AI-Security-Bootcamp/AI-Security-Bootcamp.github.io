@@ -11,14 +11,15 @@ export function generateStaticParams() {
   }));
 }
 
-export default function Program2026({
+export default async function Program2026({
   params,
 }: {
-  params: { month: string; location: string };
+  params: Promise<{ month: string; location: string }>;
 }) {
+  const { month, location } = await params;
   const program = cohorts2026.find(
     (candidate) =>
-      candidate.month === params.month && candidate.locationSlug === params.location,
+      candidate.month === month && candidate.locationSlug === location,
   );
   if (!program) notFound();
 

@@ -10,7 +10,7 @@ import {
 import { editions } from "../lib/cohorts";
 
 const BUTTON_CLASS_NAME =
-  "inline-flex min-h-[52px] items-center border-2 border-transparent bg-[#ef4444] text-white font-black text-sm uppercase tracking-widest px-6 py-4 hover:bg-red-600 transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#ef4444]";
+  "inline-flex min-h-[52px] items-center border-2 border-transparent bg-[#ef4444] text-white font-black text-sm uppercase tracking-widest px-6 py-4 hover:bg-red-600 transition-colors focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#ef4444]";
 
 type ClosedApplicationsProps = {
   cohortId: Exclude<ApplicationCohortId, "default">;
@@ -75,7 +75,7 @@ export function ClosedApplications({
             });
           }}
           className={nextCohort
-            ? `inline-flex min-h-[44px] items-center py-2 text-sm text-neutral-600 underline underline-offset-4 hover:text-[#ef4444] transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#ef4444] ${forceLight ? "" : "dark:text-neutral-400 dark:hover:text-[#ef4444]"}`
+            ? `inline-flex min-h-[44px] items-center py-2 text-sm text-neutral-600 underline underline-offset-4 hover:text-[#ef4444] transition-colors focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#ef4444] ${forceLight ? "" : "dark:text-neutral-400 dark:hover:text-[#ef4444]"}`
             : BUTTON_CLASS_NAME}
         >
           Get notified of future cohorts

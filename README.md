@@ -6,12 +6,33 @@ Website for the AI Security Bootcamp, built with [Next.js](https://nextjs.org).
 
 ## Development
 
+Use Node.js 24 (also used in CI) and npm. `package-lock.json` is the sole lockfile;
+the obsolete pnpm lockfile has been removed.
+
 ```bash
-npm install
+npm ci
 npm run dev
 ```
 
 Open [http://localhost:3333](http://localhost:3333) to view the site.
+
+Check dependency advisories with `npm audit`, including development tools. After
+updates, run typechecking, lint, unit tests, and the production browser suite.
+Next.js route parameters are asynchronous, and Tailwind 4's theme configuration
+lives in `src/app/globals.css`.
+
+The `serve` dependency currently pins `compression` to vulnerable version 1.8.1.
+The scoped npm override selects patched 1.8.2 or later; remove it once `serve`
+updates its dependency. See the [compression advisory](https://github.com/advisories/GHSA-vc2v-76pw-4v95).
+
+Next's ESLint plugin uses `fast-glob` only for `globSync` root-directory discovery.
+Its scoped override uses a small adapter in `tools/next-eslint-glob` backed by
+Node's built-in `fs.globSync` (stable in Node 22.17+) to remove the unpatched
+[`braces` vulnerability](https://github.com/advisories/GHSA-vfj7-8cjw-p6xm).
+A unit test exercises that plugin integration; review the override when upgrading
+`eslint-config-next` and remove it once upstream replaces the vulnerable chain.
+ESLint stays on 9.39.5 because the React, import, and accessibility plugins still
+declare ESLint 9 as their highest compatible major version.
 
 ## Deployment
 

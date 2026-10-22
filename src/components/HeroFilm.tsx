@@ -205,7 +205,7 @@ export function HeroFilm() {
             disabled={!ready}
             onClick={startFilm}
             aria-label="Watch A week at AISB with sound"
-            className="group absolute inset-0 cursor-pointer overflow-hidden text-left text-white disabled:cursor-wait focus-visible:outline focus-visible:outline-4 focus-visible:-outline-offset-4 focus-visible:outline-[#ef4444]"
+            className="group absolute inset-0 cursor-pointer overflow-hidden text-left text-white disabled:cursor-wait focus-visible:outline-solid focus-visible:outline-4 focus-visible:-outline-offset-4 focus-visible:outline-[#ef4444]"
             data-testid="hero-film-poster"
           >
             <img
@@ -216,7 +216,7 @@ export function HeroFilm() {
               fetchPriority="high"
               className="absolute inset-0 h-full w-full object-cover object-[50%_55%]"
             />
-            <span className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent" />
+            <span className="absolute inset-0 bg-linear-to-t from-black/80 via-black/10 to-transparent" />
             <span
               data-testid="hero-film-play-icon"
               aria-hidden="true"

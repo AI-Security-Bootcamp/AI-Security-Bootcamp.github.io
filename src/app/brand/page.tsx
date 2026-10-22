@@ -31,7 +31,7 @@ function ThemeToggle({ isDark, toggle }: { isDark: boolean; toggle: () => void }
   return (
     <button
       onClick={toggle}
-      className="fixed top-6 right-6 z-50 flex items-center gap-2 px-3 py-2 text-xs font-bold uppercase tracking-widest rounded-full border-2 border-neutral-300 dark:border-neutral-600 bg-white/80 dark:bg-black/80 backdrop-blur text-neutral-700 dark:text-neutral-300 hover:border-[#ef4444] hover:text-[#ef4444] dark:hover:border-[#ef4444] dark:hover:text-[#ef4444] transition-colors"
+      className="fixed top-6 right-6 z-50 flex items-center gap-2 px-3 py-2 text-xs font-bold uppercase tracking-widest rounded-full border-2 border-neutral-300 dark:border-neutral-600 bg-white/80 dark:bg-black/80 backdrop-blur-sm text-neutral-700 dark:text-neutral-300 hover:border-[#ef4444] hover:text-[#ef4444] dark:hover:border-[#ef4444] dark:hover:text-[#ef4444] transition-colors"
       aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
     >
       {isDark ? (
@@ -169,10 +169,10 @@ export default function BrandPage() {
       {/* Hero */}
       <section className="px-6 md:px-16 lg:px-24 py-20">
         <div className="max-w-3xl">
-          <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black leading-[0.95] tracking-tight mb-8">
+          <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black leading-[0.95] tracking-tight mb-8 sm:leading-none">
             Brand<span className="text-[#ef4444]">.</span>
           </h1>
-          <p className="text-lg md:text-xl text-neutral-500 dark:text-neutral-400 max-w-2xl leading-relaxed">
+          <p className="text-lg md:text-xl text-neutral-500 dark:text-neutral-400 max-w-2xl leading-relaxed md:leading-7">
             Logos, icons, and colours for the AI Security Bootcamp. Download the
             format you need: SVG for print and scaling, PNG for everything else.
             Please don&apos;t stretch, recolour, or alter the marks.

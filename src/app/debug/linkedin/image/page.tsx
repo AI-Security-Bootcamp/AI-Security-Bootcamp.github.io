@@ -54,7 +54,7 @@ export default function LinkedinImagePage() {
               <select
                 value={cohortId}
                 onChange={(event) => setCohortId(event.target.value)}
-                className="border-2 border-black bg-white px-3 py-1.5 text-sm font-bold focus:outline-none focus:border-[#ef4444]"
+                className="border-2 border-black bg-white px-3 py-1.5 text-sm font-bold focus:outline-hidden focus:border-[#ef4444]"
               >
                 {linkedinImageCohorts.map((candidate) => (
                   <option key={candidate.id} value={candidate.id}>

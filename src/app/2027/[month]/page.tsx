@@ -13,8 +13,9 @@ export function generateStaticParams() {
   return cohortMonths2027.map((month) => ({ month }));
 }
 
-export default function MonthPrograms({ params }: { params: { month: string } }) {
-  const programs = getCohortsForMonth(params.month, "2027");
+export default async function MonthPrograms({ params }: { params: Promise<{ month: string }> }) {
+  const { month } = await params;
+  const programs = getCohortsForMonth(month, "2027");
   if (programs.length === 0) notFound();
 
   if (programs.length === 1) {
@@ -37,7 +38,7 @@ export default function MonthPrograms({ params }: { params: { month: string } })
       title={`${monthLabel} 2027`}
       description={`Choose from the AISB programmes beginning in ${monthLabel} 2027.`}
       programs={programs}
-      analyticsLocation={`2027_${params.month}_index`}
+      analyticsLocation={`2027_${month}_index`}
     />
   );
 }

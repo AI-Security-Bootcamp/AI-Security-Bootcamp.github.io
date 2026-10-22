@@ -10,15 +10,17 @@ export function generateStaticParams() {
   return getCityProgramSlugs().map((city) => ({ city }));
 }
 
-export function generateMetadata({ params }: { params: { city: string } }): Metadata {
-  const program = getLatestCityProgram(params.city);
+export async function generateMetadata({ params }: { params: Promise<{ city: string }> }): Promise<Metadata> {
+  const { city } = await params;
+  const program = getLatestCityProgram(city);
   if (!program) notFound();
 
   return { alternates: { canonical: program.href } };
 }
 
-export default function CityProgram({ params }: { params: { city: string } }) {
-  const program = getLatestCityProgram(params.city);
+export default async function CityProgram({ params }: { params: Promise<{ city: string }> }) {
+  const { city } = await params;
+  const program = getLatestCityProgram(city);
   if (!program) notFound();
 
   const ProgramPage = programPages[program.id];

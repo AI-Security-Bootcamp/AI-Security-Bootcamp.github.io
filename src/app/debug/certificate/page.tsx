@@ -103,7 +103,7 @@ export default function CertificatePage() {
             </select>
           </label>
 
-          <div className="mt-5 grid gap-4 lg:grid-cols-[auto,1fr,auto] lg:items-end">
+          <div className="mt-5 grid gap-4 lg:grid-cols-[auto_1fr_auto] lg:items-end">
             {/* mode toggle */}
             <div>
               <p className="text-[10px] uppercase tracking-widest text-neutral-400 font-bold mb-2">Field values</p>
@@ -207,7 +207,7 @@ function Field({
         value={value}
         onChange={(e) => onChange(e.target.value)}
         className={
-          "mt-1 w-full border-2 border-black px-3 py-2 text-sm focus:outline-none focus:border-[#ef4444] " +
+          "mt-1 w-full border-2 border-black px-3 py-2 text-sm focus:outline-hidden focus:border-[#ef4444] " +
           (mono ? "font-sans" : "")
         }
         spellCheck={false}

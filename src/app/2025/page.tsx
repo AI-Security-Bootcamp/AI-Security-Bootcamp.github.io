@@ -237,10 +237,10 @@ export default function Cohort2025() {
                 <img
                   src={member.image}
                   alt={member.name}
-                  className="w-24 h-24 rounded-full object-cover flex-shrink-0"
+                  className="w-24 h-24 rounded-full object-cover shrink-0"
                 />
               ) : (
-                <div className="w-24 h-24 rounded-full bg-gray-200 flex-shrink-0 flex items-center justify-center text-sm font-bold text-gray-500">
+                <div className="w-24 h-24 rounded-full bg-gray-200 shrink-0 flex items-center justify-center text-sm font-bold text-gray-500">
                   {member.name.split(' ').map((n) => n[0]).join('').slice(0, 2)}
                 </div>
               );
@@ -251,7 +251,7 @@ export default function Cohort2025() {
                     href={member.linkedin}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex-shrink-0 hover:opacity-80 transition-opacity"
+                    className="shrink-0 hover:opacity-80 transition-opacity"
                     aria-label={`${member.name} on LinkedIn`}
                   >
                     {avatar}

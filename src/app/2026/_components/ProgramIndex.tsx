@@ -30,7 +30,7 @@ function ThemeToggle({ isDark, toggle }: { isDark: boolean; toggle: () => void }
   return (
     <button
       onClick={toggle}
-      className="fixed top-6 right-6 z-50 flex items-center gap-2 px-3 py-2 text-xs font-bold uppercase tracking-widest rounded-full border-2 border-neutral-300 dark:border-neutral-600 bg-white/80 dark:bg-black/80 backdrop-blur text-neutral-700 dark:text-neutral-300 hover:border-[#ef4444] hover:text-[#ef4444] transition-colors"
+      className="fixed top-6 right-6 z-50 flex items-center gap-2 px-3 py-2 text-xs font-bold uppercase tracking-widest rounded-full border-2 border-neutral-300 dark:border-neutral-600 bg-white/80 dark:bg-black/80 backdrop-blur-sm text-neutral-700 dark:text-neutral-300 hover:border-[#ef4444] hover:text-[#ef4444] transition-colors"
       aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
     >
       {isDark ? "Light" : "Dark"}
@@ -68,10 +68,10 @@ export function ProgramIndex({
           <p className="text-[#ef4444] font-black text-sm uppercase tracking-widest mb-3">
             {eyebrow}
           </p>
-          <h1 className="text-5xl sm:text-6xl md:text-7xl font-black leading-[0.95] tracking-tight mb-6">
+          <h1 className="text-5xl sm:text-6xl md:text-7xl font-black leading-[0.95] tracking-tight mb-6 sm:leading-none">
             {title}
           </h1>
-          <p className="text-lg md:text-xl text-neutral-500 dark:text-neutral-400 max-w-2xl leading-relaxed">
+          <p className="text-lg md:text-xl text-neutral-500 dark:text-neutral-400 max-w-2xl leading-relaxed md:leading-7">
             {description}
           </p>
         </div>

@@ -72,8 +72,8 @@ function LogoCarousel() {
         Past participants have been affiliated with
       </p>
       <div className="relative">
-        <div className="absolute left-0 top-0 bottom-0 w-16 md:w-32 bg-gradient-to-r from-white dark:from-black to-transparent z-10 pointer-events-none" />
-        <div className="absolute right-0 top-0 bottom-0 w-16 md:w-32 bg-gradient-to-l from-white dark:from-black to-transparent z-10 pointer-events-none" />
+        <div className="absolute left-0 top-0 bottom-0 w-16 md:w-32 bg-linear-to-r from-white dark:from-black to-transparent z-10 pointer-events-none" />
+        <div className="absolute right-0 top-0 bottom-0 w-16 md:w-32 bg-linear-to-l from-white dark:from-black to-transparent z-10 pointer-events-none" />
         <div className="logo-carousel-track flex items-center gap-12 md:gap-16 w-max">
           {[...affiliationLogos, ...affiliationLogos].map((logo, i) => (
             <img
@@ -119,7 +119,7 @@ function ThemeToggle({ isDark, toggle }: { isDark: boolean; toggle: () => void }
   return (
     <button
       onClick={toggle}
-      className="fixed top-[max(0.75rem,env(safe-area-inset-top))] right-[max(0.75rem,env(safe-area-inset-right))] md:top-6 md:right-6 z-50 flex h-11 w-11 md:h-auto md:w-auto items-center justify-center gap-2 md:px-3 md:py-2 text-xs font-bold uppercase tracking-widest rounded-full border-2 border-neutral-300 dark:border-neutral-600 bg-white/80 dark:bg-black/80 backdrop-blur text-neutral-700 dark:text-neutral-300 hover:border-[#ef4444] hover:text-[#ef4444] dark:hover:border-[#ef4444] dark:hover:text-[#ef4444] transition-colors"
+      className="fixed top-[max(0.75rem,env(safe-area-inset-top))] right-[max(0.75rem,env(safe-area-inset-right))] md:top-6 md:right-6 z-50 flex h-11 w-11 md:h-auto md:w-auto items-center justify-center gap-2 md:px-3 md:py-2 text-xs font-bold uppercase tracking-widest rounded-full border-2 border-neutral-300 dark:border-neutral-600 bg-white/80 dark:bg-black/80 backdrop-blur-sm text-neutral-700 dark:text-neutral-300 hover:border-[#ef4444] hover:text-[#ef4444] dark:hover:border-[#ef4444] dark:hover:text-[#ef4444] transition-colors"
       aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
     >
       {isDark ? (
@@ -181,13 +181,13 @@ function CohortsCarousel({ items }: { items: Cohort[] }) {
     <div className="relative">
       <div
         ref={ref}
-        className="flex gap-8 overflow-x-auto scroll-smooth snap-x snap-mandatory pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+        className="flex gap-8 overflow-x-auto scroll-smooth snap-x snap-mandatory pb-2 scrollbar-none [&::-webkit-scrollbar]:hidden"
       >
         {items.map((edition) => (
           <a
             key={edition.href}
             href={edition.href}
-            className="block border-2 border-black dark:border-white p-8 hover:border-[#ef4444] dark:hover:border-[#ef4444] transition-colors group flex-shrink-0 snap-start w-[85vw] sm:w-[460px] md:w-[520px]"
+            className="block border-2 border-black dark:border-white p-8 hover:border-[#ef4444] dark:hover:border-[#ef4444] transition-colors group shrink-0 snap-start w-[85vw] sm:w-[460px] md:w-[520px]"
           >
             <h3 className="text-2xl md:text-3xl font-black mb-2 group-hover:text-[#ef4444] transition-colors">
               {edition.name}{" "}
@@ -197,7 +197,7 @@ function CohortsCarousel({ items }: { items: Cohort[] }) {
             <p className="text-xs uppercase tracking-widest text-neutral-500 dark:text-neutral-400 font-bold mb-6">
               {edition.detail}
             </p>
-            <p className="text-neutral-600 dark:text-neutral-300 text-base md:text-lg leading-relaxed mb-6">
+            <p className="text-neutral-600 dark:text-neutral-300 text-base md:text-lg leading-relaxed mb-6 md:leading-7">
               {edition.description}
             </p>
             <span className="text-sm font-black uppercase tracking-widest text-black dark:text-white group-hover:text-[#ef4444] transition-colors">
@@ -238,12 +238,12 @@ function FaqItem({ q, a }: { q: string; a: string }) {
     <div className="border-b-2 border-black dark:border-white">
       <button
         onClick={() => setOpen(!open)}
-        className="w-full flex items-center justify-between py-6 px-0 text-left focus:outline-none"
+        className="w-full flex items-center justify-between py-6 px-0 text-left focus:outline-hidden"
       >
         <span className="text-black dark:text-white font-bold text-base md:text-lg pr-8">
           {q}
         </span>
-        <span className="text-black dark:text-white text-3xl font-light leading-none select-none flex-shrink-0">
+        <span className="text-black dark:text-white text-3xl font-light leading-none select-none shrink-0">
           {open ? "\u2212" : "+"}
         </span>
       </button>
@@ -332,7 +332,7 @@ export default function Home() {
       {/* ===================== PROGRAMS MODAL ===================== */}
       {pastOpen && (
         <div
-          className="fixed inset-0 z-[60] flex items-center justify-center p-6 bg-black/60 backdrop-blur-sm"
+          className="fixed inset-0 z-60 flex items-center justify-center p-6 bg-black/60 backdrop-blur-xs"
           onClick={() => setPastOpen(false)}
           role="dialog"
           aria-modal="true"
@@ -419,15 +419,15 @@ export default function Home() {
 
       {/* ===================== HERO ===================== */}
       <section data-testid="homepage-hero" className="md:min-h-screen flex flex-col px-6 md:px-16 lg:px-24 pt-[max(3.5rem,env(safe-area-inset-top))] md:pt-10">
-        <div className="md:flex-1 grid lg:grid-cols-[1.15fr_1fr] xl:grid-cols-[1.1fr_1.15fr] items-center gap-6 md:gap-10 lg:gap-12 w-full max-w-[88rem] pb-6 md:py-12 lg:py-16">
+        <div className="md:flex-1 grid lg:grid-cols-[1.15fr_1fr] xl:grid-cols-[1.1fr_1.15fr] items-center gap-6 md:gap-10 lg:gap-12 w-full max-w-352 pb-6 md:py-12 lg:py-16">
           <div className="min-w-0">
-            <h1 className="text-[clamp(2.5rem,12.8vw,3rem)] sm:text-6xl md:text-7xl lg:text-6xl xl:text-7xl 2xl:text-8xl font-black leading-[0.95] tracking-tight mb-8">
+            <h1 className="text-[clamp(2.5rem,12.8vw,3rem)] sm:text-6xl md:text-7xl lg:text-6xl xl:text-7xl 2xl:text-8xl font-black leading-[0.95] tracking-tight mb-8 sm:leading-none">
               AI Security
               <br />
               Bootcamp
             </h1>
 
-            <p className="text-lg md:text-xl text-neutral-500 dark:text-neutral-400 max-w-2xl mb-6 leading-relaxed">
+            <p className="text-lg md:text-xl text-neutral-500 dark:text-neutral-400 max-w-2xl mb-6 leading-relaxed md:leading-7">
               Training professionals to shape how we secure frontier AI systems.
             </p>
 
@@ -493,7 +493,7 @@ export default function Home() {
           About
         </h2>
 
-        <div className="max-w-3xl space-y-6 text-neutral-600 dark:text-neutral-300 text-base md:text-lg leading-relaxed">
+        <div className="max-w-3xl space-y-6 text-neutral-600 dark:text-neutral-300 text-base md:text-lg leading-relaxed md:leading-7">
           <p>
             As AI systems become more capable and integrated into critical
             infrastructure, new attack surfaces and failure modes are emerging that traditional security
@@ -532,7 +532,7 @@ export default function Home() {
           {upcomingEditions.length > 0 ? (
             <CohortsCarousel items={upcomingEditions} />
           ) : (
-            <p className="text-neutral-500 dark:text-neutral-400 text-base md:text-lg leading-relaxed">
+            <p className="text-neutral-500 dark:text-neutral-400 text-base md:text-lg leading-relaxed md:leading-7">
               No upcoming cohorts have been announced yet.
             </p>
           )}
@@ -545,13 +545,13 @@ export default function Home() {
           {pastEditions.length > 0 ? (
             <CohortsCarousel items={pastEditions} />
           ) : (
-            <p className="text-neutral-500 dark:text-neutral-400 text-base md:text-lg leading-relaxed">
+            <p className="text-neutral-500 dark:text-neutral-400 text-base md:text-lg leading-relaxed md:leading-7">
               Past cohorts will appear here once they conclude.
             </p>
           )}
         </div>
 
-        <p className="text-neutral-500 dark:text-neutral-400 text-base md:text-lg leading-relaxed mt-12 max-w-3xl">
+        <p className="text-neutral-500 dark:text-neutral-400 text-base md:text-lg leading-relaxed mt-12 max-w-3xl md:leading-7">
           Interested in a future cohort?{" "}
           <ApplicationCta cohortId="default" location="cohorts" variant="inline" />{" "}
           and we&apos;ll keep you in the loop.
@@ -566,7 +566,7 @@ export default function Home() {
         <h2 className="text-4xl md:text-5xl lg:text-6xl font-black mb-6 tracking-tight">
           Team
         </h2>
-        <p className="text-neutral-500 dark:text-neutral-400 text-base md:text-lg leading-relaxed mb-16 max-w-3xl">
+        <p className="text-neutral-500 dark:text-neutral-400 text-base md:text-lg leading-relaxed mb-16 max-w-3xl md:leading-7">
           AISB is led by a small core team that designs the curriculum and runs the programme across
           editions. See the{" "}
           <a href="/staff" className="underline hover:text-[#ef4444] transition-colors">
@@ -581,10 +581,10 @@ export default function Home() {
               <img
                 src={member.image}
                 alt={member.name}
-                className="w-20 h-20 rounded-full object-cover flex-shrink-0"
+                className="w-20 h-20 rounded-full object-cover shrink-0"
               />
             ) : (
-              <div className="w-20 h-20 rounded-full bg-neutral-200 dark:bg-neutral-800 flex-shrink-0 flex items-center justify-center text-xs font-black tracking-widest text-neutral-400 dark:text-neutral-500">
+              <div className="w-20 h-20 rounded-full bg-neutral-200 dark:bg-neutral-800 shrink-0 flex items-center justify-center text-xs font-black tracking-widest text-neutral-400 dark:text-neutral-500">
                 {member.name.split(" ").map((n) => n[0]).join("").slice(0, 2)}
               </div>
             );
@@ -598,7 +598,7 @@ export default function Home() {
                   href={member.linkedin}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex-shrink-0 hover:opacity-80 transition-opacity"
+                  className="shrink-0 hover:opacity-80 transition-opacity"
                   aria-label={`${member.name} on LinkedIn`}
                 >
                   {avatar}
@@ -663,11 +663,11 @@ export default function Home() {
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-black mb-8 tracking-tight">
             Ready to Apply?
           </h2>
-          <p className="text-neutral-500 dark:text-neutral-400 text-base md:text-lg leading-relaxed mb-4 max-w-xl">
+          <p className="text-neutral-500 dark:text-neutral-400 text-base md:text-lg leading-relaxed mb-4 max-w-xl md:leading-7">
             Applications are open for AISB San Francisco, Jan 10-16, 2027. The deadline to
             apply is November 7, 2026 (AoE).
           </p>
-          <p className="text-neutral-500 dark:text-neutral-400 text-base md:text-lg leading-relaxed mb-10 max-w-xl">
+          <p className="text-neutral-500 dark:text-neutral-400 text-base md:text-lg leading-relaxed mb-10 max-w-xl md:leading-7">
             Reach out to <a href="mailto:hello@aisb.dev" className="underline hover:text-[#ef4444] transition-colors">hello@aisb.dev</a> for any questions about the programme.
           </p>
           <div className="flex flex-wrap gap-4">

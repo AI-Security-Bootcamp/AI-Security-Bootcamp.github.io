@@ -35,7 +35,7 @@ function ThemeToggle({ isDark, toggle }: { isDark: boolean; toggle: () => void }
   return (
     <button
       onClick={toggle}
-      className="fixed top-6 right-6 z-50 flex items-center gap-2 px-3 py-2 text-xs font-bold uppercase tracking-widest rounded-full border-2 border-neutral-300 dark:border-neutral-600 bg-white/80 dark:bg-black/80 backdrop-blur text-neutral-700 dark:text-neutral-300 hover:border-[#ef4444] hover:text-[#ef4444] dark:hover:border-[#ef4444] dark:hover:text-[#ef4444] transition-colors"
+      className="fixed top-6 right-6 z-50 flex items-center gap-2 px-3 py-2 text-xs font-bold uppercase tracking-widest rounded-full border-2 border-neutral-300 dark:border-neutral-600 bg-white/80 dark:bg-black/80 backdrop-blur-sm text-neutral-700 dark:text-neutral-300 hover:border-[#ef4444] hover:text-[#ef4444] dark:hover:border-[#ef4444] dark:hover:text-[#ef4444] transition-colors"
       aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
     >
       {isDark ? (
@@ -72,11 +72,11 @@ export default function GuestVisit() {
           <p className="text-[#ef4444] font-black text-sm uppercase tracking-widest mb-3">
             San Francisco &middot; October 4-10, 2026
           </p>
-          <h1 className="text-3xl md:text-4xl lg:text-5xl font-black leading-[0.95] tracking-tight mb-8">
+          <h1 className="text-3xl md:text-4xl lg:text-5xl font-black leading-[0.95] tracking-tight mb-8 md:leading-10 lg:leading-none">
             Visit AISB in San Francisco
           </h1>
 
-          <p className="text-lg md:text-xl text-neutral-500 dark:text-neutral-400 max-w-2xl mb-4 leading-relaxed">
+          <p className="text-lg md:text-xl text-neutral-500 dark:text-neutral-400 max-w-2xl mb-4 leading-relaxed md:leading-7">
             Our next{" "}
             <a href="/2026/oct/san-francisco" className="underline hover:text-[#ef4444] transition-colors">
               AI Security Bootcamp
@@ -85,7 +85,7 @@ export default function GuestVisit() {
             we secure emerging AI systems.
           </p>
 
-          <p className="text-neutral-500 dark:text-neutral-400 text-base md:text-lg leading-relaxed mb-8 max-w-2xl">
+          <p className="text-neutral-500 dark:text-neutral-400 text-base md:text-lg leading-relaxed mb-8 max-w-2xl md:leading-7">
             If you&apos;ll be in San Francisco and would like to drop by, say hi, and meet the cohort, fill
             in the form below with the dates you&apos;d like to visit.
           </p>
@@ -94,7 +94,7 @@ export default function GuestVisit() {
             <p className="text-sm font-black uppercase tracking-widest mb-4">
               Visiting hours
             </p>
-            <ul className="space-y-3 text-neutral-600 dark:text-neutral-400 text-base md:text-lg leading-relaxed">
+            <ul className="space-y-3 text-neutral-600 dark:text-neutral-400 text-base md:text-lg leading-relaxed md:leading-7">
               <li>
                 <span className="font-bold text-black dark:text-white">Lunch:</span> 12:30-1:30pm
               </li>
@@ -102,11 +102,11 @@ export default function GuestVisit() {
                 <span className="font-bold text-black dark:text-white">Dinner:</span> from 7pm
               </li>
             </ul>
-            <p className="text-neutral-500 dark:text-neutral-400 text-sm md:text-base leading-relaxed mt-4">
+            <p className="text-neutral-500 dark:text-neutral-400 text-sm md:text-base leading-relaxed mt-4 md:leading-6">
               Between lunch and dinner is deep work time; expect approximately zero
               socialisation, so please plan visits around meals.
             </p>
-            <p className="text-neutral-500 dark:text-neutral-400 text-sm md:text-base leading-relaxed mt-3">
+            <p className="text-neutral-500 dark:text-neutral-400 text-sm md:text-base leading-relaxed mt-3 md:leading-6">
               Spaces are limited, so please visit earlier in the week if you can. After you submit
               the form, we&apos;ll get in touch to confirm if we have space.
             </p>

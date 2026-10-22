@@ -295,8 +295,8 @@ function LogoCarousel() {
         Past participants have been affiliated with
       </p>
       <div className="relative">
-        <div className="absolute left-0 top-0 bottom-0 w-16 md:w-32 bg-gradient-to-r from-white dark:from-black to-transparent z-10 pointer-events-none" />
-        <div className="absolute right-0 top-0 bottom-0 w-16 md:w-32 bg-gradient-to-l from-white dark:from-black to-transparent z-10 pointer-events-none" />
+        <div className="absolute left-0 top-0 bottom-0 w-16 md:w-32 bg-linear-to-r from-white dark:from-black to-transparent z-10 pointer-events-none" />
+        <div className="absolute right-0 top-0 bottom-0 w-16 md:w-32 bg-linear-to-l from-white dark:from-black to-transparent z-10 pointer-events-none" />
         <div
           className="logo-carousel-track flex items-center gap-12 md:gap-16 w-max"
           style={{ animationDuration: `${affiliationLogos.length * 1.74}s` }}
@@ -346,7 +346,7 @@ function ThemeToggle({ isDark, toggle }: { isDark: boolean; toggle: () => void }
   return (
     <button
       onClick={toggle}
-      className="fixed top-[max(0.75rem,env(safe-area-inset-top))] right-[max(0.75rem,env(safe-area-inset-right))] md:top-6 md:right-6 z-50 flex min-h-11 min-w-11 items-center justify-center gap-2 px-3 py-2 text-xs font-bold uppercase tracking-widest rounded-full border-2 border-neutral-300 dark:border-neutral-600 bg-white/80 dark:bg-black/80 backdrop-blur text-neutral-700 dark:text-neutral-300 hover:border-[#ef4444] hover:text-[#ef4444] dark:hover:border-[#ef4444] dark:hover:text-[#ef4444] transition-colors"
+      className="fixed top-[max(0.75rem,env(safe-area-inset-top))] right-[max(0.75rem,env(safe-area-inset-right))] md:top-6 md:right-6 z-50 flex min-h-11 min-w-11 items-center justify-center gap-2 px-3 py-2 text-xs font-bold uppercase tracking-widest rounded-full border-2 border-neutral-300 dark:border-neutral-600 bg-white/80 dark:bg-black/80 backdrop-blur-sm text-neutral-700 dark:text-neutral-300 hover:border-[#ef4444] hover:text-[#ef4444] dark:hover:border-[#ef4444] dark:hover:text-[#ef4444] transition-colors"
       aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
     >
       {isDark ? (
@@ -378,7 +378,7 @@ function AccordionItem({
     <div className="border-b-2 border-black dark:border-white">
       <button
         onClick={() => setOpen(!open)}
-        className="w-full flex items-center justify-between py-6 px-0 text-left focus:outline-none group"
+        className="w-full flex items-center justify-between py-6 px-0 text-left focus:outline-hidden group"
       >
         <div className="flex items-baseline gap-6">
           <span className="text-[#ef4444] font-black text-sm uppercase tracking-widest">
@@ -416,12 +416,12 @@ function FaqItem({ q, a }: { q: string; a: string }) {
     <div className="border-b-2 border-black dark:border-white">
       <button
         onClick={() => setOpen(!open)}
-        className="w-full flex items-center justify-between py-6 px-0 text-left focus:outline-none"
+        className="w-full flex items-center justify-between py-6 px-0 text-left focus:outline-hidden"
       >
         <span className="text-black dark:text-white font-bold text-base md:text-lg pr-8">
           {q}
         </span>
-        <span className="text-black dark:text-white text-3xl font-light leading-none select-none flex-shrink-0">
+        <span className="text-black dark:text-white text-3xl font-light leading-none select-none shrink-0">
           {open ? "\u2212" : "+"}
         </span>
       </button>
@@ -449,7 +449,7 @@ function TestimonialCard({ t }: { t: Testimonial }) {
 
   return (
     <blockquote className="border-2 border-black dark:border-white p-8 flex flex-col gap-6">
-      <p className="text-neutral-600 dark:text-neutral-300 text-base md:text-lg leading-relaxed">
+      <p className="text-neutral-600 dark:text-neutral-300 text-base md:text-lg leading-relaxed md:leading-7">
         &ldquo;{t.quote}
         {hasCollapsible && (
           <>
@@ -459,7 +459,7 @@ function TestimonialCard({ t }: { t: Testimonial }) {
             ) : (
               <button
                 onClick={() => setExpanded(true)}
-                className="text-[#ef4444] font-bold hover:underline focus:outline-none"
+                className="text-[#ef4444] font-bold hover:underline focus:outline-hidden"
                 aria-label="Expand quote"
               >
                 ...
@@ -512,7 +512,7 @@ export default function Home() {
         <p className="text-[#ef4444] font-black text-sm uppercase tracking-widest mb-3">
           Applications Closed
         </p>
-        <h1 className="text-[clamp(2.5rem,12.8vw,3rem)] sm:text-6xl md:text-7xl lg:text-6xl xl:text-7xl 2xl:text-8xl font-black leading-[0.95] tracking-tight mb-6">
+        <h1 className="text-[clamp(2.5rem,12.8vw,3rem)] sm:text-6xl md:text-7xl lg:text-6xl xl:text-7xl 2xl:text-8xl font-black leading-[0.95] tracking-tight mb-6 sm:leading-none">
           AI Security
           <br />
           Bootcamp
@@ -520,7 +520,7 @@ export default function Home() {
           <SlotCarousel />
         </h1>
 
-        <p className="text-base md:text-lg text-neutral-500 dark:text-neutral-400 max-w-2xl mb-4 leading-relaxed">
+        <p className="text-base md:text-lg text-neutral-500 dark:text-neutral-400 max-w-2xl mb-4 leading-relaxed md:leading-7">
           A 7-day intensive programme for security professionals shaping how we secure emerging AI systems.
         </p>
 
@@ -569,7 +569,7 @@ export default function Home() {
 
         <div className="max-w-3xl space-y-16">
           <div>
-            <div className="space-y-6 text-neutral-600 dark:text-neutral-300 text-base md:text-lg leading-relaxed">
+            <div className="space-y-6 text-neutral-600 dark:text-neutral-300 text-base md:text-lg leading-relaxed md:leading-7">
               <p>
                 AI Security Bootcamp explores the rapidly evolving threat landscape of frontier AI
                 systems, equipping security professionals with the knowledge and hands-on skills to secure against
@@ -629,7 +629,7 @@ export default function Home() {
                 <span className="text-[#ef4444] mt-1.5 text-xs font-black">
                   {"\u25A0"}
                 </span>
-                <span className="text-neutral-600 dark:text-neutral-300 text-base md:text-lg leading-relaxed">
+                <span className="text-neutral-600 dark:text-neutral-300 text-base md:text-lg leading-relaxed md:leading-7">
                   {item}
                 </span>
               </li>
@@ -649,7 +649,7 @@ export default function Home() {
 
         <div className="max-w-3xl space-y-16">
           {/* Main description */}
-          <div className="space-y-6 text-neutral-600 dark:text-neutral-300 text-base md:text-lg leading-relaxed">
+          <div className="space-y-6 text-neutral-600 dark:text-neutral-300 text-base md:text-lg leading-relaxed md:leading-7">
             <p>
               Security professionals ready to secure frontier AI systems at all stages: from user applications, to
               model APIs for developers; and from infrastructure hosting the models, to governance frameworks for
@@ -667,15 +667,15 @@ export default function Home() {
             <h3 className="text-[#ef4444] font-black text-sm uppercase tracking-widest mb-6">
               Prerequisites
             </h3>
-            <p className="text-neutral-600 dark:text-neutral-300 text-base md:text-lg leading-relaxed mb-4">
+            <p className="text-neutral-600 dark:text-neutral-300 text-base md:text-lg leading-relaxed mb-4 md:leading-7">
               5+ years of hands-on security experience. No prior AI or ML
               background needed. The pre-work covers what&apos;s necessary.
             </p>
-            <p className="text-neutral-600 dark:text-neutral-300 text-base md:text-lg leading-relaxed mb-4">
+            <p className="text-neutral-600 dark:text-neutral-300 text-base md:text-lg leading-relaxed mb-4 md:leading-7">
               Selection prioritises candidates interested in frontier AI risk, high-consequence failure modes, or work
               involving sophisticated threat actors.
             </p>
-            <p className="text-neutral-600 dark:text-neutral-300 text-base md:text-lg leading-relaxed">
+            <p className="text-neutral-600 dark:text-neutral-300 text-base md:text-lg leading-relaxed md:leading-7">
               Experience with deep learning frameworks (e.g., PyTorch) is a plus but not required. We want to make this
               accessible to security professionals from a variety of backgrounds, so we provide comprehensive pre-work
               to get everyone up to speed on the AI fundamentals needed to engage with the curriculum.
@@ -687,7 +687,7 @@ export default function Home() {
             <h3 className="text-[#ef4444] font-black text-sm uppercase tracking-widest mb-6">
               Past Participants
             </h3>
-            <p className="text-neutral-600 dark:text-neutral-300 text-base md:text-lg leading-relaxed">
+            <p className="text-neutral-600 dark:text-neutral-300 text-base md:text-lg leading-relaxed md:leading-7">
               Past participants have been affiliated with: OpenAI, Google, Meta, Apple, Microsoft, AWS, Intel, Jane
               Street, Stanford, Oxford, Cambridge, MIT, UC Berkeley, Tel Aviv University, CERN, and other leading
               institutions across research, government, and industry.
@@ -699,10 +699,10 @@ export default function Home() {
             <h3 className="text-[#ef4444] font-black text-sm uppercase tracking-widest mb-6">
               Timing
             </h3>
-            <p className="text-neutral-600 dark:text-neutral-300 text-base md:text-lg leading-relaxed mb-4">
+            <p className="text-neutral-600 dark:text-neutral-300 text-base md:text-lg leading-relaxed mb-4 md:leading-7">
               AISB Vegas runs from Sunday (Aug 2) through Saturday (Aug 8), 2026.
             </p>
-            <p className="text-neutral-600 dark:text-neutral-300 text-base md:text-lg leading-relaxed">
+            <p className="text-neutral-600 dark:text-neutral-300 text-base md:text-lg leading-relaxed md:leading-7">
               The week overlaps with the broader Las Vegas summer security calendar: a strong networking opportunity
               for participants to connect with practitioners and researchers from across the field.
             </p>
@@ -713,7 +713,7 @@ export default function Home() {
             <h3 className="text-[#ef4444] font-black text-sm uppercase tracking-widest mb-6">
               Cost & Selection
             </h3>
-            <div className="space-y-6 text-neutral-600 dark:text-neutral-300 text-base md:text-lg leading-relaxed">
+            <div className="space-y-6 text-neutral-600 dark:text-neutral-300 text-base md:text-lg leading-relaxed md:leading-7">
               <p>
                 <span className="font-bold text-black dark:text-white">The programme is free to attend.</span>{" "}
                 Tuition, meals during programme hours, materials, and accommodation in Las Vegas are fully covered for
@@ -767,7 +767,7 @@ export default function Home() {
             Looking for your next AISB cohort?
           </h2>
           <ClosedApplications cohortId="vegas-2026" location="vegas26_cta" />
-          <p className="text-neutral-500 dark:text-neutral-400 text-base md:text-lg leading-relaxed mt-6 max-w-xl">
+          <p className="text-neutral-500 dark:text-neutral-400 text-base md:text-lg leading-relaxed mt-6 max-w-xl md:leading-7">
             Reach out to <a href="mailto:hello@aisb.dev" className="underline hover:text-[#ef4444] transition-colors">hello@aisb.dev</a> with questions about the programme.
           </p>
         </div>

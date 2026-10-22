@@ -357,7 +357,7 @@ export default function LinkedInFormatter() {
               ref={textareaRef}
               value={text}
               onChange={(e) => setText(e.target.value)}
-              className="w-full h-80 border-2 border-black p-4 font-sans text-base resize-y focus:outline-none focus:border-[#ef4444] leading-relaxed"
+              className="w-full h-80 border-2 border-black p-4 font-sans text-base resize-y focus:outline-hidden focus:border-[#ef4444] leading-relaxed"
               spellCheck={false}
             />
 
@@ -398,7 +398,7 @@ export default function LinkedInFormatter() {
             </div>
 
             <div
-              className="bg-white shadow-sm"
+              className="bg-white shadow-xs"
               style={{
                 fontFamily: LI_FONT,
                 color: "rgba(0,0,0,0.9)",
@@ -410,7 +410,7 @@ export default function LinkedInFormatter() {
             >
               {/* Post header */}
               <div className="flex items-start gap-2 p-4 pb-3">
-                <a href="https://www.linkedin.com/company/ai-security-bootcamp" target="_blank" rel="noopener noreferrer" className="flex-shrink-0">
+                <a href="https://www.linkedin.com/company/ai-security-bootcamp" target="_blank" rel="noopener noreferrer" className="shrink-0">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
                     src="/brand/aisb-icon-square-light.png"

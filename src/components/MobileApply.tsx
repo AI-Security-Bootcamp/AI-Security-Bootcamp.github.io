@@ -11,7 +11,7 @@ export function MobileApply() {
         <ApplicationCta
           cohortId="sf-jan-2027"
           location="sf27_mobile_sticky"
-          className="flex min-h-[52px] items-center justify-center bg-[#ef4444] text-white font-black text-sm uppercase tracking-widest px-6 py-3 hover:bg-red-600 transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#ef4444]"
+          className="flex min-h-[52px] items-center justify-center bg-[#ef4444] text-white font-black text-sm uppercase tracking-widest px-6 py-3 hover:bg-red-600 transition-colors focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#ef4444]"
         />
       </div>
     </>

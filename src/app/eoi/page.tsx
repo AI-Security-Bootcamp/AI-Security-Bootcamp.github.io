@@ -32,7 +32,7 @@ function ThemeToggle({ isDark, toggle }: { isDark: boolean; toggle: () => void }
   return (
     <button
       onClick={toggle}
-      className="fixed top-6 right-6 z-50 flex items-center gap-2 px-3 py-2 text-xs font-bold uppercase tracking-widest rounded-full border-2 border-neutral-300 dark:border-neutral-600 bg-white/80 dark:bg-black/80 backdrop-blur text-neutral-700 dark:text-neutral-300 hover:border-[#ef4444] hover:text-[#ef4444] dark:hover:border-[#ef4444] dark:hover:text-[#ef4444] transition-colors"
+      className="fixed top-6 right-6 z-50 flex items-center gap-2 px-3 py-2 text-xs font-bold uppercase tracking-widest rounded-full border-2 border-neutral-300 dark:border-neutral-600 bg-white/80 dark:bg-black/80 backdrop-blur-sm text-neutral-700 dark:text-neutral-300 hover:border-[#ef4444] hover:text-[#ef4444] dark:hover:border-[#ef4444] dark:hover:text-[#ef4444] transition-colors"
       aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
     >
       {isDark ? (
@@ -81,17 +81,17 @@ export default function ExpressionOfInterest() {
 
       <section className="px-6 md:px-16 lg:px-24 py-20">
         <div className="max-w-3xl">
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-black leading-[0.95] tracking-tight mb-8">
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-black leading-[0.95] tracking-tight mb-8 md:leading-none">
             {interestLocation ? `Future ${interestLocation} cohorts` : "Expression of Interest"}
           </h1>
 
-          <p className="text-lg md:text-xl text-neutral-500 dark:text-neutral-400 max-w-2xl mb-4 leading-relaxed">
+          <p className="text-lg md:text-xl text-neutral-500 dark:text-neutral-400 max-w-2xl mb-4 leading-relaxed md:leading-7">
             {interestLocation
               ? `Interested in a future AISB programme in ${interestLocation}? Leave your details below. We've prefilled your interest in the form; you can edit it before submitting. This is not an application or confirmation of another cohort.`
               : "If you're interested in future AISB cohorts or would like to be notified about upcoming programmes, please fill out the form below."}
           </p>
 
-          <p className="text-neutral-500 dark:text-neutral-400 text-base md:text-lg leading-relaxed mb-10 max-w-xl">
+          <p className="text-neutral-500 dark:text-neutral-400 text-base md:text-lg leading-relaxed mb-10 max-w-xl md:leading-7">
             You can also reach out directly to <a href="mailto:hello@aisb.dev" className="underline hover:text-[#ef4444] transition-colors">hello@aisb.dev</a>.
           </p>
         </div>

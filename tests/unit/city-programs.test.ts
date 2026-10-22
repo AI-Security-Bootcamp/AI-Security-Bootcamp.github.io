@@ -1,6 +1,5 @@
 import assert from "node:assert/strict";
 import { test, afterEach } from "vitest";
-import React from "react";
 import { renderToStaticMarkup } from "react-dom/server";
 import { editions } from "../../src/lib/cohorts";
 import { getCityProgramSlugs, getLatestCityProgram } from "../../src/lib/city-programs";
@@ -9,7 +8,7 @@ import CityProgram, { generateStaticParams, generateMetadata } from "../../src/a
 const originalEditions = [...editions];
 afterEach(() => editions.splice(0, editions.length, ...originalEditions));
 
-test('city shortcuts render the latest registered cohort, including closed cohorts', () => {
+test('city shortcuts render the latest registered cohort, including closed cohorts', async () => {
   const expected = {
     london: '/2026/dec/london',
     sf: '/2027/jan/san-francisco',
@@ -20,8 +19,8 @@ test('city shortcuts render the latest registered cohort, including closed cohor
   assert.deepEqual(generateStaticParams().map(({ city }) => city).sort(), Object.keys(expected).sort());
   for (const [city, href] of Object.entries(expected)) {
     assert.equal(getLatestCityProgram(city)?.href, href);
-    assert.equal(generateMetadata({ params: { city } }).alternates?.canonical, href);
-    const html = renderToStaticMarkup(React.createElement(CityProgram, { params: { city } }));
+    assert.equal((await generateMetadata({ params: Promise.resolve({ city }) })).alternates?.canonical, href);
+    const html = renderToStaticMarkup(await CityProgram({ params: Promise.resolve({ city }) }));
     assert.match(html, /<h1/);
     if (city === 'london') assert.match(html, /Dec 6-12, 2026/);
     if (href.startsWith('/2027/')) {
@@ -44,18 +43,18 @@ test('selection uses start dates, not registry ordering or the current applicati
   assert.equal(getLatestCityProgram('vegas')?.id, 'vegas-2026');
 });
 
-test('Singapore advances when a newer cohort is added', () => {
+test('Singapore advances when a newer cohort is added', async () => {
   const nextSingapore = { ...getLatestCityProgram('singapore')!, id: 'singapore-2027', href: '/2027/apr/singapore', startDate: '2027-04-20' };
   editions.push(nextSingapore);
   assert.equal(getLatestCityProgram('singapore'), nextSingapore);
-  assert.equal(generateMetadata({ params: { city: 'singapore' } }).alternates?.canonical, nextSingapore.href);
+  assert.equal((await generateMetadata({ params: Promise.resolve({ city: 'singapore' }) })).alternates?.canonical, nextSingapore.href);
 });
 
-test('a city with only a past program still resolves and renders across years', () => {
+test('a city with only a past program still resolves and renders across years', async () => {
   const pastLondon = editions.find(({ id }) => id === 'london-2025')!;
   editions.splice(0, editions.length, pastLondon);
   assert.equal(getLatestCityProgram('london'), pastLondon);
-  const html = renderToStaticMarkup(React.createElement(CityProgram, { params: { city: 'london' } }));
+  const html = renderToStaticMarkup(await CityProgram({ params: Promise.resolve({ city: 'london' }) }));
   assert.match(html, /<h1/);
   assert.match(html, /Applications for this cohort are closed/);
   assert.deepEqual(getCityProgramSlugs(), ['london']);
@@ -68,9 +67,9 @@ test('new cities receive routes automatically from the cohort registry', () => {
   assert.equal(getLatestCityProgram('berlin'), berlin);
 });
 
-test('unknown routes do not resolve to an unrelated program', () => {
+test('unknown routes do not resolve to an unrelated program', async () => {
   for (const city of ['unknown-city', 'las-vegas', 'constructor', 'toString']) {
     assert.equal(getLatestCityProgram(city), undefined);
-    assert.throws(() => CityProgram({ params: { city } }), /NEXT_NOT_FOUND/);
+    await assert.rejects(() => CityProgram({ params: Promise.resolve({ city }) }), /NEXT_HTTP_ERROR_FALLBACK;404/);
   }
 });

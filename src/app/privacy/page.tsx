@@ -31,7 +31,7 @@ function ThemeToggle({ isDark, toggle }: { isDark: boolean; toggle: () => void }
   return (
     <button
       onClick={toggle}
-      className="fixed top-6 right-6 z-50 flex items-center gap-2 px-3 py-2 text-xs font-bold uppercase tracking-widest rounded-full border-2 border-neutral-300 dark:border-neutral-600 bg-white/80 dark:bg-black/80 backdrop-blur text-neutral-700 dark:text-neutral-300 hover:border-[#ef4444] hover:text-[#ef4444] dark:hover:border-[#ef4444] dark:hover:text-[#ef4444] transition-colors"
+      className="fixed top-6 right-6 z-50 flex items-center gap-2 px-3 py-2 text-xs font-bold uppercase tracking-widest rounded-full border-2 border-neutral-300 dark:border-neutral-600 bg-white/80 dark:bg-black/80 backdrop-blur-sm text-neutral-700 dark:text-neutral-300 hover:border-[#ef4444] hover:text-[#ef4444] dark:hover:border-[#ef4444] dark:hover:text-[#ef4444] transition-colors"
       aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
     >
       {isDark ? (
@@ -52,7 +52,7 @@ function Section({ title, children }: { title: string; children: React.ReactNode
   return (
     <section className="mb-12">
       <h2 className="text-2xl md:text-3xl font-black mb-4 tracking-tight">{title}</h2>
-      <div className="text-neutral-600 dark:text-neutral-300 text-base md:text-lg leading-relaxed space-y-4">
+      <div className="text-neutral-600 dark:text-neutral-300 text-base md:text-lg leading-relaxed space-y-4 md:leading-7">
         {children}
       </div>
     </section>
@@ -79,7 +79,7 @@ export default function PrivacyPolicy() {
       {/* Hero */}
       <section className="px-6 md:px-16 lg:px-24 pt-20 pb-12">
         <div className="max-w-3xl">
-          <h1 className="text-5xl sm:text-6xl md:text-7xl font-black leading-[0.95] tracking-tight mb-6">
+          <h1 className="text-5xl sm:text-6xl md:text-7xl font-black leading-[0.95] tracking-tight mb-6 sm:leading-none">
             Privacy Policy<span className="text-[#ef4444]">.</span>
           </h1>
           <p className="text-sm uppercase tracking-widest text-neutral-400 dark:text-neutral-500 font-bold">

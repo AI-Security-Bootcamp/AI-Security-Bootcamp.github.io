@@ -32,7 +32,7 @@ function ThemeToggle({ isDark, toggle }: { isDark: boolean; toggle: () => void }
   return (
     <button
       onClick={toggle}
-      className="fixed top-6 right-6 z-50 flex items-center gap-2 px-3 py-2 text-xs font-bold uppercase tracking-widest rounded-full border-2 border-neutral-300 dark:border-neutral-600 bg-white/80 dark:bg-black/80 backdrop-blur text-neutral-700 dark:text-neutral-300 hover:border-[#ef4444] hover:text-[#ef4444] dark:hover:border-[#ef4444] dark:hover:text-[#ef4444] transition-colors"
+      className="fixed top-6 right-6 z-50 flex items-center gap-2 px-3 py-2 text-xs font-bold uppercase tracking-widest rounded-full border-2 border-neutral-300 dark:border-neutral-600 bg-white/80 dark:bg-black/80 backdrop-blur-sm text-neutral-700 dark:text-neutral-300 hover:border-[#ef4444] hover:text-[#ef4444] dark:hover:border-[#ef4444] dark:hover:text-[#ef4444] transition-colors"
       aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
     >
       {isDark ? (
@@ -54,10 +54,10 @@ function StaffCard({ member }: { member: StaffAppearance }) {
     <img
       src={member.image}
       alt={member.name}
-      className="w-20 h-20 rounded-full object-cover flex-shrink-0"
+      className="w-20 h-20 rounded-full object-cover shrink-0"
     />
   ) : (
-    <div className="w-20 h-20 rounded-full bg-neutral-200 dark:bg-neutral-800 flex-shrink-0 flex items-center justify-center text-xs font-black tracking-widest text-neutral-400 dark:text-neutral-500">
+    <div className="w-20 h-20 rounded-full bg-neutral-200 dark:bg-neutral-800 shrink-0 flex items-center justify-center text-xs font-black tracking-widest text-neutral-400 dark:text-neutral-500">
       {member.name.split(" ").map((n) => n[0]).join("").slice(0, 2)}
     </div>
   );
@@ -68,7 +68,7 @@ function StaffCard({ member }: { member: StaffAppearance }) {
           href={member.linkedin}
           target="_blank"
           rel="noopener noreferrer"
-          className="flex-shrink-0 hover:opacity-80 transition-opacity"
+          className="shrink-0 hover:opacity-80 transition-opacity"
           aria-label={`${member.name} on LinkedIn`}
         >
           {avatar}
@@ -119,10 +119,10 @@ export default function StaffPage() {
       {/* Hero */}
       <section className="px-6 md:px-16 lg:px-24 py-20">
         <div className="max-w-3xl">
-          <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black leading-[0.95] tracking-tight mb-8">
+          <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black leading-[0.95] tracking-tight mb-8 sm:leading-none">
             Staff<span className="text-[#ef4444]">.</span>
           </h1>
-          <p className="text-lg md:text-xl text-neutral-500 dark:text-neutral-400 max-w-2xl leading-relaxed">
+          <p className="text-lg md:text-xl text-neutral-500 dark:text-neutral-400 max-w-2xl leading-relaxed md:leading-7">
             Everyone who has helped run AISB cohorts, grouped by programme.
           </p>
         </div>
